@@ -1,0 +1,42 @@
+PORTARIA N° 104 de 2013
+A COMISSÃO EXECUTIVA DA CÂMARA MUNICIPAL DE CURITIBA, CAPITAL DO ESTADO DO PARANÁ, no uso de suas atribuições legais,
+
+R E S O L V E
+
+As regras que disciplinam a utilização dos recursos de informática da Rede Câmara cabeada (interna) são as seguintes:
+
+	a) qualquer contratação de recursos relacionados a informática (equipamentos, software , sistemas, serviços) através de compra, aluguel, empréstimo, leasing ou qualquer outra modalidade de contratação deve ser acompanhada e homologada pela Diretoria de Informática, devendo esta participar na orientação no processo de contratação (redação de contratos e editais, processos de compra e outros relacionados). A aquisição de equipamentos/software/sistemas de telefonia digitais e/ou que envolvam compartilhamento de serviços ou estrutura de informática também se encaixam nessa regra; o acesso à internet, sem qualquer tipo de restrição;
+	
+	b) todo software (programa ou sistema de computador) adquirido pelo próprio usuário a ser instalado em computador ligado à rede Câmara, esteja o usuário lotado em gabinete ou não, deverá ser previamente apresentado à Diretoria de Informática, com a respectiva licença de uso provida pelo fabricante/fornecedor do software, para fins de homologação;
+	
+	c) custos necessários para o funcionamento de software adquirido pelo próprio usuário serão de total responsabilidade do mesmo, como por exemplo a instalação de sistemas operacionais ou bancos de dados não fornecidos como padrão pela Câmara, o suporte à sua utilização e sua manutenção;
+	
+	d) é expressamente proibida a utilização de software irregular/ilegal em computadores de propriedade ou responsabilidade da Câmara Municipal de Curitiba. Considera-se software ilegal aquele para o qual não haja uma licença de uso respectiva. Considera-se software irregular aquele que não tenha sido previamente homologado pela Diretoria de Informática;
+
+	e) programas de jogos não serão homologados pela Diretoria de Informática, ainda que tenham sido legalmente adquiridos; 
+
+	f) os programas e sistemas desenvolvidos pela Diretoria de Informática deverão ser voltados a soluções que beneficiem a instituição como um todo, não devendo ser atendidas solicitações de desenvolvimento de soluções para usuários específicos ou gabinetes específicos;
+
+	g) é expressamente proibida a conexão de computadores particulares, dispositivos móveis ( notebooks, celulares, tablets , etc.), bem como equipamentos de infra-estrutura de rede (hubs, switches, roteadores, wi-fi access points, etc) à Rede Câmara, em qualquer hipótese;
+
+	h) é permitida a utilização de equipamentos particulares considerados periféricos (impressoras, scanners, etc.) na Rede Câmara, desde que compatíveis com os equipamentos e software de propriedade/responsabilidade desta Casa e que tenham sido homologados e instalados pela Diretoria de Informática;
+
+	i) é expressamente proibida a conexão de outros equipamentos, que não de informática, aos pontos da rede elétrica estabilizada (ventiladores, aparelhos de fax, carregadores de celular, etc.);
+
+	j) é expressamente proibida a criação de "login" de conexão na Rede Câmara, em seus serviços ou sistemas, com o nome de pessoas que não possuam vínculo empregatício/estatutário com esta Casa (terceirizados, estagiários, temporários, etc);
+
+	k) os "logins" e as senhas de acesso à Rede Câmara, aos seus serviços e aos sistemas são individuais, não devendo ser "emprestadas" para outros usuários, vez que o titular do login/senha responderá por seu uso impróprio;
+
+	l) a cópia de segurança (backup) dos dados e informações localizados nos discos rígidos das estações de trabalho dos usuários da Rede Câmara é de responsabilidade única destes;
+
+	m) o conteúdo (legalidade e moralidade) dos dados armazenados pelos próprios usuários nos meios de armazenamento disponibilizados pela Câmara é de responsabilidade dos mesmos;
+
+	n) a responsabilidade da Diretoria de Informática quanto à manutenção e suporte restringe-se: 1) aos equipamentos disponibilizados pela Câmara e 2) a software desenvolvido e/ou disponibilizado pela Câmara;
+
+	o) é expressamente proibido o uso impróprio da internet, como navegação em sítios de pornografia, de pedofilia, de jogos, de conteúdo ofensivo ou ilegal, bem como a troca de mensagens eletrônicas desse teor utilizando o endereço corporativo (e-mail) fornecido pela Câmara;
+
+	p) ficam os servidores da Diretoria de Informática autorizados a proceder inspeções necessárias a coibir os eventuais usos da informática na Câmara Municipal de Curitiba em desconformidade com essas regras de utilização;
+
+	q) a Rede Câmara sem fio (wi-fi), que provê conexão direta com a internet e não à Rede Câmara interna, não está sujeita às mesmas disposições anteriores. A configuração de computador ou dispositivo móvel particular para conexão à rede sem fio, bem como seu uso e software instalados são de inteira responsabilidade do usuário. Eventuais prejuízos causados aos usuários ao utilizar a rede externa da Câmara (como vírus, fraudes de internet, etc) são de responsabilidade exclusiva do usuário, visto que nesse caso a Câmara fornece apenas o acesso à internet , sem qualquer tipo de restrição;
+
+	r) é responsabilidade dos administradores dos departamentos, diretorias, setores, divisões e gabinetes, dar conhecimento das regras de utilização dos recursos de informática a todos os usuários da Rede Câmara, assim como exercer fiscalização permanente quanto ao seu cumprimento, por seus subordinados.
