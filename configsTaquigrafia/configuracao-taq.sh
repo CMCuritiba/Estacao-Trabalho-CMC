@@ -1,9 +1,7 @@
 #!/bin/bash
 
-USUARIO=$(who | head -1 | awk {'print$1'})
+USUARIO=$(who | head -1 | awk \{'print$1'\})
 
-# Copia o arquivo contendo os atalhos do DeadBeef para o usuário logado:
-cp ./taqconfig /home/$USUARIO/.config/deadbeef/config
 
 # Define os atalhos e modelos padrões do Libreoffice e o Deadbeef como aplicativo padrão para reproduzir .ogg para todos os próximos usuários criados:
 mkdir -p /etc/skel/.config/libreoffice/4/user/template
@@ -15,14 +13,21 @@ cp ./Modelo_taq_etv4.ott /etc/skel/.config/libreoffice/4/user/template/
 cp ./registrymodifications.xcu /etc/skel/.config/libreoffice/4/user/
 
 # Define os atalhos e modelos padrões do Libreoffice e o Deadbeef como aplicativo padrão para reproduzir .ogg para o usuário que está logado:
+if [ "$USUARIO" != "root" ] && [ "$USUARIO" != "suporte" ]; then
+	# Copia o arquivo contendo os atalhos do DeadBeef para o usuário logado:
+	mkdir -p "/home/$USUARIO/.config/deadbeef/"
+	cp ./taqconfig "/home/$USUARIO/.config/deadbeef/config"
 
-mkdir -p /home/$USUARIO/.config/libreoffice/4/user/template
+	mkdir -p "/home/$USUARIO/.config/libreoffice/4/user/template"
 
-sed -i '/^audio\/ogg=deadbeef.desktop$/a\audio\/x-vorbis+ogg=deadbeef.desktop' /home/$USUARIO/.config/mimeapps.list
-sed -i '/^audio\/ogg=deadbeef.desktop;$/a\audio\/x-vorbis+ogg=deadbeef.desktop;' /home/$USUARIO/.config/mimeapps.list
+	sed -i '/^audio\/ogg=deadbeef.desktop$/a\audio\/x-vorbis+ogg=deadbeef.desktop' "/home/$USUARIO/.config/mimeapps.list"
+	sed -i '/^audio\/ogg=deadbeef.desktop;$/a\audio\/x-vorbis+ogg=deadbeef.desktop;' "/home/$USUARIO/.config/mimeapps.list"
 
-cp ./Modelo_taq_etv4.ott /home/$USUARIO/.config/libreoffice/4/user/template/
-cp ./registrymodifications.xcu /home/$USUARIO/.config/libreoffice/4/user/
+	cp ./Modelo_taq_etv4.ott "/home/$USUARIO/.config/libreoffice/4/user/template/"
+	cp ./registrymodifications.xcu "/home/$USUARIO/.config/libreoffice/4/user/"
+	
+	chown -R "$USUARIO:Domain Users" "/home/$USUARIO/.config/"
+fi
 
 # Atualiza atalho do SAT para Firefox e Chrome
 
