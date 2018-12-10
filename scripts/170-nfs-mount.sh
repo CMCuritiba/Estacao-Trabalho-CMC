@@ -18,5 +18,5 @@ if ! grep -q "tauari" /etc/fstab; then
 	# Backup do antigo
 	cp /etc/fstab /etc/fstab-old
 
-	echo "tauari:/dados/aplcmc/suporte /mnt/suporte nfs timeo=5,retrans=1,retry=0,rw,bg,intr,_netdev,soft   0   0" >> /etc/fstab
+	echo "tauari:/dados/aplcmc/suporte /mnt/suporte nfs timeo=5,retrans=3,retry=10,rw,fg,intr,_netdev,soft,nofail   0   0" >> /etc/fstab
 fi
