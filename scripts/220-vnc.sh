@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Atualiza o launcher do vino-server para que inicie automaticamente
-if ls /etc/xdg/autostart | grep vino-server.desktop; then
+if [ -f /etc/xdg/autostart/vino-server.desktop ]; then
 	rm /etc/xdg/autostart/vino-server.desktop
 fi
 

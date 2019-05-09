@@ -3,11 +3,22 @@
 
 # Adicionar os repositórios necessários:
 add-apt-repository -y ppa:starws-box/deadbeef-player
-add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:mozillateam/ppa
-sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Linux_Mint_19/ /' > /etc/apt/sources.list.d/isv:ownCloud:desktop.list"
-wget -nv https://download.opensuse.org/repositories/isv:ownCloud:desktop/Linux_Mint_19/Release.key -O Release.key
-sudo apt-key add - < Release.key
+
+if [ -f "/etc/upstream-release/lsb-release" ]; then
+	source "/etc/upstream-release/lsb-release";
+fi;
+
+if [ -z "$DISTRIB_ID" ]; then
+	DISTRIB_ID=Ubuntu
+fi;
+
+if [ -z "$DISTRIB_RELEASE" ]; then
+	DISTRIB_RELEASE=16.04
+fi;
+
+sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/ /' > /etc/apt/sources.list.d/owncloud-client.list"
+wget -nv "https://download.opensuse.org/repositories/isv:ownCloud:desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/Release.key" -O - | apt-key add -
 
 # Atualizar os repositórios:
 apt-get update
