@@ -8,7 +8,7 @@ Terminal=false
 Name=Vino
 Exec=/usr/lib/vino/vino-server --sm-disable
 X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/vino-server.desktop
-else
+elif ! grep -q "X-MATE-Autostart-enabled=true" /etc/xdg/autostart/vino-server.desktop; then
 	echo 'X-MATE-Autostart-enabled=true' >> /etc/xdg/autostart/vino-server.desktop;
 fi
 
