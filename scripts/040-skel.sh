@@ -1,9 +1,8 @@
 #!/bin/bash
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
-mkdir -p /etc/skel/Rede
+mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/Rede/Nuvem
 mkdir -p /etc/skel/.local/share/telepathy/mission-control/
 mkdir -p /etc/skel/.local/share/data/ownCloud
 mkdir -p /etc/skel/.config/autostart
@@ -12,7 +11,7 @@ ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
 # Cria o arquivo padrão de user-dirs.dirs
 echo -e "XDG_DESKTOP_DIR=\"\$HOME/Desktop\"
-XDG_PUBLICSHARE_DIR=\"\$HOME/Rede\"
+XDG_PUBLICSHARE_DIR=\"\$HOME/Nuvem\"
 XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
 XDG_DOWNLOAD_DIR=\"\$HOME/Downloads\"
 " > /etc/skel/.config/user-dirs.dirs
@@ -53,10 +52,10 @@ Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
 
-ln -rfs /etc/skel/Rede/Nuvem /etc/skel/Desktop/Nuvem
+ln -rfs /etc/skel/Nuvem /etc/skel/Desktop/Nuvem
 
-if ! grep -q "/Rede/Nuvem" /etc/skel/.gtk-bookmarks; then
-	echo "file:///home/USUARIOAQUI/Rede/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
+if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then
+	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
 fi
 
 # Condiguração do Empathy
@@ -92,7 +91,7 @@ useNewBigFolderSizeLimit=true
 
 [Accounts]
 0\Folders\1\ignoreHiddenFiles=true
-0\Folders\1\localPath=/home/USUARIOAQUI/Rede/Nuvem
+0\Folders\1\localPath=/home/USUARIOAQUI/Nuvem
 0\Folders\1\paused=false
 0\Folders\1\targetPath=/
 0\authType=http

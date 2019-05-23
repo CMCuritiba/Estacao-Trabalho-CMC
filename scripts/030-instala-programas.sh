@@ -3,7 +3,6 @@
 
 # Adicionar os repositórios necessários:
 add-apt-repository -y ppa:starws-box/deadbeef-player
-add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:mozillateam/ppa
 
 if [ -f "/etc/upstream-release/lsb-release" ]; then
@@ -27,11 +26,12 @@ apt-get update
 # Instalar os programas:
 apt-get install -qyf rdesktop audacity owncloud-client owncloud-client-caja vim gthumb
 apt-get install -qyf ncdu sl ttf-mscorefonts-installer gedit
-apt-get install -qyf deadbeef vlc oracle-java8-installer openssh-server
+apt-get install -qyf deadbeef vlc openssh-server
 apt-get install -qyf firefox-esr firefox-esr-locale-pt numlockx
-apt-get install -qyf empathy telepathy-gabble account-plugin-jabber libaccount-plugin-1.0-0 mcp-account-manager-uoa unity-asset-pool
+apt-get install -qyf empathy telepathy-gabble mcp-account-manager-uoa unity-asset-pool
+apt-get install -qyf vino
 
-apt install -qyf oracle-java8-set-default
+#apt install -qyf oracle-java8-installer oracle-java8-set-default
 
 # Chrome, pq chrome é especial:
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
