@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ ! -f  "/etc/fstab" ]; then
 	exit 1;
 fi
