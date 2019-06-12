@@ -28,7 +28,7 @@ apt-get install -qyf rdesktop audacity owncloud-client owncloud-client-caja vim 
 apt-get install -qyf ncdu sl ttf-mscorefonts-installer gedit
 apt-get install -qyf deadbeef vlc openssh-server
 apt-get install -qyf firefox-esr firefox-esr-locale-pt numlockx
-apt-get install -qyf empathy telepathy-gabble mcp-account-manager-uoa unity-asset-pool
+apt-get install -qyf psi mcp-account-manager-uoa unity-asset-pool
 apt-get install -qyf vino
 
 #apt install -qyf oracle-java8-installer oracle-java8-set-default
