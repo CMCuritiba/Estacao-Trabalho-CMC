@@ -70,9 +70,11 @@ echo '<!DOCTYPE accounts>
    <allow-plain type="QString">over encryped</allow-plain>
    <auto type="bool">true</auto>
    <ssl type="QString">auto</ssl>
+   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
    <enable-sm type="bool">true</enable-sm>
    <enabled type="bool">true</enabled>
    <name type="QString">mensageiro</name>
+   <host type="QString">mensageiro.cmc.pr.gov.br</host>
    <log type="bool">true</log>
    <port type="int">5222</port>
    <keep-alive type="bool">true</keep-alive>
