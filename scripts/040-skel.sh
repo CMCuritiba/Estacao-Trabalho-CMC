@@ -3,10 +3,12 @@
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/.local/share/telepathy/mission-control/
 mkdir -p /etc/skel/.local/share/data/ownCloud
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
+mkdir -p /etc/skel/.config/psi
+mkdir -p /etc/skel/.config/psi/profiles
+mkdir -p /etc/skel/.config/psi/profiles/default
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
 # Cria o arquivo padrão de user-dirs.dirs
