@@ -3,10 +3,12 @@
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/.local/share/telepathy/mission-control/
 mkdir -p /etc/skel/.local/share/data/ownCloud
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
+mkdir -p /etc/skel/.config/psi
+mkdir -p /etc/skel/.config/psi/profiles
+mkdir -p /etc/skel/.config/psi/profiles/default
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
 # Cria o arquivo padrão de user-dirs.dirs
@@ -58,28 +60,30 @@ if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then
 	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
 fi
 
-# Condiguração do Empathy
-# Substituir "USUARIOAQUI", "HOSTNAMEAQUI" e "USUARIOSPLIT"
-echo '# Telepathy accounts
-
-[gabble/jabber/USUARIOSPLIT_40mensageiro0]
-manager=gabble
-protocol=jabber
-DisplayName=USUARIOAQUI@mensageiro
-AutomaticPresence=0;;;
-param-account=USUARIOAQUI@mensageiro
-Icon=im-jabber
-Enabled=true
-AvatarMime=
-HasBeenOnline=true
-NormalizedName=USUARIOAQUI@mensageiro
-Nickname=USUARIOAQUI
-param-require-encryption=false
-param-old-ssl=true
-param-port=5223
-param-resource=HOSTNAMEAQUI
-param-ignore-ssl-errors=true
-avatar_token=' > /etc/skel/.local/share/telepathy/mission-control/accounts.cfg
+# Condiguração do Psi
+# Substituir "USUARIOAQUI"
+echo '<!DOCTYPE accounts>
+<accounts version="1.3" xmlns="http://psi-im.org/options">
+ <accounts>
+  <a0>
+   <jid type="QString">USUARIOAQUI@mensageiro.cmc.pr.gov.br</jid>
+   <allow-plain type="QString">over encryped</allow-plain>
+   <auto type="bool">true</auto>
+   <ssl type="QString">legacy</ssl>
+   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
+   <enable-sm type="bool">true</enable-sm>
+   <enabled type="bool">true</enabled>
+   <name type="QString">mensageiro</name>
+   <host type="QString">mensageiro.cmc.pr.gov.br</host>
+   <log type="bool">true</log>
+   <port type="int">5223</port>
+   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
+   <keep-alive type="bool">true</keep-alive>
+   <priority type="int">5</priority>
+   <automatic-resource type="bool">true</automatic-resource>
+  </a0>
+ </accounts>
+</accounts>' > /etc/skel/.config/psi/profiles/default/accounts.xml
 
 # Configuração ownCloud
 # Substituir "USUARIOAQUI" pelo nome do usuario em script ao logare
@@ -155,26 +159,18 @@ echo '# GIMP sessionrc
 # end of sessionrc' > /etc/skel/.gimp-2.8/sessionrc
 
 # Adições ao .profile para rodar durante login do usuário
-if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/telepathy/mission-control/accounts.cfg" /etc/skel/.profile; then
-    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/telepathy/mission-control/accounts.cfg || true" >> /etc/skel/.profile
-fi
-
 if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/data/ownCloud/owncloud.cfg" /etc/skel/.profile; then
     echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/data/ownCloud/owncloud.cfg || true" >> /etc/skel/.profile
-fi
-
-if ! grep -q "sed -i 's/HOSTNAMEAQUI/'\"\$HOSTNAME\"'/g' \$HOME/.local/share/telepathy/mission-control/accounts.cfg" /etc/skel/.profile; then
-    echo "sed -i 's/HOSTNAMEAQUI/'\"\$HOSTNAME\"'/g' \$HOME/.local/share/telepathy/mission-control/accounts.cfg || true" >> /etc/skel/.profile
 fi
 
 if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/skel/.profile; then
     echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
 fi
 
-
-if ! grep -q "~/.local/share/telepathy/mission-control/accounts.cfg" /etc/skel/.profile; then
-	echo "TEMPVAR=\$(echo \$USER | sed 's/\./_2e/'); sed -i \"s/USUARIOSPLIT/\$TEMPVAR/\" \$HOME/.local/share/telepathy/mission-control/accounts.cfg || true" >> /etc/skel/.profile;
+if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.config/psi/profiles/default/accounts.xml" /etc/skel/.profile; then
+    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.config/psi/profiles/default/accounts.xml || true" >> /etc/skel/.profile
 fi
+
 
 # Política de privacidade
 echo '#!/bin/bash
