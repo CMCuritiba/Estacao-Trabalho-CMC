@@ -69,7 +69,7 @@ echo '<!DOCTYPE accounts>
    <jid type="QString">USUARIOAQUI@mensageiro.cmc.pr.gov.br</jid>
    <allow-plain type="QString">over encryped</allow-plain>
    <auto type="bool">true</auto>
-   <ssl type="QString">auto</ssl>
+   <ssl type="QString">legacy</ssl>
    <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
    <enable-sm type="bool">true</enable-sm>
    <enabled type="bool">true</enabled>
