@@ -76,7 +76,8 @@ echo '<!DOCTYPE accounts>
    <name type="QString">mensageiro</name>
    <host type="QString">mensageiro.cmc.pr.gov.br</host>
    <log type="bool">true</log>
-   <port type="int">5222</port>
+   <port type="int">5223</port>
+   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
    <keep-alive type="bool">true</keep-alive>
    <priority type="int">5</priority>
    <automatic-resource type="bool">true</automatic-resource>
