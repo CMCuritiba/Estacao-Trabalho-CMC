@@ -74,7 +74,8 @@ mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 echo '{
     "DownloadDirectory": "/home/${user_name}/Downloads",
-	"DefaultBrowserSettingEnabled": false
+	"DefaultBrowserSettingEnabled": false,
+	"DisablePrintPreview": true
 }' > /etc/opt/chrome/policies/managed/cmc.json
 echo '{
     "HomepageLocation": "http://intranet.cmc.pr.gov.br/",

@@ -15,14 +15,19 @@ Name[pt_BR]=ownCloud
 X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
 
 echo '[Desktop Entry]
+Version=1.0
 Type=Application
+Name=Psi
+GenericName=XMPP Client
+Comment=Communicate over the XMPP network
+Icon=psi
+Exec=psi %U
+MimeType=x-scheme-handler/xmpp;
 Terminal=false
-Name=Empathy
-Exec=empathy --start-hidden
-Icon=empathy
-Icon[pt_BR]=empathy
-Name[pt_BR]=Empathy
-X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/empathy.desktop
+StartupWMClass=Psi
+Categories=Network;InstantMessaging;Qt;
+Keywords=XMPP;Jabber;Chat;InstantMessaging;
+X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/psi.desktop
 
 echo '[Desktop Entry]
 Type=Application
