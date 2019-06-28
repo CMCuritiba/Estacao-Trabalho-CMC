@@ -70,6 +70,7 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 # CHROME
 
 # Cria e configura o arquivo cmc.jason na pasta /etc/opt/chrome/policies/managed/ e recommended/
+# Referencia para policies https://www.chromium.org/administrators/policy-list-3
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 echo '{
