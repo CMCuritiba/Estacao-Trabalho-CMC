@@ -28,7 +28,7 @@ sed -i '/enabled=True/c\enabled=False' /etc/xdg/user-dirs.conf
 chmod 1777 /home/Docs.Locais
 chown nobody:nogroup /home/Docs.Locais
 
-# Cria icones de suporte, firefox, nuvem
+# Cria icones de suporte, firefox, chrome, nuvem
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
@@ -43,6 +43,33 @@ Icon=/usr/share/pixmaps/firefox-esr.png' > /etc/skel/Desktop/Firefox.desktop
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
+Name=Google Chrome
+GenericName[pt_BR]=Navegador da Internet
+GenericName=Web Browser
+Comment=Access the Internet
+Comment[pt_BR]=Acessar a internet
+Exec=/usr/bin/google-chrome-stable %U
+StartupNotify=true
+Terminal=false
+Icon=google-chrome
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Name[pt_BR]=Nova janela
+Exec=/usr/bin/google-chrome-stable
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Name[pt_BR]=Nova janela anônima
+Exec=/usr/bin/google-chrome-stable --incognito' > /etc/skel/Desktop/google-chrome.desktop
+
+echo -e '#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
 Type=Application
 Terminal=false
 Name=Suporte
@@ -50,6 +77,8 @@ Exec=firefox-esr suporte.cmc.pr.gov.br
 Icon[pt_BR]=firefox
 Name[pt_BR]=Suporte
 Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
+
+/usr/share/icons/Mint-Y/apps/48/google-chrome.png
 
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
