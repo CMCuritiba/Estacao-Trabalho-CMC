@@ -3,7 +3,7 @@
 mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.disable
 mv /etc/xdg/autostart/mintwelcome.desktop /etc/xdg/autostart/mintwelcome.desktop.disable
 
-# Adiciona ao autostart o ownCloud e o Gajim
+# Adiciona ao autostart o ownCloud e o Psi
 echo '[Desktop Entry]
 Type=Application
 Terminal=false
