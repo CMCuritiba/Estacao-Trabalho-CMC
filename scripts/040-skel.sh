@@ -78,8 +78,6 @@ Icon[pt_BR]=firefox
 Name[pt_BR]=Suporte
 Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
 
-/usr/share/icons/Mint-Y/apps/48/google-chrome.png
-
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
 
