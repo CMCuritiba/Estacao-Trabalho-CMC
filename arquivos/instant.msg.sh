@@ -30,11 +30,11 @@ MostraMsg()
 	fi
 }
 
-if [ -z "$USER" ] || [ -z "$WHO" ]; then
+if [ -z "$LOGNAME" ] || [ -z "$WHO" ]; then
         exit 0;
 fi
 
-if [ "$WHO" != "$USER" ]; then
+if [ "$WHO" != "$LOGNAME" ]; then
         exit 0;
 elif [ -f "$MNT" ]; then
   if [ ! -d "$VAR" ]; then
