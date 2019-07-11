@@ -1,11 +1,15 @@
 ### Repositório para os scripts para a imagem Mint/Mate
 
-Devem ser criados scripts para todas as operações possíveis.
-De preferência, evitar a necessidade de input enquanto o script roda.
+#### Diretrizes
+1. Devem ser criados _scripts_ para todas as operações possíveis.
+2. De preferência, evitar a necessidade de _input_ enquanto o _script_ roda.
+3. _Scripts_ devem ser seguros para múltiplas execuções.
 
-Os scripts foram testados no **Mint 19.1**.
+#### Requisitos
+1. Os _scripts_ foram testados no **Mint 19.1**.
 
-Procedimento para instalação:
+#### Instalação/configuração
+Procedimento:
 1. Instalar o Mint normalmente;
    - Crie a conta padrão `suporte`.
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ETv4;
