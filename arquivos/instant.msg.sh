@@ -25,16 +25,18 @@ MostraMsg()
 	if ! pgrep -f "zenity.*instant.msg" >/dev/null; then
 		if zenity --text-info --height=500 --width=500 --display=:0 --filename="$MNT" --title "Diretoria de Informática:" --checkbox="Estou ciente do aviso" 2>/dev/null; then
 			cp "$MNT" "$VAR"
+			logger "[$0] Mensagem exibida. Usuario ciente."
+		else
+			logger "[$0] Mensagem exibida. Usuario cancelou."
 		fi
-		logger "[$0] Desktop Display $ARQ: $MSGR"
 	fi
 }
 
-if [ -z "$USER" ] || [ -z "$WHO" ]; then
+if [ -z "$LOGNAME" ] || [ -z "$WHO" ]; then
         exit 0;
 fi
 
-if [ "$WHO" != "$USER" ]; then
+if [ "$WHO" != "$LOGNAME" ]; then
         exit 0;
 elif [ -f "$MNT" ]; then
   if [ ! -d "$VAR" ]; then
