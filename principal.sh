@@ -17,6 +17,8 @@ scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
 if [ ! -d "$scriptsDir/scripts" ]; then
 	echo "Pasta scripts não encontrada."
 	exit -2
+else
+	cd "$scriptsDir/scripts"
 fi
 
 # Atentar a ordem dos scripts a serem rodados
