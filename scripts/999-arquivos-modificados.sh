@@ -60,3 +60,6 @@ ln -sf /etc/cron.hourly/nssupdate.sh /usr/local/cmc/modificados/nssupdate.sh
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
 
+# Configura mensagem de login
+ln -sf /etc/profile.d/cmc-profile.sh /usr/local/cmc/modificados/cmc-profile.sh
+
