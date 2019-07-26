@@ -45,7 +45,7 @@ do
 		exit -2
 	fi
 	echo "$file" >> /usr/local/cmc/script-andamento
-done < <(find "$scriptsDir/scripts" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
+done < <(find "$scriptsDir" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
 
 rm /usr/local/cmc/script-andamento
 touch /usr/local/cmc/script-completo
