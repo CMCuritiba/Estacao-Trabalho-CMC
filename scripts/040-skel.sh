@@ -222,7 +222,7 @@ echo 'if [ "$EUID" != "0" ] ; then
 	INSTANT="/usr/local/cmc/scripts/instant.msg.sh"
 	RESULT_I=$(crontab -l 2>/dev/null | grep -c "instant.msg.sh")
 	if [ $RESULT_I -eq 0 ]; then
-		echo "*/3 *     * * *   $INSTANT" > /tmp/$USER.cron;
+		echo "*/3 *     * * *   $INSTANT /mnt/suporte/instant.msg" > /tmp/$USER.cron;
 		crontab /tmp/$USER.cron
 	fi
 fi' >> /etc/skel/.profile
@@ -231,6 +231,5 @@ fi
 # Tecnicamente não skel, mas faz parte da msg instantânea
 mkdir -p /usr/local/cmc/scripts/
 cp ../arquivos/instant.msg.sh /usr/local/cmc/scripts/instant.msg.sh
-
-
+cp ../arquivos/cmc-profile.sh /etc/profile.d/cmc-profile.sh
 
