@@ -32,20 +32,28 @@ fi
 # parâmetro -print0. Isto garante o tratamento correto de qualquer nome que
 # os scripts .sh possam ter.
 # O "sort -z" ordena considerando '' como o separador de strings.
+# Não é possivel executar comandos interativos dentro do while 
+i=0
 while read -r -d '' file
+do
+files[$i]=$file
+i=$i+1
+done < <(find "$scriptsDir/scripts" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
+
+for file in ${files[@]};
 do
 	if grep -q "$file" "/usr/local/cmc/script-andamento"; then
 		logger "Script $file já executado de acordo com histórico, pulando"
 		continue
 	fi
-	logger "Executando arquivo $file ..."
+   logger "Executando arquivo $file ..."
 
-	if ! bash -e "$file"; then
+	if ! bash -e $file; then
 		logger "Erro ao rodar o script $file, abortando"
 		exit -2
 	fi
 	echo "$file" >> /usr/local/cmc/script-andamento
-done < <(find "$scriptsDir" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
+done;  
 
 rm /usr/local/cmc/script-andamento
 touch /usr/local/cmc/script-completo
