@@ -14,11 +14,9 @@ if [ -f "/usr/local/cmc/script-completo" ]; then
 fi
 
 scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
-if [ ! -d "$scriptsDir/scripts" ]; then
+if ! cd "$scriptsDir/scripts" ; then
 	echo "Pasta scripts não encontrada."
 	exit -2
-else
-	cd "$scriptsDir/scripts"
 fi
 
 # Atentar a ordem dos scripts a serem rodados
@@ -33,22 +31,21 @@ fi
 # os scripts .sh possam ter.
 # O "sort -z" ordena considerando '' como o separador de strings.
 # Não é possivel executar comandos interativos dentro do while 
-i=0
-while read -r -d '' file
+files=()
+while read -r -d '' file;
 do
-files[$i]=$file
-i=$i+1
+	files+=("$file")
 done < <(find "$scriptsDir/scripts" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
 
-for file in ${files[@]};
+for file in "${files[@]}";
 do
 	if grep -q "$file" "/usr/local/cmc/script-andamento"; then
 		logger "Script $file já executado de acordo com histórico, pulando"
 		continue
 	fi
-   logger "Executando arquivo $file ..."
+	logger "Executando arquivo $file"
 
-	if ! bash -e $file; then
+	if ! bash -e "$file"; then
 		logger "Erro ao rodar o script $file, abortando"
 		exit -2
 	fi
