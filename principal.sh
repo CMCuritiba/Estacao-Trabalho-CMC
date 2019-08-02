@@ -13,8 +13,11 @@ if [ -f "/usr/local/cmc/script-completo" ]; then
 	exit -1
 fi
 
-scriptsDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
-cd "$scriptsDir/scripts"
+scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
+if ! cd "$scriptsDir/scripts" ; then
+	echo "Pasta scripts não encontrada."
+	exit -2
+fi
 
 # Atentar a ordem dos scripts a serem rodados
 # Coloca arquivo executado em /usr/local/cmc/script-andamento
@@ -22,19 +25,32 @@ cd "$scriptsDir/scripts"
 if [ ! -f "/usr/local/cmc/script-andamento" ]; then
 	touch /usr/local/cmc/script-andamento
 fi
-for file in `ls -v *.sh`; do
+
+# O "read -d ''" é necessário para casar com o resultado do find utilizando o
+# parâmetro -print0. Isto garante o tratamento correto de qualquer nome que
+# os scripts .sh possam ter.
+# O "sort -z" ordena considerando '' como o separador de strings.
+# Não é possivel executar comandos interativos dentro do while 
+files=()
+while read -r -d '' file;
+do
+	files+=("$file")
+done < <(find "$scriptsDir/scripts" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
+
+for file in "${files[@]}";
+do
 	if grep -q "$file" "/usr/local/cmc/script-andamento"; then
 		logger "Script $file já executado de acordo com histórico, pulando"
 		continue
 	fi
-	logger "Executando arquivo $file ..."
-	bash -e $file;
-	if [ $? != 0 ]; then
+	logger "Executando arquivo $file"
+
+	if ! bash -e "$file"; then
 		logger "Erro ao rodar o script $file, abortando"
 		exit -2
 	fi
 	echo "$file" >> /usr/local/cmc/script-andamento
-done;
+done;  
 
 rm /usr/local/cmc/script-andamento
 touch /usr/local/cmc/script-completo
