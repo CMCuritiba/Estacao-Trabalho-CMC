@@ -2,7 +2,7 @@
 name: Bug
 about: Notifique um bug
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
