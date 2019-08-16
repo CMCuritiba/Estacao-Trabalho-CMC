@@ -1,4 +1,4 @@
-### Repositório para os scripts para a imagem Mint/Mate
+### Repositório para os scripts da imagem Mint/Mate
 
 #### Diretrizes
 1. Devem ser criados _scripts_ para todas as operações possíveis.
