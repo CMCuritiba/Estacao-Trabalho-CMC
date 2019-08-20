@@ -40,10 +40,9 @@ hotkey.key27 "v" 0 0 stop
 hotkey.key28 "b" 0 0 next
 hotkey.key29 "n" 0 0 playback_random
 hotkey.key30 "Ctrl k" 0 0 toggle_stop_after_album
-hotkey.key31 "Super Left" 0 1 seek_1s_back
+hotkey.key31 "Super Left" 0 1 seek_5s_back
 hotkey.key32 "Super space" 0 1 play_pause
 hotkey.key33 "Super Right" 0 1 seek_5s_fwd
-hotkey.key34 "<Não definido>" 0 1 seek_5s_back
 hotkeys_created 1
 ignore_archives 1
 junk.enable_cp1251_detection 1
