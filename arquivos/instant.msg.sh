@@ -21,8 +21,8 @@ MSGDIR=$HOME/.instant.msg
 ARQ=$MSGDIR/instant.msg
 
 # Usuário logado
-WHO=$( id | cut -d '(' -f 2 | cut -d ')' -f 1 )
-WHOSDISPLAY=$( who | grep "$WHO" | cut -d '(' -f 2 | cut -d ')' -f 1 )
+WHO=$(id -un)
+WHOSDISPLAY=$(w -h "$WHO" | awk '{print $3}')
 
 # Funcao para mostrar a mensagem na tela
 MostraMsg()
