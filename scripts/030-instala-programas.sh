@@ -33,7 +33,7 @@ apt-get install -qyf ncdu sl ttf-mscorefonts-installer gedit
 apt-get install -qyf deadbeef vlc openssh-server
 apt-get install -qyf firefox-esr firefox-esr-locale-pt numlockx
 apt-get install -qyf psi psi-translations unity-asset-pool
-apt-get install -qyf vino pdfsam
+apt-get install -qyf vino pdfsam unrar
 
 #apt install -qyf oracle-java8-installer oracle-java8-set-default
 
