@@ -1,6 +1,10 @@
 #!/bin/bash
 # Script para instalar os programas:
 
+# Update e Upgrade inicial:
+apt-get update
+apt-get -y upgrade
+
 # Adicionar os repositórios necessários:
 add-apt-repository -y ppa:starws-box/deadbeef-player
 add-apt-repository -y ppa:mozillateam/ppa
