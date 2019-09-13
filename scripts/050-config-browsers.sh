@@ -26,7 +26,7 @@ EnableProfileMigrator=false" > /usr/lib/firefox-esr/browser/override.ini
 if ! grep -q "\[BookmarksToolbar\]" /usr/lib/firefox-esr/distribution/distribution.ini; then
 echo "[BookmarksToolbar]
 item.1.title=Intranet
-item.1.link=http://intranet.cmc.pr.gov.br/
+item.1.link=https://intranet.cmc.pr.gov.br/
 item.2.title=Site CMC
 item.2.link=https://www.cmc.pr.gov.br/
 item.3.title=Correio
@@ -35,18 +35,16 @@ item.4.title=SPL II
 item.4.link=https://intranet.cmc.pr.gov.br/spl/
 item.5.title=SPA
 item.5.link=https://intranet.cmc.pr.gov.br/spa/
-item.6.title=SAAP
-item.6.link=https://saap.cmc.pr.gov.br/
-item.7.title=APL
-item.7.link=http://intranet.cmc.pr.gov.br/apl/
-item.8.title=Prefeitura de Curitiba
-item.8.link=http://www.curitiba.pr.gov.br/
-item.9.title=Suporte
-item.9.link=http://suporte.cmc.pr.gov.br/
-item.10.title=Nuvem
-item.10.link=https://nuvem.cmc.pr.gov.br/
-item.11.title=Chamados
-item.11.link=https://chamados.cmc.pr.gov.br/" >> /usr/lib/firefox-esr/distribution/distribution.ini
+item.6.title=APL
+item.6.link=https://intranet.cmc.pr.gov.br/apl/
+item.7.title=Suporte
+item.7.link=https://suporte.cmc.pr.gov.br/
+item.8.title=Nuvem
+item.8.link=https://nuvem.cmc.pr.gov.br/
+item.9.title=Chamados
+item.9.link=https://chamados.cmc.pr.gov.br/
+item.10.title=Prefeitura de Curitiba
+item.10.link=http://www.curitiba.pr.gov.br/" >> /usr/lib/firefox-esr/distribution/distribution.ini
 fi
 
 # Barra de tarefas não colapsada
@@ -70,17 +68,19 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 # CHROME
 
 # Cria e configura o arquivo cmc.jason na pasta /etc/opt/chrome/policies/managed/ e recommended/
+# Referencia para policies https://www.chromium.org/administrators/policy-list-3
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 echo '{
-    "DownloadDirectory": "/home/${user_name}/Downloads",
-	"DefaultBrowserSettingEnabled": false
+	"DownloadDirectory": "/home/${user_name}/Downloads",
+	"DefaultBrowserSettingEnabled": false,
+	"DisablePrintPreview": true
 }' > /etc/opt/chrome/policies/managed/cmc.json
 echo '{
-    "HomepageLocation": "http://intranet.cmc.pr.gov.br/",
-    "RestoreOnStartup": 4,
-    "RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
-    "HomepageIsNewTabPage": false
+	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
+	"RestoreOnStartup": 4,
+	"RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
+	"HomepageIsNewTabPage": false
 }' > /etc/opt/chrome/policies/recommended/cmc.json
 
 # Adiciona bookmarks padrão
@@ -98,7 +98,7 @@ echo '{
             },
             "name": "Intranet",
             "type": "url",
-            "url": "http://intranet.cmc.pr.gov.br/"
+            "url": "https://intranet.cmc.pr.gov.br/"
          }, {
             "date_added": "13155996444000000",
             "id": "7",
@@ -126,39 +126,33 @@ echo '{
          }, {
             "date_added": "13155996445000000",
             "id": "11",
-            "name": "SAAP",
+            "name": "APL",
             "type": "url",
-            "url": "https://saap.cmc.pr.gov.br/"
+            "url": "https://intranet.cmc.pr.gov.br/apl/"
          }, {
             "date_added": "13155996445000000",
             "id": "12",
-            "name": "APL",
+            "name": "Suporte",
             "type": "url",
-            "url": "http://intranet.cmc.pr.gov.br/apl/"
+            "url": "https://suporte.cmc.pr.gov.br/"
          }, {
             "date_added": "13155996445000000",
             "id": "13",
-            "name": "Prefeitura de Curitiba",
-            "type": "url",
-            "url": "http://www.curitiba.pr.gov.br/"
-         }, {
-            "date_added": "13155996445000000",
-            "id": "14",
-            "name": "Suporte",
-            "type": "url",
-            "url": "http://suporte.cmc.pr.gov.br/"
-         }, {
-            "date_added": "13155996445000000",
-            "id": "15",
             "name": "Nuvem",
             "type": "url",
             "url": "https://nuvem.cmc.pr.gov.br/"
          }, {
             "date_added": "13155996445000000",
-            "id": "16",
+            "id": "14",
             "name": "Chamados",
             "type": "url",
             "url": "https://chamados.cmc.pr.gov.br/"
+         }, {
+            "date_added": "13155996445000000",
+            "id": "15",
+            "name": "Prefeitura de Curitiba",
+            "type": "url",
+            "url": "http://www.curitiba.pr.gov.br/"
          } ],
          "date_added": "13155997223920341",
          "date_modified": "0",
@@ -187,4 +181,4 @@ echo '{
 }' > /etc/skel/.config/google-chrome/Default/Bookmarks
 
 # Copia o ícone do firefox ESR pra pasta certa PQ ELE SUMIU NÃO SEI PQ
-cp ../arquivos/imagens/firefox-esr.png /usr/share/pixmaps/
+cp -vn ../arquivos/imagens/firefox-esr.png /usr/share/pixmaps/

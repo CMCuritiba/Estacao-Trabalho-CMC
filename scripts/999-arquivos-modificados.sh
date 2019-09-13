@@ -22,7 +22,7 @@ ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelo
 # Bloqueio de execução de alguns programas
 ln -sf /usr/bin/mate-terminal /usr/local/cmc/modificados/mate-terminal
 ln -sf /usr/bin/mintupdate /usr/local/cmc/modificados/mintupdate
-ln -sf /usr/bin/mozo /usr/local/cmc/modificados/mozo
+ln -sf /usr/bin/menulibre /usr/local/cmc/modificados/menulibre
 ln -sf /usr/bin/mate-desktop-item-edit /usr/local/cmc/modificados/mate-desktop-item-edit
 ln -sf /usr/bin/nm-connection-editor /usr/local/cmc/modificados/nm-connection-editor
 
@@ -57,4 +57,9 @@ ln -sf /etc/X11/xorg.conf /usr/local/cmc/modificados/xorg.conf
 # Job no cron hourly pra atualizar cache de usuários
 ln -sf /etc/cron.hourly/nssupdate.sh /usr/local/cmc/modificados/nssupdate.sh
 
+# Configura retencao do syslog e auth
+ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
+
+# Configura mensagem de login
+ln -sf /etc/profile.d/cmc-profile.sh /usr/local/cmc/modificados/cmc-profile.sh
 
