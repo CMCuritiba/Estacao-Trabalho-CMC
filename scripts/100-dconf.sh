@@ -212,9 +212,9 @@ numlock-state='on'
 
 # Terminal de root
 [org/mate/desktop/keybindings/custom0]
-action='gksu -w mate-terminal'
+action='/usr/local/cmc/scripts/root-terminal.sh'
 binding='<Primary><Shift><Alt>t'
-name='gksu terminal'
+name='terminal de root'
 
 [com/linuxmint/mintmenu]
 opacity=100
@@ -254,6 +254,10 @@ echo "/org/gnome/desktop/remote-access/icon-visibility
 /org/gnome/desktop/remote-access/authentication-methods
 /org/gnome/desktop/remote-access/enabled
 /org/gnome/desktop/remote-access/vnc-password" > /etc/dconf/db/local.d/locks/01-cmc
+
+#Copia o script necessario para iniciar o terminal como root
+cp ../arquivos/root-terminal.sh /usr/local/cmc/scripts/root-terminal.sh
+chmod +x /usr/local/cmc/scripts/root-terminal.sh
 
 # Finalmente, atualiza dconf
 dconf update
