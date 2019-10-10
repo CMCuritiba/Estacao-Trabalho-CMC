@@ -1,3 +1,2 @@
 #!/bin/bash
-
-pkexec mate-terminal
+pkexec --user root "/usr/bin/mate-terminal" "$@"
