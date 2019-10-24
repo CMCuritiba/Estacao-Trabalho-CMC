@@ -15,7 +15,7 @@ ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
 
 # Coisas no autostart
 ln -sf /etc/xdg/autostart/owncloud.desktop /usr/local/cmc/modificados/owncloud.desktop
-ln -sf /etc/xdg/autostart/empathy.desktop /usr/local/cmc/modificados/empathy.desktop
+ln -sf /etc/xdg/autostart/psi.desktop /usr/local/cmc/modificados/psi.desktop
 ln -sf /etc/xdg/autostart/instant.msg.desktop /usr/local/cmc/modificados/instant.msg.desktop
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
 
@@ -55,7 +55,7 @@ ln -sf /etc/nsswitch.conf /usr/local/cmc/modificados/nsswitch.conf
 ln -sf /etc/X11/xorg.conf /usr/local/cmc/modificados/xorg.conf
 
 # Job no cron hourly pra atualizar cache de usuários
-ln -sf /etc/cron.hourly/nssupdate.sh /usr/local/cmc/modificados/nssupdate.sh
+ln -sf /etc/cron.hourly/nssupdate /usr/local/cmc/modificados/nssupdate
 
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
