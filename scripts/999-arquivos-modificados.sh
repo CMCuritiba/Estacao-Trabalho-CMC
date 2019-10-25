@@ -37,6 +37,7 @@ ln -sf /etc/NetworkManager/NetworkManager.conf /usr/local/cmc/modificados/Networ
 ln -sf /etc/pam.d/common-session /usr/local/cmc/modificados/common-session
 ln -sf /etc/pam.d/common-auth /usr/local/cmc/modificados/common-auth
 ln -sf /etc/pam.d/common-account /usr/local/cmc/modificados/common-account
+ln -sf /etc/security/pwquality.conf /usr/local/cmc/modificados/pwquality.conf
 
 # Serviço de script após rede
 ln -sf /etc/systemd/system/cmc-network-script.service /usr/local/cmc/modificados/cmc-network-script.service

@@ -1,11 +1,10 @@
 #!/bin/bash
 
-######################################################################################################################################################################################################
-# Autora: Renata Carvalho
-# Data: 08/12/17
-# Versão: 1.0
-# Descrição: Esse script modifica as configurações do PAM para que este guarde o cache dos users corretamente e permita o login offline, permitindo o uso dos programas locais. 
-######################################################################################################################################################################################################
+################################################################################
+# Descrição: Esse script modifica as configurações do PAM para que este guarde o
+# cache dos users corretamente e permita o login offline, permitindo o uso dos
+# programas locais.
+################################################################################
 
 
 
