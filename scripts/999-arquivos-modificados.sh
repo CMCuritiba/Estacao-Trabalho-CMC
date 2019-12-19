@@ -6,6 +6,10 @@ mkdir -p /usr/local/cmc/modificados
 # Skel inteiro basicamente
 ln -sf /etc/skel /usr/local/cmc/modificados/skel
 
+# bashrc
+ln -sf /root/.bashrc /usr/local/cmc/modificados/bashrc
+ln -sf /root/.bash_aliases /usr/local/cmc/modificados/bash_aliases
+
 # Configs de browsers
 ln -sf /usr/lib/firefox-esr/defaults/pref/local-settings.js /usr/local/cmc/modificados/local-settings.js
 ln -sf /usr/lib/firefox-esr/mozilla.cfg /usr/local/cmc/modificados/mozilla.cfg
