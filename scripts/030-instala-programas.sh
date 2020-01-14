@@ -12,15 +12,15 @@ add-apt-repository -y ppa:mozillateam/ppa
 if [ -f "/etc/upstream-release/lsb-release" ]; then
 	source "/etc/upstream-release/lsb-release";
 else
-    echo "Versão base do Mint não encontrada"
-    exit 1
+	echo "Versão base do Mint não encontrada"
+	exit 1
 fi;
 
 sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/ /' > /etc/apt/sources.list.d/owncloud-client.list"
 wget -nv "https://download.opensuse.org/repositories/isv:ownCloud:desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/Release.key" -O - | apt-key add -
 
-#Altera os repositórios para o c3sl
-sed -i 's/archive.ubuntu.com/br.archive.ubuntu.com/' /etc/apt/sources.list.d/official-package-repositories.list
+# Altera os repositórios para o c3sl
+sed -i 's/archive.ubuntu.com/ubuntu.c3sl.ufpr.br/' /etc/apt/sources.list.d/official-package-repositories.list
 sed -i 's/packages.linuxmint.com/mint-packages.c3sl.ufpr.br/' /etc/apt/sources.list.d/official-package-repositories.list
 
 # Atualizar os repositórios:
