@@ -9,6 +9,7 @@ mv /usr/share/applications/blueberry.desktop /usr/share/applications/blueberry.d
 mv /usr/share/applications/bluetooth-sendto.desktop /usr/share/applications/bluetooth-sendto.desktop.disable
 mv /usr/share/applications/nm-connection-editor.desktop /usr/share/applications/nm-connection-editor.desktop.disable
 mv /usr/share/applications/mintupdate.desktop /usr/share/applications/mintupdate.desktop.disable
+mv /usr/share/applications/mintreport.desktop /usr/share/applications/mintreport.desktop.disable
 mv /usr/share/applications/lightdm-settings.desktop /usr/share/applications/lightdm-settings.desktop.disable
 mv /usr/share/applications/menulibre.desktop /usr/share/applications/menulibre.desktop.disable
 #mv /usr/share/applications/JB-controlpanel-jdk8.desktop /usr/share/applications/JB-controlpanel-jdk8.desktop.disable
