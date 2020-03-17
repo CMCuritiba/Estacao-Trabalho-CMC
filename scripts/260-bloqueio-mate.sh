@@ -5,6 +5,9 @@ chmod 700 /usr/bin/mate-terminal
 #Remove execução do Mintupdate
 chmod 700 /usr/bin/mintupdate #update automatico
 
+#Remove execução do Mintreport
+chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
+
 # Remove execução do editor de permissões usuário dconf-editor
 #chmod 700 /usr/bin/dconf-editor #editor de permissões usuário
 # Não vem instalado por padrão
