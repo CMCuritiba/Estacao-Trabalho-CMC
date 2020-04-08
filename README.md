@@ -6,7 +6,7 @@
 3. _Scripts_ devem ser seguros para múltiplas execuções.
 
 #### Requisitos
-1. Os _scripts_ foram testados no **Mint 19.2**.
+1. Os _scripts_ foram testados no **Mint 19.3**.
 
 #### Instalação/configuração
 Procedimento:
