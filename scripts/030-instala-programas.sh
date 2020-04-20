@@ -2,8 +2,8 @@
 # Script para instalar programas adicionais
 
 # Altera os repositórios para o c3sl
-sed -i 's/archive.ubuntu.com/ubuntu.c3sl.ufpr.br/' /etc/apt/sources.list.d/official-package-repositories.list
-sed -i 's/packages.linuxmint.com/mint-packages.c3sl.ufpr.br/' /etc/apt/sources.list.d/official-package-repositories.list
+sed -i 's|//archive.ubuntu.com|//br.archive.ubuntu.com|' /etc/apt/sources.list.d/official-package-repositories.list
+sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' /etc/apt/sources.list.d/official-package-repositories.list
 
 # Adicionar os repositórios necessários:
 add-apt-repository -y ppa:starws-box/deadbeef-player
