@@ -25,9 +25,9 @@ ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelo
 
 # Bloqueio de execução de alguns programas
 ln -sf /usr/bin/mate-terminal /usr/local/cmc/modificados/mate-terminal
-ln -sf /usr/bin/mintupdate /usr/local/cmc/modificados/mintupdate
+#ln -sf /usr/bin/mintupdate /usr/local/cmc/modificados/mintupdate
 ln -sf /usr/bin/mintreport /usr/local/cmc/modificados/mintreport
-ln -sf /usr/bin/menulibre /usr/local/cmc/modificados/menulibre
+#ln -sf /usr/bin/menulibre /usr/local/cmc/modificados/menulibre
 ln -sf /usr/bin/mate-desktop-item-edit /usr/local/cmc/modificados/mate-desktop-item-edit
 ln -sf /usr/bin/nm-connection-editor /usr/local/cmc/modificados/nm-connection-editor
 
