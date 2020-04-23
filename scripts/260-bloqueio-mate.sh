@@ -27,7 +27,6 @@ chmod 700 /usr/bin/mate-network-properties
 # Cria uma ACL para que suporte possa abrir terminal
 setfacl -m u:suporte:rwx /usr/bin/mate-terminal
 setfacl -m g:dif:rx /usr/bin/mate-terminal
-#setfacl -m g:dif:rx /usr/bin/menulibre
 setfacl -m g:dif:rx /usr/bin/mate-desktop-item-edit
 setfacl -m g:dif:rx /usr/bin/nm-connection-editor
 setfacl -m g:dif:rx /usr/bin/ccsm
@@ -37,3 +36,6 @@ setfacl -m g:dif:rx /usr/bin/mate-network-properties
 if ! grep "%dif" /etc/sudoers; then
 	sed -i '/%sudo/a%dif\tALL=(ALL:ALL) ALL' /etc/sudoers
 fi
+# Adiciona o suporte ao sudoers
+echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
+
