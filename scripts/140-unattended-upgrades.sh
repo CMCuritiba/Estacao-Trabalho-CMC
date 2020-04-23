@@ -1,4 +1,6 @@
 #!/bin/bash
+apt-get update
+
 # Instala o unattended-upgrades
 apt-get -qyf install unattended-upgrades
 
