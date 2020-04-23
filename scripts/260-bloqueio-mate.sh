@@ -13,7 +13,7 @@ chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
 # Não vem instalado por padrão
 
 # Remove execução do programa editor de itens do menu, menulibre
-chmod 700 /usr/bin/menulibre
+#chmod 700 /usr/bin/menulibre
 
 # Remove execução do editor de cada item do menu, mate-desktop-item-edit
 chmod 700 /usr/bin/mate-desktop-item-edit
@@ -30,7 +30,7 @@ chmod 700 /usr/bin/mate-network-properties
 # Cria uma ACL para que suporte possa abrir terminal
 setfacl -m u:suporte:rwx /usr/bin/mate-terminal
 setfacl -m g:dif:rx /usr/bin/mate-terminal
-setfacl -m g:dif:rx /usr/bin/menulibre
+#setfacl -m g:dif:rx /usr/bin/menulibre
 setfacl -m g:dif:rx /usr/bin/mate-desktop-item-edit
 setfacl -m g:dif:rx /usr/bin/nm-connection-editor
 setfacl -m g:dif:rx /usr/bin/ccsm
