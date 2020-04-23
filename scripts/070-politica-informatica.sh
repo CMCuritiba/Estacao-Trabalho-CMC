@@ -11,3 +11,4 @@ fi' > /usr/local/cmc/scripts/forcelogout.sh
 chmod +x /usr/local/cmc/scripts/forcelogout.sh
 
 cp ../arquivos/politica-informatica.txt /usr/local/cmc/politica-informatica.txt
+chmod 444 /usr/local/cmc/politica-informatica.txt
