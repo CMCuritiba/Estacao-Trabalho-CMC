@@ -47,6 +47,8 @@ do
 
 	if ! bash -e "$file"; then
 		logger "Erro ao rodar o script $file, abortando"
+                printf "\033[1;31m----------------- Erro ---------------------\033[0m\n"
+                printf "\033[1;31mErro ao rodar o script $file, abortando\033[0m\n"
 		exit -2
 	fi
 	echo "$file" >> /usr/local/cmc/script-andamento
