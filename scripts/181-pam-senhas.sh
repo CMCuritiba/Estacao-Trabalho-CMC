@@ -22,9 +22,9 @@ sed -i '/minclass/c\minclass = 3' "$PWQCONF"
 #sed -i '/minlen/c\minlen = 8' "$PWQCONF"
 sed -i '/dictcheck/c\dictcheck = 0' "$PWQCONF"
 
-if ! grep -q "badwords" "$PWQCONF"; then
+if ! grep -q "^\s*badwords" "$PWQCONF"; then
 	echo "
 # Space separated list of words that must not be contained in the password.
-badwords = curitiba camara senha segredo 123456" >> "$PWQCONF"
+badwords = curitiba camara senha segredo vereador 123456" >> "$PWQCONF"
 fi
 
