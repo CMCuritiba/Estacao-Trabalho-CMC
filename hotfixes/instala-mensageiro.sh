@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Script deve ser rodado como root
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    logger "Este script deve ser executado como root"
+    exit 1
+fi
+
+# Desativa PSI
+rm -f /etc/xdg/autostart/psi.desktop
+if command -v psi >/dev/null 2>&1; then
+    apt-get -q -y remove psi
+fi
+
 icone="/usr/share/pixmaps/Rainbow.png"
 iconeRemoto="/mnt/suporte/etv4/scripts/resources/Rainbow.png"
 atalhoSkel="/etc/skel/Desktop/Rainbow.desktop"
