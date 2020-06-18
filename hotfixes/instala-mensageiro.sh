@@ -33,18 +33,18 @@ Exec=google-chrome --app=https://web.openrainbow.com/
 Name[pt_BR]=Rainbow
 Icon=$icone" > "$atalhoSkel"
     chmod +x "$atalhoSkel"
-fi
 
-for userHome in /home/*; do
-    user=$(echo "$userHome" | grep -P "(?<=/home/).+" -o)
-    if [ ! -f "$userHome/Desktop/Rainbow.desktop" ] && id -u "$user" &> /dev/null && [ -d "/home/$user/Desktop/" ]; then
-        if cp -f "$atalhoSkel" "$userHome/Desktop/"; then
-            chown "$user:nogroup" "$userHome/Desktop/Rainbow.desktop"
-            chmod +x "$userHome/Desktop/Rainbow.desktop"
-            chattr -f +i "$userHome/Desktop/Rainbow.desktop"
+    for userHome in /home/*; do
+        user=$(echo "$userHome" | grep -P "(?<=/home/).+" -o)
+        if [ ! -f "$userHome/Desktop/Rainbow.desktop" ] && id -u "$user" &> /dev/null && [ -d "/home/$user/Desktop/" ]; then
+            if cp -f "$atalhoSkel" "$userHome/Desktop/"; then
+                chown "$user:nogroup" "$userHome/Desktop/Rainbow.desktop"
+                chmod +x "$userHome/Desktop/Rainbow.desktop"
+                chattr -f +i "$userHome/Desktop/Rainbow.desktop"
+            fi
         fi
-    fi
-done
+    done
+fi
 
 # Instala atalho gerenciado no Google Chrome
 # TODO: Aparentemente não é possível a edição/inserção programática de atalhos
