@@ -21,6 +21,7 @@ if [ ! -f "$icone" ]; then
     chmod 644 "$icone"
 fi
 
+# Instala atalho no skel
 if [ ! -f "$atalhoSkel" ]; then
     echo -e "#!/usr/bin/env xdg-open
 [Desktop Entry]
@@ -44,3 +45,11 @@ for userHome in /home/*; do
         fi
     fi
 done
+
+# Instala atalho gerenciado no Google Chrome
+# Aparentemente não é possível a edição/inserção programática de atalhos nos
+# perfis do Firefox. TODO
+favsChrome="/etc/opt/chrome/policies/managed/cmc.json"
+if ! grep -q "Rainbow" "$favsChrome"; then
+    sed -i 's|]|,\n   {\n      "url": "https://web.openrainbow.com/",\n      "name": "Rainbow"\n   }\n   ]|g' "$favsChrome"
+fi
