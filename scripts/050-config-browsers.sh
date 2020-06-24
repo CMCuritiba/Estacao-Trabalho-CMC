@@ -44,7 +44,9 @@ item.8.link=https://nuvem.cmc.pr.gov.br/
 item.9.title=Chamados
 item.9.link=https://chamados.cmc.pr.gov.br/
 item.10.title=Prefeitura de Curitiba
-item.10.link=http://www.curitiba.pr.gov.br/" >> /usr/lib/firefox-esr/distribution/distribution.ini
+item.10.link=http://www.curitiba.pr.gov.br/
+item.11.title=Rainbow
+item.11.link=https://web.openrainbow.com/" >> /usr/lib/firefox-esr/distribution/distribution.ini
 fi
 
 # Barra de tarefas não colapsada
