@@ -72,51 +72,55 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 echo '{
-	"DownloadDirectory": "/home/${user_name}/Downloads",
-	"DefaultBrowserSettingEnabled": false,
-	"DisablePrintPreview": true,
-   "ManagedBookmarks": [
-   {
+  "DownloadDirectory": "/home/${user_name}/Downloads",
+  "DefaultBrowserSettingEnabled": false,
+  "DisablePrintPreview": true,
+  "ManagedBookmarks": [
+    {
       "url": "https://www.cmc.pr.gov.br",
       "name": "Câmara Municipal de Curitiba"
-   },
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br",
       "name": "Intranet"
-   },
-   {
+    },
+    {
       "url": "https://correio.cmc.pr.gov.br",
       "name": "Correio"
-   },
-   {
+    },
+    {
       "url": "https://www.cmc.pr.gov.br/spl",
       "name": "SPL II"
-   },      
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br/spa",
       "name": "SPA"
-   },      
-   {       
+    },
+    {
       "url": "https://nuvem.cmc.pr.gov.br",
       "name": "Nuvem"
-   },
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br/apl",
       "name": "APL"
-   },
-   {
+    },
+    {
       "url": "https://chamados.cmc.pr.gov.br",
       "name": "Chamados"
-   },
-   {
+    },
+    {
       "url": "https://suporte.cmc.pr.gov.br",
       "name": "Suporte"
-   },
-   {
+    },
+    {
       "url": "https://www.curitiba.pr.gov.br",
       "name": "Prefeitura Municipal de Curitiba"
-   }
-   ]
+    },
+    {
+      "url": "https://web.openrainbow.com/",
+      "name": "Rainbow"
+    }
+  ]
 }' > /etc/opt/chrome/policies/managed/cmc.json
 echo '{
 	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
