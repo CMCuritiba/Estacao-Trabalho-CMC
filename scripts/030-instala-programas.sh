@@ -36,8 +36,6 @@ apt-get install -qyf firefox-esr firefox-esr-locale-pt
 apt-get install -qyf owncloud-client owncloud-client-caja vim gedit pdfsam unrar ttf-mscorefonts-installer gnote
 # SO
 apt-get install -qyf ncdu numlockx acct
-# Mensageria
-apt-get install -qyf psi psi-translations unity-asset-pool
 
 # Chrome, pq chrome é especial:
 if ! dpkg-query -l google-chrome-stable &>/dev/null; then

@@ -19,7 +19,6 @@ ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
 
 # Coisas no autostart
 ln -sf /etc/xdg/autostart/owncloud.desktop /usr/local/cmc/modificados/owncloud.desktop
-ln -sf /etc/xdg/autostart/psi.desktop /usr/local/cmc/modificados/psi.desktop
 ln -sf /etc/xdg/autostart/instant.msg.desktop /usr/local/cmc/modificados/instant.msg.desktop
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
 
