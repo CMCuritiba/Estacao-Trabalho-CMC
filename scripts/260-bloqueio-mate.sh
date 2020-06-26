@@ -27,6 +27,11 @@ chmod 700 /usr/bin/nm-connection-editor
 # Desabilita editor de proxy
 chmod 700 /usr/bin/mate-network-properties
 
+#desabilita gnome-keyring
+chmod 700 /usr/bin/gnome-keyring
+chmod 700 /usr/bin/gnome-keyring-3
+chmod 700 /usr/bin/gnome-keyring-daemon
+
 # Cria uma ACL para que suporte possa abrir terminal
 setfacl -m u:suporte:rwx /usr/bin/mate-terminal
 setfacl -m g:dif:rx /usr/bin/mate-terminal
@@ -40,3 +45,5 @@ setfacl -m g:dif:rx /usr/bin/mate-network-properties
 if ! grep "%dif" /etc/sudoers; then
 	sed -i '/%sudo/a%dif\tALL=(ALL:ALL) ALL' /etc/sudoers
 fi
+# Adiciona o suporte ao sudoers
+echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
