@@ -4,7 +4,7 @@ mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.d
 mv /etc/xdg/autostart/mintwelcome.desktop /etc/xdg/autostart/mintwelcome.desktop.disable
 mv /etc/xdg/autostart/mintreport.desktop /etc/xdg/autostart/mintreport.desktop.disable
 
-# Adiciona ao autostart o ownCloud e o Psi
+# Adiciona ao autostart o ownCloud
 echo '[Desktop Entry]
 Type=Application
 Terminal=false
@@ -14,21 +14,6 @@ Icon=owncloud
 Icon[pt_BR]=owncloud
 Name[pt_BR]=ownCloud
 X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
-
-echo '[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Psi
-GenericName=XMPP Client
-Comment=Communicate over the XMPP network
-Icon=psi
-Exec=psi %U
-MimeType=x-scheme-handler/xmpp;
-Terminal=false
-StartupWMClass=Psi
-Categories=Network;InstantMessaging;Qt;
-Keywords=XMPP;Jabber;Chat;InstantMessaging;
-X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/psi.desktop
 
 echo '[Desktop Entry]
 Type=Application

@@ -44,7 +44,9 @@ item.8.link=https://nuvem.cmc.pr.gov.br/
 item.9.title=Chamados
 item.9.link=https://chamados.cmc.pr.gov.br/
 item.10.title=Prefeitura de Curitiba
-item.10.link=http://www.curitiba.pr.gov.br/" >> /usr/lib/firefox-esr/distribution/distribution.ini
+item.10.link=http://www.curitiba.pr.gov.br/
+item.11.title=Rainbow
+item.11.link=https://web.openrainbow.com/" >> /usr/lib/firefox-esr/distribution/distribution.ini
 fi
 
 # Barra de tarefas não colapsada
@@ -72,51 +74,55 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 echo '{
-	"DownloadDirectory": "/home/${user_name}/Downloads",
-	"DefaultBrowserSettingEnabled": false,
-	"DisablePrintPreview": true,
-   "ManagedBookmarks": [
-   {
+  "DownloadDirectory": "/home/${user_name}/Downloads",
+  "DefaultBrowserSettingEnabled": false,
+  "DisablePrintPreview": true,
+  "ManagedBookmarks": [
+    {
       "url": "https://www.cmc.pr.gov.br",
       "name": "Câmara Municipal de Curitiba"
-   },
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br",
       "name": "Intranet"
-   },
-   {
+    },
+    {
       "url": "https://correio.cmc.pr.gov.br",
       "name": "Correio"
-   },
-   {
+    },
+    {
       "url": "https://www.cmc.pr.gov.br/spl",
       "name": "SPL II"
-   },      
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br/spa",
       "name": "SPA"
-   },      
-   {       
+    },
+    {
       "url": "https://nuvem.cmc.pr.gov.br",
       "name": "Nuvem"
-   },
-   {
+    },
+    {
       "url": "https://intranet.cmc.pr.gov.br/apl",
       "name": "APL"
-   },
-   {
+    },
+    {
       "url": "https://chamados.cmc.pr.gov.br",
       "name": "Chamados"
-   },
-   {
+    },
+    {
       "url": "https://suporte.cmc.pr.gov.br",
       "name": "Suporte"
-   },
-   {
+    },
+    {
       "url": "https://www.curitiba.pr.gov.br",
       "name": "Prefeitura Municipal de Curitiba"
-   }
-   ]
+    },
+    {
+      "url": "https://web.openrainbow.com/",
+      "name": "Rainbow"
+    }
+  ]
 }' > /etc/opt/chrome/policies/managed/cmc.json
 echo '{
 	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
