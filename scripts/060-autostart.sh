@@ -24,14 +24,6 @@ X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
 echo '[Desktop Entry]
 Type=Application
 Terminal=false
-Name=InstantMsg
-Exec=bash /usr/local/cmc/scripts/instant.msg.sh
-Name[pt_BR]=InstantMsg
-X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/instant.msg.desktop
-
-echo '[Desktop Entry]
-Type=Application
-Terminal=false
 Name=ForceLogout
 Exec=/usr/local/cmc/scripts/forcelogout.sh
 X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/forcelogout.desktop

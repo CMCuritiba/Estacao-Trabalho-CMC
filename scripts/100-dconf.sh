@@ -255,7 +255,8 @@ echo "/org/gnome/desktop/remote-access/icon-visibility
 /org/gnome/desktop/remote-access/enabled
 /org/gnome/desktop/remote-access/vnc-password" > /etc/dconf/db/local.d/locks/01-cmc
 
-#Copia o script necessario para iniciar o terminal como root
+# Copia o script necessario para iniciar o terminal como root
+mkdir -p /usr/local/cmc/scripts
 cp ../arquivos/root-terminal.sh /usr/local/cmc/scripts/root-terminal.sh
 chmod +x /usr/local/cmc/scripts/root-terminal.sh
 
