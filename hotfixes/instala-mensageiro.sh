@@ -8,6 +8,7 @@ fi
 
 # Desativa PSI
 rm -f /etc/xdg/autostart/psi.desktop
+sed -i -E 's/^sed.+psi.+//g' /etc/skel/.profile
 if command -v psi >/dev/null 2>&1; then
     apt-get -q -y remove psi
 fi
