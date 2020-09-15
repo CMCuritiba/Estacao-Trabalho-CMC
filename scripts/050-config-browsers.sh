@@ -55,8 +55,8 @@ echo '{
         "Title": "Nuvem"
       },
       {
-        "URL": "https://intranet.cmc.pr.gov.br/apl",
-        "Title": "APL"
+        "URL": "https://servicos.cmc.pr.gov.br",
+        "Title": "Elotech - Sistema de Gestão"
       },
       {
         "URL": "https://chamados.cmc.pr.gov.br",
@@ -117,8 +117,8 @@ echo '{
       "name": "Nuvem"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/apl",
-      "name": "APL"
+      "url": "https://servicos.cmc.pr.gov.br",
+      "name": "Elotech - Sistema de Gestão"
     },
     {
       "url": "https://chamados.cmc.pr.gov.br",
