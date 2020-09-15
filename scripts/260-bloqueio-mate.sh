@@ -34,16 +34,20 @@ chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Cria uma ACL para que suporte possa abrir terminal
 setfacl -m u:suporte:rwx /usr/bin/mate-terminal
-setfacl -m g:dif:rx /usr/bin/mate-terminal
-#setfacl -m g:dif:rx /usr/bin/menulibre
-setfacl -m g:dif:rx /usr/bin/mate-desktop-item-edit
-setfacl -m g:dif:rx /usr/bin/nm-connection-editor
-setfacl -m g:dif:rx /usr/bin/ccsm
-setfacl -m g:dif:rx /usr/bin/mate-network-properties
 
-# Adiciona grupo dif ao sudoers
-if ! grep "%dif" /etc/sudoers; then
-	sed -i '/%sudo/a%dif\tALL=(ALL:ALL) ALL' /etc/sudoers
+# Cria uma ACL para que dtic possa abrir terminal
+setfacl -m g:dtic:rx /usr/bin/mate-terminal
+setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
+setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
+setfacl -m g:dtic:rx /usr/bin/ccsm
+setfacl -m g:dtic:rx /usr/bin/mate-network-properties
+
+# Adiciona dtic ao sudoers caso não exista
+if ! grep -w "dtic" /etc/sudoers; then
+	sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
 fi
-# Adiciona o suporte ao sudoers
-echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
+
+# Adiciona o suporte ao sudoers caso não exista
+if ! grep -w "suporte" /etc/sudoers; then
+	echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
+fi
