@@ -9,7 +9,7 @@ fi
 # Instala favoritos gerenciados no Firefox
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/v1.17/README.md
-favsFirefox="/usr/lib/firefox-esr/distribution/policies.json"
+favsFirefox="/usr/lib/firefox-esr/distribution/policies.json"  # type: json file
 if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
     echo '{
   "policies": {
@@ -73,7 +73,7 @@ fi
 # nos perfis do Firefox.
 # Referencia para policies do Chrome:
 # https://cloud.google.com/docs/chrome-enterprise/policies/
-favsChrome="/etc/opt/chrome/policies/managed/cmc.json"
+favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
 if ! grep -q "Elotech" "$favsChrome"; then
     echo '{
   "DownloadDirectory": "/home/${user_name}/Downloads",
