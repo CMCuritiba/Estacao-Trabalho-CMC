@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Script deve ser rodado como root
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    logger "Este script deve ser executado como root"
+    exit 1
+fi
+
 # Instala favoritos gerenciados no Firefox
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/v1.17/README.md
