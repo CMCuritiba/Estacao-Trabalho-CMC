@@ -19,7 +19,6 @@ ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
 
 # Coisas no autostart
 ln -sf /etc/xdg/autostart/owncloud.desktop /usr/local/cmc/modificados/owncloud.desktop
-ln -sf /etc/xdg/autostart/instant.msg.desktop /usr/local/cmc/modificados/instant.msg.desktop
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
 
 # Bloqueio de execução de alguns programas
@@ -63,7 +62,3 @@ ln -sf /etc/cron.hourly/nssupdate /usr/local/cmc/modificados/nssupdate
 
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
-
-# Configura mensagem de login
-ln -sf /etc/profile.d/cmc-profile.sh /usr/local/cmc/modificados/cmc-profile.sh
-
