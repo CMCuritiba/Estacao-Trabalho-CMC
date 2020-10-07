@@ -116,7 +116,7 @@ useNewBigFolderSizeLimit=true
 0\user=USUARIOAQUI
 " > /etc/skel/.local/share/data/ownCloud/owncloud.cfg
 
-mkdir -p /etc/skel/.gimp-2.8/
+mkdir -p /etc/skel/.gimp-2.10/
 
 # Configuração padrão do GIMP
 echo '# GIMP sessionrc
@@ -168,7 +168,7 @@ echo '# GIMP sessionrc
 (single-window-mode yes)
 (last-tip-shown 0)
 
-# end of sessionrc' > /etc/skel/.gimp-2.8/sessionrc
+# end of sessionrc' > /etc/skel/.gimp-2.10/sessionrc
 
 # Adições ao .profile para rodar durante login do usuário
 if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/data/ownCloud/owncloud.cfg" /etc/skel/.profile; then

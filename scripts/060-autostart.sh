@@ -19,11 +19,11 @@ Exec=owncloud
 Icon=owncloud
 Icon[pt_BR]=owncloud
 Name[pt_BR]=ownCloud
-X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
+X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
 
 echo '[Desktop Entry]
 Type=Application
 Terminal=false
 Name=ForceLogout
 Exec=/usr/local/cmc/scripts/forcelogout.sh
-X-MATE-Autostart-enabled=true' > /etc/xdg/autostart/forcelogout.desktop
+X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/forcelogout.desktop
