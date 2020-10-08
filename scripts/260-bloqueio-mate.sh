@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bloqueia a execução do mate-terminal pelos demais usuários
-chmod 700 /usr/bin/mate-terminal
+chmod 700 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
 chmod 700 /usr/bin/mintupdate #update automatico
@@ -18,14 +18,16 @@ chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
 # Remove execução do editor de cada item do menu, mate-desktop-item-edit
 chmod 700 /usr/bin/mate-desktop-item-edit
 
-# Remove execução do compiz
-chmod 700 /usr/bin/ccsm
+# Remove execução do compiz --> Cinnamon é um fork do Gnome-Shell e não suporta ainda o Compiz.
+#Fonte: https://plus.diolinux.com.br/t/compiz-nao-roda-no-linux-mint-19-1-cinnamon/619
+#chmod 700 /usr/bin/ccsm
 
 # Desabilita edição de conexão:
 chmod 700 /usr/bin/nm-connection-editor 
 
-# Desabilita editor de proxy
-chmod 700 /usr/bin/mate-network-properties
+# Desabilita editor de proxy/rede
+#chmod 700 /usr/bin/mate-network-properties
+chmod 700 /usr/bin/nm-applet
 
 #desabilita gnome-keyring
 chmod 700 /usr/bin/gnome-keyring
@@ -33,14 +35,15 @@ chmod 700 /usr/bin/gnome-keyring-3
 chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Cria uma ACL para que suporte possa abrir terminal
-setfacl -m u:suporte:rwx /usr/bin/mate-terminal
+setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
 
 # Cria uma ACL para que dtic possa abrir terminal
-setfacl -m g:dtic:rx /usr/bin/mate-terminal
+setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
 setfacl -m g:dtic:rx /usr/bin/ccsm
-setfacl -m g:dtic:rx /usr/bin/mate-network-properties
+#setfacl -m g:dtic:rx /usr/bin/mate-network-properties
+setfacl -m g:dtic:rx /usr/bin/nm-applet
 
 # Adiciona dtic ao sudoers caso não exista
 if ! grep -w "dtic" /etc/sudoers; then

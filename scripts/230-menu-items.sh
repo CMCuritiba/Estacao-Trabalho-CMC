@@ -4,7 +4,7 @@
 # Não importa se esse script falhar, pode prosseguir
 set +e
 
-mv /usr/share/applications/mate-user-guide.desktop /usr/share/applications/mate-user-guide.desktop.disable
+mv /usr/share/applications/gnome-user-guide.desktop /usr/share/applications/gnome-user-guide.desktop.disable
 mv /usr/share/applications/blueberry.desktop /usr/share/applications/blueberry.desktop.disable
 mv /usr/share/applications/bluetooth-sendto.desktop /usr/share/applications/bluetooth-sendto.desktop.disable
 mv /usr/share/applications/nm-connection-editor.desktop /usr/share/applications/nm-connection-editor.desktop.disable
@@ -19,7 +19,7 @@ mv /usr/share/applications/lightdm-settings.desktop /usr/share/applications/ligh
 #mv /usr/share/applications/JB-jconsole-jdk8.desktop /usr/share/applications/JB-jconsole-jdk8.desktop.disable
 #mv /usr/share/applications/JB-policytool-jdk8.desktop /usr/share/applications/JB-policytool-jdk8.desktop.disable
 #mv /usr/share/applications/JB-jvisualvm-jdk8.desktop /usr/share/applications/JB-jvisualvm-jdk8.desktop.disable
-mv /usr/share/applications/mate-network-properties.desktop /usr/share/applications/mate-network-properties.desktop.disable
+mv /usr/share/applications/gnome-network-properties.desktop.disable /usr/share/applications/gnome-network-properties.desktop
 mv /usr/share/applications/mintwelcome.desktop /usr/share/applications/mintwelcome.desktop.disable
 mv /usr/share/applications/users.desktop /usr/share/applications/users.desktop.disable
 

@@ -11,4 +11,9 @@ fi
 sed -i '/^uri/c\uri ldap:\/\/10.0.0.5\/' /etc/nslcd.conf
 sed -i '/^base/c\base ou=Usuarios,dc=pr,dc=gov,dc=br\nbase ou=Grupos,dc=pr,dc=gov,dc=br' /etc/nslcd.conf 
 
-service nslcd restart
+# faz bind no LDAP
+if ! grep -q "^binddn" /etc/nslcd.conf; then
+	sed -i '/^#binddn/c\binddn cn=authproxy,dc=pr,dc=gov,dc=br' /etc/nslcd.conf
+	sed -i '/^#bindpw/c\bindpw ldapcamara' /etc/nslcd.conf
+fi
+systemctl restart nslcd.service
