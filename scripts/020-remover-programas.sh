@@ -5,7 +5,6 @@ apt-get -qy purge thunderbird*
 apt-get -qy purge *rhythmbox*
 apt-get -qy purge pix pix-data
 #apt-get -qy purge tomboy - O programa Tomboy foi trocado pelo Gnote
-apt-get -qy purge gnote
 apt-get -qy purge transmission*
 apt-get -qy purge avahi-daemon
 apt-get -qy purge xed

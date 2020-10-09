@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bloqueia a execução do mate-terminal pelos demais usuários
-chmod 700 /usr/bin/gnome-terminal
+chmod 777 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
 chmod 700 /usr/bin/mintupdate #update automatico
