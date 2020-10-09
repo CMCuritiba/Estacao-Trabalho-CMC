@@ -213,8 +213,16 @@ numlock-state='on'
 # Terminal de root
 [org/cinnamon/desktop/keybindings/custom0]
 action='/usr/local/cmc/scripts/root-terminal.sh'
-binding='<Primary><Shift><Alt>t'
+binding='<Shift><Alt>t'
 name='terminal de root'
+
+# Abrir no terminal
+[org/nemo/preferences/menu-config]
+background-menu-open-in-terminal=false
+selection-menu-open-in-terminal=false
+
+[org/nemo/preferences]
+show-open-in-terminal-toolbar=false
 
 [com/linuxmint/mintmenu]
 opacity=100
@@ -223,7 +231,7 @@ plugins-list=['places', 'system_management', 'newpane', 'applications', 'newpane
 applet-text='Menu '
 
 # Lixeira no desktop
-[org/cinnamon/nemo/desktop]
+[org/nemo/desktop]
 trash-icon-visible=true
 
 # Atalhos do menu
@@ -241,11 +249,16 @@ show-software-manager=false
 show-package-manager=false 
 
 # Background padrão
-[org/cinnamon/desktop/background]
+[org/mate/desktop/background]
 picture-filename='/usr/share/backgrounds/cmc/desktop-bg.png'
 
-# Num de desktops em 1 por padrão
-[org/cinnamon/marco/general]
+##Haviam Gnome e Cinnamon de opções olhando pelo dconf-editor
+# Num de desktops em 1 por padrão no Gnome
+[org/gnome/desktop/wm/preferences]
+num-workspaces=1
+
+# Num de desktops em 1 por padrão no Cinnamon
+[org/cinnamon/desktop/wm/preferences]
 num-workspaces=1"> /etc/dconf/db/local.d/01-cmc
 
 # Trava as configs do Vino
