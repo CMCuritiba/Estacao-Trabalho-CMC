@@ -38,12 +38,12 @@ chmod 700 /usr/bin/gnome-keyring-daemon
 setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
 
 # Cria uma ACL para que dtic possa abrir terminal
-setfacl -m g:dtic:rx /usr/bin/gnome-terminal
-setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
-setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
-setfacl -m g:dtic:rx /usr/bin/ccsm
+#setfacl -m g:dtic:rwx /usr/bin/gnome-terminal
+#setfacl -m g:dtic:rwx /usr/bin/mate-desktop-item-edit
+#setfacl -m g:dtic:rwx /usr/bin/nm-connection-editor
+#setfacl -m g:dtic:rwx /usr/bin/ccsm
 #setfacl -m g:dtic:rx /usr/bin/mate-network-properties
-setfacl -m g:dtic:rx /usr/bin/nm-applet
+#setfacl -m g:dtic:rwx /usr/bin/nm-applet
 
 # Adiciona dtic ao sudoers caso não exista
 if ! grep -w "dtic" /etc/sudoers; then
