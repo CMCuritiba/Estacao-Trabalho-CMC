@@ -42,7 +42,7 @@ apt-get install -qyf deadbeef vlc audacity exfat-fuse exfat-utils shotwell gthum
 # Navegacao
 apt-get install -qyf firefox-esr firefox-esr-locale-pt
 # Utilitarios e produtividade
-apt-get install -qyf owncloud-client owncloud-client-nemo vim gedit pdfsam unrar ttf-mscorefonts-installer
+apt-get install -qyf owncloud-client owncloud-client-nemo vim gedit pdfsam unrar ttf-mscorefonts-installer dconf-editor git
 # SO
 apt-get install -qyf ncdu numlockx acct
 

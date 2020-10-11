@@ -211,14 +211,13 @@ disable-command-line=true
 numlock-state='on'
 
 # Terminal de root
-[org/cinnamon/desktop/keybindings/custom-keybindings/custom2]
+[org/cinnamon/desktop/keybindings/custom-keybindings/custom0]
+binding=['<Primary><Shift><Alt>t']
 command='/usr/local/cmc/scripts/root-terminal.sh'
-action='/usr/local/cmc/scripts/root-terminal.sh'
-binding='<Primary><Shift><Alt>t'
 name='Terminal de root'
 
 [org/cinnamon/desktop/keybindings]
-custom-list=['custom2']
+custom-list=['__dummy__', 'custom0']
 
 # Abrir no terminal
 [org/nemo/preferences/menu-config]
