@@ -56,3 +56,4 @@ if ! dpkg-query -l google-chrome-stable &>/dev/null; then
 fi
 
 apt-get -qyf upgrade
+rm -rf google-chrome-stable_current_amd64.deb

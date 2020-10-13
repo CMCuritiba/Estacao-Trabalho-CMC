@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bloqueia a execução do mate-terminal pelos demais usuários
-chmod 777 /usr/bin/gnome-terminal
+chmod 700 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
 chmod 700 /usr/bin/mintupdate #update automatico
@@ -34,17 +34,6 @@ chmod 700 /usr/bin/gnome-keyring
 chmod 700 /usr/bin/gnome-keyring-3
 chmod 700 /usr/bin/gnome-keyring-daemon
 
-# Cria uma ACL para que suporte possa abrir terminal
-setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
-
-# Cria uma ACL para que dtic possa abrir terminal
-#setfacl -m g:dtic:rwx /usr/bin/gnome-terminal
-#setfacl -m g:dtic:rwx /usr/bin/mate-desktop-item-edit
-#setfacl -m g:dtic:rwx /usr/bin/nm-connection-editor
-#setfacl -m g:dtic:rwx /usr/bin/ccsm
-#setfacl -m g:dtic:rx /usr/bin/mate-network-properties
-#setfacl -m g:dtic:rwx /usr/bin/nm-applet
-
 # Adiciona dtic ao sudoers caso não exista
 if ! grep -w "dtic" /etc/sudoers; then
 	sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
@@ -54,3 +43,14 @@ fi
 if ! grep -w "suporte" /etc/sudoers; then
 	echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
 fi
+
+# Cria uma ACL para que suporte possa abrir terminal
+setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
+
+# Cria uma ACL para que dtic possa abrir terminal
+setfacl -m g:dtic:rx /usr/bin/gnome-terminal
+setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
+setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
+#setfacl -m g:dtic:rx /usr/bin/ccsm
+#setfacl -m g:dtic:rx /usr/bin/mate-network-properties
+setfacl -m g:dtic:rx /usr/bin/nm-applet
