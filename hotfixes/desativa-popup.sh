@@ -7,7 +7,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 
 # Desativa pop-up no boot
-rm -f /etc/xdg/autostart/instant.msg.desktop
+mv -f /etc/xdg/autostart/instant.msg.desktop /etc/xdg/autostart/instant.msg.desktop.disable
 
 # Desativa pop-ups
 if grep -q "MostraMsg" /usr/local/cmc/scripts/instant.msg.sh; then
