@@ -1,2 +1,2 @@
 #!/bin/bash
-pkexec "/usr/bin/gnome-terminal"
+pkexec gnome-terminal

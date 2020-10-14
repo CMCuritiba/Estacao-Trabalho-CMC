@@ -1,5 +1,4 @@
 #!/bin/bash
-mkdir -p /usr/local/cmc/scripts/
 
 # Locka os icones do desktop
 echo "#!/bin/sh

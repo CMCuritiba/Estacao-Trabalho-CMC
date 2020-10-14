@@ -9,27 +9,6 @@ sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' /etc/apt/source
 add-apt-repository -y ppa:starws-box/deadbeef-player
 add-apt-repository -y ppa:mozillateam/ppa
 
-# Adiciona repositório do ownCloud:
-
-if [ -f "/etc/upstream-release/lsb-release" ]; then
-	source "/etc/upstream-release/lsb-release";
-fi;
-
-#Não colocaram repositório do OwnCloud para o Mint 20 (Verificado dia 30/09/2020)
-if [ -z "$DISTRIB_ID" ]; then
-	DISTRIB_ID=Ubuntu
-fi;
-
-if [ -z "$DISTRIB_RELEASE" ]; then
-	DISTRIB_RELEASE=20.04
-fi;
-
-echo "deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/ /" > "/etc/apt/sources.list.d/owncloud-client.list"
-if ! wget -nv "https://download.opensuse.org/repositories/isv:ownCloud:desktop/${DISTRIB_ID}_${DISTRIB_RELEASE}/Release.key" -O - | apt-key add -; then
-    logger "Release.key do ownCloud para Ubuntu $DISTRIB_RELEASE não encontrada."
-    exit 1
-fi
-
 # Update e Upgrade inicial:
 apt-get update
 apt-get -y upgrade
@@ -42,7 +21,7 @@ apt-get install -qyf deadbeef vlc audacity exfat-fuse exfat-utils shotwell gthum
 # Navegacao
 apt-get install -qyf firefox-esr firefox-esr-locale-pt
 # Utilitarios e produtividade
-apt-get install -qyf owncloud-client owncloud-client-nemo vim gedit pdfsam unrar ttf-mscorefonts-installer dconf-editor git
+apt-get install -qyf vim gedit pdfsam unrar ttf-mscorefonts-installer
 # SO
 apt-get install -qyf ncdu numlockx acct
 

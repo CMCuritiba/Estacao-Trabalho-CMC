@@ -9,18 +9,6 @@ mv /etc/xdg/autostart/gnome-keyring-pkcs11.desktop /etc/xdg/autostart/gnome-keyr
 mv /etc/xdg/autostart/gnome-keyring-secrets.desktop /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
 mv /etc/xdg/autostart/gnome-keyring-ssh.desktop /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
 
-# Adiciona ao autostart o ownCloud 
-
-echo '[Desktop Entry]
-Type=Application
-Terminal=false
-Name=ownCloud
-Exec=owncloud
-Icon=owncloud
-Icon[pt_BR]=owncloud
-Name[pt_BR]=ownCloud
-X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/owncloud.desktop
-
 echo '[Desktop Entry]
 Type=Application
 Terminal=false

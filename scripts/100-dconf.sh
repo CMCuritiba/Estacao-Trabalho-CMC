@@ -216,8 +216,8 @@ binding=['<Primary><Shift><Alt>t']
 command='/usr/local/cmc/scripts/root-terminal.sh'
 name='Terminal de root'
 
-[org/cinnamon/desktop/keybindings]
-custom-list=['__dummy__', 'custom0']
+#[org/cinnamon/desktop/keybindings]
+#custom-list=['custom0']
 
 # Abrir no terminal
 [org/nemo/preferences/menu-config]
