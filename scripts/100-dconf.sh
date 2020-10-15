@@ -93,7 +93,7 @@ disable-command-line=true
 disable-command-line=true
 
 # Numlock ativado
-[/org/cinnamon/settings-daemon/peripherals/keyboard]
+[org/cinnamon/settings-daemon/peripherals/keyboard]
 numlock-state='on'
 
 # Terminal de root
