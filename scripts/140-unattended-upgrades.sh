@@ -18,7 +18,6 @@ sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"${distro_id}:${distro_coden
 sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'-security\";' "$UNATTENDEDCONF"
 sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'\";' "$UNATTENDEDCONF"
 sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'-updates\";' "$UNATTENDEDCONF"
-#sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"obs:\/\/build.opensuse.org\/isv:ownCloud:desktop\/'"${DISTRIB_ID}"'_'"${DISTRIB_RELEASE}"':'"${DISTRIB_ID}"'_'"${DISTRIB_RELEASE}"'\";' "$UNATTENDEDCONF"
 sed -i '/^\/\/Unattended-Upgrade::MinimalSteps/c\Unattended-Upgrade::MinimalSteps "true";' "$UNATTENDEDCONF"
 
 if apt-cache policy | grep -E "release.+mozilla.+amd64"; then

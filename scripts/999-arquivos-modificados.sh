@@ -18,7 +18,6 @@ ln -sf /usr/lib/firefox-esr/distribution/distribution.ini /usr/local/cmc/modific
 ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
 
 # Coisas no autostart
-ln -sf /etc/xdg/autostart/owncloud.desktop /usr/local/cmc/modificados/owncloud.desktop
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
 
 # Bloqueio de execução de alguns programas

@@ -51,6 +51,4 @@ setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
-#setfacl -m g:dtic:rx /usr/bin/ccsm
-#setfacl -m g:dtic:rx /usr/bin/mate-network-properties
 setfacl -m g:dtic:rx /usr/bin/nm-applet

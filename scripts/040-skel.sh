@@ -3,7 +3,6 @@
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/.local/share/data/ownCloud
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
@@ -97,25 +96,6 @@ if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then
 	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
 fi
 
-# Configuração ownCloud
-# Substituir "USUARIOAQUI" pelo nome do usuario em script ao logare
-echo "[General]
-confirmExternalStorage=true
-newBigFolderSizeLimit=200
-optionalDesktopNotifications=true
-useNewBigFolderSizeLimit=true
-
-[Accounts]
-0\Folders\1\ignoreHiddenFiles=true
-0\Folders\1\localPath=/home/USUARIOAQUI/Nuvem
-0\Folders\1\paused=false
-0\Folders\1\targetPath=/
-0\authType=http
-0\http_user=USUARIOAQUI
-0\url=https://nuvem.cmc.pr.gov.br
-0\user=USUARIOAQUI
-" > /etc/skel/.local/share/data/ownCloud/owncloud.cfg
-
 mkdir -p /etc/skel/.gimp-2.10/
 
 # Configuração padrão do GIMP
@@ -171,10 +151,6 @@ echo '# GIMP sessionrc
 # end of sessionrc' > /etc/skel/.gimp-2.10/sessionrc
 
 # Adições ao .profile para rodar durante login do usuário
-if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/data/ownCloud/owncloud.cfg" /etc/skel/.profile; then
-    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.local/share/data/ownCloud/owncloud.cfg || true" >> /etc/skel/.profile
-fi
-
 if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/skel/.profile; then
     echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
 fi
