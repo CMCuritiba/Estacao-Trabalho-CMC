@@ -136,8 +136,9 @@ show-software-manager=false
 show-package-manager=false 
 
 # Background padrão
-[org/mate/desktop/background]
-picture-filename='/usr/share/backgrounds/cmc/desktop-bg.png'
+[org/cinnamon/desktop/background]
+picture-uri='file:///usr/share/backgrounds/cmc/desktop-bg.png'
+#'file:///usr/share/backgrounds/linuxmint/default_background.jpg'
 
 #Existe Gnome e Cinnamon de opções pelo aplicativo dconf-editor
 # Num de desktops em 1 por padrão no Gnome
