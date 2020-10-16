@@ -83,12 +83,6 @@ show-policy-configuration=false
 last-active-tab=1
 
 # Desabilita linha de comando
-[org/cinnamon/desktop/lockdown]
-disable-command-line=true
-
-[org/mate/desktop/lockdown]
-disable-command-line=true
-
 [org/gnome/desktop/lockdown]
 disable-command-line=true
 
@@ -115,7 +109,7 @@ show-open-in-terminal-toolbar=false
 
 [com/linuxmint/mintmenu]
 plugins-list=['places', 'system_management', 'newpane', 'applications', 'newpane', 'recent']
-applet-text='Menu '
+applet-text='Menu'
 
 # Lixeira no desktop
 [org/nemo/desktop]
