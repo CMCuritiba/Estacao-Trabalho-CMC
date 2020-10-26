@@ -1,7 +1,6 @@
 #!/bin/bash
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
-mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
@@ -9,7 +8,6 @@ ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
 # Cria o arquivo padrão de user-dirs.dirs
 echo -e "XDG_DESKTOP_DIR=\"\$HOME/Desktop\"
-XDG_PUBLICSHARE_DIR=\"\$HOME/Nuvem\"
 XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
 XDG_DOWNLOAD_DIR=\"\$HOME/Downloads\"
 " > /etc/skel/.config/user-dirs.dirs
@@ -24,7 +22,7 @@ sed -i '/enabled=True/c\enabled=False' /etc/xdg/user-dirs.conf
 chmod 1777 /home/Docs.Locais
 chown nobody:nogroup /home/Docs.Locais
 
-# Cria icones de suporte, firefox, chrome, nuvem
+# Cria icones de suporte, firefox, chrome
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
@@ -86,15 +84,8 @@ Exec=google-chrome --app=https://web.openrainbow.com/
 Name[pt_BR]=Rainbow
 Icon=/usr/share/pixmaps/Rainbow.png" > /etc/skel/Desktop/Rainbow.desktop
 
-
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
-
-ln -rfs /etc/skel/Nuvem /etc/skel/Desktop/Nuvem
-
-if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then
-	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
-fi
 
 mkdir -p /etc/skel/.gimp-2.10/
 
