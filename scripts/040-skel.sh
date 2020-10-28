@@ -24,7 +24,7 @@ sed -i '/enabled=True/c\enabled=False' /etc/xdg/user-dirs.conf
 chmod 1777 /home/Docs.Locais
 chown nobody:nogroup /home/Docs.Locais
 
-# Cria icones de suporte, firefox, chrome, nuvem
+# Cria icones de suporte, firefox, chrome
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
@@ -91,9 +91,9 @@ chmod +x /etc/skel/Desktop/*.desktop
 
 #ln -rfs /etc/skel/Nuvem /etc/skel/Desktop/Nuvem	
 
-if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then	
-	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks	
-fi
+#if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then	
+#	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks	
+#fi
 
 mkdir -p /etc/skel/.gimp-2.10/
 
@@ -150,9 +150,9 @@ echo '# GIMP sessionrc
 # end of sessionrc' > /etc/skel/.gimp-2.10/sessionrc
 
 # Adições ao .profile para rodar durante login do usuário
-if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/skel/.profile; then
-    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
-fi
+#if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/skel/.profile; then
+#    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
+#fi
 
 
 # Política de privacidade
