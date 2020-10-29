@@ -43,7 +43,10 @@ foreground-color='#000000000000'
 visible-name='Padrão'
  
 # Updates não devem ser visíveis
-#[com/linuxmint/updates]
+[com/linuxmint/updates]
+hide-kernel-update-warning=true
+hide-systray=true
+hide-window-after-update=true
 #level1-is-visible=false
 #level1-is-safe=true
 #level2-is-visible=false
@@ -54,7 +57,7 @@ visible-name='Padrão'
 #level4-is-safe=false
 #level5-is-safe=false
 #level5-is-visible=false
-#ernel-updates-are-visible=false
+#kernel-updates-are-visible=false
 #kernel-updates-are-safe=false
 #security-updates-are-safe=false
 #security-updates-are-visible=true
