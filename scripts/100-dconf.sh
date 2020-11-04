@@ -128,7 +128,16 @@ show-package-manager=false
 [org/cinnamon/desktop/background]
 picture-uri='file:///usr/share/backgrounds/cmc/desktop-bg.png'
 #'file:///usr/share/backgrounds/linuxmint/default_background.jpg'
- 
+
+#'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
+[org/gnome/settings-daemon/plugins/print-notifications]
+active=false
+
+#Desabilita notificação de rede On/Off
+[org/gnome/nm-applet]
+disable-disconnected-notifications=true
+disable-connected-notifications=true
+
 # Num de desktops em 1 por padrão no Gnome
 [org/gnome/desktop/wm/preferences]
 num-workspaces=1"> /etc/dconf/db/local.d/01-cmc
