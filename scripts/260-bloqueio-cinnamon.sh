@@ -1,5 +1,5 @@
 #!/bin/bash
-# Bloqueia a execução do mate-terminal pelos demais usuários
+# Bloqueia a execução do gnome-terminal pelos demais usuários
 chmod 700 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
@@ -15,8 +15,8 @@ chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
 # Remove execução do programa editor de itens do menu, menulibre
 #chmod 700 /usr/bin/menulibre
 
-# Remove execução do editor de cada item do menu, mate-desktop-item-edit
-chmod 700 /usr/bin/mate-desktop-item-edit
+# Remove execução do editor de cada item do menu, cinnamon-desktop-item-edit
+chmod 700 /usr/bin/cinnamon-desktop-editor
 
 # Remove execução do compiz --> Cinnamon é um fork do Gnome-Shell e não suporta ainda o Compiz.
 #Fonte: https://plus.diolinux.com.br/t/compiz-nao-roda-no-linux-mint-19-1-cinnamon/619
@@ -29,7 +29,7 @@ chmod 700 /usr/bin/nm-connection-editor
 #chmod 700 /usr/bin/mate-network-properties
 chmod 700 /usr/bin/nm-applet
 
-#desabilita gnome-keyring
+#desabilita gnome-keyring - fica pedindo senha de root para usuários
 chmod 700 /usr/bin/gnome-keyring
 chmod 700 /usr/bin/gnome-keyring-3
 chmod 700 /usr/bin/gnome-keyring-daemon
@@ -44,11 +44,15 @@ if ! grep -w "suporte" /etc/sudoers; then
 	echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
 fi
 
-# Cria uma ACL para que suporte possa abrir terminal
+# Cria uma ACL para ajustar as permissões do usuário suporte
 setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
 
-# Cria uma ACL para que dtic possa abrir terminal
+setfacl -m u:suporte:rx /usr/bin/cinnamon-desktop-editor
+setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
+setfacl -m u:suporte:rx /usr/bin/nm-applet
+
+# Cria uma ACL para ajustar as permissões do grupo dtic
 setfacl -m g:dtic:rx /usr/bin/gnome-terminal
-setfacl -m g:dtic:rx /usr/bin/mate-desktop-item-edit
+setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-item-editor
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
 setfacl -m g:dtic:rx /usr/bin/nm-applet

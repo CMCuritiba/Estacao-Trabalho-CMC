@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Desabilita o autostart da mensagem de bem vinda, do update manager e mintreport
 mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.disable
 mv /etc/xdg/autostart/mintwelcome.desktop /etc/xdg/autostart/mintwelcome.desktop.disable
