@@ -2,7 +2,6 @@
 
 USUARIO=$(who | head -1 | awk \{'print$1'\})
 
-
 # Define os atalhos e modelos padrões do Libreoffice e o Deadbeef como aplicativo padrão para reproduzir .ogg para todos os próximos usuários criados:
 mkdir -p /etc/skel/.config/libreoffice/4/user/template
 
@@ -14,26 +13,26 @@ cp ./registrymodifications.xcu /etc/skel/.config/libreoffice/4/user/
 
 # Define os atalhos e modelos padrões do Libreoffice e o Deadbeef como aplicativo padrão para reproduzir .ogg para o usuário que está logado:
 if [ "$USUARIO" != "root" ] && [ "$USUARIO" != "suporte" ]; then
-	# Copia o arquivo contendo os atalhos do DeadBeef para o usuário logado:
-	mkdir -p "/home/$USUARIO/.config/deadbeef/"
-	cp ./taqconfig "/home/$USUARIO/.config/deadbeef/config"
+   # Copia o arquivo contendo os atalhos do DeadBeef para o usuário logado:
+   mkdir -p "/home/$USUARIO/.config/deadbeef/"
+   cp ./taqconfig "/home/$USUARIO/.config/deadbeef/config"
 
-	mkdir -p "/home/$USUARIO/.config/libreoffice/4/user/template"
+   mkdir -p "/home/$USUARIO/.config/libreoffice/4/user/template"
 
-	sed -i '/^audio\/ogg=deadbeef.desktop$/a\audio\/x-vorbis+ogg=deadbeef.desktop' "/home/$USUARIO/.config/mimeapps.list"
-	sed -i '/^audio\/ogg=deadbeef.desktop;$/a\audio\/x-vorbis+ogg=deadbeef.desktop;' "/home/$USUARIO/.config/mimeapps.list"
+   sed -i '/^audio\/ogg=deadbeef.desktop$/a\audio\/x-vorbis+ogg=deadbeef.desktop' "/home/$USUARIO/.config/mimeapps.list"
+   sed -i '/^audio\/ogg=deadbeef.desktop;$/a\audio\/x-vorbis+ogg=deadbeef.desktop;' "/home/$USUARIO/.config/mimeapps.list"
 
-	cp ./Modelo_taq_etv4.ott "/home/$USUARIO/.config/libreoffice/4/user/template/"
-	cp ./registrymodifications.xcu "/home/$USUARIO/.config/libreoffice/4/user/"
-	
-	chown -R "$USUARIO:cmc" "/home/$USUARIO/.config/"
+   cp ./Modelo_taq_etv4.ott "/home/$USUARIO/.config/libreoffice/4/user/template/"
+   cp ./registrymodifications.xcu "/home/$USUARIO/.config/libreoffice/4/user/"
+
+   chown -R "$USUARIO:cmc" "/home/$USUARIO/.config/"
 fi
 
 # Atualiza atalho do SAT para Firefox e Chrome
 
 if grep -q "\[BookmarksToolbar\]" /usr/lib/firefox-esr/distribution/distribution.ini; then
-	echo "item.12.title=SAT Visualizar
-	item.12.link=https://intranet.cmc.pr.gov.br/sat/visualizar.xhtml" >> /usr/lib/firefox-esr/distribution/distribution.ini
+   echo "item.12.title=SAT Visualizar
+	item.12.link=https://intranet.cmc.pr.gov.br/sat/visualizar.xhtml" >>/usr/lib/firefox-esr/distribution/distribution.ini
 fi
 
 echo '{
@@ -99,12 +98,6 @@ echo '{
             "url": "http://suporte.cmc.pr.gov.br/"
          }, {
             "date_added": "13155996445000000",
-            "id": "15",
-            "name": "Nuvem",
-            "type": "url",
-            "url": "https://nuvem.cmc.pr.gov.br/"
-         }, {
-            "date_added": "13155996445000000",
             "id": "16",
             "name": "Chamados",
             "type": "url",
@@ -140,4 +133,4 @@ echo '{
       }
    },
    "version": 1
-}' > /etc/skel/.config/google-chrome/Default/Bookmarks
+}' >/etc/skel/.config/google-chrome/Default/Bookmarks
