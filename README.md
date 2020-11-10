@@ -3,7 +3,7 @@
 #### Diretrizes
 1. Devem ser criados _scripts_ para todas as operações possíveis.
 2. De preferência, evitar a necessidade de _input_ enquanto o _script_ roda.
-3. _Scripts_ devem ser seguros para múltiplas execuções.
+3. _Scripts_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguros para múltiplas execuções).
 
 #### Requisitos
 1. Os _scripts_ foram testados no **Mint 19.3**.
