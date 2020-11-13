@@ -14,9 +14,12 @@ echo ""
  
 VNCPASS64=$(echo -e "$VNCPASS" | base64);
  
-#Baixa e copia o applet "weather@mockturtl" na pasta correta
-wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
-rm -rf weather@mockturtl.zip
+#Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
+#Ao baixar o applet pela interface gráfica fica em português, mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
+#ele volta a ficar em inglês
+#wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
+#rm -rf weather@mockturtl.zip
+
 # Configurações em si. Cuidado com os escapes de "
 echo -e "
 [org/nemo/window-state]
