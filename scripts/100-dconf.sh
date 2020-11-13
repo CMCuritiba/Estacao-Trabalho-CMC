@@ -14,6 +14,9 @@ echo ""
  
 VNCPASS64=$(echo -e "$VNCPASS" | base64);
  
+#Baixa e copia o applet "weather@mockturtl" na pasta correta
+wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
+rm -rf weather@mockturtl.zip
 # Configurações em si. Cuidado com os escapes de "
 echo -e "
 [org/nemo/window-state]
@@ -106,8 +109,8 @@ show-network=false
  
 [org/cinnamon]
 #Atalho para usuário(Encerrar sessão, bloquear tela, trocar usuário)
-enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:1:show-desktop@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:2', 'panel1:right:1:systray@cinnamon.org:3', 'panel1:right:2:xapp-status@cinnamon.org:4', 'panel1:right:3:notifications@cinnamon.org:5', 'panel1:right:4:printers@cinnamon.org:6', 'panel1:right:5:removable-drives@cinnamon.org:7', 'panel1:right:6:keyboard@cinnamon.org:8', 'panel1:right:7:network@cinnamon.org:9', 'panel1:right:8:sound@cinnamon.org:10', 'panel1:right:9:power@cinnamon.org:11', 'panel1:right:10:calendar@cinnamon.org:12', 'panel1:right:1:user@cinnamon.org:0', 'panel1:right:0:weather@mockturtl:1']
-next-applet-id='2'
+enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:1:show-desktop@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:2', 'panel1:right:1:systray@cinnamon.org:3', 'panel1:right:2:xapp-status@cinnamon.org:4', 'panel1:right:3:notifications@cinnamon.org:5', 'panel1:right:4:printers@cinnamon.org:6', 'panel1:right:5:removable-drives@cinnamon.org:7', 'panel1:right:6:keyboard@cinnamon.org:8', 'panel1:right:7:network@cinnamon.org:9', 'panel1:right:8:sound@cinnamon.org:10', 'panel1:right:9:power@cinnamon.org:11', 'panel1:right:10:calendar@cinnamon.org:12', 'panel1:right:1:user@cinnamon.org:13', 'panel1:right:0:weather@mockturtl:14']
+next-applet-id='15'
  
 #Tema Dark
 #[org/cinnamon/desktop/interface]
@@ -141,7 +144,7 @@ disable-connected-notifications=true
 # Num de desktops em 1 por padrão no Gnome
 [org/gnome/desktop/wm/preferences]
 num-workspaces=1"> /etc/dconf/db/local.d/01-cmc
- 
+
 # Trava as configs do Vino
 mkdir -p /etc/dconf/db/local.d/locks
 echo "/org/gnome/desktop/remote-access/icon-visibility
