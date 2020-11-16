@@ -51,10 +51,6 @@ echo '{
         "Title": "SPA"
       },
       {
-        "URL": "https://nuvem.cmc.pr.gov.br",
-        "Title": "Nuvem"
-      },
-      {
         "URL": "https://servicos.cmc.pr.gov.br",
         "Title": "Elotech - Sistema de Gestão"
       },
@@ -111,10 +107,6 @@ echo '{
     {
       "url": "https://intranet.cmc.pr.gov.br/spa",
       "name": "SPA"
-    },
-    {
-      "url": "https://nuvem.cmc.pr.gov.br",
-      "name": "Nuvem"
     },
     {
       "url": "https://servicos.cmc.pr.gov.br",
