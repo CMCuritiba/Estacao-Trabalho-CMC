@@ -62,3 +62,6 @@ ln -sf /etc/cron.hourly/nssupdate /usr/local/cmc/modificados/nssupdate
 
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
+
+# Scripts de rede
+ln -sf /mnt/suporte/etv4/scripts/boot.sh /usr/local/cmc/modificados/boot.sh
