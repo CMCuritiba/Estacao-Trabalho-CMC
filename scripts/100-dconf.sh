@@ -164,7 +164,7 @@ echo -e "{
         \"type\" : \"switch\",
         \"default\" : true,
         \"description\": \"Use a custom date format\",
-        \"tooltip\": \"Check this to define a custom format for the date in the calendar applet.\"
+        \"tooltip\": \"Check this to define a custom format for the date in the calendar applet.\",
         \"value\": true
     },
     \"custom-format\" : {
