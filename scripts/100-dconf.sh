@@ -96,6 +96,20 @@ custom-list=['custom0']
  
 [org/nemo/preferences]
 show-open-in-terminal-toolbar=false
+
+# Sons do Sistema
+[org/cinnamon/desktop/sound]
+volume-sound-enabled=false
+event-sounds=false
+
+[org/cinnamon/sounds]
+login-enabled=false
+logout-enabled=false
+switch-enabled=false
+plug-enabled=false
+unplug-enabled=false
+tile-enabled=false
+
  
 [com/linuxmint/mintmenu]
 plugins-list=['places', 'system_management', 'newpane', 'applications', 'newpane', 'recent']
