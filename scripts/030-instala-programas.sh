@@ -15,7 +15,7 @@ if [[ -z "$VERSAO_MINT" ]]; then
     logger "Não foi possível determinar a versão do Mint."
     exit 1
 fi
-echo "deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Linux_Mint_$VERSAO_MINT/ /" > "/etc/apt/sources.list.d/owncloud-client.list"
+echo "deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Linux_Mint_$VERSAO_MINT/ /" >"/etc/apt/sources.list.d/owncloud-client.list"
 if ! wget -nv "https://download.opensuse.org/repositories/isv:ownCloud:desktop/Linux_Mint_$VERSAO_MINT/Release.key" -O - | apt-key add -; then
     logger "Release.key do ownCloud para Mint $VERSAO_MINT não encontrada."
     exit 1
@@ -47,3 +47,21 @@ if ! dpkg-query -l google-chrome-stable &>/dev/null; then
 fi
 
 apt-get -qyf upgrade
+
+#Função instaladora de extensão
+install_chrome_extension() {
+    preferences_dir_path="/opt/google/chrome/extensions"
+    pref_file_path="$preferences_dir_path/$1.json"
+    upd_url="https://clients2.google.com/service/update2/crx"
+    mkdir -p "$preferences_dir_path"
+    echo "{" >"$pref_file_path"
+    echo "  \"external_update_url\": \"$upd_url\"" >>"$pref_file_path"
+    echo "}" >>"$pref_file_path"
+    echo Added \""$pref_file_path"\" ["$2"]
+}
+
+#Local onde estão as extensões
+install_chrome_extension "inomeogfingihgjfjlpeplalcfajhgai" "Chrome Remote Desktop"
+
+#Referencia:
+#https://github.com/anatol-grabowski/scripts/blob/master/install/install-chrome.s
