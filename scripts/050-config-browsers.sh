@@ -5,7 +5,7 @@
 # Bloqueia edição de algumas configurações:
 echo '//
 pref("general.config.filename", "mozilla.cfg");
-pref("general.config.obscure_value", 0);' > /usr/lib/firefox-esr/defaults/pref/local-settings.js
+pref("general.config.obscure_value", 0);' >/usr/lib/firefox-esr/defaults/pref/local-settings.js
 
 # Cria e configura o arquivo mozilla.cfg na pasta /usr/lib/firefox-esr:
 echo '//
@@ -17,62 +17,66 @@ lockPref("print.print_footerright", "");
 lockPref("print.print_headerleft", "");
 lockPref("print.print_headerright", "");
 lockPref("startup.homepage_welcome_url", "");
-lockPref("browser.rights.3.shown", true);' > /usr/lib/firefox-esr/mozilla.cfg
+lockPref("browser.rights.3.shown", true);' >/usr/lib/firefox-esr/mozilla.cfg
 
 # Desabilita o Import Wizard
 echo "[XRE]
-EnableProfileMigrator=false" > /usr/lib/firefox-esr/browser/override.ini
+EnableProfileMigrator=false" >/usr/lib/firefox-esr/browser/override.ini
 
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox-esr/distribution/
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/v1.17/README.md
+# https://github.com/mozilla/policy-templates/blob/master/README.md#bookmarks
 echo '{
   "policies": {
     "DisplayBookmarksToolbar": true,
-    "Bookmarks": [
+    "ManagedBookmarks": [
       {
-        "URL": "https://www.cmc.pr.gov.br",
-        "Title": "Câmara Municipal de Curitiba"
+        "toplevel_name": "Favoritos Gerenciados"
       },
       {
-        "URL": "https://intranet.cmc.pr.gov.br",
-        "Title": "Intranet"
+        "url": "https://www.cmc.pr.gov.br",
+        "name": "Câmara Municipal de Curitiba"
       },
       {
-        "URL": "https://correio.cmc.pr.gov.br",
-        "Title": "Correio"
+        "url": "https://intranet.cmc.pr.gov.br",
+        "name": "Intranet"
       },
       {
-        "URL": "https://www.cmc.pr.gov.br/spl",
-        "Title": "SPL II"
+        "url": "https://correio.cmc.pr.gov.br",
+        "name": "Correio"
       },
       {
-        "URL": "https://intranet.cmc.pr.gov.br/spa",
-        "Title": "SPA"
+        "url": "https://www.cmc.pr.gov.br/spl",
+        "name": "SPL II"
       },
       {
-        "URL": "https://servicos.cmc.pr.gov.br",
-        "Title": "Elotech - Sistema de Gestão"
+        "url": "https://intranet.cmc.pr.gov.br/spa",
+        "name": "SPA"
       },
       {
-        "URL": "https://chamados.cmc.pr.gov.br",
-        "Title": "Chamados"
+        "url": "https://servicos.cmc.pr.gov.br",
+        "name": "Elotech - Sistema de Gestão"
       },
       {
-        "URL": "https://suporte.cmc.pr.gov.br",
-        "Title": "Suporte"
+        "url": "https://chamados.cmc.pr.gov.br",
+        "name": "Chamados"
       },
       {
-        "URL": "https://www.curitiba.pr.gov.br",
-        "Title": "Prefeitura Municipal de Curitiba"
+        "url": "https://suporte.cmc.pr.gov.br",
+        "name": "Suporte"
       },
       {
-        "URL": "https://web.openrainbow.com/",
-        "Title": "Rainbow"
+        "url": "https://www.curitiba.pr.gov.br",
+        "name": "Prefeitura Municipal de Curitiba"
+      },
+      {
+        "url": "https://web.openrainbow.com/",
+        "name": "Rainbow"
       }
     ]
   }
-}' > /usr/lib/firefox-esr/distribution/policies.json
+}' >/usr/lib/firefox-esr/distribution/policies.json
 
 # Coloca firefox como padrão
 update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/firefox-esr 999
@@ -129,13 +133,13 @@ echo '{
       "name": "Rainbow"
     }
   ]
-}' > /etc/opt/chrome/policies/managed/cmc.json
+}' >/etc/opt/chrome/policies/managed/cmc.json
 echo '{
 	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
 	"RestoreOnStartup": 4,
 	"RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
 	"HomepageIsNewTabPage": false
-}' > /etc/opt/chrome/policies/recommended/cmc.json
+}' >/etc/opt/chrome/policies/recommended/cmc.json
 
 # Copia o ícone do firefox ESR pra pasta certa PQ ELE SUMIU NÃO SEI PQ
 cp -vn ../arquivos/imagens/firefox-esr.png /usr/share/pixmaps/
