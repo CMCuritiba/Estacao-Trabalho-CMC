@@ -38,6 +38,14 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
         "url": "https://intranet.cmc.pr.gov.br/spa",
         "name": "SPA"
       },
+      {	      
+        "URL": "https://nuvem.cmc.pr.gov.br/",
+        "Title": "Nuvem"
+      },
+      {	      
+        "URL": "https://intranet.cmc.pr.gov.br/apl/",
+        "Title": "APL"
+      },
       {
         "url": "https://servicos.cmc.pr.gov.br",
         "name": "Elotech - Sistema de Gestão"
@@ -94,6 +102,14 @@ if ! grep -q "Elotech" "$favsChrome"; then
     {
       "url": "https://intranet.cmc.pr.gov.br/spa",
       "name": "SPA"
+    },
+    {       	    {
+      "url": "https://nuvem.cmc.pr.gov.br/",
+      "name": "Nuvem"
+    },
+    {	  
+      "url": "https://intranet.cmc.pr.gov.br/apl/",
+      "name": "APL"
     },
     {
       "url": "https://servicos.cmc.pr.gov.br",
