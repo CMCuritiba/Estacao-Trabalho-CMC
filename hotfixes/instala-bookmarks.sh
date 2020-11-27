@@ -39,12 +39,12 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
         "name": "SPA"
       },
       {	      
-        "URL": "https://nuvem.cmc.pr.gov.br/",
-        "Title": "Nuvem"
+        "url": "https://nuvem.cmc.pr.gov.br/",
+        "name": "Nuvem"
       },
       {	      
-        "URL": "https://intranet.cmc.pr.gov.br/apl/",
-        "Title": "APL"
+        "url": "https://intranet.cmc.pr.gov.br/apl/",
+        "name": "APL"
       },
       {
         "url": "https://servicos.cmc.pr.gov.br",
@@ -103,7 +103,7 @@ if ! grep -q "Elotech" "$favsChrome"; then
       "url": "https://intranet.cmc.pr.gov.br/spa",
       "name": "SPA"
     },
-    {       	    {
+    {       	    
       "url": "https://nuvem.cmc.pr.gov.br/",
       "name": "Nuvem"
     },
