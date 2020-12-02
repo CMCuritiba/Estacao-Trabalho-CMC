@@ -18,7 +18,7 @@ chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
 # Remove execução do editor de cada item do menu, cinnamon-desktop-item-edit
 chmod 700 /usr/bin/cinnamon-desktop-editor
 
-# Remove execução do compiz --> Cinnamon é um fork do Gnome-Shell e não suporta ainda o Compiz.
+# Remove execução do compiz --> Cinnamon é um fork do Gnome-Shell e ainda não suporta o Compiz.
 #Fonte: https://plus.diolinux.com.br/t/compiz-nao-roda-no-linux-mint-19-1-cinnamon/619
 #chmod 700 /usr/bin/ccsm
 

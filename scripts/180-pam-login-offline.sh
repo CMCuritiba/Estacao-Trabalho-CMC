@@ -4,13 +4,11 @@
 # Autora: Renata Carvalho
 # Data: 08/12/17
 # Versão: 1.0
-# Descrição: Esse script modifica as configurações do PAM para que este guarde o cache dos users corretamente e permita o login offline, permitindo o uso dos programas locais. 
+# Descrição: Esse script modifica as configurações do PAM para que este guarde o cache dos users corretamente e permita o login offline, permitindo o uso dos programas locais.
 ######################################################################################################################################################################################################
 
-
-
-if [ ! -f  "/etc/pam.d/common-auth" ] && [ ! -f "/etc/pam.d/common-account" ]; then
-	exit 1;
+if [ ! -f "/etc/pam.d/common-auth" ] && [ ! -f "/etc/pam.d/common-account" ]; then
+	exit 1
 fi
 
 #if [ ! -f  "/etc/pam.d/common-session" ]; then
@@ -52,7 +50,7 @@ auth    requisite       pam_deny.so
 # since the modules above will each just jump around
 auth	required	pam_permit.so
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-auth
+# end of pam-auth-update config" >/etc/pam.d/common-auth
 
 echo "#
 # /etc/pam.d/common-account - authorization settings common to all services
@@ -79,7 +77,7 @@ account	requisite	pam_deny.so
 # since the modules above will each just jump around
 account	required	pam_permit.so
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-account
+# end of pam-auth-update config" >/etc/pam.d/common-account
 
 echo "#
 # /etc/pam.d/common-session - session-related modules common to all services
@@ -113,7 +111,7 @@ session	optional	pam_mount.so
 session	optional	pam_ldap.so 
 session	optional	pam_systemd.so 
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-session
+# end of pam-auth-update config" >/etc/pam.d/common-session
 
 #Config final do arquivo nsswitch.
 sed -i '/^passwd:/c\passwd: compat files ldap \[NOTFOUND=return\] db' /etc/nsswitch.conf

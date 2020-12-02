@@ -17,6 +17,3 @@ background = /usr/share/backgrounds/cmc/login-bg.jpg
 show-hostname=true
 font-name=Mint 20
 activate-numlock=true' > /etc/lightdm/slick-greeter.conf 
-
-# Pega hostname do DHCP
-rm /etc/hostname

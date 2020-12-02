@@ -5,11 +5,11 @@ apt-get update
 apt-get -qyf install unattended-upgrades
 
 if [ -f "/etc/upstream-release/lsb-release" ]; then
-	source "/etc/upstream-release/lsb-release";
+    source "/etc/upstream-release/lsb-release"
 else
     echo "Versão base do Mint não encontrada"
     exit 1
-fi;
+fi
 
 UNATTENDEDCONF="/etc/apt/apt.conf.d/50unattended-upgrades"
 

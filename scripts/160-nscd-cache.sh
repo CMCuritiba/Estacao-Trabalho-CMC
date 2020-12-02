@@ -4,12 +4,11 @@
 # Autora: Renata Carvalho
 # Data: 28/11/17
 # Versão: 1.0
-# Descrição: Esse script modifica as configurações do NSCD para que este guarde o cache corretamente e funcione offline, impedindo o linux mint de travar quando a rede cair. Está configurado para guardar o cache por 64.800 segundos, ou 18 horas. 
+# Descrição: Esse script modifica as configurações do NSCD para que este guarde o cache corretamente e funcione offline, impedindo o linux mint de travar quando a rede cair. Está configurado para guardar o cache por 64.800 segundos, ou 18 horas.
 ######################################################################################################################################################################################################
 
-
-if [ ! -f  "/etc/nscd.conf" ] || [ ! -f "/etc/nsswitch.conf" ]; then
-	exit 1;
+if [ ! -f "/etc/nscd.conf" ] || [ ! -f "/etc/nsswitch.conf" ]; then
+        exit 1
 fi
 
 cp /etc/nscd.conf /etc/nscd.conf-old
@@ -73,10 +72,10 @@ echo "#       logfile                 /var/log/nscd.log
         check-files             netgroup        yes
         persistent              netgroup        yes
         shared                  netgroup        yes
-        max-db-size             netgroup        33554432" > /etc/nscd.conf
+        max-db-size             netgroup        33554432" >/etc/nscd.conf
 
-if [ ! -f  "/etc/nscd.conf" ]; then
-	exit 1;
+if [ ! -f "/etc/nscd.conf" ]; then
+        exit 1
 fi
 
 echo "passwd: compat files ldap
@@ -92,8 +91,8 @@ services:       db files
 ethers:         db files
 rpc:            db files
 
-netgroup:  files nis ldap" > /etc/nsswitch.conf
+netgroup:  files nis ldap" >/etc/nsswitch.conf
 
-if [ ! -f  "/etc/nsswitch.conf" ]; then
-	exit 1;
+if [ ! -f "/etc/nsswitch.conf" ]; then
+        exit 1
 fi
