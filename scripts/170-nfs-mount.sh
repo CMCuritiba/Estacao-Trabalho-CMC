@@ -1,15 +1,19 @@
 #!/bin/bash
 
-if [ ! -f  "/etc/fstab" ]; then
+FSTAB=/etc/fstab # type: string path (caminho do fstab no Mint)
+
+if [ ! -f  "$FSTAB" ]; then
 	exit 1;
 fi
 
 mkdir -p /mnt/suporte
 
-# Monta o servidor tauari
-if ! grep -q "tauari" /etc/fstab; then
-	# Backup do antigo
-	cp /etc/fstab /etc/fstab-old
+# Backup do antigo
+cp -a "$FSTAB" "$FSTAB-$(date +%F)"
 
-	echo "tauari:/dados/aplcmc/suporte /mnt/suporte nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0" >> /etc/fstab
+# Monta o compartilhamento remoto
+if grep -q "tauari" "$FSTAB"; then
+	sed -i '/^tauari/c\10.0.0.5:\/data\/suporte \/mnt\/suporte nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0' "$FSTAB"
+elif ! grep -q "10\.0\.0\.5" "$FSTAB"; then
+	echo "10.0.0.5:/data/suporte /mnt/suporte nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0" >> "$FSTAB"
 fi
