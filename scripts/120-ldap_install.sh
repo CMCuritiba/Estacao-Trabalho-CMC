@@ -10,8 +10,7 @@ fi
 
 NSLCDCONF=/etc/nslcd.conf # type: string path (caminho do nslcd.conf no Mint)
 if [ ! -f  "$NSLCDCONF" ]; then
-	# exit 1;
-    echo opa
+	exit 1;
 fi
 
 # Backup da configuração
