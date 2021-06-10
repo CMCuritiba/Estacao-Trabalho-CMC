@@ -10,13 +10,13 @@ fi
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/v1.17/README.md
 favsFirefox="/usr/lib/firefox-esr/distribution/policies.json"  # type: json file
-if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
+if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
   echo '{
   "policies": {
     "DisplayBookmarksToolbar": true,
     "ManagedBookmarks": [
       {
-        "toplevel_name": "Favoritos Gerenciados"
+        "toplevel_name": "Favoritos Gerenciados da CMC"
       },
       {
         "url": "https://www.cmc.pr.gov.br",
@@ -47,16 +47,24 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
         "name": "APL"
       },
       {
-        "url": "https://servicos.cmc.pr.gov.br",
-        "name": "Elotech - Sistema de Gestão"
+        "url": "https://acesso.cmcuritiba.eloweb.net/",
+        "name": "Eloweb Gestão Pública"
       },
       {
         "url": "https://chamados.cmc.pr.gov.br",
         "name": "Chamados"
       },
       {
-        "url": "https://suporte.cmc.pr.gov.br",
+        "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
         "name": "Suporte"
+      },
+      {
+        "url": "https://senha.cmc.pr.gov.br/,
+        "name": "Senha"
+      },
+      {
+        "url": "https://teamwork.cmc.pr.gov.br",
+        "name": "Teamwork"
       },
       {
         "url": "https://www.curitiba.pr.gov.br",
@@ -72,12 +80,10 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -q "Elotech" "$favsFirefox"; then
 fi
 
 # Instala atalho gerenciado no Google Chrome
-# TODO: Aparentemente não é possível a edição/inserção programática de atalhos
-# nos perfis do Firefox.
-# Referencia para policies do Chrome:
+# Referencia para policies:
 # https://cloud.google.com/docs/chrome-enterprise/policies/
 favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
-if ! grep -q "Elotech" "$favsChrome"; then
+if [[ ! -f "$favsChrome" ]] || ! grep -iq "correio\.cmc" "$favsChrome"; then
   echo '{
   "DownloadDirectory": "/home/${user_name}/Downloads",
   "DefaultBrowserSettingEnabled": false,
@@ -112,16 +118,24 @@ if ! grep -q "Elotech" "$favsChrome"; then
       "name": "APL"
     },
     {
-      "url": "https://servicos.cmc.pr.gov.br",
-      "name": "Elotech - Sistema de Gestão"
+      "url": "https://acesso.cmcuritiba.eloweb.net/",
+      "name": "Eloweb Gestão Pública"
     },
     {
       "url": "https://chamados.cmc.pr.gov.br",
       "name": "Chamados"
     },
     {
-      "url": "https://suporte.cmc.pr.gov.br",
+      "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
       "name": "Suporte"
+    },
+    {
+      "url": "https://senha.cmc.pr.gov.br/,
+      "name": "Senha"
+    },
+    {
+      "url": "https://teamwork.cmc.pr.gov.br",
+      "name": "Teamwork"
     },
     {
       "url": "https://www.curitiba.pr.gov.br",

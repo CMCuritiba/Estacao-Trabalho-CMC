@@ -9,5 +9,6 @@ para correções e alterações na imagem padrão já instalada.
 1. Instala favoritos gerenciados no Google Chrome
 1. Corrige grupo DTIC no sudoers
 1. Instala favoritos gerenciados no Mozilla Firefox
+1. Atualiza favoritos gerenciados
 
-Bump para [versão](https://semver.org/) 4.2.6
+Bump para [versão](https://semver.org/) 4.2.7
