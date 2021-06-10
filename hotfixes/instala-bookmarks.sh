@@ -59,7 +59,7 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
         "name": "Suporte"
       },
       {
-        "url": "https://senha.cmc.pr.gov.br/,
+        "url": "https://senha.cmc.pr.gov.br/",
         "name": "Senha"
       },
       {
@@ -130,7 +130,7 @@ if [[ ! -f "$favsChrome" ]] || ! grep -iq "correio\.cmc" "$favsChrome"; then
       "name": "Suporte"
     },
     {
-      "url": "https://senha.cmc.pr.gov.br/,
+      "url": "https://senha.cmc.pr.gov.br/",
       "name": "Senha"
     },
     {
