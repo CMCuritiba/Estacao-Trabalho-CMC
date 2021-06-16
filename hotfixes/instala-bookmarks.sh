@@ -10,7 +10,7 @@ fi
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/v1.17/README.md
 favsFirefox="/usr/lib/firefox-esr/distribution/policies.json"  # type: json file
-if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
+if [[ ! -f "$favsFirefox" ]] || ! grep -iq "BIB" "$favsFirefox"; then
   echo '{
   "policies": {
     "DisplayBookmarksToolbar": true,
@@ -19,30 +19,30 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
         "toplevel_name": "Favoritos Gerenciados da CMC"
       },
       {
-        "url": "https://www.cmc.pr.gov.br",
+        "url": "https://www.cmc.pr.gov.br/",
         "name": "Câmara Municipal de Curitiba"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/",
         "name": "Intranet"
       },
       {
-        "url": "https://correio.cmc.pr.gov.br",
+        "url": "https://correio.cmc.pr.gov.br/",
         "name": "Correio"
       },
       {
-        "url": "https://www.cmc.pr.gov.br/spl",
+        "url": "https://www.cmc.pr.gov.br/spl/",
         "name": "SPL II"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br/spa",
+        "url": "https://intranet.cmc.pr.gov.br/spa/",
         "name": "SPA"
       },
-      {	      
+      {
         "url": "https://nuvem.cmc.pr.gov.br/",
         "name": "Nuvem"
       },
-      {	      
+      {
         "url": "https://intranet.cmc.pr.gov.br/apl/",
         "name": "APL"
       },
@@ -51,7 +51,7 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
         "name": "Eloweb Gestão Pública"
       },
       {
-        "url": "https://chamados.cmc.pr.gov.br",
+        "url": "https://chamados.cmc.pr.gov.br/",
         "name": "Chamados"
       },
       {
@@ -63,11 +63,15 @@ if [[ ! -f "$favsFirefox" ]] || ! grep -iq "correio\.cmc" "$favsFirefox"; then
         "name": "Senha"
       },
       {
-        "url": "https://teamwork.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/bib/",
+        "name": "BIB"
+      },
+      {
+        "url": "https://teamwork.cmc.pr.gov.br/",
         "name": "Teamwork"
       },
       {
-        "url": "https://www.curitiba.pr.gov.br",
+        "url": "https://www.curitiba.pr.gov.br/",
         "name": "Prefeitura Municipal de Curitiba"
       },
       {
@@ -83,37 +87,37 @@ fi
 # Referencia para policies:
 # https://cloud.google.com/docs/chrome-enterprise/policies/
 favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
-if [[ ! -f "$favsChrome" ]] || ! grep -iq "correio\.cmc" "$favsChrome"; then
+if [[ ! -f "$favsChrome" ]] || ! grep -iq "BIB" "$favsChrome"; then
   echo '{
   "DownloadDirectory": "/home/${user_name}/Downloads",
   "DefaultBrowserSettingEnabled": false,
   "DisablePrintPreview": true,
   "ManagedBookmarks": [
     {
-      "url": "https://www.cmc.pr.gov.br",
+      "url": "https://www.cmc.pr.gov.br/",
       "name": "Câmara Municipal de Curitiba"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br",
+      "url": "https://intranet.cmc.pr.gov.br/",
       "name": "Intranet"
     },
     {
-      "url": "https://correio.cmc.pr.gov.br",
+      "url": "https://correio.cmc.pr.gov.br/",
       "name": "Correio"
     },
     {
-      "url": "https://www.cmc.pr.gov.br/spl",
+      "url": "https://www.cmc.pr.gov.br/spl/",
       "name": "SPL II"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/spa",
+      "url": "https://intranet.cmc.pr.gov.br/spa/",
       "name": "SPA"
     },
-    {       	    
+    {
       "url": "https://nuvem.cmc.pr.gov.br/",
       "name": "Nuvem"
     },
-    {	  
+    {
       "url": "https://intranet.cmc.pr.gov.br/apl/",
       "name": "APL"
     },
@@ -122,7 +126,7 @@ if [[ ! -f "$favsChrome" ]] || ! grep -iq "correio\.cmc" "$favsChrome"; then
       "name": "Eloweb Gestão Pública"
     },
     {
-      "url": "https://chamados.cmc.pr.gov.br",
+      "url": "https://chamados.cmc.pr.gov.br/",
       "name": "Chamados"
     },
     {
@@ -134,11 +138,15 @@ if [[ ! -f "$favsChrome" ]] || ! grep -iq "correio\.cmc" "$favsChrome"; then
       "name": "Senha"
     },
     {
-      "url": "https://teamwork.cmc.pr.gov.br",
+      "url": "https://intranet.cmc.pr.gov.br/bib/",
+      "name": "BIB"
+    },
+    {
+      "url": "https://teamwork.cmc.pr.gov.br/",
       "name": "Teamwork"
     },
     {
-      "url": "https://www.curitiba.pr.gov.br",
+      "url": "https://www.curitiba.pr.gov.br/",
       "name": "Prefeitura Municipal de Curitiba"
     },
     {

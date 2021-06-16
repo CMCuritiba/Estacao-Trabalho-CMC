@@ -10,5 +10,6 @@ para correções e alterações na imagem padrão já instalada.
 1. Corrige grupo DTIC no sudoers
 1. Instala favoritos gerenciados no Mozilla Firefox
 1. Atualiza favoritos gerenciados
+1. Adiciona BIB aos favoritos gerenciados
 
-Bump para [versão](https://semver.org/) 4.2.7
+Bump para [versão](https://semver.org/) 4.2.8
