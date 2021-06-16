@@ -34,30 +34,30 @@ echo '{
         "toplevel_name": "Favoritos Gerenciados da CMC"
       },
       {
-        "url": "https://www.cmc.pr.gov.br",
+        "url": "https://www.cmc.pr.gov.br/",
         "name": "Câmara Municipal de Curitiba"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/",
         "name": "Intranet"
       },
       {
-        "url": "https://correio.cmc.pr.gov.br",
+        "url": "https://correio.cmc.pr.gov.br/",
         "name": "Correio"
       },
       {
-        "url": "https://www.cmc.pr.gov.br/spl",
+        "url": "https://www.cmc.pr.gov.br/spl/",
         "name": "SPL II"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br/spa",
+        "url": "https://intranet.cmc.pr.gov.br/spa/",
         "name": "SPA"
       },
-      {	      
+      {
         "url": "https://nuvem.cmc.pr.gov.br/",
         "name": "Nuvem"
       },
-      {	      
+      {
         "url": "https://intranet.cmc.pr.gov.br/apl/",
         "name": "APL"
       },
@@ -66,7 +66,7 @@ echo '{
         "name": "Eloweb Gestão Pública"
       },
       {
-        "url": "https://chamados.cmc.pr.gov.br",
+        "url": "https://chamados.cmc.pr.gov.br/",
         "name": "Chamados"
       },
       {
@@ -78,11 +78,15 @@ echo '{
         "name": "Senha"
       },
       {
-        "url": "https://teamwork.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/bib/",
+        "name": "BIB"
+      },
+      {
+        "url": "https://teamwork.cmc.pr.gov.br/",
         "name": "Teamwork"
       },
       {
-        "url": "https://www.curitiba.pr.gov.br",
+        "url": "https://www.curitiba.pr.gov.br/",
         "name": "Prefeitura Municipal de Curitiba"
       },
       {
@@ -108,23 +112,23 @@ echo '{
   "DisablePrintPreview": true,
   "ManagedBookmarks": [
     {
-      "url": "https://www.cmc.pr.gov.br",
+      "url": "https://www.cmc.pr.gov.br/",
       "name": "Câmara Municipal de Curitiba"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br",
+      "url": "https://intranet.cmc.pr.gov.br/",
       "name": "Intranet"
     },
     {
-      "url": "https://correio.cmc.pr.gov.br",
+      "url": "https://correio.cmc.pr.gov.br/",
       "name": "Correio"
     },
     {
-      "url": "https://www.cmc.pr.gov.br/spl",
+      "url": "https://www.cmc.pr.gov.br/spl/",
       "name": "SPL II"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/spa",
+      "url": "https://intranet.cmc.pr.gov.br/spa/",
       "name": "SPA"
     },
     {
@@ -140,7 +144,7 @@ echo '{
       "name": "Eloweb Gestão Pública"
     },
     {
-      "url": "https://chamados.cmc.pr.gov.br",
+      "url": "https://chamados.cmc.pr.gov.br/",
       "name": "Chamados"
     },
     {
@@ -152,11 +156,15 @@ echo '{
       "name": "Senha"
     },
     {
-      "url": "https://teamwork.cmc.pr.gov.br",
+      "url": "https://intranet.cmc.pr.gov.br/bib/",
+      "name": "BIB"
+    },
+    {
+      "url": "https://teamwork.cmc.pr.gov.br/",
       "name": "Teamwork"
     },
     {
-      "url": "https://www.curitiba.pr.gov.br",
+      "url": "https://www.curitiba.pr.gov.br/",
       "name": "Prefeitura Municipal de Curitiba"
     },
     {
