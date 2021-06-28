@@ -3,7 +3,7 @@
 chmod 700 /usr/bin/mate-terminal
 
 #Remove execução do Mintupdate
-chmod 700 /usr/bin/mintupdate #update automatico
+#chmod 700 /usr/bin/mintupdate #update automatico
 
 #Remove execução do Mintreport
 chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
