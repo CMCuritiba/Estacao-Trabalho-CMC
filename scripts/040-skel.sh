@@ -6,9 +6,6 @@ mkdir -p /etc/skel/Downloads
 mkdir -p /etc/skel/.local/share/data/ownCloud
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
-mkdir -p /etc/skel/.config/psi
-mkdir -p /etc/skel/.config/psi/profiles
-mkdir -p /etc/skel/.config/psi/profiles/default
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
 # Cria o arquivo padrão de user-dirs.dirs
@@ -78,6 +75,19 @@ Icon[pt_BR]=firefox
 Name[pt_BR]=Suporte
 Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
 
+# Configura atalho para o mensageiro
+# O icone é configurado no script 035
+echo -e "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=Rainbow
+Exec=google-chrome --app=https://web.openrainbow.com/
+Name[pt_BR]=Rainbow
+Icon=/usr/share/pixmaps/Rainbow.png" > /etc/skel/Desktop/Rainbow.desktop
+
+
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
 
@@ -86,31 +96,6 @@ ln -rfs /etc/skel/Nuvem /etc/skel/Desktop/Nuvem
 if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then
 	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks
 fi
-
-# Condiguração do Psi
-# Substituir "USUARIOAQUI"
-echo '<!DOCTYPE accounts>
-<accounts version="1.3" xmlns="http://psi-im.org/options">
- <accounts>
-  <a0>
-   <jid type="QString">USUARIOAQUI@mensageiro.cmc.pr.gov.br</jid>
-   <allow-plain type="QString">over encryped</allow-plain>
-   <auto type="bool">true</auto>
-   <ssl type="QString">legacy</ssl>
-   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
-   <enable-sm type="bool">true</enable-sm>
-   <enabled type="bool">true</enabled>
-   <name type="QString">mensageiro</name>
-   <host type="QString">mensageiro.cmc.pr.gov.br</host>
-   <log type="bool">true</log>
-   <port type="int">5223</port>
-   <ignore-SSL-warnings type="bool">true</ignore-SSL-warnings>
-   <keep-alive type="bool">true</keep-alive>
-   <priority type="int">5</priority>
-   <automatic-resource type="bool">true</automatic-resource>
-  </a0>
- </accounts>
-</accounts>' > /etc/skel/.config/psi/profiles/default/accounts.xml
 
 # Configuração ownCloud
 # Substituir "USUARIOAQUI" pelo nome do usuario em script ao logare
@@ -194,10 +179,6 @@ if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/
     echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
 fi
 
-if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.config/psi/profiles/default/accounts.xml" /etc/skel/.profile; then
-    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.config/psi/profiles/default/accounts.xml || true" >> /etc/skel/.profile
-fi
-
 
 # Política de privacidade
 echo '#!/bin/bash
@@ -215,21 +196,3 @@ echo 'if [ -f "$HOME/.politicainformatica.sh" ]; then
 	bash $HOME/.politicainformatica.sh;
 fi' >> /etc/skel/.profile
 fi
-
-# Mensagem instantânea
-if ! grep -q 'INSTANT="/usr/local/cmc/scripts/instant.msg.sh"' /etc/skel/.profile; then
-echo 'if [ "$EUID" != "0" ] ; then
-	INSTANT="/usr/local/cmc/scripts/instant.msg.sh"
-	RESULT_I=$(crontab -l 2>/dev/null | grep -c "instant.msg.sh")
-	if [ $RESULT_I -eq 0 ]; then
-		echo "*/3 *     * * *   $INSTANT /mnt/suporte/instant.msg" > /tmp/$USER.cron;
-		crontab /tmp/$USER.cron
-	fi
-fi' >> /etc/skel/.profile
-fi
-
-# Tecnicamente não skel, mas faz parte da msg instantânea
-mkdir -p /usr/local/cmc/scripts/
-cp ../arquivos/instant.msg.sh /usr/local/cmc/scripts/instant.msg.sh
-cp ../arquivos/cmc-profile.sh /etc/profile.d/cmc-profile.sh
-

@@ -5,6 +5,9 @@ chmod 700 /usr/bin/mate-terminal
 #Remove execução do Mintupdate
 #chmod 700 /usr/bin/mintupdate #update automatico
 
+#Remove execução do Mintreport
+chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
+
 # Remove execução do editor de permissões usuário dconf-editor
 #chmod 700 /usr/bin/dconf-editor #editor de permissões usuário
 # Não vem instalado por padrão
@@ -23,6 +26,11 @@ chmod 700 /usr/bin/nm-connection-editor
 
 # Desabilita editor de proxy
 chmod 700 /usr/bin/mate-network-properties
+
+#desabilita gnome-keyring
+chmod 700 /usr/bin/gnome-keyring
+chmod 700 /usr/bin/gnome-keyring-3
+chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Cria uma ACL para que suporte possa abrir terminal
 setfacl -m u:suporte:rwx /usr/bin/mate-terminal

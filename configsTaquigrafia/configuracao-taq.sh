@@ -26,7 +26,7 @@ if [ "$USUARIO" != "root" ] && [ "$USUARIO" != "suporte" ]; then
 	cp ./Modelo_taq_etv4.ott "/home/$USUARIO/.config/libreoffice/4/user/template/"
 	cp ./registrymodifications.xcu "/home/$USUARIO/.config/libreoffice/4/user/"
 	
-	chown -R "$USUARIO:Domain Users" "/home/$USUARIO/.config/"
+	chown -R "$USUARIO:cmc" "/home/$USUARIO/.config/"
 fi
 
 # Atualiza atalho do SAT para Firefox e Chrome
