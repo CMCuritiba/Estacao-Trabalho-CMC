@@ -51,6 +51,10 @@ ln -sf /usr/share/backgrounds/cmc/desktop-bg.png /usr/local/cmc/modificados/desk
 # Servidor NTP
 ln -sf /etc/ntp.conf /usr/local/cmc/modificados/ntp.conf
 
+# Configura CUPS
+ln -sf /etc/cups/cupsd.conf /usr/local/cmc/modificados/cupsd.conf
+ln -sf /etc/cups/cups-browsed.conf /usr/local/cmc/modificados/cups-browsed.conf
+
 # NSSwitch
 ln -sf /etc/nsswitch.conf /usr/local/cmc/modificados/nsswitch.conf
 
