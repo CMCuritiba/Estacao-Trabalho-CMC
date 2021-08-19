@@ -22,7 +22,7 @@ chmod 700 /usr/bin/mate-desktop-item-edit
 chmod 700 /usr/bin/ccsm
 
 # Desabilita edição de conexão:
-chmod 700 /usr/bin/nm-connection-editor 
+chmod 700 /usr/bin/nm-connection-editor
 
 # Desabilita editor de proxy
 chmod 700 /usr/bin/mate-network-properties
@@ -44,10 +44,21 @@ setfacl -m g:dtic:rx /usr/bin/mate-network-properties
 
 # Adiciona dtic ao sudoers caso não exista
 if ! grep -w "dtic" /etc/sudoers; then
-	sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
+    sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
 fi
 
 # Adiciona o suporte ao sudoers caso não exista
 if ! grep -w "suporte" /etc/sudoers; then
-	echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
+    echo 'suporte   ALL=(ALL:ALL) ALL' >>/etc/sudoers
 fi
+
+# Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
+udisks_policy="/usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy"
+for fsm in {filesystem-mount,filesystem-unmount-others,filesystem-mount-system}; do
+    for defaul_acl in {allow_any,allow_inactive,allow_active}; do
+        xmlstarlet edit -L \
+            --update "//policyconfig/action[@id='org.freedesktop.udisks2.$fsm']/defaults/$defaul_acl" \
+            --value 'yes' \
+            "$udisks_policy"
+    done
+done

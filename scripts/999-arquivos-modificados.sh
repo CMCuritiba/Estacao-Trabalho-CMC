@@ -66,3 +66,7 @@ ln -sf /etc/cron.hourly/nssupdate /usr/local/cmc/modificados/nssupdate
 
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
+
+# Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
+ln -sf /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy \
+    /usr/local/cmc/modificados/org.freedesktop.UDisks2.policy
