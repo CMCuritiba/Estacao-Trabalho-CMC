@@ -35,7 +35,7 @@ apt-get install -qyf firefox-esr firefox-esr-locale-pt
 # Utilitarios e produtividade
 apt-get install -qyf owncloud-client owncloud-client-caja vim gedit pdfsam unrar ttf-mscorefonts-installer gnote
 # SO
-apt-get install -qyf ncdu numlockx acct
+apt-get install -qyf ncdu numlockx acct xmlstarlet
 
 # Chrome, pq chrome é especial:
 if ! dpkg-query -l google-chrome-stable &>/dev/null; then
