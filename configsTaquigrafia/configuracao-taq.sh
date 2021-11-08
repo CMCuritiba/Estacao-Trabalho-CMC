@@ -30,9 +30,9 @@ fi
 
 # Atualiza atalho do SAT para Firefox e Chrome
 
-if grep -q "\[BookmarksToolbar\]" /usr/lib/firefox-esr/distribution/distribution.ini; then
+if grep -q "\[BookmarksToolbar\]" /usr/lib/firefox/distribution/distribution.ini; then
    echo "item.12.title=SAT Visualizar
-	item.12.link=https://intranet.cmc.pr.gov.br/sat/visualizar.xhtml" >>/usr/lib/firefox-esr/distribution/distribution.ini
+	item.12.link=https://intranet.cmc.pr.gov.br/sat/visualizar.xhtml" >>/usr/lib/firefox/distribution/distribution.ini
 fi
 
 echo '{

@@ -52,6 +52,7 @@ setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
 setfacl -m u:suporte:rx /usr/bin/nm-applet
 
 # Cria uma ACL para ajustar as permissões do grupo dtic
+# grupo não criado
 setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor

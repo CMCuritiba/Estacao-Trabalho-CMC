@@ -11,5 +11,5 @@ if ! grep -q "tauari" /etc/fstab; then
 	# Backup do antigo
 	cp /etc/fstab /etc/fstab-old
 
-	echo "$TAUARI" >>/etc/fstab
+	echo "$NFS_SERV" >>/etc/fstab
 fi

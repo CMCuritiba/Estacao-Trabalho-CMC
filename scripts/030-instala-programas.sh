@@ -5,10 +5,6 @@
 sed -i 's|//archive.ubuntu.com|//br.archive.ubuntu.com|' /etc/apt/sources.list.d/official-package-repositories.list
 sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' /etc/apt/sources.list.d/official-package-repositories.list
 
-# Adicionar os repositórios necessários:
-add-apt-repository -y ppa:starws-box/deadbeef-player
-add-apt-repository -y ppa:mozillateam/ppa
-
 # Update e Upgrade inicial:
 apt-get update
 apt-get -y upgrade
@@ -17,9 +13,7 @@ apt-get -y upgrade
 # Acesso remoto
 apt-get install -qyf rdesktop vino openssh-server
 # Midia
-apt-get install -qyf deadbeef vlc audacity exfat-fuse exfat-utils shotwell gthumb gimp-help-pt drawing
-# Navegacao
-apt-get install -qyf firefox-esr firefox-esr-locale-pt
+apt-get install -qyf vlc audacity exfat-fuse exfat-utils shotwell gthumb gimp-help-pt drawing
 # Utilitarios e produtividade
 apt-get install -qyf vim gedit pdfsam unrar ttf-mscorefonts-installer
 # SO

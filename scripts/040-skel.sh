@@ -1,7 +1,6 @@
 #!/bin/bash
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
-#mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/Downloads
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
@@ -12,7 +11,6 @@ echo -e "XDG_DESKTOP_DIR=\"\$HOME/Desktop\"
 XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
 XDG_DOWNLOAD_DIR=\"\$HOME/Downloads\"
 " > /etc/skel/.config/user-dirs.dirs
-#XDG_PUBLICSHARE_DIR=\"\$HOME/Nuvem\"
 
 # Cria o arquivo padrão de local
 echo "pt_BR" > /etc/skel/.config/user-dirs.locale
@@ -31,10 +29,10 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=Firefox
-Exec=firefox-esr
-Icon[pt_BR]=/usr/share/pixmaps/firefox-esr.png
+Exec=firefox
+Icon[pt_BR]=/usr/share/pixmaps/firefox.png
 Name[pt_BR]=Firefox
-Icon=/usr/share/pixmaps/firefox-esr.png' > /etc/skel/Desktop/Firefox.desktop
+Icon=/usr/share/pixmaps/firefox.png' > /etc/skel/Desktop/Firefox.desktop
 
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
@@ -69,7 +67,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=Suporte
-Exec=firefox-esr suporte.cmc.pr.gov.br
+Exec=firefox suporte.cmc.pr.gov.br
 Icon[pt_BR]=firefox
 Name[pt_BR]=Suporte
 Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
@@ -88,12 +86,6 @@ Icon=/usr/share/pixmaps/Rainbow.png" > /etc/skel/Desktop/Rainbow.desktop
 
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
-
-#ln -rfs /etc/skel/Nuvem /etc/skel/Desktop/Nuvem	
-
-#if ! grep -q "/Nuvem" /etc/skel/.gtk-bookmarks; then	
-#	echo "file:///home/USUARIOAQUI/Nuvem Nuvem" >> /etc/skel/.gtk-bookmarks	
-#fi
 
 mkdir -p /etc/skel/.gimp-2.10/
 
@@ -148,12 +140,6 @@ echo '# GIMP sessionrc
 (last-tip-shown 0)
 
 # end of sessionrc' > /etc/skel/.gimp-2.10/sessionrc
-
-# Adições ao .profile para rodar durante login do usuário
-#if ! grep -q "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks" /etc/skel/.profile; then
-#    echo "sed -i 's/USUARIOAQUI/'\"\$USER\"'/g' \$HOME/.gtk-bookmarks || true" >> /etc/skel/.profile
-#fi
-
 
 # Política de privacidade
 echo '#!/bin/bash

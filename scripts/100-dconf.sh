@@ -8,11 +8,7 @@ echo "user-db:user
 system-db:local" > /etc/dconf/profile/user
  
 # Senha login remoto
-echo -en "Digite a senha para acesso remoto\nSenha:"
-read -s VNCPASS
-echo ""
- 
-VNCPASS64=$(echo -e "$VNCPASS" | base64);
+VNCPASS64=$(echo -e "$PASS_VNC" | base64);
  
 #Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
 #Ao baixar o applet pela interface gráfica fica em português, mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
@@ -217,7 +213,7 @@ echo "/org/gnome/desktop/remote-access/icon-visibility
 /org/gnome/desktop/remote-access/enabled
 /org/gnome/desktop/remote-access/vnc-password" > /etc/dconf/db/local.d/locks/01-cmc
  
-# Copia o  necessario para iniciar o terminal como root
+# Copia o script necessario para iniciar o terminal como root
 mkdir -p /usr/local/cmc/scripts
 cp ../arquivos/root-terminal.sh /usr/local/cmc/scripts/root-terminal.sh
 chmod +x /usr/local/cmc/scripts/root-terminal.sh

@@ -11,10 +11,10 @@ ln -sf /root/.bashrc /usr/local/cmc/modificados/bashrc
 ln -sf /root/.bash_aliases /usr/local/cmc/modificados/bash_aliases
 
 # Configs de browsers
-ln -sf /usr/lib/firefox-esr/defaults/pref/local-settings.js /usr/local/cmc/modificados/local-settings.js
-ln -sf /usr/lib/firefox-esr/mozilla.cfg /usr/local/cmc/modificados/mozilla.cfg
-ln -sf /usr/lib/firefox-esr/browser/override.ini /usr/local/cmc/modificados/override.ini
-ln -sf /usr/lib/firefox-esr/distribution/distribution.ini /usr/local/cmc/modificados/distribution.ini
+ln -sf /usr/lib/firefox/defaults/pref/local-settings.js /usr/local/cmc/modificados/local-settings.js
+ln -sf /usr/lib/firefox/mozilla.cfg /usr/local/cmc/modificados/mozilla.cfg
+ln -sf /usr/lib/firefox/browser/override.ini /usr/local/cmc/modificados/override.ini
+ln -sf /usr/lib/firefox/distribution/distribution.ini /usr/local/cmc/modificados/distribution.ini
 ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
 
 # Coisas no autostart

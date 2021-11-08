@@ -3,15 +3,11 @@
 # Cria usuário suporte se não existe
 if ! id -u suporte &>/dev/null; then
 	useradd -m suporte
-	# Requer input
-	echo "Digite a senha do usuário suporte:"
-	passwd suporte
+    echo -e "$PASS_SUPPORT'\n'$PASS_SUPPORT" | passwd suporte
 fi
 
 # Atualiza a senha de root
-# Requer input
-echo "Digite a senha de root:"
-sudo passwd
+echo -e "$PASS_ROOT'\n'$PASS_ROOT" | sudo passwd
 
 # Seta grupo principal de suporte para users e deleta grupo suporte se existe
 # Também tira suporte de grupos de admin

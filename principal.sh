@@ -2,7 +2,7 @@
 
 scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
 #O arquivo de configuração precisa existir
-if [ -f "$scriptsDir/.env.example" ]; then
+if [ -f "$scriptsDir/vars.env" ]; then
 
 	# Script devem rodados como root
 	if [[ $(/usr/bin/id -u) -ne 0 ]]; then
@@ -41,7 +41,7 @@ if [ -f "$scriptsDir/.env.example" ]; then
 	done < <(find "$scriptsDir/scripts" -mindepth 1 -maxdepth 1 -name "*.sh" -print0 | sort -z)
 
 	#Abre o arquivo de configuração
-	source "$scriptsDir/.env.example"
+	source "$scriptsDir/vars.env"
 	
 	for file in "${files[@]}"; do
 		if grep -q "$file" "/usr/local/cmc/script-andamento"; then

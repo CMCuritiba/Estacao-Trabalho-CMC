@@ -15,6 +15,17 @@ Procedimento:
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ETv4;
 3. Faça login com o usuário criado;
 4. Baixe os _scripts_ do [repositório](https://github.com/CMCuritiba/ETv4/).
-5. Execute os _scripts_ com permissão de `root` (será necessário _input_ em alguns momentos):
+5. Crie um arquivo na pasta raíz do projeto chamado `vars.env` e utilize o arquivo `.env.example` como base para preencher todas as variáveis necessárias para a execução dos scripts. As variáveis são:
+   - PASS_SUPPORT: senha do usuário suporte
+   - PASS_ROOT: senha do usuário root
+   - PASS_VNC: senha do login remoto (VNC)
+   - SERV_LDAP: IP do servidor LDAP
+   - DN_BASE1_LDAP: nome distinto base
+   - DN_BASE2_LDAP: nome distinto base
+   - BIND_DN: nome distinto de bind
+   - BIND_PW: password de bind
+   - NFS_SERV: servidor nfs
+
+6. Execute os _scripts_ com permissão de `root` (será necessário _input_ em alguns momentos):
    - `sudo ./principal.sh`
-6. Reinicie e faça login com seu usuário do domínio.
+7. Reinicie e faça login com seu usuário do domínio.
