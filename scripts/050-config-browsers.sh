@@ -140,6 +140,3 @@ echo '{
 	"RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
 	"HomepageIsNewTabPage": false
 }' >/etc/opt/chrome/policies/recommended/cmc.json
-
-# Copia o ícone do firefox ESR pra pasta certa PQ ELE SUMIU NÃO SEI PQ
-cp -vn ../arquivos/imagens/firefox.png /usr/share/pixmaps/

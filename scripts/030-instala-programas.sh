@@ -9,13 +9,23 @@ sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' /etc/apt/source
 apt-get update
 apt-get -y upgrade
 
+#tira input da instalação do ttf-mscorefonts-installer
+echo '
+Name: msttcorefonts/accepted-mscorefonts-eula
+Template: msttcorefonts/accepted-mscorefonts-eula
+Value: true
+Owners: ttf-mscorefonts-installer
+Flags: seen
+' >> /var/cache/debconf/config.dat
+
 # Instala programas
 # Acesso remoto
 apt-get install -qyf rdesktop vino openssh-server
 # Midia
 apt-get install -qyf vlc audacity exfat-fuse exfat-utils shotwell gthumb gimp-help-pt drawing
 # Utilitarios e produtividade
-apt-get install -qyf vim gedit pdfsam unrar ttf-mscorefonts-installer
+apt-get install -qyf vim gedit pdfsam unrar
+DEBIAN_FRONTEND=noninteractive apt-get -qyf install ttf-mscorefonts-installer
 # SO
 apt-get install -qyf ncdu numlockx acct
 

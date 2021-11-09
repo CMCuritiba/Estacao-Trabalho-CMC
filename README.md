@@ -19,9 +19,9 @@ Procedimento:
    - PASS_SUPPORT: senha do usuário suporte
    - PASS_ROOT: senha do usuário root
    - PASS_VNC: senha do login remoto (VNC)
-   - SERV_LDAP: IP do servidor LDAP
-   - DN_BASE1_LDAP: nome distinto base
-   - DN_BASE2_LDAP: nome distinto base
+   - SERV_LDAP: IP do servidor LDAP (pode ser passado dois)
+   - LDAP_USERS_DN: nome distinto base de usuarios
+   - LDAP_GROUPS_DN: nome distinto base de grupos
    - BIND_DN: nome distinto de bind
    - BIND_PW: password de bind
    - NFS_SERV: servidor nfs
