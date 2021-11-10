@@ -65,6 +65,6 @@ if [ -f "$scriptsDir/vars.env" ]; then
 	exit 0
 
 else
-	echo "Arquivo de configuração não encontrado"
+	echo "Arquivo de configuração não encontrado (veja o README para mais informações)"
 	exit 1
 fi

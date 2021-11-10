@@ -26,6 +26,6 @@ Procedimento:
    - BIND_PW: password de bind
    - NFS_SERV: servidor nfs
 
-6. Execute os _scripts_ com permissão de `root` (será necessário _input_ em alguns momentos):
+6. Execute os _scripts_ com permissão de `root`:
    - `sudo ./principal.sh`
 7. Reinicie e faça login com seu usuário do domínio.
