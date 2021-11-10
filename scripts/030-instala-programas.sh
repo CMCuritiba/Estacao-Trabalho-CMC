@@ -22,7 +22,9 @@ Flags: seen
 # Acesso remoto
 apt-get install -qyf rdesktop vino openssh-server
 # Midia
-apt-get install -qyf vlc audacity exfat-fuse exfat-utils shotwell gthumb gimp-help-pt drawing
+apt-get install -qyf vlc audacity exfat-fuse exfat-utils shotwell gthumb gimp gimp-help-pt drawing inkscape
+# Codecs multimida
+apt-get install -qyf gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-vaapi libavcodec-extra libdvdcss2 libdvdnav4 libdvdread7 libhal1-flash
 # Utilitarios e produtividade
 apt-get install -qyf vim gedit pdfsam unrar
 DEBIAN_FRONTEND=noninteractive apt-get -qyf install ttf-mscorefonts-installer
