@@ -51,6 +51,10 @@ ln -sf /usr/share/backgrounds/cmc/desktop-bg.png /usr/local/cmc/modificados/desk
 # Servidor NTP
 ln -sf /etc/ntp.conf /usr/local/cmc/modificados/ntp.conf
 
+# Configura CUPS
+ln -sf /etc/cups/cupsd.conf /usr/local/cmc/modificados/cupsd.conf
+ln -sf /etc/cups/cups-browsed.conf /usr/local/cmc/modificados/cups-browsed.conf
+
 # NSSwitch
 ln -sf /etc/nsswitch.conf /usr/local/cmc/modificados/nsswitch.conf
 
@@ -65,3 +69,7 @@ ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
 
 # Scripts de rede
 ln -sf /mnt/suporte/etv4/scripts/boot.sh /usr/local/cmc/modificados/boot.sh
+
+# Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
+ln -sf /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy \
+    /usr/local/cmc/modificados/org.freedesktop.UDisks2.policy

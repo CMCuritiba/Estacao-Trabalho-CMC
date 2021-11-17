@@ -1,15 +1,21 @@
 ### Repositório para os scripts da imagem Mint/Cinnamon
 
-#### Diretrizes
+## Diretrizes
+
 1. Devem ser criados _scripts_ para todas as operações possíveis.
-2. De preferência, evitar a necessidade de _input_ enquanto o _script_ roda.
-3. _Scripts_ devem ser seguros para múltiplas execuções.
+1. De preferência, evitar a necessidade de _input_ enquanto o _script_ roda.
+1. _Scripts_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguros para múltiplas execuções).
+1. _Scripts_ devem ser verificados com o `shellcheck`.
+
+## Requisitos
 
 #### Requisitos
 1. Os _scripts_ foram testados no **Mint 20 Cinnamon**.
 
-#### Instalação/configuração
+## Instalação/configuração
+
 Procedimento:
+
 1. Instalar o Mint normalmente;
    - Crie a conta padrão `suporte`.
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ETv4;
@@ -24,7 +30,6 @@ Procedimento:
    - LDAP_GROUPS_DN: nome distinto base de grupos
    - BIND_DN: nome distinto de bind
    - BIND_PW: password de bind
-   - NFS_SERV: servidor nfs
 
 6. Execute os _scripts_ com permissão de `root`:
    - `sudo ./principal.sh`

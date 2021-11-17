@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Criando arquivo para versionamento
-# Formato: ET-([0-9])(.[0-9])+
+# Esquema de versionamento SemVer: https://semver.org/
+# Formato: ET-MAJOR.MINOR.PATCH
 
 echo "ET-5" > /usr/local/cmc/version

@@ -3,7 +3,7 @@
 chmod 700 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
-chmod 700 /usr/bin/mintupdate #update automatico
+#chmod 700 /usr/bin/mintupdate #update automatico
 
 #Remove execução do Mintreport
 chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
@@ -41,7 +41,7 @@ fi
 
 # Adiciona o suporte ao sudoers caso não exista
 if ! grep -w "suporte" /etc/sudoers; then
-	echo 'suporte   ALL=(ALL:ALL) ALL' >> /etc/sudoers
+	echo 'suporte   ALL=(ALL:ALL) ALL' >>/etc/sudoers
 fi
 
 # Cria uma ACL para ajustar as permissões do usuário suporte
@@ -57,3 +57,14 @@ setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
 setfacl -m g:dtic:rx /usr/bin/nm-applet
+
+# Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
+udisks_policy="/usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy"
+for fsm in {filesystem-mount,filesystem-unmount-others,filesystem-mount-system}; do
+    for defaul_acl in {allow_any,allow_inactive,allow_active}; do
+        xmlstarlet edit --inplace \
+            --update "//policyconfig/action[@id='org.freedesktop.udisks2.$fsm']/defaults/$defaul_acl" \
+            --value 'yes' \
+            "$udisks_policy"
+    done
+done

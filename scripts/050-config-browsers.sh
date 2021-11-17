@@ -25,8 +25,8 @@ EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
 
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox/distribution/
 # Referencia para policies:
-# https://github.com/mozilla/policy-templates/blob/v1.17/README.md
 # https://github.com/mozilla/policy-templates/blob/master/README.md#bookmarks
+# https://github.com/mozilla/policy-templates/blob/v2.11/README.md
 echo '{
   "policies": {
     "DisplayBookmarksToolbar": true,
@@ -93,23 +93,23 @@ echo '{
   "DisablePrintPreview": true,
   "ManagedBookmarks": [
     {
-      "url": "https://www.cmc.pr.gov.br",
+      "url": "https://www.cmc.pr.gov.br/",
       "name": "Câmara Municipal de Curitiba"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br",
+      "url": "https://intranet.cmc.pr.gov.br/",
       "name": "Intranet"
     },
     {
-      "url": "https://correio.cmc.pr.gov.br",
+      "url": "https://correio.cmc.pr.gov.br/",
       "name": "Correio"
     },
     {
-      "url": "https://www.cmc.pr.gov.br/spl",
+      "url": "https://www.cmc.pr.gov.br/spl/",
       "name": "SPL II"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/spa",
+      "url": "https://intranet.cmc.pr.gov.br/spa/",
       "name": "SPA"
     },
     {
@@ -117,15 +117,15 @@ echo '{
       "name": "Elotech - Sistema de Gestão"
     },
     {
-      "url": "https://chamados.cmc.pr.gov.br",
+      "url": "https://chamados.cmc.pr.gov.br/",
       "name": "Chamados"
     },
     {
-      "url": "https://suporte.cmc.pr.gov.br",
+      "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
       "name": "Suporte"
     },
     {
-      "url": "https://www.curitiba.pr.gov.br",
+      "url": "https://www.curitiba.pr.gov.br/",
       "name": "Prefeitura Municipal de Curitiba"
     },
     {

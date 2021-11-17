@@ -29,7 +29,7 @@ apt-get install -qyf gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-pl
 apt-get install -qyf vim gedit pdfsam unrar
 DEBIAN_FRONTEND=noninteractive apt-get -qyf install ttf-mscorefonts-installer
 # SO
-apt-get install -qyf ncdu numlockx acct
+apt-get install -qyf ncdu numlockx acct xmlstarlet
 
 # Chrome, pq chrome é especial:
 if ! dpkg-query -l google-chrome-stable &>/dev/null; then
