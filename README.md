@@ -30,6 +30,8 @@ Procedimento:
    - LDAP_GROUPS_DN: nome distinto base de grupos
    - BIND_DN: nome distinto de bind
    - BIND_PW: password de bind
+   - FSTAB_PATH: caminho do fstab no Mint
+   - NFS_SERV: servidor nfs
 
 6. Execute os _scripts_ com permissão de `root`:
    - `sudo ./principal.sh`

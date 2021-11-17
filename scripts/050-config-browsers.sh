@@ -63,6 +63,10 @@ echo '{
         "name": "Chamados"
       },
       {
+      "url": "https://senha.cmc.pr.gov.br/",
+      "name": "Senha"
+      },
+      {
         "url": "https://suporte.cmc.pr.gov.br",
         "name": "Suporte"
       },
@@ -123,6 +127,10 @@ echo '{
     {
       "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
       "name": "Suporte"
+    },
+    {
+      "url": "https://senha.cmc.pr.gov.br/",
+      "name": "Senha"
     },
     {
       "url": "https://www.curitiba.pr.gov.br/",
