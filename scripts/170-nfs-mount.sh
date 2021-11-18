@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ ! -f  "$FSTAB" ]; then
-	exit 1;
+FSTAB="/etc/fstab"
+
+if [ ! -f "$FSTAB" ]; then
+    exit 1
 fi
 
 mkdir -p /mnt/suporte
@@ -9,9 +11,12 @@ mkdir -p /mnt/suporte
 # Backup do antigo
 cp -a "$FSTAB" "$FSTAB-$(date +%F)"
 
-# Monta o compartilhamento remoto
-if grep -q "tauari" "$FSTAB"; then
-	sed -i '/^tauari/c\10.0.0.5:\/data\/suporte \/mnt\/suporte nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0' "$FSTAB"
-elif ! grep -q "10\.0\.0\.5" "$FSTAB"; then
-	echo "$NFS_SERV" >> "$FSTAB"
+SERVIDOR=$(echo "$NFS_SERV" | cut -d ":" -f 1)
+if [ -z "$SERVIDOR" ]; then
+    logger "Servidor NFS incorreto: \"$NFS_SERV\""
+    exit 1
+elif ! grep -q "^$SERVIDOR" "$FSTAB"; then
+    # Monta o compartilhamento remoto garantindo idempotência adicionando a
+    # linha apenas se ela não existir
+    echo "$NFS_SERV" >>"$FSTAB"
 fi

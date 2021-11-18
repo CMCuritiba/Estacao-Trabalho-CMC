@@ -10,6 +10,7 @@
 ## Requisitos
 
 #### Requisitos
+
 1. Os _scripts_ foram testados no **Mint 20 Cinnamon**.
 
 ## Instalação/configuração
@@ -22,6 +23,7 @@ Procedimento:
 3. Faça login com o usuário criado;
 4. Baixe os _scripts_ do [repositório](https://github.com/CMCuritiba/ETv4/).
 5. Crie um arquivo na pasta raíz do projeto chamado `vars.env` e utilize o arquivo `.env.example` como base para preencher todas as variáveis necessárias para a execução dos scripts. As variáveis são:
+
    - PASS_SUPPORT: senha do usuário suporte
    - PASS_ROOT: senha do usuário root
    - PASS_VNC: senha do login remoto (VNC)
@@ -30,7 +32,6 @@ Procedimento:
    - LDAP_GROUPS_DN: nome distinto base de grupos
    - BIND_DN: nome distinto de bind
    - BIND_PW: password de bind
-   - FSTAB_PATH: caminho do fstab no Mint
    - NFS_SERV: servidor nfs
 
 6. Execute os _scripts_ com permissão de `root`:
