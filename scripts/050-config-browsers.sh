@@ -32,46 +32,58 @@ echo '{
     "DisplayBookmarksToolbar": true,
     "ManagedBookmarks": [
       {
-        "toplevel_name": "Favoritos Gerenciados"
+        "toplevel_name": "Favoritos Gerenciados da CMC"
       },
       {
-        "url": "https://www.cmc.pr.gov.br",
+        "url": "https://www.cmc.pr.gov.br/",
         "name": "Câmara Municipal de Curitiba"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/",
         "name": "Intranet"
       },
       {
-        "url": "https://correio.cmc.pr.gov.br",
+        "url": "https://correio.cmc.pr.gov.br/",
         "name": "Correio"
       },
       {
-        "url": "https://www.cmc.pr.gov.br/spl",
+        "url": "https://www.cmc.pr.gov.br/spl/",
         "name": "SPL II"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br/spa",
+        "url": "https://intranet.cmc.pr.gov.br/spa/",
         "name": "SPA"
       },
       {
-        "url": "https://servicos.cmc.pr.gov.br",
-        "name": "Elotech - Sistema de Gestão"
+        "url": "https://nuvem.cmc.pr.gov.br/",
+        "name": "Nuvem"
       },
       {
-        "url": "https://chamados.cmc.pr.gov.br",
+        "url": "https://intranet.cmc.pr.gov.br/apl/",
+        "name": "APL"
+      },
+      {
+        "url": "https://acesso.cmcuritiba.eloweb.net/",
+        "name": "Eloweb Gestão Pública"
+      },
+      {
+        "url": "https://chamados.cmc.pr.gov.br/",
         "name": "Chamados"
       },
       {
-      "url": "https://senha.cmc.pr.gov.br/",
-      "name": "Senha"
-      },
-      {
-        "url": "https://suporte.cmc.pr.gov.br",
+        "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
         "name": "Suporte"
       },
       {
-        "url": "https://www.curitiba.pr.gov.br",
+        "url": "https://senha.cmc.pr.gov.br/",
+        "name": "Senha"
+      },
+      {
+        "url": "https://intranet.cmc.pr.gov.br/bib/",
+        "name": "BIB"
+      },
+      {
+        "url": "https://www.curitiba.pr.gov.br/",
         "name": "Prefeitura Municipal de Curitiba"
       },
       {
@@ -88,9 +100,12 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 # CHROME
 
 # Cria e configura o arquivo cmc.json na pasta /etc/opt/chrome/policies/managed/ e recommended/
-# Referencia para policies https://cloud.google.com/docs/chrome-enterprise/policies/
+# Referencia para policies:
+# https://cloud.google.com/docs/chrome-enterprise/policies/
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
+
+# shellcheck disable=SC2016
 echo '{
   "DownloadDirectory": "/home/${user_name}/Downloads",
   "DefaultBrowserSettingEnabled": false,
@@ -117,8 +132,16 @@ echo '{
       "name": "SPA"
     },
     {
-      "url": "https://servicos.cmc.pr.gov.br",
-      "name": "Elotech - Sistema de Gestão"
+      "url": "https://nuvem.cmc.pr.gov.br/",
+      "name": "Nuvem"
+    },
+    {
+      "url": "https://intranet.cmc.pr.gov.br/apl/",
+      "name": "APL"
+    },
+    {
+      "url": "https://acesso.cmcuritiba.eloweb.net/",
+      "name": "Eloweb Gestão Pública"
     },
     {
       "url": "https://chamados.cmc.pr.gov.br/",
@@ -131,6 +154,10 @@ echo '{
     {
       "url": "https://senha.cmc.pr.gov.br/",
       "name": "Senha"
+    },
+    {
+      "url": "https://intranet.cmc.pr.gov.br/bib/",
+      "name": "BIB"
     },
     {
       "url": "https://www.curitiba.pr.gov.br/",
