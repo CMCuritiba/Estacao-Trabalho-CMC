@@ -83,6 +83,10 @@ echo '{
         "name": "BIB"
       },
       {
+        "url": "https://teamwork.cmc.pr.gov.br/",
+        "name": "Teamwork"
+      },
+      {
         "url": "https://www.curitiba.pr.gov.br/",
         "name": "Prefeitura Municipal de Curitiba"
       },
@@ -158,6 +162,10 @@ echo '{
     {
       "url": "https://intranet.cmc.pr.gov.br/bib/",
       "name": "BIB"
+    },
+    {
+      "url": "https://teamwork.cmc.pr.gov.br/",
+      "name": "Teamwork"
     },
     {
       "url": "https://www.curitiba.pr.gov.br/",

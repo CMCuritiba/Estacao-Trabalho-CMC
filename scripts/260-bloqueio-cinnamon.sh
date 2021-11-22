@@ -52,11 +52,19 @@ setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
 setfacl -m u:suporte:rx /usr/bin/nm-applet
 
 # Cria uma ACL para ajustar as permissões do grupo dtic
-# grupo não criado
 setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
 setfacl -m g:dtic:rx /usr/bin/nm-applet
+
+# Se houver dif no grupo sudoers atualiza para dtic
+if grep -wq "dif" /etc/sudoers; then
+    sed -i 's/%dif/%dtic/g' /etc/sudoers
+fi
+
+if ! command -v xmlstarlet >/dev/null 2>&1; then
+    apt-get -qyf install xmlstarlet
+fi
 
 # Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
 udisks_policy="/usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy"
