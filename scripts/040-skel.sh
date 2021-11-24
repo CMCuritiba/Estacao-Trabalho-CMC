@@ -30,9 +30,9 @@ Type=Application
 Terminal=false
 Name=Firefox
 Exec=firefox
-Icon[pt_BR]=/usr/share/pixmaps/firefox.png
+Icon[pt_BR]=firefox
 Name[pt_BR]=Firefox
-Icon=/usr/share/pixmaps/firefox.png' > /etc/skel/Desktop/Firefox.desktop
+Icon=firefox' > /etc/skel/Desktop/Firefox.desktop
 
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
