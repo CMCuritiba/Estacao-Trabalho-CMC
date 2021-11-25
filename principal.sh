@@ -10,6 +10,11 @@ scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
 #O arquivo de configuração precisa existir
 if [ -f "$scriptsDir/vars.env" ]; then
 
+    if [[ "$(stat --printf="%a" "$scriptsDir/vars.env")" != "600" ]]; then
+        echo "Arquivo de configuração possui permissões inválidas (veja o README para mais informações)"
+        exit 1
+    fi
+
     if [ -f "/usr/local/cmc/script-completo" ]; then
         echo "Todos os scripts já foram rodados, delete a flag /usr/local/cmc/script-completo se deseja rodá-los novamente. Aviso, rodar alguns dos scripts mais de uma vez pode sobreescrever mudanças feitas após a execução."
         exit 1
