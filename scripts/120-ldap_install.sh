@@ -36,14 +36,12 @@ fi
 # Backup da configuração
 cp -a "$NSLCDCONF" "$NSLCDCONF-$(date +%F)"
 
-
-sed -i '/^uri/c\uri '"$SERV_LDAP" "$NSLCDCONF"
-sed -i '/^base/c\base '"$LDAP_USERS_DN"'\nbase '"$LDAP_GROUPS_DN" "$NSLCDCONF"
-
 # Habilita bind no LDAP
 if ! grep -q "^binddn" "$NSLCDCONF"; then
-    sed -i '/^#binddn/c\binddn '"$BIND_DN" "$NSLCDCONF"
-    sed -i '/^#bindpw/c\bindpw '"$BIND_PW" "$NSLCDCONF"
+    echo "binddn $BIND_DN" "$NSLCDCONF"
+fi
+if ! grep -q "^bindpw" "$NSLCDCONF"; then
+    echo "bindpw $BIND_PW" "$NSLCDCONF"
 fi
 
 # Otimiza timeout de bind
