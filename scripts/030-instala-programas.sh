@@ -16,7 +16,7 @@ Template: msttcorefonts/accepted-mscorefonts-eula
 Value: true
 Owners: ttf-mscorefonts-installer
 Flags: seen
-' >> /var/cache/debconf/config.dat
+' >>/var/cache/debconf/config.dat
 
 # Instala programas
 # Acesso remoto
@@ -41,4 +41,4 @@ if ! dpkg-query -l google-chrome-stable &>/dev/null; then
 fi
 
 apt-get -qyf upgrade
-rm -rf google-chrome-stable_current_amd64.deb
+rm -f google-chrome-stable_current_amd64.deb

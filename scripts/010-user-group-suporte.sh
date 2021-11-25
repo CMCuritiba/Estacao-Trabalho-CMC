@@ -2,14 +2,12 @@
 
 # Cria usuário suporte se não existe
 if ! id -u suporte &>/dev/null; then
-	useradd -m suporte
+    useradd -m suporte
 fi
 
-# Atualiza senha do usuário suporte
-echo "suporte:$PASS_SUPPORT" | sudo chpasswd
-
-# Atualiza a senha de root
-echo "root:$PASS_ROOT" | sudo chpasswd
+# Atualiza senhas de suporte e root
+echo "suporte:$PASS_SUPPORT" | chpasswd
+echo "root:$PASS_ROOT" | chpasswd
 
 # Seta grupo principal de suporte para users e deleta grupo suporte se existe
 # Também tira suporte de grupos de admin

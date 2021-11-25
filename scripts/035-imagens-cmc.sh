@@ -15,7 +15,3 @@ chmod 644 /usr/share/backgrounds/cmc/desktop-bg.png
 # Copia imagem de background do greeter para pasta adequada
 cp ../arquivos/imagens/login-bg.jpg /usr/share/backgrounds/cmc/
 chmod 644 /usr/share/backgrounds/cmc/login-bg.jpg
-
-# Copia imagem para o icone do firefox no desktop
-cp ../arquivos/imagens/firefox.png /usr/share/pixmaps/
-chmod 644 /usr/share/pixmaps/firefox.png
