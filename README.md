@@ -1,4 +1,4 @@
-### Repositório para os scripts da imagem Mint/Cinnamon
+# Repositório para os scripts da imagem Mint/Cinnamon
 
 ## Diretrizes
 
@@ -8,8 +8,6 @@
 1. _Scripts_ devem ser verificados com o `shellcheck`.
 
 ## Requisitos
-
-#### Requisitos
 
 1. Os _scripts_ foram testados no **Mint 20 Cinnamon**.
 
