@@ -1,14 +1,16 @@
 #!/bin/bash
 
-######################################################################################################################################################################################################
+################################################################################
 # Autora: Renata Carvalho
 # Data: 08/12/17
 # Versão: 1.0
-# Descrição: Esse script modifica as configurações do PAM para que este guarde o cache dos users corretamente e permita o login offline, permitindo o uso dos programas locais.
-######################################################################################################################################################################################################
+# Descrição: Esse script modifica as configurações do PAM para que este guarde
+# o cache dos users corretamente e permita o login offline, permitindo o uso
+# dos programas locais.
+################################################################################
 
 if [ ! -f "/etc/pam.d/common-auth" ] && [ ! -f "/etc/pam.d/common-account" ]; then
-	exit 1
+    exit 1
 fi
 
 #if [ ! -f  "/etc/pam.d/common-session" ]; then
@@ -68,7 +70,7 @@ echo "#
 #
 
 # here are the per-package modules (the \"Primary\" block)
-account	[success=2 new_authtok_reqd=done default=ignore]	pam_unix.so 
+account	[success=2 new_authtok_reqd=done default=ignore]	pam_unix.so
 account	[success=1 authinfo_unavail=1 default=ignore]	pam_ldap.so
 # here's the fallback if no module succeeds
 account	requisite	pam_deny.so
@@ -106,10 +108,10 @@ session	required			pam_permit.so
 # umask settings with different shells, display managers, remote sessions etc.
 # See \"man pam_umask\".
 session	required    pam_mkhomedir.so silent umask=0022 skel=/etc/skel
-session	required	pam_unix.so 
-session	optional	pam_mount.so 
-session	optional	pam_ldap.so 
-session	optional	pam_systemd.so 
+session	required	pam_unix.so
+session	optional	pam_mount.so
+session	optional	pam_ldap.so
+session	optional	pam_systemd.so
 # and here are more per-package modules (the \"Additional\" block)
 # end of pam-auth-update config" >/etc/pam.d/common-session
 
