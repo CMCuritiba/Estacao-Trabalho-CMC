@@ -18,9 +18,10 @@ fi
 if id -nG suporte | grep -qw adm; then
     deluser suporte adm
 fi
-if id -nG suporte | grep -qw sudo; then
-    deluser suporte sudo
-fi
 if id -nG suporte | grep -qw lpadmin; then
     deluser suporte lpadmin
+fi
+# Garante que o usuário suporte esteja no sudo
+if ! id -Gn suporte | grep -qw "sudo"; then
+    adduser --quiet suporte sudo
 fi

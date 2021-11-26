@@ -23,7 +23,7 @@ chmod 700 /usr/bin/cinnamon-desktop-editor
 #chmod 700 /usr/bin/ccsm
 
 # Desabilita edição de conexão:
-chmod 700 /usr/bin/nm-connection-editor 
+chmod 700 /usr/bin/nm-connection-editor
 
 # Desabilita editor de proxy/rede
 #chmod 700 /usr/bin/mate-network-properties
@@ -36,17 +36,11 @@ chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Adiciona dtic ao sudoers caso não exista
 if ! grep -w "dtic" /etc/sudoers; then
-	sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
-fi
-
-# Adiciona o suporte ao sudoers caso não exista
-if ! grep -w "suporte" /etc/sudoers; then
-	echo 'suporte   ALL=(ALL:ALL) ALL' >>/etc/sudoers
+    sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
 fi
 
 # Cria uma ACL para ajustar as permissões do usuário suporte
 setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
-
 setfacl -m u:suporte:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
 setfacl -m u:suporte:rx /usr/bin/nm-applet
@@ -56,11 +50,6 @@ setfacl -m g:dtic:rx /usr/bin/gnome-terminal
 setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
 setfacl -m g:dtic:rx /usr/bin/nm-applet
-
-# Se houver dif no grupo sudoers atualiza para dtic
-if grep -wq "dif" /etc/sudoers; then
-    sed -i 's/%dif/%dtic/g' /etc/sudoers
-fi
 
 if ! command -v xmlstarlet >/dev/null 2>&1; then
     apt-get -qyf install xmlstarlet
