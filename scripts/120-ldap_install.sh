@@ -34,7 +34,7 @@ if [ ! -f  "$NSLCDCONF" ]; then
 fi
 
 # Backup da configuração
-cp -a "$NSLCDCONF" "$NSLCDCONF-$(date +%F)"
+cp -af --backup=t "$NSLCDCONF" "$NSLCDCONF-old"
 
 # Habilita bind no LDAP
 if ! grep -q "^binddn" "$NSLCDCONF"; then

@@ -14,8 +14,8 @@ if [ ! -f "/etc/nscd.conf" ] || [ ! -f "/etc/nsswitch.conf" ]; then
     exit 1
 fi
 
-cp /etc/nscd.conf /etc/nscd.conf-old
-cp /etc/nsswitch.conf /etc/nsswitch.conf-old
+cp -af --backup=t /etc/nscd.conf /etc/nscd.conf-old
+cp -af --backup=t /etc/nsswitch.conf /etc/nsswitch.conf-old
 
 echo "$(date) $HOSTNAME: Criando novos arquivos de configuração..."
 echo "#       logfile                 /var/log/nscd.log

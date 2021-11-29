@@ -14,8 +14,12 @@ ln -sf /root/.bash_aliases /usr/local/cmc/modificados/bash_aliases
 ln -sf /usr/lib/firefox/defaults/pref/local-settings.js /usr/local/cmc/modificados/local-settings.js
 ln -sf /usr/lib/firefox/mozilla.cfg /usr/local/cmc/modificados/mozilla.cfg
 ln -sf /usr/lib/firefox/browser/override.ini /usr/local/cmc/modificados/override.ini
-ln -sf /usr/lib/firefox/distribution/distribution.ini /usr/local/cmc/modificados/distribution.ini
-ln -sf /etc/opt/chrome/policies/ /usr/local/cmc/modificados/policies
+ln -sf /usr/lib/firefox/distribution/policies.json \
+    /usr/local/cmc/modificados/policies.json
+ln -sf /etc/opt/chrome/policies/managed/cmc.json \
+    /usr/local/cmc/modificados/chrome-policies-managed-cmc.json
+ln -sf /etc/opt/chrome/policies/recommended/cmc.json \
+    /usr/local/cmc/modificados/chrome-policies-recommended-cmc.json
 
 # Coisas no autostart
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
@@ -32,9 +36,6 @@ ln -sf /usr/bin/nm-applet /usr/local/cmc/modificados/nm-applet
 # dconf
 ln -sf /etc/dconf/profile/user /usr/local/cmc/modificados/user
 ln -sf /etc/dconf/db/local.d/01-cmc /usr/local/cmc/modificados/01-cmc
-
-# dnsmasq
-ln -sf /etc/NetworkManager/NetworkManager.conf /usr/local/cmc/modificados/NetworkManager.conf
 
 # LDAP e PAM
 ln -sf /etc/pam.d/common-session /usr/local/cmc/modificados/common-session

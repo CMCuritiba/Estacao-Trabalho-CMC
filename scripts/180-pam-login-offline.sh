@@ -18,9 +18,9 @@ fi
 #fi
 
 #Backup dos antigos
-cp -af /etc/pam.d/common-auth /etc/pam.d/common-auth-old
-cp -af /etc/pam.d/common-account /etc/pam.d/common-account-old
-cp -af /etc/pam.d/common-session /etc/pam.d/common-session-old
+cp -af --backup=t /etc/pam.d/common-auth /etc/pam.d/common-auth-old
+cp -af --backup=t /etc/pam.d/common-account /etc/pam.d/common-account-old
+cp -af --backup=t /etc/pam.d/common-session /etc/pam.d/common-session-old
 
 #Instalacao dos pacotes necessarios
 apt-get install -qyf libnss-ldapd nss-updatedb libnss-db libpam-ccreds

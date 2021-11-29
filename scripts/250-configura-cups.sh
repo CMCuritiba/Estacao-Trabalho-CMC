@@ -3,6 +3,9 @@
 CUPSD="/etc/cups/cupsd.conf"
 CUPS_BROWSED="/etc/cups/cups-browsed.conf"
 
+cp -af --backup=t "$CUPSD" "$CUPSD-old"
+cp -af --backup=t "$CUPS_BROWSED" "$CUPS_BROWSED-old"
+
 # Garante acesso vindo da TI
 if ! grep -q "$DTIC_NETWORK" "$CUPSD"; then
     # sed -i "/^<Location.*/a \ \ Allow @LOCAL\n  Allow $DTIC_NETWORK" "$CUPSD"

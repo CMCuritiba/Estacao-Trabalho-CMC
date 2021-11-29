@@ -9,7 +9,7 @@ fi
 mkdir -p /mnt/suporte
 
 # Backup do antigo
-cp -a "$FSTAB" "$FSTAB-$(date +%F)"
+cp -af --backup=t "$FSTAB" "$FSTAB-old"
 
 SERVIDOR=$(echo "$NFS_SERV" | cut -d ":" -f 1)
 if [ -z "$SERVIDOR" ]; then
