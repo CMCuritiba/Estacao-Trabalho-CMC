@@ -6,9 +6,12 @@ CUPS_BROWSED="/etc/cups/cups-browsed.conf"
 cp -af --backup=t "$CUPSD" "$CUPSD-old"
 cp -af --backup=t "$CUPS_BROWSED" "$CUPS_BROWSED-old"
 
+# Altera cupsd.conf para permitir acesso remoto
+cupsctl --remote-admin
+
 # Garante acesso vindo da TI
 if ! grep -q "$DTIC_NETWORK" "$CUPSD"; then
-    # sed -i "/^<Location.*/a \ \ Allow @LOCAL\n  Allow $DTIC_NETWORK" "$CUPSD"
+    cp -af --backup=t "$CUPSD" "$CUPSD-old"
     sed -i "s|Allow @LOCAL|Allow @LOCAL\n  Allow $DTIC_NETWORK|g" "$CUPSD"
 fi
 
@@ -24,4 +27,3 @@ fi
 
 service cups restart
 service cups-browsed restart
-cupsctl --remote-admin
