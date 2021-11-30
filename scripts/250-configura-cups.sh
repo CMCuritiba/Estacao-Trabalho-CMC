@@ -25,5 +25,5 @@ if ! grep -q "^BrowseRemoteProtocols none" "$CUPS_BROWSED"; then
     fi
 fi
 
-service cups restart
-service cups-browsed restart
+systemctl restart cups
+systemctl restart cups-browsed
