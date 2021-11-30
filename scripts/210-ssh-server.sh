@@ -2,8 +2,12 @@
 # Desabilita login SSH para root:
 SSHD="/etc/ssh/sshd_config"
 logger "Desabilitando login SSH para root"
-if grep -q "^PermitRootLogin yes" "$SSHD"; then
-    sed -i '/^PermitRootLogin/c\#PermitRootLogin no' "$SSHD"
+if grep -q "^PermitRootLogin" "$SSHD"; then
+    # replace
+    sed -i '/^PermitRootLogin/c\PermitRootLogin no' "$SSHD"
+else
+    # add
+    echo "PermitRootLogin no" >>"$SSHD"
 fi
 
 # Restringe SSH apenas para usuários da DTIC:
@@ -17,4 +21,4 @@ else
 fi
 
 # Reinicia serviço para aplicar
-service ssh restart
+systemctl restart ssh
