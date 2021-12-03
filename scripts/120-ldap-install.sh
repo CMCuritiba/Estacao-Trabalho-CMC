@@ -44,6 +44,12 @@ if ! grep -q "^bindpw" "$NSLCDCONF"; then
     echo "bindpw $BIND_PW" >>"$NSLCDCONF"
 fi
 
+# Filtra usuários válidos no LDAP
+# Obs: usuários locais realizam login normalmente
+if ! grep -q "^employeeNumber" "$NSLCDCONF"; then
+    echo -e "\nfilter passwd (employeeNumber=*)" >>"$NSLCDCONF"
+fi
+
 # Otimiza timeout de bind
 if ! grep -q "^bind_timelimit" "$NSLCDCONF"; then
     echo -e "\nbind_timelimit 2" >>"$NSLCDCONF"
