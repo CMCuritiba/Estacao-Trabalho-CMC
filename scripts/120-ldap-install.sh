@@ -46,7 +46,7 @@ fi
 
 # Filtra usuários válidos no LDAP
 # Obs: usuários locais realizam login normalmente
-if ! grep -q "^employeeNumber" "$NSLCDCONF"; then
+if ! grep -q "employeeNumber" "$NSLCDCONF"; then
     echo -e "\nfilter passwd (employeeNumber=*)" >>"$NSLCDCONF"
 fi
 
