@@ -3,13 +3,13 @@
 echo "
 Name: nslcd/ldap-uris
 Template: nslcd/ldap-uris
-Value: '$SERV_LDAP'
+Value: $SERV_LDAP
 Owners: nslcd
 Flags: seen
 
 Name: nslcd/ldap-base
 Template: nslcd/ldap-base
-Value: '$LDAP_USERS_DN' '$LDAP_GROUPS_DN'
+Value: $LDAP_USERS_DN $LDAP_GROUPS_DN
 Owners: nslcd
 Flags: seen
 
@@ -35,6 +35,9 @@ fi
 
 # Backup da configuração
 cp -af --backup=t "$NSLCDCONF" "$NSLCDCONF-old"
+
+# Separa a disposição dos valores de base
+sed -i '/^base/c\base '"$LDAP_USERS_DN"'\nbase '"$LDAP_GROUPS_DN" "$NSLCDCONF"
 
 # Habilita bind no LDAP
 if ! grep -q "^binddn" "$NSLCDCONF"; then
