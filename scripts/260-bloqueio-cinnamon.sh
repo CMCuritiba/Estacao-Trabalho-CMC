@@ -3,24 +3,20 @@
 chmod 700 /usr/bin/gnome-terminal
 
 #Remove execução do Mintupdate
-#chmod 700 /usr/bin/mintupdate #update automatico
+chmod 700 /usr/bin/mintupdate # update automatico
 
 #Remove execução do Mintreport
-chmod 700 /usr/bin/mintreport #reporta problemas e atualizações de versão
+chmod 700 /usr/bin/mintreport # reporta problemas e atualizações de versão
 
 # Remove execução do editor de permissões usuário dconf-editor
 #chmod 700 /usr/bin/dconf-editor #editor de permissões usuário
 # Não vem instalado por padrão
 
-# Remove execução do programa editor de itens do menu, menulibre
-#chmod 700 /usr/bin/menulibre
+# Remove execução do programa editor de itens do menu
+chmod 700 /usr/bin/cinnamon-menu-editor
 
 # Remove execução do editor de cada item do menu, cinnamon-desktop-item-edit
 chmod 700 /usr/bin/cinnamon-desktop-editor
-
-# Remove execução do compiz --> Cinnamon é um fork do Gnome-Shell e ainda não suporta o Compiz.
-#Fonte: https://plus.diolinux.com.br/t/compiz-nao-roda-no-linux-mint-19-1-cinnamon/619
-#chmod 700 /usr/bin/ccsm
 
 # Desabilita edição de conexão:
 chmod 700 /usr/bin/nm-connection-editor
