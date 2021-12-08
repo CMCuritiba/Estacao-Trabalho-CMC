@@ -2,7 +2,6 @@
 # Configura DNS
 
 RESOLVED="/etc/systemd/resolved.conf"
-RESOLVTAIL="/etc/resolvconf/resolv.conf.d/tail"
 
 if [ -f "$RESOLVED" ]; then
     # Habilita cache de DNS
@@ -19,14 +18,4 @@ if [ -f "$RESOLVED" ]; then
     if ! grep -q "^FallbackDNS=8.8.8.8 9.9.9.9" "$RESOLVED"; then
         echo "FallbackDNS=8.8.8.8 9.9.9.9" >>"$RESOLVED"
     fi
-fi
-
-if [ -f "$RESOLVTAIL" ]; then
-    # Otimiza timeout, rotacao e tentativas
-    sed -i '/^options/c\options timeout:1 attempts:1 rotate' "$RESOLVTAIL"
-
-    if ! grep -q '^options' "$RESOLVTAIL"; then
-        echo "options timeout:1 attempts:1 rotate" >>"$RESOLVTAIL"
-    fi
-
 fi
