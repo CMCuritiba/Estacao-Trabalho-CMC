@@ -20,7 +20,7 @@ Procedimento:
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ETv4;
 3. Faça login com o usuário criado;
 4. Baixe os _scripts_ do [repositório](https://github.com/CMCuritiba/ETv4/).
-5. Crie um arquivo na pasta raíz do projeto chamado `vars.env` e utilize o arquivo `.env.example` como base para preencher todas as variáveis necessárias para a execução dos scripts. As variáveis são:
+5. Crie um arquivo na pasta raíz do projeto chamado `.env` e utilize o arquivo `.env.example` como base para preencher todas as variáveis necessárias para a execução dos scripts. As variáveis são:
 
    - PASS_SUPPORT: senha do usuário suporte
    - PASS_ROOT: senha do usuário root

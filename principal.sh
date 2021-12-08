@@ -7,10 +7,10 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 
 scriptsDir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")
-#O arquivo de configuração precisa existir
-if [ -f "$scriptsDir/vars.env" ]; then
+# O arquivo de configuração precisa existir
+if [ -f "$scriptsDir/.env" ]; then
 
-    if [[ "$(stat --printf="%a" "$scriptsDir/vars.env")" != "600" ]]; then
+    if [[ "$(stat --printf="%a" "$scriptsDir/.env")" != "600" ]]; then
         echo "Arquivo de configuração possui permissões inválidas (veja o README para mais informações)"
         exit 1
     fi
@@ -46,7 +46,7 @@ if [ -f "$scriptsDir/vars.env" ]; then
 
     # Carrega o arquivo de configuração
     # shellcheck source=.env.example
-    source "$scriptsDir/vars.env"
+    source "$scriptsDir/.env"
 
     for file in "${files[@]}"; do
         if grep -q "$file" "/usr/local/cmc/script-andamento"; then
