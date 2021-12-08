@@ -1,6 +1,11 @@
 #!/bin/bash
 # Seta confs de instalação do LDAP
-echo "
+CONFIG_DAT="/var/cache/debconf/config.dat"
+
+# As URIs são adicionadas corretamente, mas as bases não. Então adicionamos a
+# base de usuários via debconf e a de grupos via sed
+if ! grep -q "$LDAP_USERS_DN" "$CONFIG_DAT"; then
+    echo "
 Name: nslcd/ldap-uris
 Template: nslcd/ldap-uris
 Value: $SERV_LDAP
@@ -9,7 +14,7 @@ Flags: seen
 
 Name: nslcd/ldap-base
 Template: nslcd/ldap-base
-Value: $LDAP_USERS_DN $LDAP_GROUPS_DN
+Value: $LDAP_USERS_DN
 Owners: nslcd
 Flags: seen
 
@@ -18,7 +23,8 @@ Template: libnss-ldapd/nsswitch
 Value: passwd, group, shadow
 Owners: libnss-ldapd, libnss-ldapd:amd64
 Flags: seen
-" >>/var/cache/debconf/config.dat
+" >>"$CONFIG_DAT"
+fi
 
 # Instala LDAP
 DEBIAN_FRONTEND=noninteractive apt-get -qyf install libnss-ldapd libpam-ldapd nscd nslcd nfs-common
@@ -36,8 +42,10 @@ fi
 # Backup da configuração
 cp -af --backup=t "$NSLCDCONF" "$NSLCDCONF-old"
 
-# Separa a disposição dos valores de base
-sed -i '/^base/c\base '"$LDAP_USERS_DN"'\nbase '"$LDAP_GROUPS_DN" "$NSLCDCONF"
+# Adiciona base de busca de grupos (se não existir)
+if ! grep -q "$LDAP_GROUPS_DN" "$NSLCDCONF"; then
+    sed -i "/^base/a base $LDAP_GROUPS_DN" "$NSLCDCONF"
+fi
 
 # Habilita bind no LDAP
 if ! grep -q "^binddn" "$NSLCDCONF"; then
