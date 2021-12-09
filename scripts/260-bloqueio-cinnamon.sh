@@ -31,8 +31,8 @@ chmod 700 /usr/bin/gnome-keyring-3
 chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Adiciona dtic ao sudoers caso não exista
-if ! grep -w "dtic" /etc/sudoers; then
-    sed -i '/%sudo/a%dtic\tALL=(ALL:ALL) ALL' /etc/sudoers
+if ! grep -w "$DTIC_GID" /etc/sudoers; then
+    sed -i "/%sudo/a%$DTIC_GID\tALL=(ALL:ALL) ALL" /etc/sudoers
 fi
 
 # Cria uma ACL para ajustar as permissões do usuário suporte
@@ -41,11 +41,11 @@ setfacl -m u:suporte:rx /usr/bin/cinnamon-desktop-editor
 setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
 setfacl -m u:suporte:rx /usr/bin/nm-applet
 
-# Cria uma ACL para ajustar as permissões do grupo dtic
-setfacl -m g:dtic:rx /usr/bin/gnome-terminal
-setfacl -m g:dtic:rx /usr/bin/cinnamon-desktop-editor
-setfacl -m g:dtic:rx /usr/bin/nm-connection-editor
-setfacl -m g:dtic:rx /usr/bin/nm-applet
+# Cria uma ACL para ajustar as permissões da DTIC
+setfacl -m "g:$DTIC_GIDNUMBER:rx" /usr/bin/gnome-terminal
+setfacl -m "g:$DTIC_GIDNUMBER:rx" /usr/bin/cinnamon-desktop-editor
+setfacl -m "g:$DTIC_GIDNUMBER:rx" /usr/bin/nm-connection-editor
+setfacl -m "g:$DTIC_GIDNUMBER:rx" /usr/bin/nm-applet
 
 if ! command -v xmlstarlet >/dev/null 2>&1; then
     apt-get -qyf install xmlstarlet
