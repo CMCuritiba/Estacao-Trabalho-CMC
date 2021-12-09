@@ -2,7 +2,7 @@
 
 sed -i 's/^alias ll/#alias ll/g' /root/.bashrc
 sed -i 's/^alias la/#alias la/g' /root/.bashrc
-sed -i 's/^alias l/#alias l/g'   /root/.bashrc
+sed -i 's/^alias l/#alias l/g' /root/.bashrc
 
 echo "# Aliases e funcoes locais
 alias ll='ls -lh'
@@ -20,8 +20,7 @@ function bkp() {
 		mkdir -p ./bkp
 		'cp' -Lv --preserve=all \"\$1\" \"./bkp/\$1-\$(date +%F-%H-%M-%S)\"
 	fi
-}" > /root/.bash_aliases
+}" >/root/.bash_aliases
 
 cp /root/.bash_aliases /etc/skel/.bash_aliases
 chmod +r /etc/skel/.bash_aliases
-
