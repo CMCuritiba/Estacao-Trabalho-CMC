@@ -216,7 +216,7 @@ echo "/org/gnome/desktop/remote-access/icon-visibility
 # Copia o script necessario para iniciar o terminal como root
 mkdir -p /usr/local/cmc/scripts
 cp ../arquivos/root-terminal.sh /usr/local/cmc/scripts/root-terminal.sh
-chmod +x /usr/local/cmc/scripts/root-terminal.sh
+chmod +rx /usr/local/cmc/scripts/root-terminal.sh
  
 # Finalmente, atualiza dconf
 dconf update
