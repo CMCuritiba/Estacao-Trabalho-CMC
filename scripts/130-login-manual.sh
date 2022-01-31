@@ -12,7 +12,7 @@ greeter-session=slick-greeter" >/usr/share/lightdm/lightdm.conf.d/90-slick-greet
 # Muda background do greeter
 # Greeter com G maiúsculo pq tem bug marcado como resolvido... Mas não resolvido
 echo '[Greeter]
-enable-hidpi=on
+enable-hidpi=auto
 background=/usr/share/backgrounds/cmc/login-bg.jpg
-stretch-background-across-monitors=true
+stretch-background-across-monitors=false
 activate-numlock=true' >/etc/lightdm/slick-greeter.conf
