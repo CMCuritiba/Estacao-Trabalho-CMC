@@ -3,7 +3,6 @@
 DEBIAN_FRONTEND=nointeractive apt install davfs2  libpam-mount -yq
 chmod u+s /sbin/mount.davfs
 
-usermod -aG davfs2 "$USER"
 mkdir -p "$HOME/owncloud"
 chown "$USER":"$USER" "$HOME/owncloud"
 
