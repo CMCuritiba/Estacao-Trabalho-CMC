@@ -9,5 +9,5 @@ chown "$USER":"$USER" "$HOME/owncloud"
 
 E=$(diff /etc/security/pam_mount.conf.xml ../arquivos/pam_mount.template.conf)
 if [ -z "$E" ]; then
-	cp ../arquivos/template_pam.conf /etc/security/pam_mount.conf.xml
+	cp ../arquivos/pam_mount.template.conf /etc/security/pam_mount.conf.xml
 fi
