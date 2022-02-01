@@ -7,7 +7,6 @@ usermod -aG davfs2 "$USER"
 mkdir -p "$HOME/owncloud"
 chown "$USER":"$USER" "$HOME/owncloud"
 
-E=$(diff /etc/security/pam_mount.conf.xml ../arquivos/pam_mount.template.conf)
-if [ -z "$E" ]; then
-	cp ../arquivos/pam_mount.template.conf /etc/security/pam_mount.conf.xml
+if ! cmp -s /etc/security/pam_mount.conf.xml ../arquivos/pam_mount.template.conf; then
+    cp -f ../arquivos/pam_mount.template.conf /etc/security/pam_mount.conf.xml
 fi
