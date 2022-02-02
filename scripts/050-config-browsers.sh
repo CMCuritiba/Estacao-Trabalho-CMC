@@ -83,8 +83,8 @@ echo '{
         "name": "BIB"
       },
       {
-        "url": "https://teamwork.cmc.pr.gov.br/",
-        "name": "Teamwork"
+        "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
+        "name": "Registro de frequência"
       },
       {
         "url": "https://www.curitiba.pr.gov.br/",
@@ -164,8 +164,8 @@ echo '{
       "name": "BIB"
     },
     {
-      "url": "https://teamwork.cmc.pr.gov.br/",
-      "name": "Teamwork"
+      "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
+      "name": "Registro de frequência"
     },
     {
       "url": "https://www.curitiba.pr.gov.br/",
