@@ -2,6 +2,7 @@
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Downloads
+mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
