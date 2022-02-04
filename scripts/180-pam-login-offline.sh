@@ -50,6 +50,7 @@ auth    requisite       pam_deny.so
 # prime the stack with a positive return value if there isn't one already;
 # this avoids us returning an error just because nothing sets a success code
 # since the modules above will each just jump around
+auth    optional    pam_mount.so
 auth	required	pam_permit.so
 # and here are more per-package modules (the \"Additional\" block)
 # end of pam-auth-update config" >/etc/pam.d/common-auth
