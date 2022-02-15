@@ -1,16 +1,16 @@
 #!/bin/bash
 
-######################################################################################################################################################################################################
+################################################################################
 # Autora: Renata Carvalho
 # Data: 08/12/17
 # Versão: 1.0
-# Descrição: Esse script modifica as configurações do PAM para que este guarde o cache dos users corretamente e permita o login offline, permitindo o uso dos programas locais. 
-######################################################################################################################################################################################################
+# Descrição: Esse script modifica as configurações do PAM para que este guarde
+# o cache dos users corretamente e permita o login offline, permitindo o uso
+# dos programas locais.
+################################################################################
 
-
-
-if [ ! -f  "/etc/pam.d/common-auth" ] && [ ! -f "/etc/pam.d/common-account" ]; then
-	exit 1;
+if [ ! -f "/etc/pam.d/common-auth" ] && [ ! -f "/etc/pam.d/common-account" ]; then
+    exit 1
 fi
 
 #if [ ! -f  "/etc/pam.d/common-session" ]; then
@@ -18,9 +18,9 @@ fi
 #fi
 
 #Backup dos antigos
-cp -af /etc/pam.d/common-auth /etc/pam.d/common-auth-old
-cp -af /etc/pam.d/common-account /etc/pam.d/common-account-old
-cp -af /etc/pam.d/common-session /etc/pam.d/common-session-old
+cp -af --backup=t /etc/pam.d/common-auth /etc/pam.d/common-auth-old
+cp -af --backup=t /etc/pam.d/common-account /etc/pam.d/common-account-old
+cp -af --backup=t /etc/pam.d/common-session /etc/pam.d/common-session-old
 
 #Instalacao dos pacotes necessarios
 apt-get install -qyf libnss-ldapd nss-updatedb libnss-db libpam-ccreds
@@ -50,9 +50,10 @@ auth    requisite       pam_deny.so
 # prime the stack with a positive return value if there isn't one already;
 # this avoids us returning an error just because nothing sets a success code
 # since the modules above will each just jump around
+auth    optional    pam_mount.so
 auth	required	pam_permit.so
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-auth
+# end of pam-auth-update config" >/etc/pam.d/common-auth
 
 echo "#
 # /etc/pam.d/common-account - authorization settings common to all services
@@ -70,7 +71,7 @@ echo "#
 #
 
 # here are the per-package modules (the \"Primary\" block)
-account	[success=2 new_authtok_reqd=done default=ignore]	pam_unix.so 
+account	[success=2 new_authtok_reqd=done default=ignore]	pam_unix.so
 account	[success=1 authinfo_unavail=1 default=ignore]	pam_ldap.so
 # here's the fallback if no module succeeds
 account	requisite	pam_deny.so
@@ -79,7 +80,7 @@ account	requisite	pam_deny.so
 # since the modules above will each just jump around
 account	required	pam_permit.so
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-account
+# end of pam-auth-update config" >/etc/pam.d/common-account
 
 echo "#
 # /etc/pam.d/common-session - session-related modules common to all services
@@ -108,12 +109,12 @@ session	required			pam_permit.so
 # umask settings with different shells, display managers, remote sessions etc.
 # See \"man pam_umask\".
 session	required    pam_mkhomedir.so silent umask=0022 skel=/etc/skel
-session	required	pam_unix.so 
-session	optional	pam_mount.so 
-session	optional	pam_ldap.so 
-session	optional	pam_systemd.so 
+session	required	pam_unix.so
+session	optional	pam_mount.so
+session	optional	pam_ldap.so
+session	optional	pam_systemd.so
 # and here are more per-package modules (the \"Additional\" block)
-# end of pam-auth-update config" > /etc/pam.d/common-session
+# end of pam-auth-update config" >/etc/pam.d/common-session
 
 #Config final do arquivo nsswitch.
 sed -i '/^passwd:/c\passwd: compat files ldap \[NOTFOUND=return\] db' /etc/nsswitch.conf
