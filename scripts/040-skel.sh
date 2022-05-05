@@ -23,6 +23,10 @@ sed -i '/enabled=True/c\enabled=False' /etc/xdg/user-dirs.conf
 chmod 1777 /home/Docs.Locais
 chown nobody:nogroup /home/Docs.Locais
 
+# Cria bookmarks (Marcador no Nemo) da Nuvem para o webdav
+mkdir -p /etc/skel/.config/gtk-3.0
+echo "davs://nuvem.cmc.pr.gov.br/remote.php/webdav Nuvem" >> /etc/skel/.config/gtk-3.0
+
 # Cria icones de suporte, firefox, chrome
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
