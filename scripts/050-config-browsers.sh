@@ -51,16 +51,12 @@ echo '{
         "name": "SPL II"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br/spa/",
-        "name": "SPA"
+        "url": "https://spae.cmc.pr.gov.br/",
+        "name": "SPAe"
       },
       {
         "url": "https://nuvem.cmc.pr.gov.br/",
         "name": "Nuvem"
-      },
-      {
-        "url": "https://intranet.cmc.pr.gov.br/apl/",
-        "name": "APL"
       },
       {
         "url": "https://acesso.cmcuritiba.eloweb.net/",
@@ -79,20 +75,28 @@ echo '{
         "name": "Senha"
       },
       {
-        "url": "https://intranet.cmc.pr.gov.br/bib/",
-        "name": "BIB"
+        "url": "https://intranet.cmc.pr.gov.br/apl/",
+        "name": "APL"
+      },
+      {
+        "url": "https://www.cmc.pr.gov.br/spa/",
+        "name": "SPA - Legado"
+      },
+      {
+        "url": "https://minha-biblioteca.cmc.pr.gov.br/",
+        "name": "Minha Biblioteca"
       },
       {
         "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
         "name": "Registro de frequência"
       },
       {
-        "url": "https://www.curitiba.pr.gov.br/",
-        "name": "Prefeitura Municipal de Curitiba"
+        "url": "https://cmc-pr-gov-br.zoom.us/",
+        "name": "Zoom"
       },
       {
-        "url": "https://web.openrainbow.com/",
-        "name": "Rainbow"
+        "url": "https://www.curitiba.pr.gov.br/",
+        "name": "Prefeitura Municipal de Curitiba"
       }
     ]
   }
@@ -132,16 +136,12 @@ echo '{
       "name": "SPL II"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/spa/",
-      "name": "SPA"
+      "url": "https://spae.cmc.pr.gov.br/",
+      "name": "SPAe"
     },
     {
       "url": "https://nuvem.cmc.pr.gov.br/",
       "name": "Nuvem"
-    },
-    {
-      "url": "https://intranet.cmc.pr.gov.br/apl/",
-      "name": "APL"
     },
     {
       "url": "https://acesso.cmcuritiba.eloweb.net/",
@@ -160,20 +160,28 @@ echo '{
       "name": "Senha"
     },
     {
-      "url": "https://intranet.cmc.pr.gov.br/bib/",
-      "name": "BIB"
+      "url": "https://intranet.cmc.pr.gov.br/apl/",
+      "name": "APL"
+    },
+    {
+      "url": "https://www.cmc.pr.gov.br/spa/",
+      "name": "SPA - Legado"
+    },
+    {
+      "url": "https://minha-biblioteca.cmc.pr.gov.br/",
+      "name": "Minha Biblioteca"
     },
     {
       "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
       "name": "Registro de frequência"
     },
     {
-      "url": "https://www.curitiba.pr.gov.br/",
-      "name": "Prefeitura Municipal de Curitiba"
+      "url": "https://cmc-pr-gov-br.zoom.us/",
+      "name": "Zoom"
     },
     {
-      "url": "https://web.openrainbow.com/",
-      "name": "Rainbow"
+      "url": "https://www.curitiba.pr.gov.br/",
+      "name": "Prefeitura Municipal de Curitiba"
     }
   ]
 }' >/etc/opt/chrome/policies/managed/cmc.json
