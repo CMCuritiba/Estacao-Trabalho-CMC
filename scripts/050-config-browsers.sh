@@ -104,7 +104,7 @@ BOOKMARKS["Prefeitura Municipal de Curitiba"]="https://www.curitiba.pr.gov.br/"
 # https://github.com/mozilla/policy-templates/blob/master/README.md#bookmarks
 # https://github.com/mozilla/policy-templates/blob/v2.11/README.md
 favsFirefox="/usr/lib/firefox/distribution/policies.json" # type: json file
-buildBookmarksFirefox "${!BOOKMARKS[@]}" | jq . >"$favsFirefox"
+buildBookmarksFirefox "${!BOOKMARKS[@]}" | jq >"$favsFirefox"
 
 # Coloca firefox como padrão
 update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/firefox 999
@@ -118,11 +118,11 @@ mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 
 favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
-buildBookmarksChrome "${!BOOKMARKS[@]}" | jq . >"$favsChrome"
+buildBookmarksChrome "${!BOOKMARKS[@]}" | jq >"$favsChrome"
 
 echo '{
-	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
-	"RestoreOnStartup": 4,
-	"RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
-	"HomepageIsNewTabPage": false
-}' >/etc/opt/chrome/policies/recommended/cmc.json
+  "HomepageLocation": "http://intranet.cmc.pr.gov.br/",
+  "RestoreOnStartup": 4,
+  "RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
+  "HomepageIsNewTabPage": false
+}' | jq >/etc/opt/chrome/policies/recommended/cmc.json
