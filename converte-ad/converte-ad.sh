@@ -33,6 +33,12 @@ hostnamectl set-hostname $HOST
 # Altera arquivo 'hosts' para o novo hostname com o dominio (minusculo)
 sed -i "/^127.0.1.1/c\127.0.1.1\t"$HOST.${AD_DOMAIN,,} "/etc/hosts"
 
+# Ajuste o servico SSH para permitir autenticacao de senha
+sed -i "/#PasswordAuthentication yes/c\PasswordAuthentication yes" "/etc/ssh/sshd_config"
+
+# Restarta o servico SSH
+systemctl restart sshd
+
 # Configura arquivo do Kerberos com o nome do dominio e corrige problema de DNS reverso
 echo "[libdefaults]
 default_realm = $AD_DOMAIN
