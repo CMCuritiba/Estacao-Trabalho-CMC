@@ -23,6 +23,10 @@ DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd realmd krb5-user adcli
 rm -rf /etc/resolv.conf
 echo "nameserver $AD_ADDRESS" > /etc/resolv.conf
 
+if ! grep -w "${AD_DOMAIN,,}" "/etc/systemd/resolved.conf"; then
+    sed -i "/Domains=cmc.pr.gov.br/c\Domains=${AD_DOMAIN,,}" "/etc/systemd/resolved.conf"
+fi
+
 # Altera o hostname do computador
 hostnamectl set-hostname $HOST
 
