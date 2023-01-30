@@ -27,10 +27,20 @@ if ! grep -w "${AD_DOMAIN,,}" "/etc/systemd/resolved.conf"; then
     sed -i "/Domains=cmc.pr.gov.br/c\Domains=${AD_DOMAIN,,}" "/etc/systemd/resolved.conf"
 fi
 
+# Informa o nome do computador
+read -p "Informe o novo nome do computador (ENTER para manter o nome atual '$('hostname')'): " HOST
+
+if [ $HOST == "" ]; then
+    HOST=$('hostname')
+fi
+
 # Altera o hostname do computador
 hostnamectl set-hostname $HOST
 
-# Altera arquivo 'hosts' para o novo hostname com o dominio (minusculo)
+# Altera arquivo 'hostname' para o novo nome com o dominio (minusculo)
+echo "$HOST" > /etc/hostname
+
+# Altera arquivo 'hosts' para o novo nome com o dominio (minusculo)
 sed -i "/^127.0.1.1/c\127.0.1.1\t"$HOST.${AD_DOMAIN,,} "/etc/hosts"
 
 # Ajuste o servico SSH para permitir autenticacao de senha
@@ -43,12 +53,10 @@ systemctl restart sshd
 echo "[libdefaults]
 default_realm = $AD_DOMAIN
 rdns=false
-
 kdc_timesync = 1
 ccache_type = 4
 forwardable = true
 proxiable = true
-
 fcc-mit-ticketflags = true
 udp_preference_limit = 0
 " > /etc/krb5.conf
@@ -64,14 +72,11 @@ echo "[sssd]
 domains = ${AD_DOMAIN,,}
 config_file_version = 2
 services = nss,pam
-
 [nss]
-
 [pam]
 offline_credentials_expiration = 0
 offline_failed_login_attempts = 0
 offline_failed_login_delay = 0
-
 [domain/${AD_DOMAIN,,}]
 enumerate = true
 default_shell = /bin/bash
