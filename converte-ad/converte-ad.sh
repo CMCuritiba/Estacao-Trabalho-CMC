@@ -2,8 +2,7 @@
 
 # Variaveis
 AD_ADDRESS="" # endereco IP do AD
-AD_FQDN="" # FQDN do AD (nao funcionou para uso do resolv.conf)
-AD_DOMAIN="" # nome do dominio do AD
+AD_DOMAIN="" # nome do dominio do AD (maiusculo)
 AD_ADMIN="" # usuario que adiciona ao dominio
 AD_ADMIN_PASS="" # senha do usuario que adiciona ao dominio
 AD_GROUP_DTIC="" # nome novo do grupo DTIC padrao AD
@@ -28,17 +27,18 @@ if ! grep -w "${AD_DOMAIN,,}" "/etc/systemd/resolved.conf"; then
 fi
 
 # Informa o nome do computador
-read -p "Informe o novo nome do computador (ENTER para manter o nome atual '$('hostname')'): " HOST
+echo "Informe o novo nome do computador (ENTER para manter o nome atual '$('hostname')'): "
+read HOST
 
-if [ $HOST == "" ]; then
-    HOST=$('hostname')
+if [ $HOST == "" ] || [ $HOST == "3NXDOMAIN" ]; then
+    HOST=$HOSTNAME
 fi
 
 # Altera o hostname do computador
 hostnamectl set-hostname $HOST
 
 # Altera arquivo 'hostname' para o novo nome com o dominio (minusculo)
-echo "$HOST" > /etc/hostname
+echo $HOST > /etc/hostname
 
 # Altera arquivo 'hosts' para o novo nome com o dominio (minusculo)
 sed -i "/^127.0.1.1/c\127.0.1.1\t"$HOST.${AD_DOMAIN,,} "/etc/hosts"
