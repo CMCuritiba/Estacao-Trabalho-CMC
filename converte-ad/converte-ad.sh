@@ -2,11 +2,10 @@
 
 # Variaveis
 AD_ADDRESS="" # endereco IP do AD
-AD_DOMAIN="" # nome do dominio do AD (maiusculo)
+AD_DOMAIN="" # nome do dominio do AD
 AD_ADMIN="" # usuario que adiciona ao dominio
 AD_ADMIN_PASS="" # senha do usuario que adiciona ao dominio
 AD_GROUP_DTIC="" # nome novo do grupo DTIC padrao AD
-HOST="" # nome do computador
 
 # Update e Upgrade inicial
 apt-get update
@@ -30,7 +29,7 @@ fi
 echo "Informe o novo nome do computador (ENTER para manter o nome atual '$('hostname')'): "
 read HOST
 
-if [ $HOST == "" ] || [ $HOST == "3NXDOMAIN" ]; then
+if [ -z $HOST ] || [ $HOST == "3NXDOMAIN" ]; then
     HOST=$HOSTNAME
 fi
 
