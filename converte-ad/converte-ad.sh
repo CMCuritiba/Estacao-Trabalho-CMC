@@ -17,7 +17,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qyf purge libnss-ldap libpam-ldap nscd n
 # Instala SSSD, REALM, KERBEROS e ADCLI
 DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd realmd krb5-user adcli
 
-# Remove resolv.conf para usar configuracao local e apontar para o DNS do AD
+# Remove resolv.conf para usar configuracao local e apontar para o IP do DNS do AD
 rm -rf /etc/resolv.conf
 echo "nameserver $AD_ADDRESS" > /etc/resolv.conf
 
@@ -29,6 +29,7 @@ fi
 echo "Informe o novo nome do computador (ENTER para manter o nome atual '$('hostname')'): "
 read HOST
 
+# Verifica se variavel HOST está vazia ou com valor indefinidos
 if [ -z $HOST ] || [ $HOST == "3NXDOMAIN" ]; then
     HOST=$HOSTNAME
 fi
