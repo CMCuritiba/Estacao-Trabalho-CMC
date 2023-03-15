@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Variaveis
-AD_ADDRESS="" # endereco IP do AD
-AD_DOMAIN="" # nome do dominio do AD
-AD_ADMIN="" # usuario que adiciona ao dominio
-AD_ADMIN_PASS="" # senha do usuario que adiciona ao dominio
-AD_GROUP_DTIC="" # nome novo do grupo DTIC padrao AD
-
 # Update e Upgrade inicial
 apt-get update
 apt-get -y upgrade
