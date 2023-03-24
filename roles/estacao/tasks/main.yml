@@ -1,0 +1,6 @@
+---
+# tasks file for estacao
+  - name: Remover Programas
+    apt:
+      name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, warpinator"
+      state: absent

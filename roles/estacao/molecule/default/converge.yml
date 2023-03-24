@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include cmcuritiba.estacao"
+      include_role:
+        name: "cmcuritiba.estacao"
