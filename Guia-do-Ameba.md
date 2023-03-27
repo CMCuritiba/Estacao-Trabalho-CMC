@@ -1,0 +1,42 @@
+# preparo da estacao de trabalho - Ansible
+
+sudo apt install ansible python3 pip git 
+python3 -m pip install molecule
+python3 -m pip install ansible-core
+
+# com seu usuário:
+mkdir ~/workspace
+cd ~/workspace
+ssh-keygen [enter] [enter] [enter]
+cat ~/.ssh/id_rsa.pub {copiar todo o conteúdo desse arquivo}
+
+# abrir o github e fazer login
+# acessar settings > SSH and GPG keys > New SSH key
+# escolher um título para a chave e depois colar o conteúdo copiado anteriormente em Key
+
+# voltando para o terminal do linux:
+git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
+wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O /tmp/vscode.deb
+sudo dpkg -i --force-depends /tmp/vscode.deb
+code ~/workspace/Estacao-Trabalho-CMC
+sudo snap install docker
+sudo chmod 666 /var/run/docker.sock
+python3 -m pip install --user ansible-lint
+sudo apt install python3.10-venv
+python3 -m venv molecule
+source molecule/bin/activate
+pip install "molecule[docker]"
+mkdir roles
+cd roles/
+molecule init role -d docker cmcuritiba.estacao
+cd estacao/
+mv molecule/ /home/breno/workspace/
+sudo molecule converge
+
+# Para usar sua estacao de trabalho:
+Abra o VSCode, no canto inferior esquerdo escolha a branch
+No canto superior esquerdo selecione "Extensions" e procure por Ansible. Instale a primeira recomendacao.
+Veja os arquivos em Explorer no canto superior esquerdo 
+
+No terminal do VSCode, para utilizar o molecule use:
+source ~/workspace/molecule/bin/activate
