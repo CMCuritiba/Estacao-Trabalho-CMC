@@ -1,6 +1,6 @@
 # preparo da estacao de trabalho - Ansible
 
-sudo apt install ansible python3 pip git
+sudo apt install python3 pip git
 python3 -m pip install molecule
 python3 -m pip install ansible-core
 
@@ -21,8 +21,8 @@ sudo dpkg -i --force-depends /tmp/vscode.deb
 code ~/workspace/Estacao-Trabalho-CMC
 sudo snap install docker
 sudo chmod 666 /var/run/docker.sock
-python3 -m pip install --user ansible-lint
-sudo apt install python3.10-venv
+python3 -m pip install --user ansible ansible-lint
+sudo apt install python3-venv
 python3 -m venv molecule
 source molecule/bin/activate
 pip install "molecule[docker]"
