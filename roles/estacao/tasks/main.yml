@@ -1,6 +1,16 @@
 ---
 # tasks file for estacao
-  - name: Remover Programas
-    apt:
-      name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, warpinator"
-      state: absent
+- name: Remover Programas
+  apt:
+    name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, warpinator"
+    state: absent
+    update_cache: true
+    cache_valid_time: 80000
+
+
+- name: Altera repositório para source local
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: '//archive.ubuntu.com'
+    replace: '//br.archive.ubuntu.com'
+    backup: true
