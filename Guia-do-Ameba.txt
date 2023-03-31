@@ -24,14 +24,13 @@ sudo chmod 666 /var/run/docker.sock
 python3 -m pip install --user ansible ansible-lint
 sudo apt install python3-venv
 python3 -m venv molecule
-source molecule/bin/activate
+source ~/workspace/molecule/bin/activate
 pip install "molecule[docker]"
 mkdir roles
 cd roles/
 molecule init role -d docker cmcuritiba.estacao
 cd estacao/
 mv molecule/ /home/breno/workspace/
-sudo molecule converge
 
 # Para usar sua estacao de trabalho:
 Abra o VSCode, no canto inferior esquerdo escolha a branch
@@ -40,3 +39,28 @@ Veja os arquivos em Explorer no canto superior esquerdo
 
 No terminal do VSCode, para utilizar o molecule use:
 source ~/workspace/molecule/bin/activate
+
+#instalando o vagrant
+pip install python-vagrant molecule-vagrant "molecule[vagrant]"
+molecule init scenario --role-name estacao --driver-name vagrant vagrant
+molecule check -s vagrant
+
+#alterar o arquivo > roles/estacao/vagrant/molecule.yml:
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: estacao
+    box: aaronvonawesome/linux-mint-21-cinnamon
+    #   instance_raw_config_args:
+    #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: ansible
