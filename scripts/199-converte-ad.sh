@@ -114,21 +114,21 @@ fi
 
 # Configuracao do nsswitch
 if ! cmp -s /etc/nsswitch.conf nsswitch.conf.template; then
-    cp -f nsswitch.conf.template /etc/nsswitch.conf
+    cp -f --backup=t nsswitch.conf.template /etc/nsswitch.conf
 fi
 
 # Automatiza a criacao do diretorio HOME apos o login
 pam-auth-update --force --enable mkhomedir
 
 # Configuracao do PAM para trabalhar com SSSD
-if ! cmp -s /etc/pam.d/common-auth common-auth.template; then
-    cp -f common-auth.template /etc/pam.d/common-auth
+if ! cmp -s /etc/pam.d/common-auth arquivos/common-auth.template; then
+    cp -f --backup=t arquivos/common-auth.template /etc/pam.d/common-auth
 fi
-if ! cmp -s /etc/pam.d/common-account common-account.template; then
-    cp -f common-account.template /etc/pam.d/common-account
+if ! cmp -s /etc/pam.d/common-account arquivos/common-account.template; then
+    cp -f --backup=t arquivos/common-account.template /etc/pam.d/common-account
 fi
-if ! cmp -s /etc/pam.d/common-session common-session.template; then
-    cp -f common-session.template /etc/pam.d/common-session
+if ! cmp -s /etc/pam.d/common-session arquivos/common-session.template; then
+    cp -f --backup=t arquivos/common-session.template /etc/pam.d/common-session
 fi
 
 echo "SCRIPT ENCERRADO"
