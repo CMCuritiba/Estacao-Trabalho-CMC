@@ -55,34 +55,48 @@ udp_preference_limit = 0
 " > /etc/krb5.conf
 
 # Cria o ticket do Kerberos para encontrar o dominio
-echo $AD_ADMIN_PASS | kinit $AD_ADMIN@$AD_DOMAIN
+echo $AD_ADMIN_PWD | kinit $AD_ADMIN@$AD_DOMAIN
 
 # Adiciona o computador ao dominio
-echo $AD_ADMIN_PASS | realm join -U $AD_ADMIN $AD_DOMAIN
+echo $AD_ADMIN_PWD | realm join -U $AD_ADMIN $AD_DOMAIN
 
 # Configuracao do SSSD para apontar para o dominio e manter cache infinito
 echo "[sssd]
 domains = ${AD_DOMAIN,,}
 config_file_version = 2
 services = nss,pam
+
 [nss]
+
 [pam]
 offline_credentials_expiration = 0
 offline_failed_login_attempts = 0
 offline_failed_login_delay = 0
+
 [domain/${AD_DOMAIN,,}]
-enumerate = true
-default_shell = /bin/bash
-krb5_store_password_if_offline = True
-cache_credentials = True
-krb5_realm = $AD_DOMAIN
 realmd_tags = manages-system joined-with-adcli
-id_provider = ad
-fallback_homedir = /home/%u
 ad_domain = ${AD_DOMAIN,,}
+krb5_realm = $AD_DOMAIN
+
+id_provider = ad
+cache_credentials = True
+krb5_store_password_if_offline = True
+enumerate = true
 use_fully_qualified_names = False
-ldap_id_mapping = True
-access_provider = ad
+
+fallback_homedir = /home/%u
+default_shell = /bin/bash
+
+# para usar uid and gid do active directory
+ldap_id_mapping = False
+
+# necessario para uso correto das propriedades do active directory
+ldap_schema = ad
+ldap_user_object_class = InetOrgPerson
+ldap_user_name = uid
+ldap_user_gid_number = gidNumber
+ldap_user_uid_number = uidNumber
+ldap_user_gecos = displayName
 " > /etc/sssd/sssd.conf
 
 # Altera permissao do arquivo sssd.conf
@@ -91,28 +105,30 @@ chmod 600 /etc/sssd/sssd.conf
 # Restarta o servico SSSD
 systemctl restart sssd
 
-# Substitua o antigo nome 'dtic' para o novo nome do grupo de rede 'dtic' do AD (perfil de administrador no arquivo 'sudoers')
-if ! grep -w "$AD_GROUP_DTIC" "/etc/sudoers"; then
-    sed -i "/%dtic/c\%$AD_GROUP_DTIC\tALL=(ALL:ALL) ALL" "/etc/sudoers"
+# Adiciona grupo com perfil de administrador no arquivo 'sudoers'
+if grep -w "dtic" "/etc/sudoers"; then
+    sed -i "/%dtic/c\%$AD_GROUP_SUDOERS\tALL=(ALL:ALL) ALL" "/etc/sudoers"
+else
+    echo -e "\n$AD_GROUP_SUDOERS\tALL=(ALL:ALL) ALL" >> /etc/sudoers
 fi
 
 # Configuracao do nsswitch
-if ! cmp -s /etc/nsswitch.conf ../arquivos/nsswitch.conf.template; then
-    cp -f ../arquivos/nsswitch.conf.template /etc/nsswitch.conf
+if ! cmp -s /etc/nsswitch.conf nsswitch.conf.template; then
+    cp -f nsswitch.conf.template /etc/nsswitch.conf
 fi
 
 # Automatiza a criacao do diretorio HOME apos o login
 pam-auth-update --force --enable mkhomedir
 
 # Configuracao do PAM para trabalhar com SSSD
-if ! cmp -s /etc/pam.d/common-auth ../arquivos/common-auth.template; then
-    cp -f ../arquivos/common-auth.template /etc/pam.d/common-auth
+if ! cmp -s /etc/pam.d/common-auth common-auth.template; then
+    cp -f common-auth.template /etc/pam.d/common-auth
 fi
-if ! cmp -s /etc/pam.d/common-account ../arquivos/common-account.template; then
-    cp -f ../arquivos/common-account.template /etc/pam.d/common-account
+if ! cmp -s /etc/pam.d/common-account common-account.template; then
+    cp -f common-account.template /etc/pam.d/common-account
 fi
-if ! cmp -s /etc/pam.d/common-session ../arquivos/common-session.template; then
-    cp -f ../arquivos/common-session.template /etc/pam.d/common-session
+if ! cmp -s /etc/pam.d/common-session common-session.template; then
+    cp -f common-session.template /etc/pam.d/common-session
 fi
 
 echo "SCRIPT ENCERRADO"
