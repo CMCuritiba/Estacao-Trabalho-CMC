@@ -1,5 +1,61 @@
 #!/bin/bash
 
+function buildBookmarksFirefox() {
+    echo -n "{
+  \"policies\": {
+    \"DisplayBookmarksToolbar\": true,
+    \"ManagedBookmarks\": [
+      {
+        \"toplevel_name\": \"Favoritos Gerenciados da CMC\"
+      },"
+
+    while [ $# -gt 0 ]; do
+        x=${1}
+
+        echo -n "
+      {
+        \"url\": \"${BOOKMARKS[$x]}\",
+        \"name\": \"$x\"
+      }"
+
+        [ $# -gt 1 ] && echo -n ','
+        shift
+    done
+
+    # Fecha JSON
+    echo -n "
+    ]
+  }
+}"
+}
+
+function buildBookmarksChrome() {
+    # shellcheck disable=SC2016
+    echo -n "{
+  \"DownloadDirectory\": \"/home/\${user_name}/Downloads\",
+  \"DefaultBrowserSettingEnabled\": false,
+  \"DisablePrintPreview\": true,
+  \"ManagedBookmarks\": ["
+
+    while [ $# -gt 0 ]; do
+        x=${1}
+
+        echo -n "
+    {
+      \"url\": \"${BOOKMARKS[$x]}\",
+      \"name\": \"$x\"
+    }"
+
+        [ $# -gt 1 ] && echo -n ','
+        shift
+    done
+
+    # Fecha JSON
+    echo -n "
+  ]
+}"
+}
+
 # FIREFOX
 
 # Bloqueia edição de algumas configurações:
@@ -23,80 +79,36 @@ lockPref("browser.rights.3.shown", true);' >/usr/lib/firefox/mozilla.cfg
 echo "[XRE]
 EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
 
+# Lista de favoritos gerenciados pela DTIC
+declare -A BOOKMARKS
+BOOKMARKS["Câmara Municipal de Curitiba"]="https://www.cmc.pr.gov.br/"
+BOOKMARKS["Intranet"]="https://intranet.cmc.pr.gov.br/"
+BOOKMARKS["Correio"]="https://correio.cmc.pr.gov.br/"
+BOOKMARKS["SPL II"]="https://www.cmc.pr.gov.br/spl/"
+BOOKMARKS["SPAe"]="https://spae.cmc.pr.gov.br/"
+BOOKMARKS["Nuvem"]="https://nuvem.cmc.pr.gov.br/"
+BOOKMARKS["RH-Online"]="https://www.cmc.pr.gov.br/portalrh/"
+BOOKMARKS["Eloweb Gestão Pública"]="https://acesso.cmcuritiba.eloweb.net/"
+BOOKMARKS["Almoxarifado"]="https://cmcuritiba.eloweb.net/almoxarifado/"
+BOOKMARKS["Chamados"]="https://chamados.cmc.pr.gov.br/"
+BOOKMARKS["Suporte"]="https://chamados.cmc.pr.gov.br/#knowledge_base"
+BOOKMARKS["Senha"]="https://senha.cmc.pr.gov.br/"
+BOOKMARKS["APL"]="https://apl.cmc.pr.gov.br/"
+BOOKMARKS["BIB"]="https://intranet.cmc.pr.gov.br/bib/"
+BOOKMARKS["SPA - Legado"]="https://spa.cmc.pr.gov.br/"
+BOOKMARKS["Cerimonial"]="https://cerimonial.cmc.pr.gov.br/"
+BOOKMARKS["Minha Biblioteca"]="https://minha-biblioteca.cmc.pr.gov.br/"
+BOOKMARKS["Registro de frequência"]="https://www.cmc.pr.gov.br/registro-frequencia/"
+BOOKMARKS["Zoom"]="https://cmc-pr-gov-br.zoom.us/"
+BOOKMARKS["Rainbow"]="https://web.openrainbow.com/"
+BOOKMARKS["Prefeitura Municipal de Curitiba"]="https://www.curitiba.pr.gov.br/"
+
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox/distribution/
 # Referencia para policies:
 # https://github.com/mozilla/policy-templates/blob/master/README.md#bookmarks
 # https://github.com/mozilla/policy-templates/blob/v2.11/README.md
-echo '{
-  "policies": {
-    "DisplayBookmarksToolbar": true,
-    "ManagedBookmarks": [
-      {
-        "toplevel_name": "Favoritos Gerenciados da CMC"
-      },
-      {
-        "url": "https://www.cmc.pr.gov.br/",
-        "name": "Câmara Municipal de Curitiba"
-      },
-      {
-        "url": "https://intranet.cmc.pr.gov.br/",
-        "name": "Intranet"
-      },
-      {
-        "url": "https://correio.cmc.pr.gov.br/",
-        "name": "Correio"
-      },
-      {
-        "url": "https://www.cmc.pr.gov.br/spl/",
-        "name": "SPL II"
-      },
-      {
-        "url": "https://intranet.cmc.pr.gov.br/spa/",
-        "name": "SPA"
-      },
-      {
-        "url": "https://nuvem.cmc.pr.gov.br/",
-        "name": "Nuvem"
-      },
-      {
-        "url": "https://intranet.cmc.pr.gov.br/apl/",
-        "name": "APL"
-      },
-      {
-        "url": "https://acesso.cmcuritiba.eloweb.net/",
-        "name": "Eloweb Gestão Pública"
-      },
-      {
-        "url": "https://chamados.cmc.pr.gov.br/",
-        "name": "Chamados"
-      },
-      {
-        "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
-        "name": "Suporte"
-      },
-      {
-        "url": "https://senha.cmc.pr.gov.br/",
-        "name": "Senha"
-      },
-      {
-        "url": "https://intranet.cmc.pr.gov.br/bib/",
-        "name": "BIB"
-      },
-      {
-        "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
-        "name": "Registro de frequência"
-      },
-      {
-        "url": "https://www.curitiba.pr.gov.br/",
-        "name": "Prefeitura Municipal de Curitiba"
-      },
-      {
-        "url": "https://web.openrainbow.com/",
-        "name": "Rainbow"
-      }
-    ]
-  }
-}' >/usr/lib/firefox/distribution/policies.json
+favsFirefox="/usr/lib/firefox/distribution/policies.json" # type: json file
+buildBookmarksFirefox "${!BOOKMARKS[@]}" | jq >"$favsFirefox"
 
 # Coloca firefox como padrão
 update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/firefox 999
@@ -109,77 +121,12 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/fire
 mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 
-# shellcheck disable=SC2016
+favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
+buildBookmarksChrome "${!BOOKMARKS[@]}" | jq >"$favsChrome"
+
 echo '{
-  "DownloadDirectory": "/home/${user_name}/Downloads",
-  "DefaultBrowserSettingEnabled": false,
-  "DisablePrintPreview": true,
-  "ManagedBookmarks": [
-    {
-      "url": "https://www.cmc.pr.gov.br/",
-      "name": "Câmara Municipal de Curitiba"
-    },
-    {
-      "url": "https://intranet.cmc.pr.gov.br/",
-      "name": "Intranet"
-    },
-    {
-      "url": "https://correio.cmc.pr.gov.br/",
-      "name": "Correio"
-    },
-    {
-      "url": "https://www.cmc.pr.gov.br/spl/",
-      "name": "SPL II"
-    },
-    {
-      "url": "https://intranet.cmc.pr.gov.br/spa/",
-      "name": "SPA"
-    },
-    {
-      "url": "https://nuvem.cmc.pr.gov.br/",
-      "name": "Nuvem"
-    },
-    {
-      "url": "https://intranet.cmc.pr.gov.br/apl/",
-      "name": "APL"
-    },
-    {
-      "url": "https://acesso.cmcuritiba.eloweb.net/",
-      "name": "Eloweb Gestão Pública"
-    },
-    {
-      "url": "https://chamados.cmc.pr.gov.br/",
-      "name": "Chamados"
-    },
-    {
-      "url": "https://chamados.cmc.pr.gov.br/#knowledge_base",
-      "name": "Suporte"
-    },
-    {
-      "url": "https://senha.cmc.pr.gov.br/",
-      "name": "Senha"
-    },
-    {
-      "url": "https://intranet.cmc.pr.gov.br/bib/",
-      "name": "BIB"
-    },
-    {
-      "url": "https://www.cmc.pr.gov.br/registro-frequencia/",
-      "name": "Registro de frequência"
-    },
-    {
-      "url": "https://www.curitiba.pr.gov.br/",
-      "name": "Prefeitura Municipal de Curitiba"
-    },
-    {
-      "url": "https://web.openrainbow.com/",
-      "name": "Rainbow"
-    }
-  ]
-}' >/etc/opt/chrome/policies/managed/cmc.json
-echo '{
-	"HomepageLocation": "http://intranet.cmc.pr.gov.br/",
-	"RestoreOnStartup": 4,
-	"RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
-	"HomepageIsNewTabPage": false
-}' >/etc/opt/chrome/policies/recommended/cmc.json
+  "HomepageLocation": "http://intranet.cmc.pr.gov.br/",
+  "RestoreOnStartup": 4,
+  "RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
+  "HomepageIsNewTabPage": false
+}' | jq >/etc/opt/chrome/policies/recommended/cmc.json
