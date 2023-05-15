@@ -1,8 +1,8 @@
 #!/bin/bash
+
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/Nuvem
 mkdir -p /etc/skel/.config/autostart
 mkdir -p /home/Docs.Locais
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
@@ -23,11 +23,15 @@ sed -i '/enabled=True/c\enabled=False' /etc/xdg/user-dirs.conf
 chmod 1777 /home/Docs.Locais
 chown nobody:nogroup /home/Docs.Locais
 
+# Garante que Docs.Locais está sem arquivos
+# Impede criação de link para o mesmo link
+rm -rf /home/Docs.Locais/*
+
 # Cria icones de suporte, firefox, chrome
 echo -e '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
-Type=Application
+Type=ApplicationGIMP
 Terminal=false
 Name=Firefox
 Exec=firefox
@@ -73,22 +77,10 @@ Icon[pt_BR]=firefox
 Name[pt_BR]=Suporte
 Icon=/usr/share/pixmaps/suporte_tux.png' > /etc/skel/Desktop/Suporte.desktop
 
-# Configura atalho para o mensageiro
-# O icone é configurado no script 035
-echo -e "#!/usr/bin/env xdg-open
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Name=Rainbow
-Exec=google-chrome --app=https://web.openrainbow.com/
-Name[pt_BR]=Rainbow
-Icon=/usr/share/pixmaps/Rainbow.png" > /etc/skel/Desktop/Rainbow.desktop
-
 # Ajusta permissões dos launchers
 chmod +x /etc/skel/Desktop/*.desktop
 
-mkdir -p /etc/skel/.gimp-2.10/
+mkdir -p /etc/skel/.gimp/
 
 # Configuração padrão do GIMP
 echo '# GIMP sessionrc
@@ -140,7 +132,7 @@ echo '# GIMP sessionrc
 (single-window-mode yes)
 (last-tip-shown 0)
 
-# end of sessionrc' > /etc/skel/.gimp-2.10/sessionrc
+# end of sessionrc' > /etc/skel/.gimp/sessionrc
 
 # Política de privacidade
 echo '#!/bin/bash
@@ -154,7 +146,7 @@ fi' > /etc/skel/.politicainformatica.sh
 
 # Forçar logout se não aceitar política de privacidade
 if ! grep -q 'bash $HOME/.politicainformatica.sh;' /etc/skel/.profile; then
-echo 'if [ -f "$HOME/.politicainformatica.sh" ]; then
-	bash $HOME/.politicainformatica.sh;
-fi' >> /etc/skel/.profile
+    echo 'if [ -f "$HOME/.politicainformatica.sh" ]; then
+	    bash $HOME/.politicainformatica.sh;
+    fi' >> /etc/skel/.profile
 fi

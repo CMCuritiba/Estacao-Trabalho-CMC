@@ -21,6 +21,7 @@ fi
 if id -nG suporte | grep -qw lpadmin; then
     deluser suporte lpadmin
 fi
+
 # Garante que o usuário suporte esteja no sudo
 if ! id -Gn suporte | grep -qw "sudo"; then
     adduser --quiet suporte sudo

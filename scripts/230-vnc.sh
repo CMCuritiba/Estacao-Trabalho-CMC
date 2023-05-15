@@ -11,7 +11,3 @@ X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/vino-server.desktop
 elif ! grep -q "X-GNOME-Autostart-enabled=true" /etc/xdg/autostart/vino-server.desktop; then
 	echo 'X-GNOME-Autostart-enabled=true' >> /etc/xdg/autostart/vino-server.desktop;
 fi
-
-# Faz usuario habilitar vino toda vez que ligar
-# Desabilitado pq tem lock
-#echo "gsettings set org.gnome.Vino enabled true" >> /etc/skel/.profile

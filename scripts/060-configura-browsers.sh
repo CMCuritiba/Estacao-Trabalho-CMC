@@ -65,7 +65,7 @@ pref("general.config.obscure_value", 0);' >/usr/lib/firefox/defaults/pref/local-
 
 # Cria e configura o arquivo mozilla.cfg na pasta /usr/lib/firefox:
 echo '//
-lockPref("browser.startup.homepage", "http://intranet.cmc.pr.gov.br/");
+lockPref("browser.startup.homepage", "https://www.cmc.pr.gov.br/");
 lockPref("network.proxy.type", 0);
 lockPref("browser.startup.page", 1);
 lockPref("print.print_footerleft", "");
@@ -82,25 +82,19 @@ EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
 # Lista de favoritos gerenciados pela DTIC
 declare -A BOOKMARKS
 BOOKMARKS["Câmara Municipal de Curitiba"]="https://www.cmc.pr.gov.br/"
-BOOKMARKS["Intranet"]="https://intranet.cmc.pr.gov.br/"
 BOOKMARKS["Correio"]="https://correio.cmc.pr.gov.br/"
 BOOKMARKS["SPL II"]="https://www.cmc.pr.gov.br/spl/"
 BOOKMARKS["SPAe"]="https://spae.cmc.pr.gov.br/"
 BOOKMARKS["Nuvem"]="https://nuvem.cmc.pr.gov.br/"
-BOOKMARKS["RH-Online"]="https://www.cmc.pr.gov.br/portalrh/"
 BOOKMARKS["Eloweb Gestão Pública"]="https://acesso.cmcuritiba.eloweb.net/"
-BOOKMARKS["Almoxarifado"]="https://cmcuritiba.eloweb.net/almoxarifado/"
 BOOKMARKS["Chamados"]="https://chamados.cmc.pr.gov.br/"
 BOOKMARKS["Suporte"]="https://chamados.cmc.pr.gov.br/#knowledge_base"
 BOOKMARKS["Senha"]="https://senha.cmc.pr.gov.br/"
-BOOKMARKS["APL"]="https://apl.cmc.pr.gov.br/"
-BOOKMARKS["BIB"]="https://www.cmc.pr.gov.br/bib/"
-BOOKMARKS["SPA - Legado"]="https://spa.cmc.pr.gov.br/"
-BOOKMARKS["Cerimonial"]="https://cerimonial.cmc.pr.gov.br/"
+BOOKMARKS["APL"]="https://intranet.cmc.pr.gov.br/apl/"
+BOOKMARKS["SPA - Legado"]="https://www.cmc.pr.gov.br/spa/"
 BOOKMARKS["Minha Biblioteca"]="https://minha-biblioteca.cmc.pr.gov.br/"
 BOOKMARKS["Registro de frequência"]="https://www.cmc.pr.gov.br/registro-frequencia/"
 BOOKMARKS["Zoom"]="https://cmc-pr-gov-br.zoom.us/"
-BOOKMARKS["Rainbow"]="https://web.openrainbow.com/"
 BOOKMARKS["Prefeitura Municipal de Curitiba"]="https://www.curitiba.pr.gov.br/"
 
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox/distribution/
@@ -110,10 +104,11 @@ BOOKMARKS["Prefeitura Municipal de Curitiba"]="https://www.curitiba.pr.gov.br/"
 favsFirefox="/usr/lib/firefox/distribution/policies.json" # type: json file
 buildBookmarksFirefox "${!BOOKMARKS[@]}" | jq >"$favsFirefox"
 
-# Coloca firefox como padrão
-update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/firefox 999
 
-# CHROME
+# GOOGLE CHROME
+
+# Coloca o Google Chrome como navegador padrão
+update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/google-chrome-stable 999
 
 # Cria e configura o arquivo cmc.json na pasta /etc/opt/chrome/policies/managed/ e recommended/
 # Referencia para policies:
@@ -125,8 +120,8 @@ favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
 buildBookmarksChrome "${!BOOKMARKS[@]}" | jq >"$favsChrome"
 
 echo '{
-  "HomepageLocation": "http://intranet.cmc.pr.gov.br/",
+  "HomepageLocation": "https://www.cmc.pr.gov.br/",
   "RestoreOnStartup": 4,
-  "RestoreOnStartupURLs": ["http://intranet.cmc.pr.gov.br/"],
+  "RestoreOnStartupURLs": ["https://www.cmc.pr.gov.br/"],
   "HomepageIsNewTabPage": false
 }' | jq >/etc/opt/chrome/policies/recommended/cmc.json

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Automatiza o processo de atualizações de segurança
+
 apt-get update
 
 # Instala o unattended-upgrades

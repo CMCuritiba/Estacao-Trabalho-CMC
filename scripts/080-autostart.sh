@@ -31,4 +31,4 @@ Type=Application
 Terminal=false
 Name=ForceLogout
 Exec=/usr/local/cmc/scripts/forcelogout.sh
-X-GNOME-Autostart-enabled=true' >/etc/xdg/autostart/forcelogout.desktop
+X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/forcelogout.desktop

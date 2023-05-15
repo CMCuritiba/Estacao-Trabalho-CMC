@@ -37,7 +37,7 @@ ln -sf /usr/bin/nm-applet /usr/local/cmc/modificados/nm-applet
 ln -sf /etc/dconf/profile/user /usr/local/cmc/modificados/user
 ln -sf /etc/dconf/db/local.d/01-cmc /usr/local/cmc/modificados/01-cmc
 
-# LDAP e PAM
+# AD e PAM
 ln -sf /etc/pam.d/common-session /usr/local/cmc/modificados/common-session
 ln -sf /etc/pam.d/common-auth /usr/local/cmc/modificados/common-auth
 ln -sf /etc/pam.d/common-account /usr/local/cmc/modificados/common-account
@@ -58,6 +58,9 @@ ln -sf /etc/cups/cups-browsed.conf /usr/local/cmc/modificados/cups-browsed.conf
 
 # NSSwitch
 ln -sf /etc/nsswitch.conf /usr/local/cmc/modificados/nsswitch.conf
+
+# Sudoers
+ln -sf /etc/sudoers /usr/local/cmc/modificados/sudoers
 
 # Desabilita TTYs
 ln -sf /etc/X11/xorg.conf /usr/local/cmc/modificados/xorg.conf
