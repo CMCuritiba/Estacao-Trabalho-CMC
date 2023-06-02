@@ -1,5 +1,7 @@
 ---
 # tasks file for estacao
+
+#020-remover-programas
 - name: Remover Programas
   apt:
     name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, warpinator"
@@ -14,3 +16,18 @@
     regexp: '//archive.ubuntu.com'
     replace: '//br.archive.ubuntu.com'
     backup: true
+
+#010-user-group-suporte
+- name: Cria usuário suporte e o inclui no grupo sudo
+  ansible.builtin.user:
+    name: suporte
+    group: sudo
+
+- name: tira suporte de grupos admin
+  become: true
+  command: "gpasswd -d suporte adm lpadmin"
+ 
+ - name: Deleta grupo suporte
+  ansible.builtin.group:
+    name: suporte
+    state: absent
