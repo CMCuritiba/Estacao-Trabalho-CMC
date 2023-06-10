@@ -1,0 +1,7 @@
+#030-instala-programas
+- name: 
+  apt:
+    name: "rdesktop, vino, openssh-server, vlc, audacity, exfat-fuse, exfat-utils, shotwell, gimp, gimp-help-pt, drawing, inkscape, gstreamer1.0-libav, gstreamer1.0-plugins-bad, gstreamer1.0-plugins-ugly, gstreamer1.0-vaapi, libavcodec-extra, libdvdcss2, libdvdnav4, libdvdread7, libhal1-flash, vim, gedit, pdfsam, unrar, ttf-mscorefonts-installer, ncdu, numlockx, acct, xmlstarlet, jq"
+    state: present
+    update_cache: true
+    cache_valid_time: 80000
