@@ -67,23 +67,3 @@ provisioner:
     name: ansible-lint
 verifier:
   name: ansible
-
-# Alterar o arquivo > roles/estacao/vagrant/molecule.yml:
----
-dependency:
-  name: galaxy
-driver:
-  name: vagrant
-  provider:
-    name: virtualbox
-platforms:
-  - name: estacao
-    box: aaronvonawesome/linux-mint-21-cinnamon
-    #   instance_raw_config_args:
-    #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-verifier:
-  name: ansible
