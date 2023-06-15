@@ -1,5 +1,5 @@
 # preparo da estacao de trabalho - Ansible
-
+# a
 sudo apt install python3 pip git
 python3 -m pip install --user ansible
 
