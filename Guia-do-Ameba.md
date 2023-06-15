@@ -1,9 +1,9 @@
-# preparo da estacao de trabalho - Ansible
+# Preparo da estacao de trabalho - Ansible
 
 sudo apt install python3 pip git
 python3 -m pip install --user ansible
 
-## com seu usuário:
+## Com seu usuário:
 mkdir ~/workspace
 cd ~/workspace
 ssh-keygen [enter] [enter] [enter]
@@ -13,24 +13,24 @@ cat ~/.ssh/id_rsa.pub {copiar todo o conteúdo desse arquivo}
 2. acessar settings > SSH and GPG keys > New SSH key
 3. escolher um título para a chave e depois colar o conteúdo copiado anteriormente em Key
 
-## voltando para o terminal do linux:
-git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
-wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O /tmp/vscode.deb
-sudo dpkg -i --force-depends /tmp/vscode.deb
-code ~/workspace/Estacao-Trabalho-CMC
-sudo apt install docker.io
-sudo adduser [seu usuario] docker
-python3 -m pip install --user ansible ansible-lint
-sudo apt install python3-venv
-python3 -m venv molecule
-source ~/workspace/molecule/bin/activate
-pip install molecule
-pip install "molecule-docker" 
-mkdir roles
-cd roles/
-molecule init role -d docker cmcuritiba.estacao
-cd estacao/
-mv molecule/ /home/breno/workspace/
+## Voltando para o terminal do linux:
+1. git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
+2. wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O /tmp/vscode.deb
+3. sudo dpkg -i --force-depends /tmp/vscode.deb
+4. code ~/workspace/Estacao-Trabalho-CMC
+5. sudo apt install docker.io
+6. sudo adduser [seu usuario] docker
+7. python3 -m pip install --user ansible ansible-lint
+8. sudo apt install python3-venv
+9. python3 -m venv molecule
+10. source ~/workspace/molecule/bin/activate
+11. pip install molecule
+12. pip install "molecule-docker" 
+13. mkdir roles
+14. cd roles/
+15. molecule init role -d docker cmcuritiba.estacao
+16. cd estacao/
+17. mv molecule/ /home/breno/workspace/
 
 # Para usar sua estacao de trabalho:
 Abra o VSCode, no canto inferior esquerdo escolha a branch
