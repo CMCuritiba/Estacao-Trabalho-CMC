@@ -1,0 +1,15 @@
+# VS Code
+.vscode/
+
+# Logs
+logs/
+log/
+*.log.*
+*.log
+
+# dotenv environment variables file
+.env
+
+# Vagrant
+.vagrant
+
