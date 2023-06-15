@@ -3,17 +3,17 @@
 sudo apt install python3 pip git
 python3 -m pip install --user ansible
 
-# com seu usuário:
+## com seu usuário:
 mkdir ~/workspace
 cd ~/workspace
 ssh-keygen [enter] [enter] [enter]
 cat ~/.ssh/id_rsa.pub {copiar todo o conteúdo desse arquivo}
 
-# abrir o github e fazer login
-# acessar settings > SSH and GPG keys > New SSH key
-# escolher um título para a chave e depois colar o conteúdo copiado anteriormente em Key
+1. abrir o github e fazer login
+2. acessar settings > SSH and GPG keys > New SSH key
+3. escolher um título para a chave e depois colar o conteúdo copiado anteriormente em Key
 
-# voltando para o terminal do linux:
+## voltando para o terminal do linux:
 git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
 wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O /tmp/vscode.deb
 sudo dpkg -i --force-depends /tmp/vscode.deb
@@ -40,7 +40,7 @@ Veja os arquivos em Explorer no canto superior esquerdo
 No terminal do VSCode, para utilizar o molecule use:
 source ~/workspace/molecule/bin/activate
 
-#instalando o vagrant
+# instalando o vagrant
 wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update && sudo apt install vagrant
@@ -50,7 +50,7 @@ python3 -m pip install --user python-vagrant molecule-vagrant
 molecule init scenario --role-name estacao --driver-name vagrant vagrant
 molecule check -s vagrant
 
-#alterar o arquivo > roles/estacao/vagrant/molecule.yml:
+# alterar o arquivo > roles/estacao/vagrant/molecule.yml:
 ---
 dependency:
   name: galaxy
