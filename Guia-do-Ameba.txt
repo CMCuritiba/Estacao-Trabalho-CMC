@@ -1,0 +1,71 @@
+# preparo da estacao de trabalho - Ansible
+
+sudo apt install python3 pip git
+python3 -m pip install --user ansible
+
+# com seu usuário:
+mkdir ~/workspace
+cd ~/workspace
+ssh-keygen [enter] [enter] [enter]
+cat ~/.ssh/id_rsa.pub {copiar todo o conteúdo desse arquivo}
+
+# abrir o github e fazer login
+# acessar settings > SSH and GPG keys > New SSH key
+# escolher um título para a chave e depois colar o conteúdo copiado anteriormente em Key
+
+# voltando para o terminal do linux:
+git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
+wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O /tmp/vscode.deb
+sudo dpkg -i --force-depends /tmp/vscode.deb
+code ~/workspace/Estacao-Trabalho-CMC
+sudo apt install docker.io
+sudo adduser [seu usuario] docker
+python3 -m pip install --user ansible ansible-lint
+sudo apt install python3-venv
+python3 -m venv molecule
+source ~/workspace/molecule/bin/activate
+pip install molecule
+pip install "molecule-docker" 
+mkdir roles
+cd roles/
+molecule init role -d docker cmcuritiba.estacao
+cd estacao/
+mv molecule/ /home/breno/workspace/
+
+# Para usar sua estacao de trabalho:
+Abra o VSCode, no canto inferior esquerdo escolha a branch
+No canto superior esquerdo selecione "Extensions" e procure por Ansible. Instale a primeira recomendacao.
+Veja os arquivos em Explorer no canto superior esquerdo
+
+No terminal do VSCode, para utilizar o molecule use:
+source ~/workspace/molecule/bin/activate
+
+#instalando o vagrant
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install vagrant
+#link: https://developer.hashicorp.com/vagrant/downloads
+
+python3 -m pip install --user python-vagrant molecule-vagrant
+molecule init scenario --role-name estacao --driver-name vagrant vagrant
+molecule check -s vagrant
+
+#alterar o arquivo > roles/estacao/vagrant/molecule.yml:
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: estacao
+    box: aaronvonawesome/linux-mint-21-cinnamon
+    #   instance_raw_config_args:
+    #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: ansible
