@@ -40,17 +40,17 @@ Veja os arquivos em Explorer no canto superior esquerdo
 No terminal do VSCode, para utilizar o molecule use:
 source ~/workspace/molecule/bin/activate
 
-# instalando o vagrant
-wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install vagrant
-#link: https://developer.hashicorp.com/vagrant/downloads
+# Instalando o vagrant
+1. wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+2. echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+3. sudo apt update && sudo apt install vagrant
+4. #link: https://developer.hashicorp.com/vagrant/downloads
 
-python3 -m pip install --user python-vagrant molecule-vagrant
-molecule init scenario --role-name estacao --driver-name vagrant vagrant
-molecule check -s vagrant
+5. python3 -m pip install --user python-vagrant molecule-vagrant
+6. molecule init scenario --role-name estacao --driver-name vagrant vagrant
+7. molecule check -s vagrant
 
-# alterar o arquivo > roles/estacao/vagrant/molecule.yml:
+# Alterar o arquivo > roles/estacao/vagrant/molecule.yml:
 ---
 dependency:
   name: galaxy
