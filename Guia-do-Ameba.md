@@ -51,19 +51,3 @@ source ~/workspace/molecule/bin/activate
 7. molecule check -s vagrant
 
 # Alterar o arquivo > roles/estacao/vagrant/molecule.yml:
----
-dependency:
-  name: galaxy
-driver:
-  name: vagrant
-  provider:
-    name: virtualbox
-platforms:
-  - name: estacao
-    box: aaronvonawesome/linux-mint-21-cinnamon
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-verifier:
-  name: ansible
