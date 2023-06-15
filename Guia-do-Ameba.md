@@ -61,8 +61,6 @@ driver:
 platforms:
   - name: estacao
     box: aaronvonawesome/linux-mint-21-cinnamon
-    #   instance_raw_config_args:
-    #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
 provisioner:
   name: ansible
   lint:
@@ -70,7 +68,7 @@ provisioner:
 verifier:
   name: ansible
 
-#alterar o arquivo > roles/estacao/vagrant/molecule.yml:
+# Alterar o arquivo > roles/estacao/vagrant/molecule.yml:
 ---
 dependency:
   name: galaxy
