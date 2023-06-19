@@ -1,0 +1,16 @@
+#cria os diretorios padroes
+- name: mkdir Desktop
+  ansible.builtin.file:
+    path: /etc/skel/Desktop
+    state: directory
+
+- name: mkdir Downloads
+  ansible.builtin.file:
+    path: /etc/skel/Downloads
+    state: directory
+
+- name: mkdir Nuvem
+  ansible.builtin.file:
+    path: /etc/skel/Nuvem
+    state: directory
+
