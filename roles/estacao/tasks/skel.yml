@@ -14,3 +14,20 @@
     path: /etc/skel/Nuvem
     state: directory
 
+- name: mkdir autostart
+  ansible.builtin.file:
+    path: /etc/skel/.config/autostart
+    state: directory
+    
+- name: mkdir Docs.Locais
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: /home/Docs.Locais
+    dest: /etc/skel/Docs.Locais
+    owner: foo
+    group: foo
+    state: link
