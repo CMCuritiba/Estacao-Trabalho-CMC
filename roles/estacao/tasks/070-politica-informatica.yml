@@ -1,0 +1,7 @@
+- name: mkdir scripts
+  ansible.builtin.file:
+    path: /usr/local/cmc/scripts
+    state: directory
+
+- name: Changing perm of "/usr/local/cmc/scripts/forcelogout.sh", adding "+x"
+  file: dest=/usr/local/cmc/scripts/forcelogout.sh mode=a+x
