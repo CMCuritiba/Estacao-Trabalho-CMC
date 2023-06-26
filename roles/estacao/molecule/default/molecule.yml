@@ -2,15 +2,16 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: virtualbox
 platforms:
   - name: estacao
-    image: "geerlingguy/docker-ubuntu2204-ansible:latest"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    # command: ""
-    privileged: true
-    pre_build_image: true
+    box: aaronvonawesome/linux-mint-21-cinnamon
+    memory: 2048
+    cpus: 2
+    #   instance_raw_config_args:
+    #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
 provisioner:
   name: ansible
 verifier:
@@ -18,4 +19,4 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  ansible-lint .
