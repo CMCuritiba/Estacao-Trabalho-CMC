@@ -29,7 +29,7 @@ apt-get install -qyf gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-pl
 apt-get install -qyf vim gedit pdfsam unrar
 DEBIAN_FRONTEND=noninteractive apt-get -qyf install ttf-mscorefonts-installer
 # SO
-apt-get install -qyf ncdu numlockx acct xmlstarlet jq
+apt-get install -qyf ncdu numlockx acct xmlstarlet jq nfs-common
 
 # Google Chrome
 if wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; then
