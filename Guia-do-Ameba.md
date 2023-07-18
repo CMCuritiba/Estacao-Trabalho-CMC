@@ -25,6 +25,12 @@
 
    Encerre a sessão no linux e logue novamente.
 
+4. VirtualBox:
+
+   ```shell
+   sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
+   ```
+
 ## Inicialização do ambiente de desenvolvimento
 
 Na sua estação de trabalho, com seu usuário (**não use root**), siga os comandos
