@@ -103,5 +103,6 @@ source ~/workspace/molecule/bin/activatepip install "molecule-plugins[docker]"
 
 5. pip install "molecule-plugins[docker]"
 6. pip install  "molecule-plugins[vagrant]"
-7. molecule init scenario --role-name estacao --driver-name vagrant vagrant
-8. molecule check -s vagrant
+7. pip install python-vagrant
+8. molecule init scenario --role-name estacao --driver-name vagrant vagrant
+9. molecule check -s vagrant
