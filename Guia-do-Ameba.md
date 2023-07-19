@@ -25,6 +25,12 @@
 
    Encerre a sessão no linux e logue novamente.
 
+4. VirtualBox:
+
+   ```shell
+   sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
+   ```
+
 ## Inicialização do ambiente de desenvolvimento
 
 Na sua estação de trabalho, com seu usuário (**não use root**), siga os comandos
@@ -87,7 +93,7 @@ Veja os arquivos em Explorer no canto superior esquerdo
 No terminal do VSCode, para utilizar o molecule use:
 
 ```shell
-source ~/workspace/molecule/bin/activate
+source ~/workspace/molecule/bin/activatepip install "molecule-plugins[docker]"
 ```
 
 ## Usando o molecule
@@ -101,6 +107,8 @@ source ~/workspace/molecule/bin/activate
 3. sudo apt update && sudo apt install vagrant
 4. link: https://developer.hashicorp.com/vagrant/downloads
 
-5. python3 -m pip install --user python-vagrant molecule-vagrant
-6. molecule init scenario --role-name estacao --driver-name vagrant vagrant
-7. molecule check -s vagrant
+5. pip install "molecule-plugins[docker]"
+6. pip install  "molecule-plugins[vagrant]"
+7. pip install python-vagrant
+8. molecule init scenario --role-name estacao --driver-name vagrant vagrant
+9. molecule check -s vagrant
