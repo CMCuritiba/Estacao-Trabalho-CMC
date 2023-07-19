@@ -5,3 +5,8 @@
 
 - name: Changing perm of "/usr/local/cmc/scripts/forcelogout.sh", adding "+x"
   file: dest=/usr/local/cmc/scripts/forcelogout.sh mode=a+x
+
+- name: copy
+  ansible.builtin.copy:
+    src: ../arquivos/politica-informatica.txt
+    dest: /usr/local/cmc/politica-informatica.txt
