@@ -1,0 +1,32 @@
+- name: Move mintupdate.desktop
+  command: mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.disable
+
+- name: Move mintwelcome.desktop
+  command: mv /etc/xdg/autostart/mintwelcome.desktop /etc/xdg/autostart/mintwelcome.desktop.disable
+
+- name: Move mintreport.desktop
+  command: mv /etc/xdg/autostart/mintreport.desktop /etc/xdg/autostart/mintreport.desktop.disable
+
+- name: Move gnome-keyring-pkcs11.desktop
+  command: mv /etc/xdg/autostart/gnome-keyring-pkcs11.desktop /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
+
+- name: Move gnome-keyring-secrets.desktop
+  command: mv /etc/xdg/autostart/gnome-keyring-secrets.desktop /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
+
+- name: Move gnome-keyring-ssh.desktop
+  command: mv /etc/xdg/autostart/gnome-keyring-ssh.desktop /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
+
+- name: echo >
+  ansible.builtin.copy:
+    content: "[Desktop Entry]
+Type=Application
+Terminal=false
+Name=ForceLogout
+Exec=/usr/local/cmc/scripts/forcelogout.sh
+X-GNOME-Autostart-enabled=true'[Desktop Entry] 
+Type=Application
+Terminal=false
+Name=ForceLogout
+Exec=/usr/local/cmc/scripts/forcelogout.sh
+X-GNOME-Autostart-enabled=true"
+    dest: /etc/xdg/autostart/forcelogout.desktop
