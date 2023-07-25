@@ -98,4 +98,20 @@
     cache_valid_time: 80000
 
 # Chrome, pq chrome é especial:
-# ???
+- name: Instalar Google Chrome
+  hosts: your_target_hosts
+  become: true
+  tasks:
+    - name: Adicionar repositório do Google Chrome
+      apt_repository:
+        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+        state: present
+        filename: google-chrome
+
+    - name: Instalar o Google Chrome
+      apt:
+        name: google-chrome-stable
+        state: present
+
+# comentários: Lembre-se de substituir your_target_hosts pelos grupos ou IPs dos hosts nos quais você deseja executar essas tarefas. 
+# O playbook consiste em três seções:
