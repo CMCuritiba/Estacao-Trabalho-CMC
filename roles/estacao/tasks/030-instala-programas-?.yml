@@ -1,6 +1,24 @@
 ---
 #030-instala-programas
 
+# Altera os repositórios para o c3sl
+#???
+
+# Update e Upgrade inicial:
+# ???
+
+# Tira input da instalação do ttf-mscorefonts-installer
+# ???
+
+- name: Altera repositório para source local
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: '//archive.ubuntu.com'
+    replace: '//br.archive.ubuntu.com'
+    backup: true
+
+
+# Instala programas
 - name: Instala programas adicionais
   ansible.builtin.apt:
     name:
@@ -44,3 +62,6 @@
     state: present
     update_cache: true
     cache_valid_time: 80000
+
+# Chrome, pq chrome é especial:
+# ???
