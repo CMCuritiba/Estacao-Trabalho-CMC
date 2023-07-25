@@ -1,9 +1,0 @@
-- name: mkdir profile
-  ansible.builtin.file:
-    path: /etc/dconf/profile
-    state: directory
-
-- name: mkdir local.d
-  ansible.builtin.file:
-    path: /etc/dconf/db/local.d/
-    state: directory

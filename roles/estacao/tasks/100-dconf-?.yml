@@ -1,0 +1,82 @@
+#100-dconf
+
+# Cria os diretórios de configuração
+- name: mkdir profile
+  ansible.builtin.file:
+    path: /etc/dconf/profile
+    state: directory
+
+- name: mkdir local.d
+  ansible.builtin.file:
+    path: /etc/dconf/db/local.d/
+    state: directory
+
+# Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
+# ???
+
+# Senha login remoto
+# ???
+
+# Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
+# Ao baixar o applet pela interface gráfica fica em português, mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
+# ele volta a ficar em inglês
+# wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
+# rm -rf weather@mockturtl.zip
+# ???
+
+# Configurações em si. Cuidado com os escapes de "
+# ???
+
+# Configurações de acesso remoto
+# ???
+
+# Updates não devem ser visíveis
+# ???
+
+# Desabilita linha de comando
+# ???
+
+# Numlock ativado
+# ???
+
+# Terminal de root
+# ???
+
+# Abrir no terminal
+# ???
+
+# Sons do Sistema
+# ???
+
+# Lixeira no desktop
+# ???
+
+# Atalhos do menu
+# ???
+
+# Tema Dark
+# ???
+
+# Background padrão
+# ???
+
+# 'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
+# ???
+
+# Desabilita notificação de rede On/Off
+# ???
+
+# Num de desktops em 1 por padrão no Gnome
+# ???
+
+# Applet de calendario
+# ???
+
+# Trava as configs do Vino
+# ???
+
+# Copia o script necessario para iniciar o terminal como root
+# ???
+
+# Finalmente, atualiza dconf
+# ???

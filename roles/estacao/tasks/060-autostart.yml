@@ -1,3 +1,6 @@
+# 060-autostart
+
+# Desabilita o autostart da mensagem de bem vinda, do update manager e mintreport
 - name: Move mintupdate.desktop
   command: mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.disable
 
@@ -7,6 +10,7 @@
 - name: Move mintreport.desktop
   command: mv /etc/xdg/autostart/mintreport.desktop /etc/xdg/autostart/mintreport.desktop.disable
 
+# Desabilita o autostart para o gnome-keyring
 - name: Move gnome-keyring-pkcs11.desktop
   command: mv /etc/xdg/autostart/gnome-keyring-pkcs11.desktop /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
 

@@ -1,6 +1,8 @@
-    - name: echo >
-      ansible.builtin.copy:
-        content: "[Default Applications]
+# 055-programas-default
+    
+- name: echo >
+  ansible.builtin.copy:
+    content: "[Default Applications]
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
 x-scheme-handler/ftp=firefox.desktop
@@ -20,7 +22,7 @@ audio/x-mpeg-3=rhythmbox.desktop
 audio/mpeg=rhythmbox.desktop
 video/mp4=vlc.desktop
 video/mpeg=vlc.desktop
-video/mp2t=vlc.desktop
+video/mp2t=vlc.desktop# Desabilita o autostart para o gnome-keyring
 video/msvideo=vlc.desktop
 video/quicktime=vlc.desktop
 video/webm=vlc.desktop
@@ -56,7 +58,13 @@ video/quicktime=vlc.desktop;
 video/webm=vlc.desktop;
 video/x-avi=vlc.desktop;
 video/x-flv=vlc.desktop;
-video/x-matroska=vlc.desktop;
+video/x-matroska=vlc.desktop;- name: Create a symbolic link
+  ansible.builtin.file:
+    src: /home/Docs.Locais
+    dest: /etc/skel/Docs.Locais# Desabilita o autostart para o gnome-keyring
+    owner: foo
+    group: foo
+    state: link
 video/x-mpeg=vlc.desktop;
 video/x-ogm+ogg=vlc.desktop;
 application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop;
