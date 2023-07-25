@@ -8,18 +8,60 @@
     group: sudo
 
 # Atualiza senhas de suporte e root
-#???
+- hosts: seu_host
+  become: yes
+  vars:
+    PASS_SUPPORT: "senha_do_suporte"  # Substitua pelo valor correto
+    PASS_ROOT: "senha_do_root"  # Substitua pelo valor correto
+
+  tasks:
+    - name: Definir senha para o usuário suporte
+      shell: echo "suporte:{{ PASS_SUPPORT }}" | chpasswd
+      changed_when: false
+
+    - name: Definir senha para o usuário root
+      shell: echo "root:{{ PASS_ROOT }}" | chpasswd
+      changed_when: false
+
 
 # Seta grupo principal de suporte para users 
-#???
-
-# Deleta grupo suporte se existe
-- name: Deleta grupo suporte
-  ansible.builtin.group:
-     name: suporte
-     state: absent
-
 # Também tira suporte de grupos de admin
-- name: tira suporte de grupos admin
-  become: true
-  command: "gpasswd -d suporte adm lpadmin"
+- hosts: seu_host
+  become: yes
+
+  tasks:
+    - name: Seta grupo principal de suporte para users
+      user:
+        name: suporte
+        group: users
+
+    - name: Deleta grupo suporte se existir
+      group:
+        name: suporte
+        state: absent
+
+    - name: Remove usuário suporte do grupo adm
+      command: id -nG suporte | grep -qw adm
+      changed_when: false
+      ignore_errors: yes
+      register: adm_group_check
+
+    - name: Remove usuário suporte do grupo adm
+      user:
+        name: suporte
+        groups: adm
+        state: absent
+      when: adm_group_check.rc == 0
+
+    - name: Remove usuário suporte do grupo lpadmin
+      command: id -nG suporte | grep -qw lpadmin
+      changed_when: false
+      ignore_errors: yes
+      register: lpadmin_group_check
+
+    - name: Remove usuário suporte do grupo lpadmin
+      user:
+        name: suporte
+        groups: lpadmin
+        state: absent
+      when: lpadmin_group_check.rc == 0
