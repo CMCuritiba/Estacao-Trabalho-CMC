@@ -1,0 +1,101 @@
+---
+#030-instala-programas
+# Script para instalar programas adicionais
+
+# Altera os repositórios para o c3sl
+- name: Alterar repositórios para c3sl
+  hosts: your_target_hosts
+  become: true
+  tasks:
+    - name: Alterar o repositório ubuntu.com
+      replace:
+        path: /etc/apt/sources.list.d/official-package-repositories.list
+        regexp: '//archive.ubuntu.com'
+        replace: '//br.archive.ubuntu.com'
+
+    - name: Alterar o repositório linuxmint.com
+      replace:
+        path: /etc/apt/sources.list.d/official-package-repositories.list
+        regexp: '//packages.linuxmint.com'
+        replace: '//br.packages.linuxmint.com'
+
+
+
+
+# Update e Upgrade inicial:
+- name: Atualizar e fazer upgrade inicial
+  hosts: your_target_hosts
+  become: true
+  tasks:
+    - name: Atualizar cache dos repositórios
+      apt:
+        update_cache: yes
+
+    - name: Executar upgrade
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+# Tira input da instalação do ttf-mscorefonts-installer
+- name: Configurar ttf-mscorefonts-installer
+  hosts: your_target_hosts
+  become: true
+  tasks:
+    - name: Configurar msttcorefonts
+      lineinfile:
+        path: /var/cache/debconf/config.dat
+        line: |
+          Name: msttcorefonts/accepted-mscorefonts-eula
+          Template: msttcorefonts/accepted-mscorefonts-eula
+          Value: true
+          Owners: ttf-mscorefonts-installer
+          Flags: seen
+
+
+# Instala programas
+- name: Instala programas adicionais
+  ansible.builtin.apt:
+    name:
+      # Acesso remoto
+      - rdesktop
+      - vino
+      - openssh-server
+      # Midia
+      - vlc
+      - audacity
+      - exfat-fuse
+      - exfat-utils
+      - shotwell
+      - gimp
+      - gimp-help-pt
+      - drawing
+      - inkscape
+      # Codecs multimida
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-vaapi
+      - libavcodec-extra
+      - libdvdcss2
+      - libdvdnav4
+      - libdvdread7
+      - libhal1-flash
+      # Utilitarios e produtividade
+      - vim
+      - gedit
+      - pdfsam
+      - unrar
+      - ttf-mscorefonts-installer
+      # SO
+      - ncdu
+      - numlockx
+      - acct
+      - xmlstarlet
+      - jq
+      - nfs-common
+    state: present
+    update_cache: true
+    cache_valid_time: 80000
+
+# Chrome, pq chrome é especial:
+# ???
