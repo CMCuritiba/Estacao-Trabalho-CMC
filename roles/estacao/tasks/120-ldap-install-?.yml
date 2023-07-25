@@ -1,0 +1,33 @@
+# 120-ldap-install
+
+# Seta confs de instalação do LDAP
+# ???
+
+# As URIs são adicionadas corretamente, mas as bases não. Então adicionamos a
+# base de usuários via debconf e a de grupos via sed
+# ???
+
+# Instala LDAP
+# ???
+
+# Para que o diretório home seja criado automaticamente no primeiro login:
+# ???
+
+# type: string path (caminho do nslcd.conf no Mint)
+# ???
+
+# Backup da configuração
+# ???
+
+# Adiciona base de busca de grupos (se não existir)
+# ???
+
+# Habilita bind no LDAP
+# ???
+
+# Filtra usuários válidos no LDAP
+# Obs: usuários locais realizam login normalmente
+# ???
+
+# Otimiza timeout de bind
+# ???
