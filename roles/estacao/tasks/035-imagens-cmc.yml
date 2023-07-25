@@ -1,4 +1,6 @@
-#035
+#035-imagens-cmc
+
+# Copia imagem para o icone de suporte no desktop
 - name: Copia imagem para o icone de suporte no desktop
   ansible.builtin.copy:
     src: ../arquivos/imagens/suporte_tux.png 
@@ -9,6 +11,7 @@
     path: /usr/share/pixmaps/suporte_tux.png
     mode: '0644'
 
+# Copia imagem para o icone do mensageiro
 - name: Copia imagem para o icone do mensageiro
   ansible.builtin.copy:
     src: ../arquivos/imagens/Rainbow.png
@@ -19,6 +22,7 @@
     path: /usr/share/pixmaps/Rainbow.png
     mode: '0644'
 
+# Copia imagem de background para pasta adequada
 - name: mkdir
   ansible.builtin.file:
     path: /usr/share/backgrounds/cmc
@@ -34,6 +38,7 @@
     path: /usr/share/backgrounds/cmc/desktop-bg.png
     mode: '0644'
 
+# Copia imagem de background do greeter para pasta adequada
 - name: Copia imagem de background do greeter para pasta adequada
   ansible.builtin.copy:
     src: ../arquivos/imagens/login-bg.jpg

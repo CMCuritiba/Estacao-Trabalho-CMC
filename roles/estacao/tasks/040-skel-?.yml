@@ -1,4 +1,6 @@
-#cria os diretorios padroes
+# 040-skel
+
+# Cria os diretorios padrões
 - name: mkdir Desktop
   ansible.builtin.file:
     path: /etc/skel/Desktop
@@ -24,10 +26,44 @@
     path: /home/Docs.Locais
     state: directory
 
-- name: Create a symbolic link
+- name: Create a symbolic link (ln -sf)
   ansible.builtin.file:
     src: /home/Docs.Locais
     dest: /etc/skel/Docs.Locais
     owner: foo
     group: foo
     state: link
+    
+# Cria o arquivo padrão de user-dirs.dirs
+# ???
+
+# Cria o arquivo padrão de local
+# ???
+
+# Desabilita a atualização automatica dos user-dirs no XDG
+# ???
+
+# Atualiza permissões dos Docs.Locais
+# ???
+
+# Cria icones de suporte, firefox, chrome
+# ???
+
+# Configura atalho para o mensageiro
+# O icone é configurado no script 035
+# ???
+
+# Ajusta permissões dos launchers
+# ???
+
+# Configuração padrão do GIMP
+# ???
+
+# Política de privacidade
+# ???
+
+# Forçar logout se não aceitar política de privacidade
+# ???
+
+
+
