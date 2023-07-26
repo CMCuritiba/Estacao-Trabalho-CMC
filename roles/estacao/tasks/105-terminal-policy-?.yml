@@ -1,6 +1,0 @@
-# 105-terminal-policy
-
-# Configura as políticas do pkexec para abrir o gnome-terminal como usuário root
-# Fontes: https://unix.stackexchange.com/questions/203136/how-do-i-run-gui-applications-as-root-by-using-pkexec
-# Como abrir o gedit com o pkexec em modo root
-# ???

@@ -1,0 +1,22 @@
+# 110-configura-dns
+
+- name: Configura DNS
+  become: yes     # Isso é necessário para garantir que as alterações sejam feitas com privilégios de superusuário (root)
+  tasks:
+    - name: Habilita cache de DNS
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: "Cache=no-negative"
+        create: yes
+
+    - name: Habilita domínio de busca
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: "Domains=cmc.pr.gov.br"
+        create: yes
+
+    - name: Habilita DNS de fallback para navegação
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: "FallbackDNS=8.8.8.8 9.9.9.9"
+        create: yes

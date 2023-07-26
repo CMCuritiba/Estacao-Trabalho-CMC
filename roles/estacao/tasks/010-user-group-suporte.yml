@@ -1,15 +1,20 @@
 #010-user-group-suporte
 
 # Cria usuário suporte se não existe
-# Garante que o usuário suporte esteja no sudo
-- name: Cria usuário suporte e o inclui no grupo sudo
-  ansible.builtin.user:
+- name: Verificar se o usuário suporte existe
+  command: "id -u suporte"
+  register: user_check
+  ignore_errors: yes
+
+- name: Cria o usuário suporte, se não existir
+  user:
     name: suporte
-    group: sudo
+    state: present
+    createhome: yes
+  when: user_check.rc != 0
 
 # Atualiza senhas de suporte e root
-- hosts: seu_host
-  become: yes
+    become: yes
   vars:
     PASS_SUPPORT: "senha_do_suporte"  # Substitua pelo valor correto
     PASS_ROOT: "senha_do_root"  # Substitua pelo valor correto
@@ -26,10 +31,8 @@
 
 # Seta grupo principal de suporte para users 
 # Também tira suporte de grupos de admin
-- hosts: seu_host
-  become: yes
 
-  tasks:
+      become: yes
     - name: Seta grupo principal de suporte para users
       user:
         name: suporte
@@ -65,3 +68,19 @@
         groups: lpadmin
         state: absent
       when: lpadmin_group_check.rc == 0
+
+# Garante que o usuário suporte esteja no sudo
+- name: Adicionar usuário suporte ao grupo sudo
+  become: yes
+
+  tasks:
+    - name: Verificar se o usuário suporte está no grupo sudo
+      command: "id -Gn suporte"
+      register: groups_output
+
+    - name: Adicionar usuário suporte ao grupo sudo
+      user:
+        name: suporte
+        groups: sudo
+        append: yes
+      when: "'sudo' not in groups_output.stdout.split()"

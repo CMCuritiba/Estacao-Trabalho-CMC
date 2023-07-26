@@ -5,8 +5,17 @@
     path: /usr/local/cmc/scripts
     state: directory
 
-# echo
-# ???
+# Echo
+- name: Criar o arquivo forcelogout.sh
+  copy:
+    content: |
+      #!/bin/bash
+      if [ -f "$HOME/.forcelogout" ]; then
+        rm "$HOME/.forcelogout"
+        pkill -9 -u "$USER"
+      fi
+    dest: /usr/local/cmc/scripts/forcelogout.sh
+    mode: 0755
 
 - name: Changing perm of "/usr/local/cmc/scripts/forcelogout.sh", adding "+x"
   file: dest=/usr/local/cmc/scripts/forcelogout.sh mode=a+x
