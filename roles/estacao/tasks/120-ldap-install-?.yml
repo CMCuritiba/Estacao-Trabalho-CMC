@@ -1,33 +1,101 @@
 # 120-ldap-install
 
-# Seta confs de instalação do LDAP
-# ???
+- name: Configurar o LDAP
+  become: true
+  vars:
+    CONFIG_DAT: "/var/cache/debconf/config.dat"
+    SERV_LDAP: "ldap://seu-servidor-ldap"
+    LDAP_USERS_DN: "sua-base-de-usuarios-dn"
+    LDAP_GROUPS_DN: "sua-base-de-grupos-dn"
+    BIND_DN: "seu-bind-dn"
+    BIND_PW: "sua-senha-bind-dn"
 
-# As URIs são adicionadas corretamente, mas as bases não. Então adicionamos a
-# base de usuários via debconf e a de grupos via sed
-# ???
+  tasks:
+    - name: Verificar e configurar o LDAP no {{ CONFIG_DAT }}
+      lineinfile:
+        path: "{{ CONFIG_DAT }}"
+        line: |
+          Name: nslcd/ldap-uris
+          Template: nslcd/ldap-uris
+          Value: {{ SERV_LDAP }}
+          Owners: nslcd
+          Flags: seen
 
-# Instala LDAP
-# ???
+          Name: nslcd/ldap-base
+          Template: nslcd/ldap-base
+          Value: {{ LDAP_USERS_DN }}
+          Owners: nslcd
+          Flags: seen
 
-# Para que o diretório home seja criado automaticamente no primeiro login:
-# ???
+          Name: libnss-ldapd/nsswitch
+          Template: libnss-ldapd/nsswitch
+          Value: passwd, group, shadow
+          Owners: libnss-ldapd, libnss-ldapd:amd64
+          Flags: seen
+      when: not ("{{ LDAP_USERS_DN }}" in lookup('file', CONFIG_DAT))
 
-# type: string path (caminho do nslcd.conf no Mint)
-# ???
+    - name: Instalar pacotes LDAP
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - libnss-ldapd
+        - libpam-ldapd
+        - nscd
+        - nslcd
+        - nfs-common
+      vars:
+        DEBIAN_FRONTEND: "noninteractive"
 
-# Backup da configuração
-# ???
+    - name: Configurar diretório home no primeiro login
+      lineinfile:
+        path: /etc/pam.d/common-session
+        line: "session required pam_mkhomedir.so skel=/etc/skel umask=0022"
+      when: not ("pam_mkhomedir.so" in lookup('file', '/etc/pam.d/common-session'))
 
-# Adiciona base de busca de grupos (se não existir)
-# ???
+    - name: Verificar o arquivo {{ NSLCDCONF }}
+      stat:
+        path: /etc/nslcd.conf
+      register: nslcdconf
 
-# Habilita bind no LDAP
-# ???
+    - name: Fazer backup da configuração
+      copy:
+        src: /etc/nslcd.conf
+        dest: /etc/nslcd.conf-old
+      when: nslcdconf.stat.exists
 
-# Filtra usuários válidos no LDAP
-# Obs: usuários locais realizam login normalmente
-# ???
+    - name: Adicionar base de busca de grupos se não existir
+      lineinfile:
+        path: /etc/nslcd.conf
+        line: "base {{ LDAP_GROUPS_DN }}"
+        insertafter: '^base'
+      when: not ("{{ LDAP_GROUPS_DN }}" in lookup('file', '/etc/nslcd.conf'))
 
-# Otimiza timeout de bind
-# ???
+    - name: Habilitar bind no LDAP
+      lineinfile:
+        path: /etc/nslcd.conf
+        line: "binddn {{ BIND_DN }}"
+      when: not (binddn in lookup('file', '/etc/nslcd.conf'))
+
+    - name: Adicionar bindpw ao arquivo {{ NSLCDCONF }}
+      lineinfile:
+        path: /etc/nslcd.conf
+        line: "bindpw {{ BIND_PW }}"
+      when: not (bindpw in lookup('file', '/etc/nslcd.conf'))
+
+    - name: Filtrar usuários válidos no LDAP
+      lineinfile:
+        path: /etc/nslcd.conf
+        line: "filter passwd (employeeNumber=*)"
+      when: not ("employeeNumber" in lookup('file', '/etc/nslcd.conf'))
+
+    - name: Otimizar timeout de bind
+      lineinfile:
+        path: /etc/nslcd.conf
+        line: "bind_timelimit 2"
+      when: not (bind_timelimit in lookup('file', '/etc/nslcd.conf'))
+
+    - name: Reiniciar o serviço nslcd
+      systemd:
+        name: nslcd
+        state: restarted
