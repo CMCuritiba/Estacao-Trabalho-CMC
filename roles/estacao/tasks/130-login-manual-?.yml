@@ -1,11 +1,32 @@
 # 130-login-manual
+- name: Configurar lightdm
+  become: yes
 
-# Desabilita login como guest
-# ???
+  tasks:
+    - name: Desabilitar login como guest # Desabilita login como guest
+      lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        line: |
+          [Seat:*]
+          greeter-show-manual-login=true
+          greeter-hide-users=true
+          allow-guest=false
 
-# Habilita login manual e esconde usuários
-# ???
+    - name: Habilitar login manual e esconder usuários # Habilita login manual e esconde usuários
+      lineinfile:
+        path: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
+        line: |
+          [Seat:*]
+          greeter-session=slick-greeter
 
 # Muda background do greeter
 # Greeter com G maiúsculo pq tem bug marcado como resolvido... Mas não resolvido
-# ???
+    - name: Mudar background do greeter
+      lineinfile:
+        path: /etc/lightdm/slick-greeter.conf
+        line: |
+          [Greeter]
+          enable-hidpi=auto
+          background=/usr/share/backgrounds/cmc/login-bg.jpg
+          stretch-background-across-monitors=false
+          activate-numlock=true
