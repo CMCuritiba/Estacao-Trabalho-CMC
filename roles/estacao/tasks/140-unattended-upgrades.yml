@@ -1,0 +1,67 @@
+# 140-unattended-upgrades
+
+---
+- name: Configurar unattended-upgrades
+  become: yes
+
+  tasks:
+    - name: Atualizar cache do APT
+      apt:
+        update_cache: yes
+
+    - name: Instalar o unattended-upgrades
+      apt:
+        name: unattended-upgrades
+        state: present
+
+    - name: Verificar a versão base do Mint
+      block:
+        - name: Carregar informações de versão do Mint
+          shell: |
+            if [ -f "/etc/upstream-release/lsb-release" ]; then
+                source "/etc/upstream-release/lsb-release"
+            else
+                echo "Versão base do Mint não encontrada"
+                exit 1
+            fi
+          register: mint_version
+          changed_when: false
+
+        - name: Abortar se a versão base do Mint não for encontrada
+          fail:
+            msg: "Versão base do Mint não encontrada"
+          when: mint_version.rc != 0
+
+    - name: Adicionar repositórios relevantes ao arquivo de configuração unattended-upgrades
+      lineinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        line: |
+          Unattended-Upgrade::Allowed-Origins {
+              "${distro_id}:${distro_codename}-updates";
+              "${DISTRIB_ID}:${DISTRIB_CODENAME}-security";
+              "${DISTRIB_ID}:${DISTRIB_CODENAME}";
+              "${DISTRIB_ID}:${DISTRIB_CODENAME}-updates";
+          }
+          Unattended-Upgrade::MinimalSteps "true";
+      backup: yes
+
+    - name: Verificar a existência do PPA do Google Chrome
+      block:
+        - name: Obter informações do PPA do Google Chrome
+          shell: apt-cache policy | grep -E "release.+Google.+amd64" | cut -d ',' -f 2 | cut -d '=' -f 2
+          register: google_ppa
+          changed_when: false
+
+        - name: Adicionar PPA do Google Chrome ao arquivo de configuração unattended-upgrades
+          lineinfile:
+            path: /etc/apt/apt.conf.d/50unattended-upgrades
+            line: "{{ google_ppa.stdout }}:stable"
+          when: google_ppa.stdout is defined and google_ppa.stdout != ""
+          backup: yes
+
+        - name: Abortar se o PPA do Google Chrome não for encontrado
+          fail:
+            msg: "Source list do Chrome não encontrado, abortando."
+          when: google_ppa.stdout is undefined or google_ppa.stdout == ""
+
+
