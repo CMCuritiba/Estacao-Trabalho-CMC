@@ -4,5 +4,8 @@
 - name: Gerencia usuários
   ansible.builtin.import_tasks: 010-user-group-suporte.yml
 
+- name: Remove programas
+  ansible.builtin.import_tasks: 020-remover-programas.yml
+
 - name: task-030
   ansible.builtin.import_tasks: 030-instala-programas.yml
