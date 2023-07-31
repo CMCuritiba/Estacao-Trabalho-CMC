@@ -1,86 +1,24 @@
+---
 #010-user-group-suporte
 
 # Cria usuário suporte se não existe
-- name: Verificar se o usuário suporte existe
-  command: "id -u suporte"
-  register: user_check
-  ignore_errors: yes
-
 - name: Cria o usuário suporte, se não existir
-  user:
-    name: suporte
+  ansible.builtin.user:
+    name: "{{ estacao_suporte_user }}"
+    comment: Suporte DTIC
     state: present
     createhome: yes
-  when: user_check.rc != 0
+    password: "{{ estacao_suporte_pass | password_hash('sha512') }}"
+    update_password: "always"
+    append: false
+    group: users
+    groups: 'sudo'
 
-# Atualiza senhas de suporte e root
-    become: yes
-  vars:
-    PASS_SUPPORT: "senha_do_suporte"  # Substitua pelo valor correto
-    PASS_ROOT: "senha_do_root"  # Substitua pelo valor correto
+- name: Definir senha para o usuário root
+  ansible.builtin.shell: echo "root:{{ PASS_ROOT }}" | chpasswd
+  changed_when: false
 
-  tasks:
-    - name: Definir senha para o usuário suporte
-      shell: echo "suporte:{{ PASS_SUPPORT }}" | chpasswd
-      changed_when: false
-
-    - name: Definir senha para o usuário root
-      shell: echo "root:{{ PASS_ROOT }}" | chpasswd
-      changed_when: false
-
-
-# Seta grupo principal de suporte para users 
-# Também tira suporte de grupos de admin
-
-      become: yes
-    - name: Seta grupo principal de suporte para users
-      user:
-        name: suporte
-        group: users
-
-    - name: Deleta grupo suporte se existir
-      group:
-        name: suporte
-        state: absent
-
-    - name: Remove usuário suporte do grupo adm
-      command: id -nG suporte | grep -qw adm
-      changed_when: false
-      ignore_errors: yes
-      register: adm_group_check
-
-    - name: Remove usuário suporte do grupo adm
-      user:
-        name: suporte
-        groups: adm
-        state: absent
-      when: adm_group_check.rc == 0
-
-    - name: Remove usuário suporte do grupo lpadmin
-      command: id -nG suporte | grep -qw lpadmin
-      changed_when: false
-      ignore_errors: yes
-      register: lpadmin_group_check
-
-    - name: Remove usuário suporte do grupo lpadmin
-      user:
-        name: suporte
-        groups: lpadmin
-        state: absent
-      when: lpadmin_group_check.rc == 0
-
-# Garante que o usuário suporte esteja no sudo
-- name: Adicionar usuário suporte ao grupo sudo
-  become: yes
-
-  tasks:
-    - name: Verificar se o usuário suporte está no grupo sudo
-      command: "id -Gn suporte"
-      register: groups_output
-
-    - name: Adicionar usuário suporte ao grupo sudo
-      user:
-        name: suporte
-        groups: sudo
-        append: yes
-      when: "'sudo' not in groups_output.stdout.split()"
+- name: Deleta grupo suporte se existir
+  ansible.builtin.group:
+    name: suporte
+    state: absent

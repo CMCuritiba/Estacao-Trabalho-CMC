@@ -1,2 +1,5 @@
 ---
 # defaults file for estacao
+
+estacao_suporte_user: "suporte"
+estacao_suporte_pass: "password"
