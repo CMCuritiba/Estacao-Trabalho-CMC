@@ -90,25 +90,40 @@ a [publicada e verificada por **redhat.com**](https://marketplace.visualstudio.c
 
 Veja os arquivos em Explorer no canto superior esquerdo
 
-No terminal do VSCode, para utilizar o molecule use:
-
-```shell
-source ~/workspace/molecule/bin/activatepip install "molecule-plugins[docker]"
-```
-
 ## Usando o molecule
 
 **TODO**: Adicionar comandos úteis aqui
 
 ## Instalando o vagrant
 
-1. wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-2. echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-3. sudo apt update && sudo apt install vagrant
-4. link: https://developer.hashicorp.com/vagrant/downloads
+1. Instale o vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/downloads):
 
-5. pip install "molecule-plugins[docker]"
-6. pip install  "molecule-plugins[vagrant]"
-7. pip install python-vagrant
-8. molecule init scenario --role-name estacao --driver-name vagrant vagrant
-9. molecule check -s vagrant
+   ```shell
+   wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+   sudo apt update && sudo apt install vagrant
+   ```
+
+2. Inicie o virtualenv do molecule:
+   `source ~/workspace/molecule/bin/activate`
+3. Instale o [plugin vagrant](https://github.com/ansible-community/molecule-plugins):
+
+   ```shell
+   pip install "molecule-plugins[vagrant]"
+   pip install python-vagrant
+   ```
+
+4. Com o ambiente configurado, a role pode ser criada. **Atenção**: a role
+   precisa ser criada apenas uma vez:
+
+   ```shell
+   molecule init role --driver-name vagrant cmcuritiba.estacao
+   ```
+
+5. Agora as tasks já podem ser testadas com o molecule:
+
+   ```shell
+   molecule converge
+   # ou
+   molecule check
+   ```
