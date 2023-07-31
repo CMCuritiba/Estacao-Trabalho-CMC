@@ -96,6 +96,7 @@ BOOKMARKS["Minha Biblioteca"]="https://minha-biblioteca.cmc.pr.gov.br/"
 BOOKMARKS["Registro de frequência"]="https://www.cmc.pr.gov.br/registro-frequencia/"
 BOOKMARKS["Zoom"]="https://cmc-pr-gov-br.zoom.us/"
 BOOKMARKS["Prefeitura Municipal de Curitiba"]="https://www.curitiba.pr.gov.br/"
+BOOKMARKS["Elotech"]="https://elotech.movidesk.com/Account/Login?ReturnUrl=%2f"
 
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox/distribution/
 # Referencia para policies:
