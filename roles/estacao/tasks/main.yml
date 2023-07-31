@@ -1,2 +1,2 @@
-- name: task-020
-  import_tasks: 020-remover-programas.yml
+- name: task-030
+  import_tasks: 030-instala-programas.yml

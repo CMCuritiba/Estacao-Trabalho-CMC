@@ -3,44 +3,33 @@
 # Script para instalar programas adicionais
 
 # Altera os repositórios para o c3sl
-- name: Alterar repositórios para c3sl
-  hosts: your_target_hosts
-  become: true
-  tasks:
-    - name: Alterar o repositório ubuntu.com
-      replace:
+    - name: Substituir URL do repositório do Ubuntu
+      lineinfile:
         path: /etc/apt/sources.list.d/official-package-repositories.list
-        regexp: '//archive.ubuntu.com'
-        replace: '//br.archive.ubuntu.com'
+        regexp: '^//archive.ubuntu.com'
+        line: '//br.archive.ubuntu.com'
+      become: yes
 
-    - name: Alterar o repositório linuxmint.com
-      replace:
+    - name: Substituir URL do repositório do Linux Mint
+      lineinfile:
         path: /etc/apt/sources.list.d/official-package-repositories.list
-        regexp: '//packages.linuxmint.com'
-        replace: '//br.packages.linuxmint.com'
-
-
-
+        regexp: '^//packages.linuxmint.com'
+        line: '//br.packages.linuxmint.com'
+      become: yes
 
 # Update e Upgrade inicial:
-- name: Atualizar e fazer upgrade inicial
-  hosts: your_target_hosts
-  become: true
-  tasks:
-    - name: Atualizar cache dos repositórios
+    - name: Atualizar lista de pacotes
       apt:
         update_cache: yes
-
-    - name: Executar upgrade
+      become: yes
+     
+    - name: Executar upgrade do sistema
       apt:
         upgrade: yes
         update_cache: yes
+      become: yes
 
 # Tira input da instalação do ttf-mscorefonts-installer
-- name: Configurar ttf-mscorefonts-installer
-  hosts: your_target_hosts
-  become: true
-  tasks:
     - name: Configurar msttcorefonts
       lineinfile:
         path: /var/cache/debconf/config.dat
@@ -50,68 +39,73 @@
           Value: true
           Owners: ttf-mscorefonts-installer
           Flags: seen
+      become: yes    
 
 
 # Instala programas
-- name: Instala programas adicionais
-  ansible.builtin.apt:
-    name:
-      # Acesso remoto
-      - rdesktop
-      - vino
-      - openssh-server
-      # Midia
-      - vlc
-      - audacity
-      - exfat-fuse
-      - exfat-utils
-      - shotwell
-      - gimp
-      - gimp-help-pt
-      - drawing
-      - inkscape
-      # Codecs multimida
-      - gstreamer1.0-libav
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-ugly
-      - gstreamer1.0-vaapi
-      - libavcodec-extra
-      - libdvdcss2
-      - libdvdnav4
-      - libdvdread7
-      - libhal1-flash
-      # Utilitarios e produtividade
-      - vim
-      - gedit
-      - pdfsam
-      - unrar
-      - ttf-mscorefonts-installer
-      # SO
-      - ncdu
-      - numlockx
-      - acct
-      - xmlstarlet
-      - jq
-      - nfs-common
-    state: present
-    update_cache: true
-    cache_valid_time: 80000
+    - name: Instalar programas de acesso remoto e mídia
+      apt:
+        name:
+          - rdesktop
+          - vino
+          - openssh-server
+          - vlc
+          - audacity
+          - exfat-fuse
+          - exfat-utils
+          - shotwell
+          - gimp
+          - gimp-help-pt
+          - drawing
+          - inkscape
+        state: present
+      become: yes
+
+    - name: Instalar codecs multimídia
+      apt:
+        name:
+          - gstreamer1.0-libav
+          - gstreamer1.0-plugins-bad
+          - gstreamer1.0-plugins-ugly
+          - gstreamer1.0-vaapi
+          - libavcodec-extra
+          - libdvdcss2
+          - libdvdnav4
+          - libdvdread7
+          - libhal1-flash
+        state: present
+      become: yes
+
+    - name: Instalar utilitários e produtividade
+      apt:
+        name:
+          - vim
+          - gedit
+          - pdfsam
+          - unrar
+          - ncdu
+          - numlockx
+          - acct
+          - xmlstarlet
+          - jq
+        state: present
+      become: yes
+
+    - name: Instalar pacote ttf-mscorefonts-installer
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+      apt:
+        name: ttf-mscorefonts-installer
+        state: present
+      become: yes
 
 # Chrome, pq chrome é especial:
-- name: Instalar Google Chrome
-  hosts: your_target_hosts
-  become: true
-  tasks:
     - name: Adicionar repositório do Google Chrome
       apt_repository:
         repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-        state: present
         filename: google-chrome
 
     - name: Instalar o Google Chrome
       apt:
         name: google-chrome-stable
         state: present
-
-# comentários: Lembre-se de substituir your_target_hosts pelos grupos ou IPs dos hosts nos quais você deseja executar essas tarefas. 
-# O playbook consiste em três seções:
