@@ -2,6 +2,7 @@
 
 # Remove alguns programas padrão desnecessários
 - name: Remover Programas
+  become: yes
   apt:
     name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, hypnotix*,	warpinator" #->Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
     state: absent
