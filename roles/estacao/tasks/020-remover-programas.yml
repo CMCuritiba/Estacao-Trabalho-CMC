@@ -1,10 +1,18 @@
+---
 #020-remover-programas
 
 # Remove alguns programas padrão desnecessários
 - name: Remover Programas
-  become: yes
-  apt:
-    name: "thunderbird*, transmission*, avahi-daemon, xed, hexchat*, celluloid*, hypnotix*,	warpinator" #->Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
+  ansible.builtin.apt:
+    name:
+      - thunderbird*
+      - transmission*
+      - avahi-daemon
+      - xed
+      - hexchat*
+      - celluloid*
+      - hypnotix*
+      - warpinator" # Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
     state: absent
     update_cache: true
     cache_valid_time: 80000
