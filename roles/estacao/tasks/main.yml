@@ -1,2 +1,2 @@
-- name: task-035
-  import_tasks: 035-imagens-cmc.yml
+- name: task-040
+  import_tasks: 040-skel.yml
