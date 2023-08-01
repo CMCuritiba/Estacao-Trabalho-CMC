@@ -1,86 +1,78 @@
 #010-user-group-suporte
 
 # Cria usuário suporte se não existe
-- name: Verificar se o usuário suporte existe
-  command: "id -u suporte"
-  register: user_check
-  ignore_errors: yes
+    - name: Verificar se o usuário suporte existe
+      command: id -u suporte
+      register: suporte_id
+      ignore_errors: true
+      become: true
 
-- name: Cria o usuário suporte, se não existir
-  user:
-    name: suporte
-    state: present
-    createhome: yes
-  when: user_check.rc != 0
-
+    - name: Criar o usuário suporte se n existe
+      user:
+        name: suporte
+        create_home: yes
+      when: suporte_id.rc != 0
+      become: true
+    
 # Atualiza senhas de suporte e root
-    become: yes
-  vars:
-    PASS_SUPPORT: "senha_do_suporte"  # Substitua pelo valor correto
-    PASS_ROOT: "senha_do_root"  # Substitua pelo valor correto
+    # As senhas são definidas nas variáveis PASS_SUPPORT e PASS_ROOT, não esqueça de alterá-las
+    - name: Atualizar senha do usuário suporte
+      user:
+        name: suporte
+        password: "{{ PASS_SUPPORT | password_hash('sha512') }}"
+      vars:
+        PASS_SUPPORT: "senha do suporte"
+      tags:
+        - passwords
+      become: true
 
-  tasks:
-    - name: Definir senha para o usuário suporte
-      shell: echo "suporte:{{ PASS_SUPPORT }}" | chpasswd
-      changed_when: false
+    - name: Atualizar senha do usuário root
+      user:
+        name: root
+        password: "{{ PASS_ROOT | password_hash('sha512') }}"
+      vars:
+        PASS_ROOT: "senha do root"
+      tags:
+        - passwords
+      become: true
 
-    - name: Definir senha para o usuário root
-      shell: echo "root:{{ PASS_ROOT }}" | chpasswd
-      changed_when: false
-
-
-# Seta grupo principal de suporte para users 
+# Seta grupo principal de suporte para users e deleta grupo suporte se existe
 # Também tira suporte de grupos de admin
-
-      become: yes
-    - name: Seta grupo principal de suporte para users
+    - name: Definir grupo principal do usuário suporte para users
       user:
         name: suporte
         group: users
+      become: true
 
-    - name: Deleta grupo suporte se existir
+    - name: Remover grupo suporte, se existir
       group:
         name: suporte
         state: absent
+      become: true
 
-    - name: Remove usuário suporte do grupo adm
-      command: id -nG suporte | grep -qw adm
-      changed_when: false
-      ignore_errors: yes
-      register: adm_group_check
-
-    - name: Remove usuário suporte do grupo adm
+    - name: Remover suporte do grupo adm
       user:
         name: suporte
         groups: adm
         state: absent
-      when: adm_group_check.rc == 0
+      become: true
 
-    - name: Remove usuário suporte do grupo lpadmin
-      command: id -nG suporte | grep -qw lpadmin
-      changed_when: false
-      ignore_errors: yes
-      register: lpadmin_group_check
-
-    - name: Remove usuário suporte do grupo lpadmin
+    - name: Remover suporte do grupo lpadmin
       user:
         name: suporte
         groups: lpadmin
         state: absent
-      when: lpadmin_group_check.rc == 0
+      become: true
 
 # Garante que o usuário suporte esteja no sudo
-- name: Adicionar usuário suporte ao grupo sudo
-  become: yes
-
-  tasks:
     - name: Verificar se o usuário suporte está no grupo sudo
-      command: "id -Gn suporte"
-      register: groups_output
+      command: id -Gn suporte
+      register: suporte_groups
+      become: true
 
     - name: Adicionar usuário suporte ao grupo sudo
       user:
         name: suporte
         groups: sudo
-        append: yes
-      when: "'sudo' not in groups_output.stdout.split()"
+      when: "'sudo' not in suporte_groups.stdout.split()"
+      become: true
