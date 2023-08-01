@@ -1,6 +1,8 @@
+---
 #010-user-group-suporte
 
 # Cria usuário suporte se não existe
+<<<<<<< HEAD
     - name: Verificar se o usuário suporte existe
       command: id -u suporte
       register: suporte_id
@@ -76,3 +78,25 @@
         groups: sudo
       when: "'sudo' not in suporte_groups.stdout.split()"
       become: true
+=======
+- name: Cria o usuário suporte, se não existir
+  ansible.builtin.user:
+    name: "{{ estacao_suporte_user }}"
+    comment: Suporte DTIC
+    state: present
+    createhome: yes
+    password: "{{ estacao_suporte_pass | password_hash('sha512') }}"
+    update_password: "always"
+    append: false
+    group: users
+    groups: 'sudo'
+
+- name: Definir senha para o usuário root
+  ansible.builtin.shell: echo "root:{{ PASS_ROOT }}" | chpasswd
+  changed_when: false
+
+- name: Deleta grupo suporte se existir
+  ansible.builtin.group:
+    name: suporte
+    state: absent
+>>>>>>> ce1521056ab29edd9c5abb7208baeaf3f3d6c711
