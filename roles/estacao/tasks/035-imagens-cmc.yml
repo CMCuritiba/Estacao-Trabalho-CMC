@@ -15,7 +15,7 @@
       become: true
 
     - name: Criar pasta /usr/share/backgrounds/cmc/
-      file:become: true
+      file:
         path: /usr/share/backgrounds/cmc
         state: directory
         mode: '0755'
