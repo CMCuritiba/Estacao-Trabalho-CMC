@@ -1,26 +1,24 @@
+---
 # 070-politica-informatica
 
-    - name: Criar diretório /usr/local/cmc/scripts
-      file:
-        path: /usr/local/cmc/scripts
-        state: directory
-        mode: '0755'
-      become: true
-      
-    - name: Criar o script forcelogout.sh
-      copy:
-        content: |
-          #!/bin/bash
-          if [ -f "$HOME/.forcelogout" ]; then
-              rm "$HOME/.forcelogout";
-              pkill -9 -u "$USER"
-          fi
-        dest: /usr/local/cmc/scripts/forcelogout.sh
-        mode: '0755'
-        become: true
-        
-    - name: Copiar o arquivo politica-informatica.txt
-      copy:
-        src: ../arquivos/politica-informatica.txt
-        dest: /usr/local/cmc/politica-informatica.txt
-      become: true
+- name: Criar diretório /usr/local/cmc/scripts
+  file:
+    path: /usr/local/cmc/scripts
+    state: directory
+    mode: "0755"
+
+- name: Criar o script forcelogout.sh
+  copy:
+    content: |
+      #!/bin/bash
+      if [ -f "$HOME/.forcelogout" ]; then
+          rm "$HOME/.forcelogout";
+          pkill -9 -u "$USER"
+      fi
+    dest: /usr/local/cmc/scripts/forcelogout.sh
+    mode: "0755"
+
+- name: Copiar o arquivo politica-informatica.txt
+  copy:
+    src: politica-informatica.txt
+    dest: /usr/local/cmc/politica-informatica.txt
