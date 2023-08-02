@@ -4,8 +4,6 @@
 # Fontes: https://unix.stackexchange.com/questions/203136/how-do-i-run-gui-applications-as-root-by-using-pkexec
 # Como abrir o gedit com o pkexec em modo root
 
-- name: Criar o arquivo de política do PolicyKit para o terminal
-  tasks:
     - name: Criar o arquivo de política do PolicyKit
       copy:
         content: |
