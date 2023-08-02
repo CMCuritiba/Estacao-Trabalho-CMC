@@ -166,7 +166,7 @@
           # Background padrão
           [org/cinnamon/desktop/background]
           picture-uri='file:///usr/share/backgrounds/cmc/desktop-bg.png'
-          #'file:///usr/share/backgrounds/linuxmint/default_background.jpg'
+          #'file:///usr/share/backgrounds/linuxmint/default_background.jpg'        mode: '0755'  # Set the desired file permissions
 
           #'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
           [org/gnome/settings-daemon/plugins/print-notifications]
@@ -181,55 +181,45 @@
           [org/gnome/desktop/wm/preferences]
           num-workspaces=1
         dest: /etc/dconf/db/local.d/01-cmc
-# Applet de calendario
-
-# Updates não devem ser visíveis
-# ???
-
-# Desabilita linha de comando
-# ???
-
-# Numlock ativado
-# ???
-
-# Terminal de root
-# ???
-
-# Abrir no terminal
-# ???
-
-# Sons do Sistema
-# ???
-
-# Lixeira no desktop
-# ???
-
-# Atalhos do menu
-# ???
-
-# Tema Dark
-# ???
-
-# Background padrão
-# ???
-
-# 'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
-# ???
-
-# Desabilita notificação de rede On/Off
-# ???
-
-# Num de desktops em 1 por padrão no Gnome
-# ???
-
-# Applet de calendario
-# ???
 
 # Trava as configs do Vino
-# ???
+    - name: Create locks directory if it doesn't exist
+      file:
+        path: /etc/dconf/db/local.d/locks
+        state: directory
+        mode: '0755'  # Set the desired directory permissions
+      become: true
+      
+    - name: Create the 01-cmc file with lock settings
+      copy:
+        content: |
+          /org/gnome/desktop/remote-access/icon-visibility
+          /org/gnome/desktop/remote-access/authentication-methods
+          /org/gnome/desktop/remote-access/enabled
+          /org/gnome/desktop/remote-access/vnc-password
+        dest: /etc/dconf/db/local.d/locks/01-cmc
+        mode: '0644'  # Set the desired file permissions
+      become: true
 
 # Copia o script necessario para iniciar o terminal como root
-# ???
+    - name: Create scripts directory if it doesn't exist
+      file:
+        path: /usr/local/cmc/scripts
+        state: directory
+      become: true
+      
+    - name: Copy the root-terminal.sh script to the scripts directory
+      copy:
+        src: "../arquivos/root-terminal.sh"
+        dest: "/usr/local/cmc/scripts/root-terminal.sh"
+      become: true
+      
+    - name: Change permissions of the root-terminal.sh script
+      file:
+        path: "/usr/local/cmc/scripts/root-terminal.sh"
+        mode: '0755'
+      become: true
 
 # Finalmente, atualiza dconf
-# ???
+     - name: Run the dconf update command
+       shell: dconf u
