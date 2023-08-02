@@ -1,22 +1,42 @@
 # 110-configura-dns
 
-- name: Configura DNS
-  become: yes     # Isso é necessário para garantir que as alterações sejam feitas com privilégios de superusuário (root)
-  tasks:
-    - name: Habilita cache de DNS
-      lineinfile:
+    - name: Check if resolved.conf exists
+      stat:
         path: /etc/systemd/resolved.conf
-        line: "Cache=no-negative"
-        create: yes
+      register: resolved_conf_exists
+      become: true
 
-    - name: Habilita domínio de busca
+# Habilita cache de DNS
+    - name: Enable DNS cache
       lineinfile:
         path: /etc/systemd/resolved.conf
-        line: "Domains=cmc.pr.gov.br"
-        create: yes
+        line: 'Cache=no-negative'
+        state: present
+      when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
+      notify: Restart systemd-resolved
+      become: true
 
-    - name: Habilita DNS de fallback para navegação
+# Habilita dominio de busca
+    - name: Enable search domain
       lineinfile:
         path: /etc/systemd/resolved.conf
-        line: "FallbackDNS=8.8.8.8 9.9.9.9"
-        create: yes
+        line: 'Domains=cmc.pr.gov.br'
+        state: present
+      when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
+      notify: Restart systemd-resolved
+      become: true
+
+ # Habilita DNS de fallback para navegação
+    - name: Enable fallback DNS servers
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: 'FallbackDNS=8.8.8.8 9.9.9.9'
+        state: present
+      when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
+      notify: Restart systemd-resolved
+      become: true
+
+    - name: Restart systemd-resolved
+      systemd:
+        name: systemd-resolved
+        state: restarted
