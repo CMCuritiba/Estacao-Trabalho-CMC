@@ -23,7 +23,7 @@
    sudo adduser [seu usuario] docker
    ```
 
-   Encerre a sessão no linux e logue novamente.
+   Reinicie o linux, logue novamente e teste o docker com o comando: `docker container ls`
 
 4. VirtualBox:
 
@@ -65,7 +65,7 @@ Voltando para o terminal do linux:
    git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
    ```
 
-2. code ~/workspace/Estacao-Trabalho-CMC
+2. code `~/workspace/Estacao-Trabalho-CMC`
 3. Crie e inicialize o _virtual env_ para o molecule:
 
    ```shell
