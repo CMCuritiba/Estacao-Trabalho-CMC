@@ -100,9 +100,11 @@ Veja os arquivos em Explorer no canto superior esquerdo
 
    ```shell
    wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
    sudo apt update && sudo apt install vagrant
    ```
+
+   obs: caso aconteça algum erro durante a instalação, altere a versao do repositorio do comando conforme a versao base do seu ubuntu.
 
 2. Inicie o virtualenv do molecule:
    `source ~/workspace/molecule/bin/activate`
