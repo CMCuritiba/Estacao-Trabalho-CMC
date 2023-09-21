@@ -54,8 +54,12 @@ id_provider = ad
 ad_domain = ${AD_DOMAIN,,}
 ad_server = $AD_DC_1.${AD_DOMAIN,,},$AD_DC_2.${AD_DOMAIN,,}
 ad_hostname = $HOSTNAME.${AD_DOMAIN,,}
-#access_provider = ad
-#ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
+auth_provider = ad
+chpass_provider = ad
+access_provider = ad
+ad_gpo_access_control = disabled
+access_provider = ad
+ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 
 # Para descoberta de DNS
 krb5_realm = $AD_DOMAIN
