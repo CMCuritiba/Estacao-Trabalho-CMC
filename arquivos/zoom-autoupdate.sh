@@ -51,5 +51,4 @@ systemctl enable --now zoom-update.service
 # execute zoom update immediately
 systemctl start zoom-update.service
 # output systemd status/logs
-systemctl --no-pager status zoom-update.timer
 systemctl --no-pager status zoom-update.service
