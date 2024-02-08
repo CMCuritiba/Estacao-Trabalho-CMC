@@ -27,7 +27,7 @@ if [ -f "$diretorio" ] && [[ "$ZOOM_VERSION_INSTALLED" != *"$ZOOM_VERSION_AVAILA
 else
    echo pasta mnt/suporte não encontrada
    export DEBIAN_FRONTEND=noninteractive
-   apt-get install -y $diretorio
+   apt-get install -y /tmp/zoom_amd64.deb
 fi
 
 EOF
