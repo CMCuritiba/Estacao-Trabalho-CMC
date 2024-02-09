@@ -4,4 +4,7 @@
 Vagrant.configure("2") do |config|
   #config.vm.box = "aaronvonawesome/linux-mint-21-cinnamon"
   config.vm.box = "aaronvonawesome/linux-mint-20-cinnamon"
+  config.vm.provider :virtualbox do |vb|
+    vb.gui = true
+  end
 end

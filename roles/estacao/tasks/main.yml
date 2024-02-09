@@ -1,2 +1,7 @@
+- name: task-010
+  import_tasks: 010-user-group-suporte.yml
+
 - name: task-040
   import_tasks: 040-skel.yml
+  tags: 
+    - notest

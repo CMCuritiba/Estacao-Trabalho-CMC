@@ -12,6 +12,8 @@ platforms:
     cpus: 2
     #   instance_raw_config_args:
     #   - "vm.network 'forwarded_port', guest: 80, host: 8088"
+    provider_raw_config_args:
+      - gui = true
 provisioner:
   name: ansible
 verifier:
