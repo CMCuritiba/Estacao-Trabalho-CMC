@@ -12,4 +12,7 @@ log/
 
 # Vagrant
 .vagrant
+vagrant/testes
 
+# Python venv molecule
+molecule-venv/
