@@ -1,97 +1,89 @@
+---
 # 120-ldap-install
 
 # Seta confs de instalação do LDAP
 # As URIs são adicionadas corretamente, mas as bases não. Então adicionamos a
 # base de usuários via debconf e a de grupos via sed
-      
-    - name: Add LDAP configuration to the file
-      vars:
-        CONFIG_DAT: "/var/cache/debconf/config.dat"
-        LDAP_USERS_DN: "your_ldap_users_dn"  #substituir pelo valor correto
-        SERV_LDAP: "your_ldap_server_uri"  #substituir pelo valor correto
-      lineinfile:
-        path: "{{ CONFIG_DAT }}"
-        line: |
-          Name: nslcd/ldap-uris
-          Template: nslcd/ldap-uris
-          Value: "{{ SERV_LDAP }}"
-          Owners: nslcd
-          Flags: seen
 
-          Name: nslcd/ldap-base
-          Template: nslcd/ldap-base
-          Value: "{{ LDAP_USERS_DN }}"
-          Owners: nslcd
-          Flags: seen
+- name: Add LDAP configuration to the file
+  vars:
+    CONFIG_DAT: "/var/cache/debconf/config.dat"
+    LDAP_USERS_DN: "your_ldap_users_dn" #substituir pelo valor correto
+    SERV_LDAP: "your_ldap_server_uri" #substituir pelo valor correto
+  ansible.builtin.lineinfile:
+    path: "{{ CONFIG_DAT }}"
+    line: |
+      Name: nslcd/ldap-uris
+      Template: nslcd/ldap-uris
+      Value: "{{ SERV_LDAP }}"
+      Owners: nslcd
+      Flags: seen
 
-          Name: libnss-ldapd/nsswitch
-          Template: libnss-ldapd/nsswitch
-          Value: passwd, group, shadow
-          Owners: libnss-ldapd, libnss-ldapd:amd64
-          Flags: seen
-        create: yes
-      when: not (lookup('file', CONFIG_DAT) is search(LDAP_USERS_DN))
-      become: true
+      Name: nslcd/ldap-base
+      Template: nslcd/ldap-base
+      Value: "{{ LDAP_USERS_DN }}"
+      Owners: nslcd
+      Flags: seen
 
-    - name: Debug message for the configuration update
-      vars:
-        CONFIG_DAT: "/var/cache/debconf/config.dat"
-        LDAP_USERS_DN: "your_ldap_users_dn" #substituir pelo valor correto
-      debug:
-        msg: "LDAP configuration has been updated."
-      when: not (lookup('file', CONFIG_DAT) is search(LDAP_USERS_DN))
-      become: true
+      Name: libnss-ldapd/nsswitch
+      Template: libnss-ldapd/nsswitch
+      Value: passwd, group, shadow
+      Owners: libnss-ldapd, libnss-ldapd:amd64
+      Flags: seen
+    create: yes
+  when: not (lookup('file', CONFIG_DAT) is search(LDAP_USERS_DN))
+
+- name: Debug message for the configuration update
+  vars:
+    CONFIG_DAT: "/var/cache/debconf/config.dat"
+    LDAP_USERS_DN: "your_ldap_users_dn" #substituir pelo valor correto
+  debug:
+    msg: "LDAP configuration has been updated."
+  when: not (lookup('file', CONFIG_DAT) is search(LDAP_USERS_DN))
 
 # Instala LDAP
-    - name: Install LDAP packages
-      apt:
-        name:
-          - libnss-ldapd
-          - libpam-ldapd
-          - nscd
-          - nslcd
-          - nfs-common
-        state: present
-      environment:
-        DEBIAN_FRONTEND: noninteractive
-        become: true
+- name: Install LDAP packages
+  ansible.builtin.apt:
+    name:
+      - libnss-ldapd
+      - libpam-ldapd
+      - nscd
+      - nslcd
+      - nfs-common
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
 
 # Para que o diretório home seja criado automaticamente no primeiro login:
 
-    - name: Check if pam_mkhomedir.so line exists in common-session
-      shell: grep -q "pam_mkhomedir.so" /etc/pam.d/common-session
-      register: pam_mkhomedir_line_exists
-      changed_when: false
-      check_mode: no
-      become: true
+- name: Check if pam_mkhomedir.so line exists in common-session
+  shell: grep -q "pam_mkhomedir.so" /etc/pam.d/common-session
+  register: pam_mkhomedir_line_exists
+  changed_when: false
+  check_mode: no
 
-    - name: Add pam_mkhomedir.so to common-session
-      lineinfile:
-        path: /etc/pam.d/common-session
-        line: "session required pam_mkhomedir.so skel=/etc/skel umask=0022"
-        create: yes
-      notify: Restart PAM service
-      when: not pam_mkhomedir_line_exists.stdout
-      become: true
+- name: Add pam_mkhomedir.so to common-session
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: "session required pam_mkhomedir.so skel=/etc/skel umask=0022"
+    create: yes
+  notify: Restart PAM service
+  when: not pam_mkhomedir_line_exists.stdout
 
-    - name: Restart PAM service
-      systemd:
-        name: systemd-logind
-        state: restarted
-      become: true
+- name: Restart PAM service
+  systemd:
+    name: systemd-logind
+    state: restarted
 
-    - name: Get file information for nslcd.conf
-      stat:
-        path: /etc/nslcd.conf
-      register: nslcd_conf_stat
-      become: true
+- name: Get file information for nslcd.conf
+  stat:
+    path: /etc/nslcd.conf
+  register: nslcd_conf_stat
 
-    - name: Exit with failure if nslcd.conf does not exist
-      fail:
-        msg: "The nslcd.conf file does not exist."
-      when: not nslcd_conf_stat.stat.exists
-      become: true
-
+- name: Exit with failure if nslcd.conf does not exist
+  fail:
+    msg: "The nslcd.conf file does not exist."
+  when: not nslcd_conf_stat.stat.exists
 # Backup da configuração
 
 # Adiciona base de busca de grupos (se não existir)
@@ -99,6 +91,6 @@
 # Habilita bind no LDAP
 
 # Filtra usuários válidos no LDAP
-# Obs: usuários locais realizam login normalmente   
+# Obs: usuários locais realizam login normalmente
 
 # Otimiza timeout de bind

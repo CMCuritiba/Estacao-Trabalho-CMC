@@ -1,70 +1,62 @@
 # 060-autostart
 
 # Desabilita o autostart da mensagem de bem vinda, do update manager e mintreport
-    - name: Desabilitar mintupdate.desktop
-      file:
-        src: /etc/xdg/autostart/mintupdate.desktop
-        dest: /etc/xdg/autostart/mintupdate.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/mintupdate.desktop")
-      become: true
-      
-    - name: Desabilitar mintwelcome.desktop
-      file:
-        src: /etc/xdg/autostart/mintwelcome.desktop
-        dest: /etc/xdg/autostart/mintwelcome.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/mintwelcome.desktop")
-      become: true
-      
-    - name: Desabilitar mintreport.desktop
-      file:
-        src: /etc/xdg/autostart/mintreport.desktop
-        dest: /etc/xdg/autostart/mintreport.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/mintreport.desktop")
-      become: true
+- name: Desabilitar mintupdate.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/mintupdate.desktop
+    dest: /etc/xdg/autostart/mintupdate.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/mintupdate.desktop")
+
+- name: Desabilitar mintwelcome.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/mintwelcome.desktop
+    dest: /etc/xdg/autostart/mintwelcome.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/mintwelcome.desktop")
+
+- name: Desabilitar mintreport.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/mintreport.desktop
+    dest: /etc/xdg/autostart/mintreport.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/mintreport.desktop")
 
 # Desabilita o autostart para o gnome-keyring
-    - name: Desabilitar gnome-keyring-pkcs11.desktop
-      file:
-        src: /etc/xdg/autostart/gnome-keyring-pkcs11.desktop
-        dest: /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-pkcs11.desktop")
-      become: true
-      
-    - name: Desabilitar gnome-keyring-secrets.desktop
-      file:
-        src: /etc/xdg/autostart/gnome-keyring-secrets.desktop
-        dest: /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-secrets.desktop")
-      become: true
-      
-    - name: Desabilitar gnome-keyring-ssh.desktop
-      file:
-        src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
-        dest: /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
-        state: link
-        force: yes
-      when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-ssh.desktop")
-      become: true
+- name: Desabilitar gnome-keyring-pkcs11.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/gnome-keyring-pkcs11.desktop
+    dest: /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-pkcs11.desktop")
 
+- name: Desabilitar gnome-keyring-secrets.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/gnome-keyring-secrets.desktop
+    dest: /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-secrets.desktop")
 
-    - name: Criar arquivo de autostart forcelogout.desktop
-      copy:
-        content: |
-          [Desktop Entry]
-          Type=Application
-          Terminal=false
-          Name=ForceLogout
-          Exec=/usr/local/cmc/scripts/forcelogout.sh
-          X-GNOME-Autostart-enabled=true
-        dest: /etc/xdg/autostart/forcelogout.desktop
-      become: true
+- name: Desabilitar gnome-keyring-ssh.desktop
+  ansible.builtin.file:
+    src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
+    dest: /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
+    state: link
+    force: yes
+  when: ansible_file_exists("/etc/xdg/autostart/gnome-keyring-ssh.desktop")
+
+- name: Criar arquivo de autostart forcelogout.desktop
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Terminal=false
+      Name=ForceLogout
+      Exec=/usr/local/cmc/scripts/forcelogout.sh
+      X-GNOME-Autostart-enabled=true
+    dest: /etc/xdg/autostart/forcelogout.desktop

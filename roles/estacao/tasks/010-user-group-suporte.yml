@@ -2,78 +2,68 @@
 #010-user-group-suporte
 
 # Cria usuário suporte se não existe
-    - name: Verificar se o usuário suporte existe
-      command: id -u suporte
-      register: suporte_id
-      ignore_errors: true
-      become: true
+- name: Verificar se o usuário suporte existe
+  ansible.builtin.command: id -u suporte
+  register: suporte_id
+  ignore_errors: true
 
-    - name: Criar o usuário suporte se n existe
-      user:
-        name: suporte
-        create_home: yes
-      when: suporte_id.rc != 0
-      become: true
-    
+- name: Criar o usuário suporte se n existe
+  ansible.builtin.user:
+    name: suporte
+    create_home: yes
+  when: suporte_id.rc != 0
+
 # Atualiza senhas de suporte e root
-    # As senhas são definidas nas variáveis PASS_SUPPORT e PASS_ROOT, não esqueça de alterá-las
-    - name: Atualizar senha do usuário suporte
-      user:
-        name: suporte
-        password: "{{ PASS_SUPPORT | password_hash('sha512') }}"
-      vars:
-        PASS_SUPPORT: "senha do suporte"
-      tags:
-        - passwords
-      become: true
+# As senhas são definidas nas variáveis PASS_SUPPORT e PASS_ROOT, não esqueça de alterá-las
+- name: Atualizar senha do usuário suporte
+  ansible.builtin.user:
+    name: suporte
+    password: "{{ PASS_SUPPORT | password_hash('sha512') }}"
+  vars:
+    PASS_SUPPORT: "senha do suporte"
+  tags:
+    - passwords
 
-    - name: Atualizar senha do usuário root
-      user:
-        name: root
-        password: "{{ PASS_ROOT | password_hash('sha512') }}"
-      vars:
-        PASS_ROOT: "senha do root"
-      tags:
-        - passwords
-      become: true
+- name: Atualizar senha do usuário root
+  ansible.builtin.user:
+    name: root
+    password: "{{ PASS_ROOT | password_hash('sha512') }}"
+  vars:
+    PASS_ROOT: "senha do root"
+  tags:
+    - passwords
 
 # Seta grupo principal de suporte para users e deleta grupo suporte se existe
 # Também tira suporte de grupos de admin
-    - name: Definir grupo principal do usuário suporte para users
-      user:
-        name: suporte
-        group: users
-      become: true
+- name: Definir grupo principal do usuário suporte para users
+  ansible.builtin.user:
+    name: suporte
+    group: users
 
-    - name: Remover grupo suporte, se existir
-      group:
-        name: suporte
-        state: absent
-      become: true
+- name: Remover grupo suporte, se existir
+  ansible.builtin.group:
+    name: suporte
+    state: absent
 
-    - name: Remover suporte do grupo adm
-      user:
-        name: suporte
-        groups: adm
-        state: absent
-      become: true
+- name: Remover suporte do grupo adm
+  ansible.builtin.user:
+    name: suporte
+    groups: adm
+    state: absent
 
-    - name: Remover suporte do grupo lpadmin
-      user:
-        name: suporte
-        groups: lpadmin
-        state: absent
-      become: true
+- name: Remover suporte do grupo lpadmin
+  ansible.builtin.user:
+    name: suporte
+    groups: lpadmin
+    state: absent
 
 # Garante que o usuário suporte esteja no sudo
-    - name: Verificar se o usuário suporte está no grupo sudo
-      command: id -Gn suporte
-      register: suporte_groups
-      become: true
+- name: Verificar se o usuário suporte está no grupo sudo
+  ansible.builtin.command: id -Gn suporte
+  register: suporte_groups
 
-    - name: Adicionar usuário suporte ao grupo sudo
-      user:
-        name: suporte
-        groups: sudo
-      when: "'sudo' not in suporte_groups.stdout.split()"
-      become: true
+- name: Adicionar usuário suporte ao grupo sudo
+  ansible.builtin.user:
+    name: suporte
+    groups: sudo
+  when: "'sudo' not in suporte_groups.stdout.split()"

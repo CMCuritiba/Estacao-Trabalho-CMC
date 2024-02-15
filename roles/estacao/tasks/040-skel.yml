@@ -1,141 +1,133 @@
+---
 # 040-skel
 
 # Cria os diretorios padrões
-    - name: Cria os diretórios padrões no diretório /etc/skel
-      file:
-        path: "{{ item }}"
-        state: directory
-      with_items:
-        - /etc/skel/Desktop
-        - /etc/skel/Downloads
-        - /etc/skel/Nuvem
-        - /etc/skel/.config/autostart
-      become: true
+- name: Cria os diretórios padrões no diretório /etc/skel
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/skel/Desktop
+    - /etc/skel/Downloads
+    - /etc/skel/Nuvem
+    - /etc/skel/.config/autostart
 
-    - name: Cria o diretório /home/Docs.Locais
-      file:
-        path: /home/Docs.Locais
-        state: directory
-      become: true
+- name: Cria o diretório /home/Docs.Locais
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
 
-    - name: Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais
-      file:
-        src: /home/Docs.Locais
-        dest: /etc/skel/Docs.Locais
-        state: link
-      become: true
+- name: Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais
+  ansible.builtin.file:
+    src: /home/Docs.Locais
+    dest: /etc/skel/Docs.Locais
+    state: link
 
 # Cria o arquivo padrão de user-dirs.dirs
 
 # Cria o arquivo padrão de local
-    - name: Cria o arquivo user-dirs.locale com conteúdo "pt_BR"
-      copy:
-        content: "pt_BR"
-        dest: /etc/skel/.config/user-dirs.locale
-      become: true  
+- name: Cria o arquivo user-dirs.locale com conteúdo "pt_BR"
+  ansible.builtin.copy:
+    content: "pt_BR"
+    dest: /etc/skel/.config/user-dirs.locale
 
 # Desabilita a atualização automatica dos user-dirs no XDG
-    - name: Modifica o arquivo user-dirs.conf
-      lineinfile:
-        path: /etc/xdg/user-dirs.conf
-        regexp: '^enabled='
-        line: 'enabled=False'
-      become: true
+- name: Modifica o arquivo user-dirs.conf
+  ansible.builtin.lineinfile:
+    path: /etc/xdg/user-dirs.conf
+    regexp: "^enabled="
+    line: "enabled=False"
 
 # Atualiza permissões dos Docs.Locais
 
-    - name: Define as permissões 1777 no diretório /home/Docs.Locais
-      file:
-        path: /home/Docs.Locais
-        state: directory
-        mode: "1777"
-      become: true
+- name: Define as permissões 1777 no diretório /home/Docs.Locais
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
+    mode: "1777"
 
-    - name: Altera o proprietário e o grupo do diretório /home/Docs.Locais para nobody:nogroup
-      file:
-        path: /home/Docs.Locais
-        state: directory
-        owner: nobody
-        group: nogroup
-      become: true
+- name: Altera o proprietário e o grupo do diretório /home/Docs.Locais para nobody:nogroup
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
+    owner: nobody
+    group: nogroup
 
 # Cria icones de suporte, firefox, chrome
 
 # Configura atalho para o mensageiro
 # O icone é configurado no script 035
-    - name: Create Rainbow desktop file
-      copy:
-        dest: /etc/skel/Desktop/Rainbow.desktop
-        content: |
-          #!/usr/bin/env xdg-open
-          [Desktop Entry]
-          Version=1.0
-          Type=Application
-          Terminal=false
-          Name=Rainbow
-          Exec=google-chrome --app=https://web.openrainbow.com/
-          Name[pt_BR]=Rainbow
-          Icon=/usr/share/pixmaps/Rainbow.png
-      become: true
+- name: Create Rainbow desktop file
+  ansible.builtin.copy:
+    dest: /etc/skel/Desktop/Rainbow.desktop
+    content: |
+      #!/usr/bin/env xdg-open
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Terminal=false
+      Name=Rainbow
+      Exec=google-chrome --app=https://web.openrainbow.com/
+      Name[pt_BR]=Rainbow
+      Icon=/usr/share/pixmaps/Rainbow.png
 
 # Ajusta permissões dos launchers
 
 # Configuração padrão do GIMP
-    - name: Configurar o arquivo de sessão do GIMP
-      become: true
-      copy:
-        dest: /etc/skel/.gimp-2.10/sessionrc
-        content: |
-          # GIMP sessionrc
-          (session-info "toplevel"# Política de privacidade
-              (factory-entry "gimp-empty-image-window")
-              (position 184 193)
-              (size 620 200)
-              (open-on-exit))
-          (session-info "toplevel"
-              (factory-entry "gimp-single-image-window")
-              (position 0 30)
-              (size 1022 672)
-              (open-on-exit)
-              (aux-info
-                  (left-docks-width "120")
-                  (right-docks-position "690"))
-               (gimp-toolbox
-                  (side left)
-                  (book
-                      (current-page 0)
-                      (dockable "gimp-tool-options"
-                          (tab-style automatic))))
-              (gimp-dock
-                  (side right)
-                  (book
-                      (current-page 0)
-                      (dockable "gimp-layer-list"
-                          (tab-style automatic)
-                          (preview-size 32))
-                      (dockable "gimp-channel-list"
-                          (tab-style automatic)# Forçar logout se não aceitar política de privacidade
-                          (preview-size 32))
-                      (dockable "gimp-vectors-list"# Política de privacidade
-                          (tab-style automatic)
-                          (preview-size 32))
-                      (dockable "gimp-undo-history"
-                          (tab-style automatic)))
-                  (book
-                      (position 394)
-                      (current-page 0)
-                      (dockable "gimp-brush-grid"
-                          (tab-style automatic))
-                      (dockable "gimp-pattern-grid"
-                          (tab-style automatic))
-                      (dockable "gimp-gradient-list"
-                          (tab-style automatic)))))
+- name: Configurar o arquivo de sessão do GIMP
+  ansible.builtin.copy:
+    dest: /etc/skel/.gimp-2.10/sessionrc
+    content: |
+      # GIMP sessionrc
+      (session-info "toplevel"# Política de privacidade
+          (factory-entry "gimp-empty-image-window")
+          (position 184 193)
+          (size 620 200)
+          (open-on-exit))
+      (session-info "toplevel"
+          (factory-entry "gimp-single-image-window")
+          (position 0 30)
+          (size 1022 672)
+          (open-on-exit)
+          (aux-info
+              (left-docks-width "120")
+              (right-docks-position "690"))
+           (gimp-toolbox
+              (side left)
+              (book
+                  (current-page 0)
+                  (dockable "gimp-tool-options"
+                      (tab-style automatic))))
+          (gimp-dock
+              (side right)
+              (book
+                  (current-page 0)
+                  (dockable "gimp-layer-list"
+                      (tab-style automatic)
+                      (preview-size 32))
+                  (dockable "gimp-channel-list"
+                      (tab-style automatic)# Forçar logout se não aceitar política de privacidade
+                      (preview-size 32))
+                  (dockable "gimp-vectors-list"# Política de privacidade
+                      (tab-style automatic)
+                      (preview-size 32))
+                  (dockable "gimp-undo-history"
+                      (tab-style automatic)))
+              (book
+                  (position 394)
+                  (current-page 0)
+                  (dockable "gimp-brush-grid"
+                      (tab-style automatic))
+                  (dockable "gimp-pattern-grid"
+                      (tab-style automatic))
+                  (dockable "gimp-gradient-list"
+                      (tab-style automatic)))))
 
-          (hide-docks no)
-          (single-window-mode yes)
-          (last-tip-shown 0)
+      (hide-docks no)
+      (single-window-mode yes)
+      (last-tip-shown 0)
 
-          # end of sessionrc
+      # end of sessionrc
 
 # Política de privacidade
 

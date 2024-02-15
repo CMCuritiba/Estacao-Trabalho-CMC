@@ -2,13 +2,13 @@
 # 070-politica-informatica
 
 - name: Criar diretório /usr/local/cmc/scripts
-  file:
+  ansible.builtin.file:
     path: /usr/local/cmc/scripts
     state: directory
     mode: "0755"
 
 - name: Criar o script forcelogout.sh
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/bash
       if [ -f "$HOME/.forcelogout" ]; then
@@ -19,6 +19,6 @@
     mode: "0755"
 
 - name: Copiar o arquivo politica-informatica.txt
-  copy:
+  ansible.builtin.copy:
     src: politica-informatica.txt
     dest: /usr/local/cmc/politica-informatica.txt
