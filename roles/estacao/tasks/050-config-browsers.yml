@@ -1,7 +1,8 @@
+---
 # 050-config-browsers
 
 - name: Config Browsers
-  become: yes
+  become: true
   become_user: root
   lineinfile:
     dest: /etc/skel/.config/mimeapps.list

@@ -65,7 +65,7 @@ Voltando para o terminal do linux:
    git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
    ```
 
-2. code `~/workspace/Estacao-Trabalho-CMC`
+2. Abra o repo no VSCode: `code ~/workspace/Estacao-Trabalho-CMC`
 3. Crie e inicialize o _virtual env_ para o molecule:
 
    ```shell
@@ -73,13 +73,37 @@ Voltando para o terminal do linux:
    source ~/workspace/molecule/bin/activate
    ```
 
-4. Já no _virtual env_:
-   1. pip install molecule
-   2. pip install "molecule-docker"
-   3. mkdir roles
-   4. cd roles/
-   5. molecule init role -d docker cmcuritiba.estacao
-   6. cd estacao/
+4. Já no _virtual env_, instale o molecule:
+   1. `pip install molecule`
+   2. `pip install "molecule-docker"`
+5. A partir daqui, você já pode trabalhar no código e realizar testes com o
+   molecule;
+6. **Atenção, este etapa é opcional.** Se as pastas `roles/estacao` já tiverem
+   sido criadas, você pode pular esta etapa. Caso contrário, no início do
+   desenvolvimento ou para [criar uma nova role](https://galaxy.ansible.com/docs/contributing/creating_role.html),
+   na pasta raiz do repositório, faça:
+
+   ```shell
+   mkdir roles
+   cd roles/
+   ansible-galaxy role init estacao
+   molecule init scenario -d vagrant
+   cd estacao/
+   ```
+
+   Observação: comandos validados com o molecule versão 6.
+7. Para testar o código (já criando a VM se ela não existir), use os comandos:
+
+   ```shell
+   molecule converge
+   molecule verify
+   ```
+
+8. Para limpar o ambiente de teste (exclui a VM):
+
+   ```shell
+   molecule destroy
+   ```
 
 ## Para usar sua estacao de trabalho
 
