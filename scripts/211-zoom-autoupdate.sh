@@ -6,24 +6,21 @@ if [[ $UID != 0 ]]; then
   exit 1
 fi
 
-mkdir /opt/zoom-updater
-
 #copia arquivo zoom-updater para seu respectivo diretorio
 if [ -f "../arquivos/zoom-update.sh" ]; then
-   cp ../arquivos/zoom-update.sh /opt/zoom-updater
+   cp "../arquivos/zoom-autoupdate.sh" /usr/local/cmc/zoom-updater.sh
+   chmod +x /usr/local/cmc/zoom-updater.sh
 else
    echo arquivo zoom updater não encontrado
-   exit
+   exit 1
 fi
-
-chmod +x /opt/zoom-updater/zoom-update.sh
 
 #copia arquivo de serviço para seu respectivo diretorio
 if [ -f "../arquivos/zoom-update.service" ]; then
    cp ../arquivos/zoom-update.service /etc/systemd/system/zoom-update.service
 else
    echo arquivo zoom-update.service não encontrado
-   exit
+   exit 1
 fi
 
 systemctl enable --now zoom-update.service
