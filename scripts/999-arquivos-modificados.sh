@@ -74,3 +74,6 @@ ln -sf /mnt/suporte/etv4/scripts/boot.sh /usr/local/cmc/modificados/boot.sh
 # Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
 ln -sf /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy \
     /usr/local/cmc/modificados/org.freedesktop.UDisks2.policy
+
+# script de atualização automática do zoom
+ln -sf /usr/local/cmc/zoom-updater.sh /usr/local/cmc/modificados/zoom-updater.sh
