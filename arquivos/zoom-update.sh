@@ -1,13 +1,4 @@
 #!/bin/bash
-
-#verificar se usuário está como root
-if [[ $UID != 0 ]]; then
-  echo "Executar este script como root."
-  exit 1
-fi
-mkdir /opt/zoom-updater
-    cat <<'EOF' >/opt/zoom-updater/zoom-update.sh
-#!/bin/bash
 export LANG=pt
 diretorio=/mnt/suporte/etv4/scripts/files/zoom_amd64.deb
 if [ -f "$diretorio" ]; then
@@ -29,26 +20,3 @@ else
    export DEBIAN_FRONTEND=noninteractive
    apt-get install -y /tmp/zoom_amd64.deb
 fi
-
-EOF
-chmod +x /opt/zoom-updater/zoom-update.sh
-
-  cat <<'EOF' >/etc/systemd/system/zoom-update.service
-[Unit]
-Description=zoom update service
-After=network.target
-After=network-online.target mnt-suporte.mount
-
-[Service]
-User=root
-ExecStart=/opt/zoom-updater/zoom-update.sh
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl enable --now zoom-update.service
-# execute zoom update immediately
-systemctl start zoom-update.service
-# output systemd status/logs
-systemctl --no-pager status zoom-update.service
