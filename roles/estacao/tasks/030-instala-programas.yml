@@ -2,88 +2,91 @@
 # 030-instala-programas
 # Script para instalar programas adicionais
 
-# Altera os repositórios para o c3sl
-- name: Substituir URL do repositório do Ubuntu
-  ansible.builtin.replace:
-    path: /etc/apt/sources.list.d/official-package-repositories.list
-    regexp: '//(packages.linuxmint.com|archive.ubuntu.com)'
-    replace: '//br.\1'
-
-# Tira input da instalação do ttf-mscorefonts-installer
-- name: Configurar msttcorefonts
-  ansible.builtin.blockinfile:
-    path: /var/cache/debconf/config.dat
-    block: |
-      Name: msttcorefonts/accepted-mscorefonts-eula
-      Template: msttcorefonts/accepted-mscorefonts-eula
-      Value: true
-      Owners: ttf-mscorefonts-installer
-      Flags: seen
-    
-# Update e Upgrade inicial:
-- name: Atualização e instalação de pacotes
+- name: Bloco de superusuário
+  become: true
   block:
-    - name: Atualizar sistema
-      ansible.builtin.apt:
-        update_cache: yes
-        upgrade: yes
-      
-    # Chrome, pq chrome é especial:
-    - name: Adiciona chave so repositório google-chrome
-      ansible.builtin.apt_key:
-        url: 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
+    # Altera os repositórios para o c3sl
+    - name: Substituir URL do repositório do Ubuntu
+      ansible.builtin.replace:
+        path: /etc/apt/sources.list.d/official-package-repositories.list
+        regexp: '//(packages.linuxmint.com|archive.ubuntu.com)'
+        replace: '//br.\1'
 
-    - name: Adicionar repositório do Google Chrome
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-        filename: google-chrome
+    # Tira input da instalação do ttf-mscorefonts-installer
+    - name: Configurar msttcorefonts
+      ansible.builtin.blockinfile:
+        path: /var/cache/debconf/config.dat
+        block: |
+          Name: msttcorefonts/accepted-mscorefonts-eula
+          Template: msttcorefonts/accepted-mscorefonts-eula
+          Value: true
+          Owners: ttf-mscorefonts-installer
+          Flags: seen
+        
+    # Update e Upgrade inicial:
+    - name: Atualização e instalação de pacotes
+      block:
+        - name: Atualizar sistema
+          ansible.builtin.apt:
+            update_cache: yes
+            upgrade: yes
+          
+        # Chrome, pq chrome é especial:
+        - name: Adiciona chave so repositório google-chrome
+          ansible.builtin.apt_key:
+            url: 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
 
-    # Instala programas
-    - name: Instalar programas
-      ansible.builtin.apt:
-        name:
-          # Programas de acesso remoto e mídia
-          - rdesktop
-          - vino
-          - openssh-server
-          - vlc
-          - audacity
-          - exfat-fuse
-          # - exfat-utils
-          - exfatprogs
-          - shotwell
-          - gimp
-          - gimp-help-pt
-          - drawing
-          - inkscape
-          # Instalar codecs multimídia
-          - gstreamer1.0-libav
-          - gstreamer1.0-plugins-bad
-          - gstreamer1.0-plugins-ugly
-          - gstreamer1.0-vaapi
-          - libavcodec-extra
-          - libdvdcss2
-          - libdvdnav4
-          # - libdvdread7
-          - libdvdread8
-          # - libhal1-flash
-          # Instalar utilitários e produtividade
-          - vim
-          - gedit
-          - pdfsam
-          - unrar
-          - ncdu
-          - numlockx
-          - acct
-          - xmlstarlet
-          - jq
-          # Google Chrome
-          - google-chrome-stable
-        state: present
+        - name: Adicionar repositório do Google Chrome
+          ansible.builtin.apt_repository:
+            repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+            filename: google-chrome
 
-    - name: Instalar pacote ttf-mscorefonts-installer
-      environment:
-        DEBIAN_FRONTEND: noninteractive
-      ansible.builtin.apt:
-        name: ttf-mscorefonts-installer
-        state: present
+        # Instala programas
+        - name: Instalar programas
+          ansible.builtin.apt:
+            name:
+              # Programas de acesso remoto e mídia
+              - rdesktop
+              - vino
+              - openssh-server
+              - vlc
+              - audacity
+              - exfat-fuse
+              # - exfat-utils
+              - exfatprogs
+              - shotwell
+              - gimp
+              - gimp-help-pt
+              - drawing
+              - inkscape
+              # Instalar codecs multimídia
+              - gstreamer1.0-libav
+              - gstreamer1.0-plugins-bad
+              - gstreamer1.0-plugins-ugly
+              - gstreamer1.0-vaapi
+              - libavcodec-extra
+              - libdvdcss2
+              - libdvdnav4
+              # - libdvdread7
+              - libdvdread8
+              # - libhal1-flash
+              # Instalar utilitários e produtividade
+              - vim
+              - gedit
+              - pdfsam
+              - unrar
+              - ncdu
+              - numlockx
+              - acct
+              - xmlstarlet
+              - jq
+              # Google Chrome
+              - google-chrome-stable
+            state: present
+
+        - name: Instalar pacote ttf-mscorefonts-installer
+          environment:
+            DEBIAN_FRONTEND: noninteractive
+          ansible.builtin.apt:
+            name: ttf-mscorefonts-installer
+            state: present

@@ -19,21 +19,22 @@
 # Atualiza senhas de suporte e root
 # As senhas são definidas nas variáveis suporte_passwd e root_passwd, não esqueça de alterá-las
 
-- name: Atualizar senha do usuário root
-  ansible.builtin.user:
-    name: root
-    password: "{{ root_passwd }}"
-  vars:
-    root_passwd: "root"
-  tags:
-    - passwords
-  become: true
+- name: Bloco de superusuário
+  block:
+    - name: Atualizar senha do usuário root
+      ansible.builtin.user:
+        name: root
+        password: "{{ root_passwd }}"
+      vars:
+        root_passwd: "root"
+      tags:
+        - passwords
 
-# Seta grupo principal de suporte para users, seta grupos do suporte
-# e deleta grupo suporte se existe
+    # Seta grupo principal de suporte para users, seta grupos do suporte
+    # e deleta grupo suporte se existe
 
-- name: Remover grupo suporte, se existir
-  ansible.builtin.group:
-    name: suporte
-    state: absent
+    - name: Remover grupo suporte, se existir
+      ansible.builtin.group:
+        name: suporte
+        state: absent
   become: true
