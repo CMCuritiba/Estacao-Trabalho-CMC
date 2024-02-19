@@ -6,6 +6,12 @@
 - name: task-020
   import_tasks: 020-remover-programas.yml
   tags: 
+    - notest
+
+- name: task-030
+  import_tasks: 030-instala-programas.yml
+  become: true
+  tags: 
     - test
 
 - name: task-040
