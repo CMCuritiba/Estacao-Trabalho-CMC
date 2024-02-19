@@ -12,6 +12,12 @@
   import_tasks: 030-instala-programas.yml
   become: true
   tags: 
+    - notest
+
+- name: task-035
+  import_tasks: 035-imagens-cmc.yml
+  become: true
+  tags: 
     - test
 
 - name: task-040

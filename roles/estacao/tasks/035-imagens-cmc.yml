@@ -1,32 +1,20 @@
 ---
 #035-imagens-cmc
 
-- name: Copiar imagem do ícone de suporte para /usr/share/pixmaps/
+- name: Copiar ícones para /usr/share/pixmaps/
   ansible.builtin.copy:
-    src: ../arquivos/imagens/suporte_tux.png
+    src: "{{ item }}"
     dest: /usr/share/pixmaps/
     mode: "0644"
+  with_items:
+    - imagens/Rainbow.png
+    - imagens/suporte_tux.png
 
-- name: Copiar imagem do ícone do mensageiro para /usr/share/pixmaps/
+- name: Copiar imagens de background para /usr/share/backgrounds/cmc/
   ansible.builtin.copy:
-    src: ../arquivos/imagens/Rainbow.png
-    dest: /usr/share/pixmaps/
-    mode: "0644"
-
-- name: Criar pasta /usr/share/backgrounds/cmc/
-  ansible.builtin.file:
-    path: /usr/share/backgrounds/cmc
-    state: directory
-    mode: "0755"
-
-- name: Copiar imagem de background para /usr/share/backgrounds/cmc/
-  ansible.builtin.copy:
-    src: ../arquivos/imagens/desktop-bg.png
+    src: "{{ item }}"
     dest: /usr/share/backgrounds/cmc/
     mode: "0644"
-
-- name: Copiar imagem de background do greeter para /usr/share/backgrounds/cmc/
-  ansible.builtin.copy:
-    src: ../arquivos/imagens/login-bg.jpg
-    dest: /usr/share/backgrounds/cmc/
-    mode: "0644"
+  with_items:
+    - imagens/login-bg.jpg
+    - imagens/desktop-bg.png
