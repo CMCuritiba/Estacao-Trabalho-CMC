@@ -8,8 +8,8 @@ fi
 
 # Copia arquivo zoom-updater para seu respectivo diretorio
 if [ -f "../arquivos/zoom-update.sh" ]; then
-    cp "../arquivos/zoom-autoupdate.sh" /usr/local/cmc/zoom-updater.sh
-    chmod +x /usr/local/cmc/zoom-updater.sh
+    cp "../arquivos/zoom-update.sh" /usr/local/cmc/zoom-update.sh
+    chmod +x /usr/local/cmc/zoom-update.sh
 else
     echo "Arquivo zoom updater não encontrado"
     exit 1

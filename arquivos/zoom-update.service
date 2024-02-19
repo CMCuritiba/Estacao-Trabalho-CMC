@@ -5,7 +5,7 @@ After=network-online.target mnt-suporte.mount
 
 [Service]
 User=root
-ExecStart=/usr/local/cmc/zoom-updater.sh
+ExecStart=/usr/local/cmc/zoom-update.sh
 
 [Install]
 WantedBy=multi-user.target
