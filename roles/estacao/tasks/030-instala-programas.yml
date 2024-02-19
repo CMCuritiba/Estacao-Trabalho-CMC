@@ -3,109 +3,99 @@
 # Script para instalar programas adicionais
 
 # Altera os repositórios para o c3sl
-    - name: Substituir URL do repositório do Ubuntu
-      lineinfile:
-        path: /etc/apt/sources.list.d/official-package-repositories.list
-        regexp: '^//archive.ubuntu.com'
-        line: '//br.archive.ubuntu.com'
-      become: yes
+- name: Substituir URL do repositório do Ubuntu
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: "^//archive.ubuntu.com"
+    line: "//br.archive.ubuntu.com"
 
-    - name: Substituir URL do repositório do Linux Mint
-      lineinfile:
-        path: /etc/apt/sources.list.d/official-package-repositories.list
-        regexp: '^//packages.linuxmint.com'
-        line: '//br.packages.linuxmint.com'
-      become: yes
+- name: Substituir URL do repositório do Linux Mint
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: "^//packages.linuxmint.com"
+    line: "//br.packages.linuxmint.com"
 
 # Update e Upgrade inicial:
-    - name: Atualizar lista de pacotes
-      apt:
-        update_cache: yes
-      become: yes
-     
-    - name: Executar upgrade do sistema
-      apt:
-        upgrade: yes
-        update_cache: yes
-      become: yes
+- name: Atualizar lista de pacotes
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Executar upgrade do sistema
+  ansible.builtin.apt:
+    upgrade: yes
+    update_cache: yes
 
 # Tira input da instalação do ttf-mscorefonts-installer
-    - name: Configurar msttcorefonts
-      lineinfile:
-        path: /var/cache/debconf/config.dat
-        line: |
-          Name: msttcorefonts/accepted-mscorefonts-eula
-          Template: msttcorefonts/accepted-mscorefonts-eula
-          Value: true
-          Owners: ttf-mscorefonts-installer
-          Flags: seen
-      become: yes    
-
+- name: Configurar msttcorefonts
+  ansible.builtin.lineinfile:
+    path: /var/cache/debconf/config.dat
+    line: |
+      Name: msttcorefonts/accepted-mscorefonts-eula
+      Template: msttcorefonts/accepted-mscorefonts-eula
+      Value: true
+      Owners: ttf-mscorefonts-installer
+      Flags: seen
 
 # Instala programas
-    - name: Instalar programas de acesso remoto e mídia
-      apt:
-        name:
-          - rdesktop
-          - vino
-          - openssh-server
-          - vlc
-          - audacity
-          - exfat-fuse
-          - exfat-utils
-          - shotwell
-          - gimp
-          - gimp-help-pt
-          - drawing
-          - inkscape
-        state: present
-      become: yes
+- name: Instalar programas de acesso remoto e mídia
+  ansible.builtin.apt:
+    name:
+      - rdesktop
+      - vino
+      - openssh-server
+      - vlc
+      - audacity
+      - exfat-fuse
+      - exfat-utils
+      - shotwell
+      - gimp
+      - gimp-help-pt
+      - drawing
+      - inkscape
+    state: present
 
-    - name: Instalar codecs multimídia
-      apt:
-        name:
-          - gstreamer1.0-libav
-          - gstreamer1.0-plugins-bad
-          - gstreamer1.0-plugins-ugly
-          - gstreamer1.0-vaapi
-          - libavcodec-extra
-          - libdvdcss2
-          - libdvdnav4
-          - libdvdread7
-          - libhal1-flash
-        state: present
-      become: yes
+- name: Instalar codecs multimídia
+  ansible.builtin.apt:
+    name:
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-vaapi
+      - libavcodec-extra
+      - libdvdcss2
+      - libdvdnav4
+      - libdvdread7
+      - libhal1-flash
+    state: present
 
-    - name: Instalar utilitários e produtividade
-      apt:
-        name:
-          - vim
-          - gedit
-          - pdfsam
-          - unrar
-          - ncdu
-          - numlockx
-          - acct
-          - xmlstarlet
-          - jq
-        state: present
-      become: yes
+- name: Instalar utilitários e produtividade
+  ansible.builtin.apt:
+    name:
+      - vim
+      - gedit
+      - pdfsam
+      - unrar
+      - ncdu
+      - numlockx
+      - acct
+      - xmlstarlet
+      - jq
+    state: present
 
-    - name: Instalar pacote ttf-mscorefonts-installer
-      environment:
-        DEBIAN_FRONTEND: noninteractive
-      apt:
-        name: ttf-mscorefonts-installer
-        state: present
-      become: yes
+- name: Instalar pacote ttf-mscorefonts-installer
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  ansible.builtin.apt:
+    name: ttf-mscorefonts-installer
+    state: present
 
 # Chrome, pq chrome é especial:
-    - name: Adicionar repositório do Google Chrome
-      apt_repository:
-        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-        filename: google-chrome
+- name: Adicionar repositório do Google Chrome
+  apt_repository:
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    filename: google-chrome
 
-    - name: Instalar o Google Chrome
-      apt:
-        name: google-chrome-stable
-        state: present
+- name: Instalar o Google Chrome
+  ansible.builtin.apt:
+    name: google-chrome-stable
+    state: present

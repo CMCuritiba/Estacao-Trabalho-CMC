@@ -1,9 +1,8 @@
+---
 # 050-config-browsers
 
 - name: Config Browsers
-  become: yes
-  become_user: root
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/skel/.config/mimeapps.list
     line: |
       [Default Applications]

@@ -1,7 +1,7 @@
 # 055-programas-default
-   
+
     - name: Create mimeapps.list file with the specified content
-      copy:
+      ansible.builtin.copy:
         content: |
           [Default Applications]
           x-scheme-handler/http=firefox.desktop
@@ -65,4 +65,3 @@
           application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop;
           audio/x-vorbis+ogg=rhythmbox.desktop;
         dest: /etc/skel/.config/mimeapps.list
-      become: true

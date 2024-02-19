@@ -1,8 +1,9 @@
+---
 # 130-login-manual
 
 # Desabilita login como guest
 - name: Desabilita login como guest
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/lightdm/lightdm.conf
     regexp: '^(greeter-show-manual-login|greeter-hide-users|allow-guest)='
     line: '{{ item.value }}'
@@ -14,7 +15,7 @@
 
 # Habilita login manual e esconde usuários
 - name: Criar arquivo 90-slick-greeter.conf
-  copy:
+  ansible.builtin.copy:
     dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
     content: |
       [Seat:*]
@@ -23,7 +24,7 @@
 # Muda background do greeter
 # Greeter com G maiúsculo pq tem bug marcado como resolvido... Mas não resolvido
 - name: Criar arquivo slick-greeter.conf
-  copy:
+  ansible.builtin.copy:
     dest: /etc/lightdm/slick-greeter.conf
     content: |
       [Greeter]
