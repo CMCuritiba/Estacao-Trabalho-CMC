@@ -16,3 +16,4 @@
     state: absent
     update_cache: true
     cache_valid_time: 80000
+  become: true

@@ -1,5 +1,12 @@
 - name: task-010
   import_tasks: 010-user-group-suporte.yml
+  tags: 
+    - notest
+
+- name: task-020
+  import_tasks: 020-remover-programas.yml
+  tags: 
+    - test
 
 - name: task-040
   import_tasks: 040-skel.yml
