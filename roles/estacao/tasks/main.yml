@@ -18,10 +18,13 @@
     
     - name: Task-040
       ansible.builtin.import_tasks: 040-skel.yml
+    
+    - name: Task-050
+      ansible.builtin.import_tasks: 050-config-browsers.yml
 
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-050
-      ansible.builtin.import_tasks: 050-config-browsers.yml
+    - name: Task-055
+      ansible.builtin.import_tasks: 055-programas-default.yml

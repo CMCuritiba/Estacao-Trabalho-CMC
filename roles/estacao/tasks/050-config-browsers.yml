@@ -50,14 +50,7 @@
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     mode: "0644"
-    content: "{{ cmc_json | ansible.builtin.to_json }}"
-  vars:
-    cmc_json:
-      HomepageLocation: "http://intranet.cmc.pr.gov.br/"
-      RestoreOnStartup: 4
-      RestoreOnStartupURLs:
-        - "http://intranet.cmc.pr.gov.br/"
-      HomepageIsNewTabPage: false
+    content: "{{ google_chrome_recommended | ansible.builtin.to_json }}"
 
 - name: Gera bookmarks dos navegadores
   ansible.builtin.template:

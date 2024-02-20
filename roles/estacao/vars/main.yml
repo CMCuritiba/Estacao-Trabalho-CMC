@@ -1,5 +1,11 @@
 ---
 # vars file for estacao
+google_chrome_recommended:
+  HomepageLocation: "http://intranet.cmc.pr.gov.br/"
+  RestoreOnStartup: 4
+  RestoreOnStartupURLs:
+    - "http://intranet.cmc.pr.gov.br/"
+  HomepageIsNewTabPage: false
 estacao_bookmarks:
   - name: "Câmara Municipal de Curitiba"
     url: "https://www.cmc.pr.gov.br/"
