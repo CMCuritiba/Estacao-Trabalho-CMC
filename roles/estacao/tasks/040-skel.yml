@@ -18,14 +18,12 @@
       owner: nobody
       group: nogroup
       mode: 1777
-  become: true
 
 - name: Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais
   ansible.builtin.file:
     path: /etc/skel/Docs.Locais
     src: /home/Docs.Locais
     state: link
-  become: true
 
 - name: Cria arquivo padrão user-dirs.dirs
   ansible.builtin.copy:

@@ -22,15 +22,15 @@
           Value: true
           Owners: ttf-mscorefonts-installer
           Flags: seen
-        
+
     # Update e Upgrade inicial:
     - name: Atualização e instalação de pacotes
       block:
         - name: Atualizar sistema
           ansible.builtin.apt:
-            update_cache: yes
-            upgrade: yes
-          
+            update_cache: true
+            upgrade: true
+
         # Chrome, pq chrome é especial:
         - name: Adiciona chave so repositório google-chrome
           ansible.builtin.apt_key:
@@ -90,3 +90,4 @@
           ansible.builtin.apt:
             name: ttf-mscorefonts-installer
             state: present
+            

@@ -1,23 +1,20 @@
 ---
 #035-imagens-cmc
 
-- name: Bloco superusuário
-  become: true
-  block:
-    - name: Copiar ícones para /usr/share/pixmaps/
-      ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: /usr/share/pixmaps/
-        mode: "0644"
-      with_items:
-        - imagens/Rainbow.png
-        - imagens/suporte_tux.png
+- name: Copiar ícones para /usr/share/pixmaps/
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/share/pixmaps/
+    mode: "0644"
+  with_items:
+    - imagens/Rainbow.png
+    - imagens/suporte_tux.png
 
-    - name: Copiar imagens de background para /usr/share/backgrounds/cmc/
-      ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: /usr/share/backgrounds/cmc/
-        mode: "0644"
-      with_items:
-        - imagens/login-bg.jpg
-        - imagens/desktop-bg.png
+- name: Copiar imagens de background para /usr/share/backgrounds/cmc/
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/share/backgrounds/cmc/
+    mode: "0644"
+  with_items:
+    - imagens/login-bg.jpg
+    - imagens/desktop-bg.png
