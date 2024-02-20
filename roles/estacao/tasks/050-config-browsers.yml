@@ -1,68 +1,72 @@
 ---
 # 050-config-browsers
 
-- name: Config Browsers
-  ansible.builtin.lineinfile:
-    dest: /etc/skel/.config/mimeapps.list
-    line: |
-      [Default Applications]
-      x-scheme-handler/http=firefox.desktop
-      x-scheme-handler/https=firefox.desktop
-      x-scheme-handler/ftp=firefox.desktop
-      x-scheme-handler/chrome=firefox.desktop
-      text/html=firefox.desktop
-      application/x-extension-htm=firefox.desktop
-      application/x-extension-html=firefox.desktop
-      application/x-extension-shtml=firefox.desktop
-      application/xhtml+xml=firefox.desktop
-      application/x-extension-xhtml=firefox.desktop
-      application/x-extension-xht=firefox.desktop
-      audio/ogg=rhythmbox.desktop
-      audio/x-vorbis+ogg=rhythmbox.desktop
-      audio/x-wav=rhythmbox.desktop
-      audio/mpeg3=rhythmbox.desktop
-      audio/x-mpeg-3=rhythmbox.desktop
-      audio/mpeg=rhythmbox.desktop
-      video/mp4=vlc.desktop
-      video/mpeg=vlc.desktop
-      video/mp2t=vlc.desktop
-      video/msvideo=vlc.desktop
-      video/quicktime=vlc.desktop
-      video/webm=vlc.desktop
-      video/x-avi=vlc.desktop
-      video/x-flv=vlc.desktop
-      video/x-matroska=vlc.desktop
-      video/x-mpeg=vlc.desktop
-      video/x-ogm+ogg=vlc.desktop
-      application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop
+- name: Configura firefox
+  ansible.builtin.copy:
+    dest: "/usr/lib/firefox/{{ item.path }}"
+    content: "{{ item.content }}"
+    mode: "0644"
+  with_items:
+    - path: "defaults/pref/local-settings.js"
+      content: |
+        //
+        pref("general.config.filename", "mozilla.cfg");
+        pref("general.config.obscure_value", 0);
+    - path: "mozilla.cfg"
+      content: |
+        //
+        lockPref("browser.startup.homepage", "http://intranet.cmc.pr.gov.br/");
+        lockPref("network.proxy.type", 0);
+        lockPref("browser.startup.page", 1);
+        lockPref("print.print_footerleft", "");
+        lockPref("print.print_footerright", "");
+        lockPref("print.print_headerleft", "");
+        lockPref("print.print_headerright", "");
+        lockPref("startup.homepage_welcome_url", "");
+        lockPref("browser.rights.3.shown", true);
+    - path: "browser/override.ini"
+      content: |
+        [XRE]
+        EnableProfileMigrator=false
 
-      [Added Associations]
-      x-scheme-handler/http=firefox.desktop;
-      x-scheme-handler/https=firefox.desktop;
-      x-scheme-handler/ftp=firefox.desktop;
-      x-scheme-handler/chrome=firefox.desktop;
-      text/html=firefox.desktop;
-      application/x-extension-htm=firefox.desktop;
-      application/x-extension-html=firefox.desktop;
-      application/x-extension-shtml=firefox.desktop;
-      application/xhtml+xml=firefox.desktop;
-      application/x-extension-xhtml=firefox.desktop;
-      application/x-extension-xht=firefox.desktop;
-      audio/ogg=rhythmbox.desktop;
-      audio/x-wav=rhythmbox.desktop;
-      audio/mpeg3=rhythmbox.desktop;
-      audio/x-mpeg-3=rhythmbox.desktop;
-      audio/mpeg=rhythmbox.desktop;
-      video/mp4=vlc.desktop;
-      video/mpeg=vlc.desktop;
-      video/mp2t=vlc.desktop;
-      video/msvideo=vlc.desktop;
-      video/quicktime=vlc.desktop;
-      video/webm=vlc.desktop;
-      video/x-avi=vlc.desktop;
-      video/x-flv=vlc.desktop;
-      video/x-matroska=vlc.desktop;
-      video/x-mpeg=vlc.desktop;
-      video/x-ogm+ogg=vlc.desktop;
-      application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop;
-      audio/x-vorbis+ogg=rhythmbox.desktop;
+- name: Coloca firefox como navegador padrão
+  community.general.alternatives:
+    link: /usr/bin/x-www-browser
+    name: x-www-browser
+    path: /usr/bin/firefox
+    priority: 999
+    state: present
+
+- name: Cria pastas de configuração do Chrome
+  ansible.builtin.file:
+    state: directory
+    path: "/etc/opt/chrome/policies/{{ item }}"
+    mode: "0755"
+  with_items:
+    - recommended
+    - managed
+
+- name: Configura Google Chrome
+  ansible.builtin.copy:
+    dest: "/etc/opt/chrome/policies/recommended/cmc.json"
+    mode: "0644"
+    content: "{{ cmc_json | ansible.builtin.to_json }}"
+  vars:
+    cmc_json:
+      HomepageLocation: "http://intranet.cmc.pr.gov.br/"
+      RestoreOnStartup: 4
+      RestoreOnStartupURLs:
+        - "http://intranet.cmc.pr.gov.br/"
+      HomepageIsNewTabPage: false
+
+- name: Gera bookmarks dos navegadores
+  ansible.builtin.template:
+    dest: "{{ item.bookmarks_config_file }}"
+    src: "templates/bookmarks_{{ item.browser }}.j2"
+    lstrip_blocks: true
+    mode: "0644"
+  with_items:
+    - browser: "firefox"
+      bookmarks_config_file: "/usr/lib/firefox/distribution/policies.json"
+    - browser: google-chrome
+      bookmarks_config_file: "/etc/opt/chrome/policies/managed/cmc.json"

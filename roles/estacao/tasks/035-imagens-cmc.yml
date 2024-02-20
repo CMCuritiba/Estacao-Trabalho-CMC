@@ -1,5 +1,5 @@
 ---
-#035-imagens-cmc
+# 035-imagens-cmc
 
 - name: Copiar ícones para /usr/share/pixmaps/
   ansible.builtin.copy:

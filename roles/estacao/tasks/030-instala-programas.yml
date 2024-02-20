@@ -90,4 +90,3 @@
           ansible.builtin.apt:
             name: ttf-mscorefonts-installer
             state: present
-            
