@@ -1,5 +1,5 @@
 ---
-#020-remover-programas
+# 020-remover-programas
 
 # Remove alguns programas padrão desnecessários
 - name: Remover Programas

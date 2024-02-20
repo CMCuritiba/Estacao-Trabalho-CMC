@@ -1,24 +1,24 @@
-- name: task-010
-  import_tasks: 010-user-group-suporte.yml
-  tags: 
-    - notest
+---
 
-- name: task-020
-  import_tasks: 020-remover-programas.yml
-  tags: 
-    - notest
+- name: Tasks concluidas
+  when: estacao_teste is falsy
+  become: true
+  block:
+    - name: Task-010
+      ansible.builtin.import_tasks: 010-user-group-suporte.yml
 
-- name: task-030
-  import_tasks: 030-instala-programas.yml
-  tags: 
-    - notest
+    - name: Task-020
+      ansible.builtin.import_tasks: 020-remover-programas.yml
 
-- name: task-035
-  import_tasks: 035-imagens-cmc.yml
-  tags: 
-    - test
+    - name: Task-030
+      ansible.builtin.import_tasks: 030-instala-programas.yml
 
-- name: task-040
-  import_tasks: 040-skel.yml
-  tags: 
-    - notest
+    - name: Task-035
+      ansible.builtin.import_tasks: 035-imagens-cmc.yml
+
+- name: Tasks em teste
+  when: estacao_teste is truthy
+  become: true
+  block:
+    - name: Task-040
+      ansible.builtin.import_tasks: 040-skel.yml

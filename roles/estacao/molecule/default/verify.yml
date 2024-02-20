@@ -5,6 +5,8 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+    - name: "Include cmcuritiba.estacao"
+      ansible.builtin.include_role:
+        name: "cmcuritiba.estacao"
+      vars:
+        estacao_teste: true

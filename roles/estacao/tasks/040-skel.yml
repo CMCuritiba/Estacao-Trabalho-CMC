@@ -1,35 +1,46 @@
 ---
 # 040-skel
 
-# Cria os diretorios padrões
-- name: Cria os diretórios padrões no diretório /etc/skel
+- name: Cria os diretórios padrões
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     state: directory
+    mode: "{{ item.mode | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
   with_items:
-    - /etc/skel/Desktop
-    - /etc/skel/Downloads
-    - /etc/skel/Nuvem
-    - /etc/skel/.config/autostart
-
-- name: Cria o diretório /home/Docs.Locais
-  ansible.builtin.file:
-    path: /home/Docs.Locais
-    state: directory
+    - path: /etc/skel/Desktop
+    - path: /etc/skel/Downloads
+    - path: /etc/skel/Nuvem
+    - path: /etc/skel/.config/autostart
+    - path: /etc/skel/.gimp-2.10
+    - path: /home/Docs.Locais
+      owner: nobody
+      group: nogroup
+      mode: 1777
+  become: true
 
 - name: Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais
   ansible.builtin.file:
+    path: /etc/skel/Docs.Locais
     src: /home/Docs.Locais
-    dest: /etc/skel/Docs.Locais
     state: link
+  become: true
 
-# Cria o arquivo padrão de user-dirs.dirs
+- name: Cria arquivo padrão user-dirs.dirs
+  ansible.builtin.copy:
+    dest: /etc/skel/.config/user-dirs.dirs
+    content: |
+      XDG_DESKTOP_DIR="$HOME/Desktop"
+      XDG_DOCUMENTS_DIR="$HOME/Docs.Locais"
+      XDG_DOWNLOAD_DIR="$HOME/Downloads"
+    mode: "0644"
 
-# Cria o arquivo padrão de local
 - name: Cria o arquivo user-dirs.locale com conteúdo "pt_BR"
   ansible.builtin.copy:
     content: "pt_BR"
     dest: /etc/skel/.config/user-dirs.locale
+    mode: "0644"
 
 # Desabilita a atualização automatica dos user-dirs no XDG
 - name: Modifica o arquivo user-dirs.conf
@@ -38,97 +49,40 @@
     regexp: "^enabled="
     line: "enabled=False"
 
-# Atualiza permissões dos Docs.Locais
-
-- name: Define as permissões 1777 no diretório /home/Docs.Locais
-  ansible.builtin.file:
-    path: /home/Docs.Locais
-    state: directory
-    mode: "1777"
-
-- name: Altera o proprietário e o grupo do diretório /home/Docs.Locais para nobody:nogroup
-  ansible.builtin.file:
-    path: /home/Docs.Locais
-    state: directory
-    owner: nobody
-    group: nogroup
-
 # Cria icones de suporte, firefox, chrome
-
-# Configura atalho para o mensageiro
-# O icone é configurado no script 035
-- name: Create Rainbow desktop file
+- name: Cria atalhos padrões no desktop
   ansible.builtin.copy:
-    dest: /etc/skel/Desktop/Rainbow.desktop
-    content: |
-      #!/usr/bin/env xdg-open
-      [Desktop Entry]
-      Version=1.0
-      Type=Application
-      Terminal=false
-      Name=Rainbow
-      Exec=google-chrome --app=https://web.openrainbow.com/
-      Name[pt_BR]=Rainbow
-      Icon=/usr/share/pixmaps/Rainbow.png
+    dest: "/etc/skel/Desktop/{{ item }}.desktop"
+    remote_src: false
+    src: "atalhos/{{ item }}.desktop"
+    mode: "+x"
+  with_items:
+    - Firefox
+    - google-chrome
+    - Suporte
+    - Rainbow
 
-# Ajusta permissões dos launchers
-
-# Configuração padrão do GIMP
-- name: Configurar o arquivo de sessão do GIMP
+- name: Configura o arquivo de sessão do GIMP
   ansible.builtin.copy:
-    dest: /etc/skel/.gimp-2.10/sessionrc
-    content: |
-      # GIMP sessionrc
-      (session-info "toplevel"# Política de privacidade
-          (factory-entry "gimp-empty-image-window")
-          (position 184 193)
-          (size 620 200)
-          (open-on-exit))
-      (session-info "toplevel"
-          (factory-entry "gimp-single-image-window")
-          (position 0 30)
-          (size 1022 672)
-          (open-on-exit)
-          (aux-info
-              (left-docks-width "120")
-              (right-docks-position "690"))
-           (gimp-toolbox
-              (side left)
-              (book
-                  (current-page 0)
-                  (dockable "gimp-tool-options"
-                      (tab-style automatic))))
-          (gimp-dock
-              (side right)
-              (book
-                  (current-page 0)
-                  (dockable "gimp-layer-list"
-                      (tab-style automatic)
-                      (preview-size 32))
-                  (dockable "gimp-channel-list"
-                      (tab-style automatic)# Forçar logout se não aceitar política de privacidade
-                      (preview-size 32))
-                  (dockable "gimp-vectors-list"# Política de privacidade
-                      (tab-style automatic)
-                      (preview-size 32))
-                  (dockable "gimp-undo-history"
-                      (tab-style automatic)))
-              (book
-                  (position 394)
-                  (current-page 0)
-                  (dockable "gimp-brush-grid"
-                      (tab-style automatic))
-                  (dockable "gimp-pattern-grid"
-                      (tab-style automatic))
-                  (dockable "gimp-gradient-list"
-                      (tab-style automatic)))))
+    dest: "/etc/skel/.gimp-2.10/sessionrc"
+    remote_src: false
+    src: "gimp_sessionrc"
+    mode: "0644"
 
-      (hide-docks no)
-      (single-window-mode yes)
-      (last-tip-shown 0)
+- name: Cria política de privacidade
+  ansible.builtin.copy:
+    dest: "/etc/skel/.politicainformatica.sh"
+    remote_src: false
+    src: ".politicainformatica.sh"
+    mode: "0644"
 
-      # end of sessionrc
-
-# Política de privacidade
-
-# Forçar logout se não aceitar política de privacidade
+# Pode dar problema se ja tiver esse bloco e ele não tiver os markers
+# do ansible. TODO: Achar uma forma de evitar isso
+- name: Aplica política de privacidade
+  ansible.builtin.blockinfile:
+    path: "/etc/skel/.profile"
+    marker: '# {mark} ANSIBLE MANEGED BLOCK Politica de Privacidade'
+    block: |
+      if [ -f "$HOME/.politicainformatica.sh" ]; then
+        bash $HOME/.politicainformatica.sh;
+      fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=Suporte
+Exec=firefox suporte.cmc.pr.gov.br
+Icon[pt_BR]=firefox
+Name[pt_BR]=Suporte
+Icon=/usr/share/pixmaps/suporte_tux.png

@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=Rainbow
+Exec=google-chrome --app=https://web.openrainbow.com/
+Name[pt_BR]=Rainbow
+Icon=/usr/share/pixmaps/Rainbow.png
