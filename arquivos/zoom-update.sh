@@ -31,4 +31,5 @@ if [[ "$ZOOM_VERSION_INSTALLED" != *"$ZOOM_VERSION_AVAILABLE"* ]]; then
             logger "[$0] ERRO ao instalar zoom da internet."
         fi
     fi
+    logger "[$0] zoom atualizado para versão $ZOOM_VERSION_AVAILABLE."
 fi
