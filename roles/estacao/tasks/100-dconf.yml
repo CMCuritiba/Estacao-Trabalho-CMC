@@ -1,192 +1,44 @@
 ---
-#100-dconf
+# 100-dconf
 
-# Cria os diretórios de configuração
-- name: Criar diretório /etc/dconf/profile
+- name: Cria os diretórios de configuração
   ansible.builtin.file:
-    path: /etc/dconf/profile
+    path: "{{ item }}"
     state: directory
-
-- name: Criar diretório /etc/dconf/db/local.d/
-  ansible.builtin.file:
-    path: /etc/dconf/db/local.d/
-    state: directory
+    mode: "0755"
+  with_items:
+    - /etc/dconf/profile
+    - /etc/dconf/db/local.d/locks
+    - /usr/local/cmc/scripts
 
 # Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
-- name: Criar o arquivo de configuração /etc/dconf/profile/user
+- name: Cria o arquivo de configuração /etc/dconf/profile/user
   ansible.builtin.copy:
     content: |
       user-db:user
       system-db:local
     dest: /etc/dconf/profile/user
+    mode: "0644"
 
-# Senha login remoto
-- name: Codificar a senha para base64
-  vars:
-    PASS_VNC: "sua_senha_vnc" # Substitua "sua_senha_vnc" pela senha desejada.
-  set_fact:
-    VNCPASS64: "{{ PASS_VNC | b64encode }}"
+# Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
+# Ao baixar o applet pela interface gráfica fica em português, 
+# mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
+# ele volta a ficar em inglês
+# wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
+# rm -rf weather@mockturtl.zip
 
-#Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
-#Ao baixar o applet pela interface gráfica fica em português, mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
-#ele volta a ficar em inglês
-#wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
-#rm -rf weather@mockturtl.zip
-
-# Configurações em si. Cuidado com os escapes de "
 - name: Criar o arquivo de configuração dconf
-  vars:
-    VNCPASS64: "sua_senha_vnc" # Substitua "sua_senha_vnc" pela senha desejada em base64.
   ansible.builtin.copy:
-    content: |
-      [org/nemo/window-state]
-      start-with-sidebar=true
-      start-with-toolbar=true
-      start-with-status-bar=true
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  with_items:
+    - src: dconf-cmc-config
+      dest: /etc/dconf/db/local.d/01-cmc
+    - src: settings-calendar.json
+      dest: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
 
-      # Configurações de acesso remoto
-      [org/gnome/desktop/remote-access]
-      icon-visibility='client'
-      authentication-methods=['vnc']
-      enabled=true
-      vnc-password='{{ VNCPASS64 }}'
-
-      [org/cinnamon/desktop/screensaver]
-      use-custom-format=true
-      date-format='%a %e %b, %H:%M'
-
-      [org/cinnamon/desktop/interface]
-      clock-show-date=true
-
-      [org/gnome/terminal/legacy/profiles:/default]
-      background-color='#FFFFFFFFDDDD'
-      palette='#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC'
-      bold-color='#000000000000'
-      foreground-color='#000000000000'
-      visible-name='Padrão'
-
-      # Updates não devem ser visíveis
-      [com/linuxmint/updates]
-      hide-kernel-update-warning=true
-      hide-systray=true
-      hide-window-after-update=true
-      #level1-is-visible=false
-      #level1-is-safe=true
-      #level2-is-visible=false
-      #level2-is-safe=true
-      #level3-is-visible=false
-      #level3-is-safe=false
-      #level4-is-visible=false
-      #level4-is-safe=false
-      #level5-is-safe=false
-      #level5-is-visible=false
-      #kernel-updates-are-visible=false
-      #kernel-updates-are-safe=false
-      #security-updates-are-safe=false
-      #security-updates-are-visible=true
-      #show-policy-configuration=false
-
-      [com/linuxmint/mintmenu/plugins/applications]
-      last-active-tab=1
-
-      # Desabilita linha de comando
-      [org/gnome/desktop/lockdown]
-      disable-command-line=true
-
-      # Numlock ativado
-      [org/cinnamon/settings-daemon/peripherals/keyboard]
-      numlock-state='on'
-
-      # Terminal de root
-      [org/cinnamon/desktop/keybindings/cust  tasks:om-keybindings/custom0]
-      binding=['<Primary><Shift><Alt>t']
-      command='/usr/local/cmc/scripts/root-terminal.sh'
-      name='Terminal de root'
-
-      [org/cinnamon/desktop/keybindings]
-      custom-list=['custom0']
-
-      # Abrir no terminal
-      #[org/nemo/preferences/menu-config]
-      #background-menu-open-in-terminal=false
-      #selection-menu-open-in-terminal=false
-
-      [org/nemo/preferences]
-      show-open-in-terminal-toolbar=false
-
-      # Sons do Sistema
-      [org/cinnamon/desktop/sound]
-      volume-sound-enabled=false
-      event-sounds=false
-
-      [org/cinnamon/sounds]
-      login-enabled=false
-      logout-enabled=false
-      switch-enabled=false
-      plug-enabled=false
-      unplug-enabled=false
-      tile-enabled=false
-
-      [com/linuxmint/mintmenu]
-      plugins-list=['places', 'system_management', 'newpane', 'applications', 'newpane', 'recent']
-      applet-text='Menu'
-
-      # Lixeira no desktop
-      [org/nemo/desktop]
-      trash-icon-visible=true
-
-      # Atalhos do menu
-      [com/linuxmint/mintmenu/plugins/places]
-      show-gtk-bookmarks=false
-      show-network=false
-
-      [org/cinnamon]
-      #Atalho para usuário(Encerrar sessão, bloquear tela, trocar usuário)
-      enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:1:show-desktop@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:2', 'panel1:right:1:systray@cinnamon.org:3', 'panel1:right:2:xapp-status@cinnamon.org:4', 'panel1:right:3:notifications@cinnamon.org:5', 'panel1:right:4:printers@cinnamon.org:6', 'panel1:right:5:removable-drives@cinnamon.org:7', 'panel1:right:6:keyboard@cinnamon.org:8', 'panel1:right:7:network@cinnamon.org:9', 'panel1:right:8:sound@cinnamon.org:10', 'panel1:right:9:power@cinnamon.org:11', 'panel1:right:10:calendar@cinnamon.org:12', 'panel1:right:1:user@cinnamon.org:13', 'panel1:right:0:weather@mockturtl:14']
-      next-applet-id='15'
-
-      #Tema Dark
-      #[org/cinnamon/desktop/interface]
-      #icon-theme='Mint-Y-Dark'
-      #gtk-theme='Mint-Y-Dark'
-
-      #[org/cinnamon/theme]
-      #name='Mint-Y-Dark'
-
-      [com/linuxmint/mintmenu/plugins/system_management]
-      show-lock-screen=true
-      show-control-center=false
-      show-terminal=false
-      show-software-manager=false
-      show-package-manager=false
-
-      # Background padrão
-      [org/cinnamon/desktop/background]
-      picture-uri='file:///usr/share/backgrounds/cmc/desktop-bg.png'
-      #'file:///usr/share/backgrounds/linuxmint/default_background.jpg'        mode: '0755'  # Set the desired file permissions
-
-      #'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
-      [org/gnome/settings-daemon/plugins/print-notifications]
-      active=false
-
-      #Desabilita notificação de rede On/Off
-      [org/gnome/nm-applet]
-      disable-disconnected-notifications=true
-      disable-connected-notifications=true
-
-      # Num de desktops em 1 por padrão no Gnome
-      [org/gnome/desktop/wm/preferences]
-      num-workspaces=1
-    dest: /etc/dconf/db/local.d/01-cmc
-
-# Trava as configs do Vino
-- name: Create locks directory if it doesn't exist
-  ansible.builtin.file:
-    path: /etc/dconf/db/local.d/locks
-    state: directory
-    mode: "0755" # Set the desired directory permissions
-
-- name: Create the 01-cmc file with lock settings
+- name: Trava as configs do Vino
   ansible.builtin.copy:
     content: |
       /org/gnome/desktop/remote-access/icon-visibility
@@ -194,24 +46,15 @@
       /org/gnome/desktop/remote-access/enabled
       /org/gnome/desktop/remote-access/vnc-password
     dest: /etc/dconf/db/local.d/locks/01-cmc
-    mode: "0644" # Set the desired file permissions
-
-# Copia o script necessario para iniciar o terminal como root
-- name: Create scripts directory if it doesn't exist
-  ansible.builtin.file:
-    path: /usr/local/cmc/scripts
-    state: directory
+    mode: "0644"
 
 - name: Copy the root-terminal.sh script to the scripts directory
   ansible.builtin.copy:
-    src: "../arquivos/root-terminal.sh"
+    src: "root-terminal.sh"
     dest: "/usr/local/cmc/scripts/root-terminal.sh"
-
-- name: Change permissions of the root-terminal.sh script
-  ansible.builtin.file:
-    path: "/usr/local/cmc/scripts/root-terminal.sh"
     mode: "0755"
 
 # Finalmente, atualiza dconf
+# TODO: Atualizar apenas se algumas das tasks anteriores modificar algo.
 - name: Run the dconf update command
-  shell: dconf u
+  ansible.builtin.shell: dconf update

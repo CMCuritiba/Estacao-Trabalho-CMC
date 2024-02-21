@@ -1,5 +1,11 @@
 ---
 # vars file for estacao
+estacao_env:
+  pass_support: "{{ lookup('ansible.builtin.env', 'PASS_SUPPORT') | default('suporte') }}"
+  pass_root: "{{ lookup('ansible.builtin.env', 'PASS_ROOT') | default('root') }}"
+  pass_vcn: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn') }}"
+  vcnpass64: "{{ pass_vcn | b64encode }}"
+
 estacao_google_chrome_recommended:
   HomepageLocation: "http://intranet.cmc.pr.gov.br/"
   RestoreOnStartup: 4
