@@ -22,3 +22,4 @@
   ansible.builtin.copy:
     src: politica-informatica.txt
     dest: /usr/local/cmc/politica-informatica.txt
+    mode: "0644"

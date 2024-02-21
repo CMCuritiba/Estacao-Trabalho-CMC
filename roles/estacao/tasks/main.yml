@@ -33,9 +33,12 @@
     - name: Task-055
       ansible.builtin.import_tasks: 055-programas-default.yml
 
+    - name: Task-060
+      ansible.builtin.import_tasks: 060-autostart.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-060
-      ansible.builtin.import_tasks: 060-autostart.yml
+    - name: Task-070
+      ansible.builtin.import_tasks: 070-politica-informatica.yml
