@@ -1,16 +1,12 @@
 # 080-desabilita-tty
 
-# Desabilita a troca de terminals com CTRL + ALT + Fx
-
-- name: Verificar se o arquivo /etc/X11/xorg.conf existe
-  stat:
+- name: Desabilita a troca de terminals com CTRL + ALT + Fx
+  ansible.builtin.blockinfile:
     path: /etc/X11/xorg.conf
-  register: xorg_conf_stat
-
-- name: Adicionar a opção "DontVTSwitch" se necessário
-  ansible.builtin.lineinfile:
-    path: /etc/X11/xorg.conf
-    line: '    Option "DontVTSwitch" "true"'
-    insertafter: EOF
+    create: true
+    mode: "0644"
     state: present
-  when: not xorg_conf_stat.stat.exists or not xorg_conf_stat.stat.isreg or "'Option \"DontVTSwitch\" \"true\"'" not in ansible_filepath
+    block: |
+      Section "ServerFlags"
+        Option "DontVTSwitch" "true"
+      EndSection
