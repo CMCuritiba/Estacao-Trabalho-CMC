@@ -33,10 +33,8 @@ apt-get install -qyf ncdu numlockx acct xmlstarlet jq nfs-common
 
 # Google Chrome
 if wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; then
-    # Instala dependência
-    apt-get -qyf install libu2f-udev
-    dpkg -i --force-depends google-chrome-stable_current_amd64.deb
-    rm -f google-chrome-stable_current_amd64.deb
+    apt-get -qyf install ./google-chrome-stable_current_amd64.deb
+    rm -f ./google-chrome-stable_current_amd64.deb
 fi
 
 # Microsoft Edge
@@ -45,14 +43,6 @@ if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-sta
     apt-get -qyf install libu2f-udev
     dpkg -i --force-depends microsoft-edge-stable_112.0.1722.39-1_amd64.deb
     rm -f microsoft-edge-stable_112.0.1722.39-1_amd64.deb
-fi
-
-# Zoom
-if wget https://zoom.us/client/5.14.5.2430/zoom_amd64.deb; then
-    # Instala dependência
-    apt-get -qyf install libgl1-mesa-glx libegl1-mesa libxcb-xtest0 ibus libxcb-cursor0
-    dpkg -i --force-depends zoom_amd64.deb
-    rm -f zoom_amd64.deb
 fi
 
 # Atualiza os pacotes recém-instalados
