@@ -50,7 +50,7 @@
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     mode: "0644"
-    content: "{{ google_chrome_recommended | ansible.builtin.to_json }}"
+    content: "{{ estacao_google_chrome_recommended | ansible.builtin.to_json }}"
 
 - name: Gera bookmarks dos navegadores
   ansible.builtin.template:
