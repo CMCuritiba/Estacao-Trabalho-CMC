@@ -1,5 +1,13 @@
 ---
 
+- name: Cria diretório /usr/local/cmc
+  ansible.builtin.file:
+    path: "/usr/local/cmc"
+    state: directory
+    mode: "0755"
+  become: true
+
+
 - name: Tasks concluidas
   when: estacao_teste is falsy
   become: true
@@ -24,7 +32,6 @@
 
     - name: Task-055
       ansible.builtin.import_tasks: 055-programas-default.yml
-
 
 - name: Tasks em teste
   when: estacao_teste is truthy
