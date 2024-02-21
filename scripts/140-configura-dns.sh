@@ -3,10 +3,6 @@
 
 RESOLVED="/etc/systemd/resolved.conf"
 
-# Remove resolv.conf para usar configuracao local e apontar para o IP do DNS do AD
-rm -rf /etc/resolv.conf
-echo "nameserver $AD_ADDRESS" > /etc/resolv.conf
-
 if [ -f "$RESOLVED" ]; then
     # Habilita cache de DNS
     if ! grep -q '^Cache=no-negative' "$RESOLVED"; then
