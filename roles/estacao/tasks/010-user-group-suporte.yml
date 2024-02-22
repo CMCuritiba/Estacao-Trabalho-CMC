@@ -1,19 +1,18 @@
 ---
 # 010-user-group-suporte
 
-# Cria usuário suporte se não existe, atenção o sheel padrão vai ser o /bin/sh
 - name: Configura usuário suporte
   ansible.builtin.user:
     name: suporte
     create_home: true
     state: present
-    password: "{{ suporte_passwd }}"
+    password: "{{ estacao_env.pass_support | password_hash('sha512') }}"
     group: users
     append: false
     groups:
       - sudo
-  vars:
-    suporte_passwd: "suporte"
+  tags:
+    - passwords
 
 # Atualiza senhas de suporte e root
 # As senhas são definidas nas variáveis suporte_passwd e root_passwd, não esqueça de alterá-las
@@ -22,9 +21,7 @@
 - name: Atualizar senha do usuário root
   ansible.builtin.user:
     name: root
-    password: "{{ root_passwd }}"
-  vars:
-    root_passwd: "root"
+    password: "{{ estacao_env.pass_root | password_hash('sha512') }}"
   tags:
     - passwords
 
