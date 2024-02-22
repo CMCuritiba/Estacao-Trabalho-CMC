@@ -2,38 +2,19 @@
 # 110-configura-dns
 
 - name: Check if resolved.conf exists
-  stat:
+  ansible.builtin.stat:
     path: /etc/systemd/resolved.conf
-  register: resolved_conf_exists
+  register: resolved_conf
 
 # Habilita cache de DNS
-- name: Enable DNS cache
+- name: Configura DNS
   ansible.builtin.lineinfile:
-    path: /etc/systemd/resolved.conf
-    line: "Cache=no-negative"
+    path: "{{ resolved_conf.stat.path }}"
+    line: "{{ item }}"
     state: present
-  when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
+  when: resolved_conf.stat.exists and not (resolved_conf.stat.islnk or resolved_conf.stat.isdir)
   notify: Restart systemd-resolved
-
-# Habilita dominio de busca
-- name: Enable search domain
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/resolved.conf
-    line: "Domains=cmc.pr.gov.br"
-    state: present
-  when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
-  notify: Restart systemd-resolved
-
-# Habilita DNS de fallback para navegação
-- name: Enable fallback DNS servers
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/resolved.conf
-    line: "FallbackDNS=8.8.8.8 9.9.9.9"
-    state: present
-  when: resolved_conf_exists.stat.exists and not (resolved_conf_exists.stat.islnk or resolved_conf_exists.stat.isdir)
-  notify: Restart systemd-resolved
-
-- name: Restart systemd-resolved
-  systemd:
-    name: systemd-resolved
-    state: restarted
+  with_items:
+    - "Cache=no-negative"
+    - "Domains=cmc.pr.gov.br"
+    - "FallbackDNS=8.8.8.8 9.9.9.9"

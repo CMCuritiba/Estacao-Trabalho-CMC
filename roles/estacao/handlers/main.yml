@@ -1,2 +1,7 @@
 ---
 # handlers file for estacao
+- name: Restart systemd-resolved
+  ansible.builtin.service:
+    name: systemd-resolved.service
+    state: restarted
+  become: true
