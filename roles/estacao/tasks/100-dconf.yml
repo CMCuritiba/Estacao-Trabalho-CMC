@@ -28,14 +28,14 @@
 # rm -rf weather@mockturtl.zip
 
 - name: Criar o arquivo de configuração dconf
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "0644"
   with_items:
-    - src: dconf-cmc-config
+    - src: dconf-cmc-config.j2
       dest: /etc/dconf/db/local.d/01-cmc
-    - src: settings-calendar.json
+    - src: settings-calendar.json.j2
       dest: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
 
 - name: Trava as configs do Vino
@@ -56,5 +56,6 @@
 
 # Finalmente, atualiza dconf
 # TODO: Atualizar apenas se algumas das tasks anteriores modificar algo.
+# Usa handler para isso ;)
 - name: Run the dconf update command
   ansible.builtin.shell: dconf update

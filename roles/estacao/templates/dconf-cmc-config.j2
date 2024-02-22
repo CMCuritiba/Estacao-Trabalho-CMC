@@ -9,7 +9,7 @@ start-with-status-bar=true
 icon-visibility='client'
 authentication-methods=['vnc']
 enabled=true
-vnc-password='$VNCPASS64'
+vnc-password='{{ estacao_env.vcnpass64 }}'
  
 [org/cinnamon/desktop/screensaver]
 use-custom-format=true

@@ -1,10 +1,10 @@
 ---
 # vars file for estacao
 estacao_env:
-  pass_support: "{{ lookup('ansible.builtin.env', 'PASS_SUPPORT') | default('suporte') }}"
-  pass_root: "{{ lookup('ansible.builtin.env', 'PASS_ROOT') | default('root') }}"
-  pass_vcn: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn') }}"
-  vcnpass64: "{{ pass_vcn | b64encode }}"
+  pass_support: "{{ lookup('ansible.builtin.env', 'PASS_SUPPORT') | default('suporte', true) }}"
+  pass_root: "{{ lookup('ansible.builtin.env', 'PASS_ROOT') | default('root', true) }}"
+  pass_vcn: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn', true) }}"
+  vcnpass64: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn', true) | b64encode }}"
 
 estacao_google_chrome_recommended:
   HomepageLocation: "http://intranet.cmc.pr.gov.br/"
@@ -12,6 +12,7 @@ estacao_google_chrome_recommended:
   RestoreOnStartupURLs:
     - "http://intranet.cmc.pr.gov.br/"
   HomepageIsNewTabPage: false
+
 estacao_bookmarks:
   - name: "Câmara Municipal de Curitiba"
     url: "https://www.cmc.pr.gov.br/"
