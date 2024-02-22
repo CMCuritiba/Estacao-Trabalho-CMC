@@ -5,3 +5,10 @@
     name: systemd-resolved.service
     state: restarted
   become: true
+
+# Finalmente, atualiza dconf
+# TODO: Atualizar apenas se algumas das tasks anteriores modificar algo.
+# Usa handler para isso ;)
+- name: Atualiza dconf
+  ansible.builtin.command: dconf update
+  become: true

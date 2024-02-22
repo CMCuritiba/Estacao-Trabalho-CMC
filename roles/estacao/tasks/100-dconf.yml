@@ -37,6 +37,7 @@
       dest: /etc/dconf/db/local.d/01-cmc
     - src: settings-calendar.json.j2
       dest: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
+  notify: Atualiza dconf
 
 - name: Trava as configs do Vino
   ansible.builtin.copy:
@@ -47,15 +48,10 @@
       /org/gnome/desktop/remote-access/vnc-password
     dest: /etc/dconf/db/local.d/locks/01-cmc
     mode: "0644"
+  notify: Atualiza dconf
 
 - name: Copy the root-terminal.sh script to the scripts directory
   ansible.builtin.copy:
     src: "root-terminal.sh"
     dest: "/usr/local/cmc/scripts/root-terminal.sh"
     mode: "0755"
-
-# Finalmente, atualiza dconf
-# TODO: Atualizar apenas se algumas das tasks anteriores modificar algo.
-# Usa handler para isso ;)
-- name: Run the dconf update command
-  ansible.builtin.shell: dconf update
