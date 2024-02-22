@@ -80,5 +80,12 @@ ln -sf /mnt/suporte/etv4/scripts/boot.sh /usr/local/cmc/modificados/boot.sh
 ln -sf /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy \
     /usr/local/cmc/modificados/org.freedesktop.UDisks2.policy
 
+# Script de boot das estações de trabalho
 ln -sf /etc/systemd/system/cmc-boot.service \
     /usr/local/cmc/modificados/cmc-boot.service
+
+# Serviço de atualização automática do zoom
+ln -sf /etc/systemd/system/zoom-update.service \
+    /usr/local/cmc/modificados/zoom-update.service
+ln -sf /etc/systemd/system/zoom-update.timer \
+    /usr/local/cmc/modificados/zoom-update.timer
