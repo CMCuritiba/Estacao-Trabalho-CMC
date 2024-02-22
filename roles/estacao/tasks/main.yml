@@ -48,9 +48,12 @@
     - name: Task-105
       ansible.builtin.import_tasks: 105-terminal-policy.yml
 
+    - name: Task-110
+      ansible.builtin.import_tasks: 110-configura-dns.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-110
-      ansible.builtin.import_tasks: 110-configura-dns.yml
+    - name: Task-120
+      ansible.builtin.import_tasks: 120-ldap-install.yml

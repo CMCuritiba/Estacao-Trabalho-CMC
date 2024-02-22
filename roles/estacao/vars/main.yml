@@ -1,10 +1,26 @@
 ---
 # vars file for estacao
+estacao_default:
+  pass_support: "suporte"
+  pass_root: "root"
+  pass_vcn: "senha_vcn"
+  vcnpass64: "senha_vcn"
+  serv_ldap: "ldap://0.0.0.0/ ldap://0.0.0.1/"
+  ldap_users_dn: "ou=users,dc=example,dc=com"
+  ldap_groups_dn: "ou=groups,dc=example,dc=com"
+  bind_dn: "cn=binduser,dc=example,dc=com"
+  bind_pw: "password"
+
 estacao_env:
-  pass_support: "{{ lookup('ansible.builtin.env', 'PASS_SUPPORT') | default('suporte', true) }}"
-  pass_root: "{{ lookup('ansible.builtin.env', 'PASS_ROOT') | default('root', true) }}"
-  pass_vcn: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn', true) }}"
-  vcnpass64: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default('senha_vcn', true) | b64encode }}"
+  pass_support: "{{ lookup('ansible.builtin.env', 'PASS_SUPPORT') | default(estacao_default.pass_support, true) }}"
+  pass_root: "{{ lookup('ansible.builtin.env', 'PASS_ROOT') | default(estacao_default.pass_root, true) }}"
+  pass_vcn: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default(estacao_default.pass_vcn, true) }}"
+  vcnpass64: "{{ lookup('ansible.builtin.env', 'PASS_VCN') | default(estacao_default.pass_vcn, true) | b64encode }}"
+  serv_ldap: "{{ lookup('ansible.builtin.env', 'SERV_LDAP') | default(estacao_default.serv_ldap, true) }}"
+  ldap_users_dn: "{{ lookup('ansible.builtin.env', 'LDAP_USERS_DN') | default(estacao_default.ldap_users_dn, true) }}"
+  ldap_groups_dn: "{{ lookup('ansible.builtin.env', 'LDAP_GROUPS_DN') | default(estacao_default.ldap_groups_dn, true) }}"
+  bind_dn: "{{ lookup('ansible.builtin.env', 'BIND_DN') | default(estacao_default.bind_dn, true) }}"
+  bind_pw: "{{ lookup('ansible.builtin.env', 'BIND_PW') | default(estacao_default.bind_pw, true) }}"
 
 estacao_google_chrome_recommended:
   HomepageLocation: "http://intranet.cmc.pr.gov.br/"

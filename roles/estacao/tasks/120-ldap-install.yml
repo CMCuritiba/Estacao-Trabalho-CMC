@@ -1,0 +1,100 @@
+---
+# 120-ldap-install
+
+# Seta confs de instalação do LDAP
+# As URIs são adicionadas corretamente, mas as bases não. Então adicionamos a
+# base de usuários via debconf e a de grupos via sed
+
+# No script original era
+# if ! grep -q "$LDAP_USERS_DN" "/var/cache/debconf/config.dat"; then
+#     echo "
+# <Configuração texto>
+# " >>"/var/cache/debconf/config.dat"
+# fi
+# Ou seja, se ao rodar a role ja tiver configurado com os users vai ter uma seção
+# repetida
+- name: Add LDAP configuration to the file
+  vars:
+    config_dat: "/var/cache/debconf/config.dat"
+  ansible.builtin.blockinfile:
+    path: "{{ config_dat }}"
+    block: |
+      Name: nslcd/ldap-uris
+      Template: nslcd/ldap-uris
+      Value: "{{ estacao_env.serv_ldap }}"
+      Owners: nslcd
+      Flags: seen
+
+      Name: nslcd/ldap-base
+      Template: nslcd/ldap-base
+      Value: "{{ estacao_env.ldap_users_dn }}"
+      Owners: nslcd
+      Flags: seen
+
+      Name: libnss-ldapd/nsswitch
+      Template: libnss-ldapd/nsswitch
+      Value: passwd, group, shadow
+      Owners: libnss-ldapd, libnss-ldapd:amd64
+      Flags: seen
+    mode: "0644"
+
+# Instala LDAP
+- name: Instala LDAP packages
+  ansible.builtin.apt:
+    name:
+      - libnss-ldapd
+      - libpam-ldapd
+      - nscd
+      - nslcd
+      - nfs-common
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
+# Para que o diretório home seja criado automaticamente no primeiro login:
+
+- name: Cria configuração de criar homedir no primeiro login
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: "session required pam_mkhomedir.so skel=/etc/skel umask=0022"
+  notify: Restart PAM service
+
+- name: Configura NSLCD
+  block:
+    - name: Get file information for nslcd.conf
+      ansible.builtin.stat:
+        path: /etc/nslcd.conf
+      register: nslcd_conf
+      failed_when: not nslcd_conf.stat.exists
+
+    - name: Backup da configuração
+      ansible.builtin.copy:
+        src: "{{ nslcd_conf.stat.path }}"
+        dest: "{{ nslcd_conf.stat.path }}-old"
+        remote_src: true
+        backup: true
+        mode: preserve
+
+    - name: Adiciona base de busca de grupos
+      ansible.builtin.lineinfile:
+        path: "{{ nslcd_conf.stat.path }}"
+        insertafter: "^base"
+        firstmatch: true
+        line: 'base {{ estacao_env.ldap_groups_dn }}'
+      notify: Restart nslcd service
+
+    - name: Habilita bind, otimiza bind, filtra usuários válidos no LDAP
+      ansible.builtin.lineinfile:
+        path: "{{ nslcd_conf.stat.path }}"
+        state: present
+        line: "{{ item }}"
+      with_items:
+        - "binddn {{ estacao_env.bind_dn }}"
+        - "bindpw {{ estacao_env.bind_pw }}"
+        - "filter passwd (employeeNumber=*)"
+        - "bind_timelimit 2"
+      notify: Restart nslcd service
+  rescue:
+    - name: Exit with failure if nslcd.conf does not exist
+      ansible.builtin.debug:
+        msg: "O arquivo nslcd.conf não existe, continuando execução"

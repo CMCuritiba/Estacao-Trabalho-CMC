@@ -1,14 +1,23 @@
 ---
 # handlers file for estacao
-- name: Restart systemd-resolved
+- name: Restart systemd-resolved service
   ansible.builtin.service:
     name: systemd-resolved.service
     state: restarted
   become: true
 
-# Finalmente, atualiza dconf
-# TODO: Atualizar apenas se algumas das tasks anteriores modificar algo.
-# Usa handler para isso ;)
 - name: Atualiza dconf
   ansible.builtin.command: dconf update
+  become: true
+
+- name: Restart PAM service
+  ansible.builtin.service:
+    name: systemd-logind
+    state: restarted
+  become: true
+
+- name: Restart nslcd service
+  ansible.builtin.service:
+    name: nslcd
+    state: restarted
   become: true
