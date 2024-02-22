@@ -26,13 +26,13 @@ udp_preference_limit = 0
 [domain_realm]
     .${AD_DOMAIN,,} = $AD_DOMAIN
     ${AD_DOMAIN,,} = $AD_DOMAIN
-" > /etc/krb5.conf
+" >/etc/krb5.conf
 
 # Cria o ticket do Kerberos para encontrar o domínio
-echo $AD_JOIN_PWD | kinit $AD_JOIN@$AD_DOMAIN
+echo "$AD_JOIN_PWD" | kinit "$AD_JOIN@$AD_DOMAIN"
 
 # Adiciona o computador ao domínio
-echo $AD_JOIN_PWD | realm join -U $AD_JOIN $AD_DOMAIN
+echo "$AD_JOIN_PWD" | realm join -U "$AD_JOIN" "$AD_DOMAIN"
 
 # Configuração do SSSD para apontar para o domínio e manter cache infinito
 echo "[sssd]
@@ -93,7 +93,7 @@ ldap_user_name = uid
 ldap_user_gid_number = gidNumber
 ldap_user_uid_number = uidNumber
 ldap_user_gecos = displayName
-" > /etc/sssd/sssd.conf
+" >/etc/sssd/sssd.conf
 
 # Altera permissão do arquivo sssd.conf
 chmod 600 /etc/sssd/sssd.conf

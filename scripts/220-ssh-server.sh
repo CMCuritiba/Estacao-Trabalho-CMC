@@ -23,10 +23,8 @@ if grep -q "^AllowGroups" "$SSHD"; then
     sed -i "/^AllowGroups/c\AllowGroups $DTIC_GID" "$SSHD"
 else
     # add
-    echo "AllowGroups $DTIC_GID" >> "$SSHD"
+    echo "AllowGroups $DTIC_GID" >>"$SSHD"
 fi
 
 # Reinicia serviço para aplicar
 systemctl restart sshd
-
-

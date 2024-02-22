@@ -1,3 +1,7 @@
+# /etc/nsswitch.conf
+#
+# NSSWITCH CMC
+
 passwd:         files systemd sss
 group:          files systemd sss
 shadow:         files  sss
