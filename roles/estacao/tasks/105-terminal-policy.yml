@@ -5,8 +5,10 @@
 # Fontes: https://unix.stackexchange.com/questions/203136/how-do-i-run-gui-applications-as-root-by-using-pkexec
 # Como abrir o gedit com o pkexec em modo root
 
-- name: Criar o arquivo de política do PolicyKit
+- name: Cria o arquivo de política do PolicyKit
   ansible.builtin.copy:
+    dest: /usr/share/polkit-1/actions/org.freedesktop.policykit.terminal.policy
+    mode: "0644"
     content: |
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
@@ -25,4 +27,3 @@
           <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
           </action>
       </policyconfig>
-    dest: /usr/share/polkit-1/actions/org.freedesktop.policykit.terminal.policy
