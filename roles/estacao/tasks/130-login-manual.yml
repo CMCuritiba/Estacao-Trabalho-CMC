@@ -2,33 +2,30 @@
 # 130-login-manual
 
 # Desabilita login como guest
-- name: Desabilita login como guest
-  ansible.builtin.lineinfile:
-    dest: /etc/lightdm/lightdm.conf
-    regexp: '^(greeter-show-manual-login|greeter-hide-users|allow-guest)='
-    line: '{{ item.value }}'
-    state: present
+- name: Configura lightdm
+  ansible.builtin.copy:
+    dest: "{{ item.dest }}"
+    content: "{{ item.content }}"
+    mode: "0644"
   with_items:
-    - { value: 'greeter-show-manual-login=true' }
-    - { value: 'greeter-hide-users=true' }
-    - { value: 'allow-guest=false' }
-
-# Habilita login manual e esconde usuários
-- name: Criar arquivo 90-slick-greeter.conf
-  ansible.builtin.copy:
-    dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
-    content: |
-      [Seat:*]
-      greeter-session=slick-greeter
-
-# Muda background do greeter
-# Greeter com G maiúsculo pq tem bug marcado como resolvido... Mas não resolvido
-- name: Criar arquivo slick-greeter.conf
-  ansible.builtin.copy:
-    dest: /etc/lightdm/slick-greeter.conf
-    content: |
-      [Greeter]
-      enable-hidpi=auto
-      background=/usr/share/backgrounds/cmc/login-bg.jpg
-      stretch-background-across-monitors=false
-      activate-numlock=true
+    # Desabilita login como guest
+    - dest: /etc/lightdm/lightdm.conf
+      content: |
+        [Seat:*]
+        greeter-show-manual-login=true
+        greeter-hide-users=true
+        allow-guest=false
+    # Habilita login manual e esconde usuários
+    - dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
+      content: |
+        [Seat:*]
+        greeter-session=slick-greeter
+    # Muda background do greeter
+    # Greeter com G maiúsculo pq tem bug marcado como resolvido... Mas não resolvido
+    - dest: /etc/lightdm/slick-greeter.conf
+      content: |
+        [Greeter]
+        enable-hidpi=auto
+        background=/usr/share/backgrounds/cmc/login-bg.jpg
+        stretch-background-across-monitors=false
+        activate-numlock=true

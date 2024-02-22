@@ -51,9 +51,12 @@
     - name: Task-110
       ansible.builtin.import_tasks: 110-configura-dns.yml
 
+    - name: Task-120
+      ansible.builtin.import_tasks: 120-ldap-install.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-120
-      ansible.builtin.import_tasks: 120-ldap-install.yml
+    - name: Task-130
+      ansible.builtin.import_tasks: 130-login-manual.yml
