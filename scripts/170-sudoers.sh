@@ -1,6 +1,4 @@
 #!/bin/bash
 
-# Adiciona grupo DTIC com perfil de administrador no arquivo 'sudoers'
-if ! grep -q "$DTIC_GID" "/etc/sudoers"; then
-    sed -i "/^%sudo/a\%$DTIC_GID\tALL=(ALL:ALL) ALL" /etc/sudoers
-fi
+# Adiciona grupo DTIC com perfil de administrador aos 'sudoers'
+echo "%$DTIC_GID ALL=(ALL:ALL) ALL" >/etc/sudoers.d/cmc
