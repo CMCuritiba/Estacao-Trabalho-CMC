@@ -19,8 +19,8 @@ udp_preference_limit = 0
 [realms]
     $AD_DOMAIN = {
     default_domain = ${AD_DOMAIN,,}
-    kdc = $AD_DC_1.${AD_DOMAIN,,}
-    admin_server = $AD_DC_1.${AD_DOMAIN,,}
+    kdc = ${AD_DOMAIN,,}
+    admin_server = ${AD_DOMAIN,,}
 }
 
 [domain_realm]
@@ -28,11 +28,26 @@ udp_preference_limit = 0
     ${AD_DOMAIN,,} = $AD_DOMAIN
 " >/etc/krb5.conf
 
-# Cria o ticket do Kerberos para encontrar o domínio
-echo "$AD_JOIN_PWD" | kinit "$AD_JOIN@$AD_DOMAIN"
+if ! realm list | grep -q "$AD_DOMAIN"; then
+    RESOLVED="/etc/systemd/resolved.conf"
+    if ! host "${AD_DOMAIN,,}" >/dev/null 2>&1; then
+        # Força DNS temporariamente para garantir que JOIN funcione
+        echo "DNS=$AD_ADDRESS" >>"$RESOLVED"
+        systemctl restart systemd-resolved.service
+    fi
 
-# Adiciona o computador ao domínio
-echo "$AD_JOIN_PWD" | realm join -U "$AD_JOIN" "$AD_DOMAIN"
+    # Cria o ticket do Kerberos para encontrar o domínio
+    echo "$AD_JOIN_PWD" | kinit "$AD_JOIN@$AD_DOMAIN"
+
+    # Adiciona o computador ao domínio
+    echo "$AD_JOIN_PWD" | realm join -U "$AD_JOIN" "$AD_DOMAIN"
+
+    # Desfaz configuração do DNS
+    if grep -q "^DNS" "$RESOLVED"; then
+        sed -i '/^DNS/d' "$RESOLVED"
+        systemctl restart systemd-resolved.service
+    fi
+fi
 
 # Configuração do SSSD para apontar para o domínio e manter cache infinito
 echo "[sssd]
@@ -52,7 +67,7 @@ offline_failed_login_delay = 0
 realmd_tags = manages-system joined-with-adcli
 id_provider = ad
 ad_domain = ${AD_DOMAIN,,}
-ad_server = $AD_DC_1.${AD_DOMAIN,,},$AD_DC_2.${AD_DOMAIN,,}
+ad_server = ${AD_DOMAIN,,}
 ad_hostname = $HOSTNAME.${AD_DOMAIN,,}
 auth_provider = ad
 chpass_provider = ad
@@ -63,17 +78,17 @@ ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 
 # Para descoberta de DNS
 krb5_realm = $AD_DOMAIN
-krb5_server = $AD_DC_1.${AD_DOMAIN,,}
-krb5_kpasswd = $AD_DC_1.${AD_DOMAIN,,}
+krb5_server = ${AD_DOMAIN,,}
+krb5_kpasswd = ${AD_DOMAIN,,}
 
-# configuracao DNS dinamico
-dyndns_server = $AD_DC_1.${AD_DOMAIN,,}
-dyndns_update = True
-dyndns_update_ptr = True
+# Para configurar DNS dinâmico
+#dyndns_server = ${AD_DOMAIN,,}
+#dyndns_update = True
+#dyndns_update_ptr = True
 #dyndns_refresh_interval = 43200
 #dyndns_ttl = 3600
 
-# Para ter logins offline eternamente
+# Para ter logins offline
 cache_credentials = True
 krb5_store_password_if_offline = True
 

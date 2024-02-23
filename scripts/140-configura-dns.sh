@@ -19,3 +19,5 @@ if [ -f "$RESOLVED" ]; then
         echo "FallbackDNS=8.8.8.8 9.9.9.9" >>"$RESOLVED"
     fi
 fi
+
+systemctl restart systemd-resolved.service
