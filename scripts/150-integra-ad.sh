@@ -32,15 +32,15 @@ if ! realm list | grep -q "$AD_DOMAIN"; then
     RESOLVED="/etc/systemd/resolved.conf"
     if ! host "${AD_DOMAIN,,}" >/dev/null 2>&1; then
         # Força DNS temporariamente para garantir que JOIN funcione
-        echo "DNS=$AD_ADDRESS" >>"$RESOLVED"
+        echo "DNS=$AD_IP_ADDRESS" >>"$RESOLVED"
         systemctl restart systemd-resolved.service
     fi
 
     # Cria o ticket do Kerberos para encontrar o domínio
-    echo "$AD_JOIN_PWD" | kinit "$AD_JOIN@$AD_DOMAIN"
+    echo "$AD_JOIN_PASS" | kinit "$AD_JOIN_USER@$AD_DOMAIN"
 
     # Adiciona o computador ao domínio
-    echo "$AD_JOIN_PWD" | realm join -U "$AD_JOIN" "$AD_DOMAIN"
+    echo "$AD_JOIN_PASS" | realm join -U "$AD_JOIN_USER" "$AD_DOMAIN"
 
     # Desfaz configuração do DNS
     if grep -q "^DNS" "$RESOLVED"; then

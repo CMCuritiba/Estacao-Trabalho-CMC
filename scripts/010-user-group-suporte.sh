@@ -6,8 +6,8 @@ if ! id -u suporte &>/dev/null; then
 fi
 
 # Atualiza senhas de suporte e root
-echo "suporte:$PASS_SUPPORT" | chpasswd
-echo "root:$PASS_ROOT" | chpasswd
+echo "suporte:$SUPORTE_PASS" | chpasswd
+echo "root:$ROOT_PASS" | chpasswd
 
 # Seta grupo principal de suporte para users e deleta grupo suporte se existe
 # Também tira suporte de grupos de admin

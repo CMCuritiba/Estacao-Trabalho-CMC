@@ -20,10 +20,10 @@ fi
 logger "Restringindo SSH apenas para usuários da DTIC"
 if grep -q "^AllowGroups" "$SSHD"; then
     # replace
-    sed -i "/^AllowGroups/c\AllowGroups $DTIC_GID" "$SSHD"
+    sed -i "/^AllowGroups/c\AllowGroups $DTIC_GROUP" "$SSHD"
 else
     # add
-    echo "AllowGroups $DTIC_GID" >>"$SSHD"
+    echo "AllowGroups $DTIC_GROUP" >>"$SSHD"
 fi
 
 # Reinicia serviço para aplicar

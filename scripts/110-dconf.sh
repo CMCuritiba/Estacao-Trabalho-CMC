@@ -9,7 +9,7 @@ echo "user-db:user
 system-db:local" > /etc/dconf/profile/user
 
 # Senha login remoto
-VNCPASS64="\'$(echo -e "$PASS_VNC" | base64 -w0)\'"
+VNCPASS64="\'$(echo -e "$VNP_PASS" | base64 -w0)\'"
 
 cp -f ../arquivos/dconf.template /etc/dconf/db/local.d/01-cmc
 sed -i 's/^vnc-password=.*$/vnc-password='"$VNCPASS64"'/' \

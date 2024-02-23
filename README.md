@@ -22,14 +22,16 @@ Procedimento:
 4. Baixe os _scripts_ do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
 5. Crie um arquivo na pasta raíz do projeto chamado `.env` e utilize o arquivo `.env.example` como base para preencher todas as variáveis necessárias para a execução dos scripts. As variáveis são:
 
-   - PASS_SUPPORT: senha do usuário suporte
-   - PASS_ROOT: senha do usuário root
-   - PASS_VNC: senha do login remoto (VNC)
-   - AD_ADDRESS: IP do servidor AD
-   - AD_DOMAIN: dominio do AD
-   - AD_JOIN: nome do usuário de join
-   - AD_JOIN_PWD: password de usuário de join
-   - NFS_SERV: servidor nfs
+   - `SUPORTE_PASS`: senha do usuário suporte
+   - `ROOT_PASS`: senha do usuário root
+   - `VNP_PASS`: senha do login remoto (VNC)
+   - `DTIC_GROUP`: grupo do AD que irá gerenciar as estações
+   - `DTIC_NETWORK`: CIDR da rede que irá gerenciar as estações
+   - `AD_IP_ADDRESS`: IP do servidor AD
+   - `AD_DOMAIN`: dominio do AD
+   - `AD_JOIN_USER`: nome do usuário de join
+   - `AD_JOIN_PASS`: password de usuário de join
+   - `NFS_SERV`: servidor nfs
 
 6. Execute os _scripts_ com permissão de `root`:
    - `sudo ./principal.sh`
