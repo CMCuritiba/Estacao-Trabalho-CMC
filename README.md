@@ -27,10 +27,13 @@ Procedimento:
    - `VNP_PASS`: senha do login remoto (VNC)
    - `DTIC_GROUP`: grupo do AD que irá gerenciar as estações
    - `DTIC_NETWORK`: CIDR da rede que irá gerenciar as estações
-   - `AD_IP_ADDRESS`: IP do servidor AD
+   - `AD_IP_ADDRESS`: IP do servidor AD (apenas para facilitar a configuração,
+     não ficará _hard-coded_ na ET)
    - `AD_DOMAIN`: dominio do AD
-   - `AD_JOIN_USER`: nome do usuário de join
-   - `AD_JOIN_PASS`: password de usuário de join
+   - `AD_JOIN_USER`: nome do usuário de join (apenas para permitir a
+     configuração, não ficará _hard-coded_ na ET)
+   - `AD_JOIN_PASS`: password de usuário de join (apenas para permitir a
+     configuração, não ficará _hard-coded_ na ET)
    - `NFS_SERV`: servidor nfs
 
 6. Execute os _scripts_ com permissão de `root`:
