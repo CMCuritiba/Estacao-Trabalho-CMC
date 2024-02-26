@@ -7,7 +7,6 @@
     mode: "0755"
   become: true
 
-
 - name: Tasks concluidas
   when: estacao_teste is falsy
   become: true
@@ -54,9 +53,12 @@
     - name: Task-120
       ansible.builtin.import_tasks: 120-ldap-install.yml
 
+    - name: Task-130
+      ansible.builtin.import_tasks: 130-login-manual.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-130
-      ansible.builtin.import_tasks: 130-login-manual.yml
+    - name: Task-140
+      ansible.builtin.import_tasks: 140-unattended-upgrades.yml

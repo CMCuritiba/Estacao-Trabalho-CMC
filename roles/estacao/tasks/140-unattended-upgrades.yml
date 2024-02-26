@@ -1,2 +1,63 @@
 # 140-unattended-upgrades
 
+- name: Instala unattended-upgrades
+  ansible.builtin.apt:
+    state: present
+    update_cache: true
+    name:
+      - unattended-upgrades
+
+# Me perdoe, mas essa foi a melhor forma que achei de fazer isso. Está feio, capenga e xoxo mas funciona ;)
+- name: Coleta informações de distribuição
+  ansible.builtin.shell:
+    cmd: '. /etc/upstream-release/lsb-release && echo "$DISTRIB_ID\n$DISTRIB_CODENAME"'
+  register: distrib_info
+  changed_when: false
+  failed_when: >
+    (distrib_info.rc != 0) or
+    ((distrib_info.stdout_lines | length) == 0)
+
+- name: Adiciona os repositórios relevantes ao arquivo de configuração
+  ansible.builtin.lineinfile:
+    path: /etc/apt/apt.conf.d/50unattended-upgrades
+    insertafter: "{{ item.after_line }}"
+    line: "{{ item.line }}"
+  with_items:
+    - line: "\t\"${distro_id}:${distro_codename}-updates\";"
+      after_line: 'Unattended-Upgrade::Allowed-Origins {'
+    - line: "\t\"{{ distrib_id }}:{{ distrib_codename }}-security\";"
+      after_line: 'Unattended-Upgrade::Allowed-Origins {'
+    - line: "\t\"{{ distrib_id }}:{{ distrib_codename }}\";"
+      after_line: 'Unattended-Upgrade::Allowed-Origins {'
+    - line: "\t\"{{ distrib_id }}:{{ distrib_codename }}-updates\";"
+      after_line: 'Unattended-Upgrade::Allowed-Origins {'
+  vars:
+    distrib_id: "{{ distrib_info.stdout_lines[0] }}"
+    distrib_codename: "{{ distrib_info.stdout_lines[1] }}"
+
+- name: Permite minimal steps para unattended-upgrades
+  ansible.builtin.lineinfile:
+    path: "/etc/apt/apt.conf.d/50unattended-upgrades"
+    line: 'Unattended-Upgrade::MinimalSteps "true";'
+    search_string: 'Unattended-Upgrade::MinimalSteps'
+
+- name: Adiciona repositório google-chrome
+  block:
+    - name: Procura pelo repositório google no APT-CACHE
+      ansible.builtin.shell:
+        cmd: set -o pipefail && apt-cache policy | grep -E "release.+Google.+amd64" | cut -d ',' -f 2 | cut -d '=' -f 2
+        executable: /usr/bin/bash
+      register: google_ppa
+      failed_when: google_ppa.rc != 0
+      changed_when: false
+
+    - name: Adiciona repo google (Unattended-Upgrades)
+      ansible.builtin.lineinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        insertafter: "Unattended-Upgrade::Allowed-Origins {"
+        line: "\t\"{{ google_ppa.stdout }}:stable\";"
+      when: google_ppa.stdout != ''
+  rescue:
+    - name: Repositório google não encontrado
+      ansible.builtin.debug:
+        msg: Repositório google não encontrado, continuando execução
