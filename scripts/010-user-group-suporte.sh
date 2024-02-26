@@ -1,20 +1,21 @@
 #!/bin/bash
 
+# Cria grupo suporte se não existe
+groupadd -f suporte
+
 # Cria usuário suporte se não existe
 if ! id -u suporte &>/dev/null; then
-    useradd --create-home --shell /bin/bash suporte
+    useradd --create-home --gid suporte --shell /bin/bash suporte
+else
+    # Seta grupo principal de suporte
+    usermod suporte --gid suporte
 fi
 
 # Atualiza senhas de suporte e root
 echo "suporte:$SUPORTE_PASS" | chpasswd
 echo "root:$ROOT_PASS" | chpasswd
 
-# Seta grupo principal de suporte para users e deleta grupo suporte se existe
-# Também tira suporte de grupos de admin
-usermod suporte -g users
-if grep -q "suporte:" /etc/group; then
-    groupdel suporte
-fi
+# Tira suporte de grupos de admin
 if id -nG suporte | grep -qw adm; then
     deluser suporte adm
 fi
