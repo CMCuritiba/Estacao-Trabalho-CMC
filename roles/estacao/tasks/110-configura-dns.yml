@@ -13,7 +13,7 @@
     line: "{{ item }}"
     state: present
   when: resolved_conf.stat.exists and not (resolved_conf.stat.islnk or resolved_conf.stat.isdir)
-  notify: Restart systemd-resolved
+  notify: Restart systemd-resolved service
   with_items:
     - "Cache=no-negative"
     - "Domains=cmc.pr.gov.br"
