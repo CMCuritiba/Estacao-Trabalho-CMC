@@ -2,7 +2,7 @@
 
 # Cria usuário suporte se não existe
 if ! id -u suporte &>/dev/null; then
-    useradd -m suporte
+    useradd --create-home --shell /bin/bash suporte
 fi
 
 # Atualiza senhas de suporte e root

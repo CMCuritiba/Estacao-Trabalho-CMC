@@ -2,8 +2,6 @@
 
 # Automatiza o processo de atualizações de segurança
 
-apt-get update
-
 # Instala o unattended-upgrades
 apt-get -qyf install unattended-upgrades
 
