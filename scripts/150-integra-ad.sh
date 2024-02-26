@@ -64,7 +64,7 @@ ad_gpo_access_control = disabled
 ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 
 # Para descoberta de DNS
-krb5_realm = ${$AD_DOMAIN^^}
+krb5_realm = ${AD_DOMAIN^^}
 krb5_server = ${AD_DOMAIN,,}
 krb5_kpasswd = ${AD_DOMAIN,,}
 

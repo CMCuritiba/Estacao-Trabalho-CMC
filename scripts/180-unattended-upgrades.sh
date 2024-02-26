@@ -2,6 +2,9 @@
 
 # Automatiza o processo de atualizações de segurança
 
+# Necessário para carregar o source list do Chrome :/
+apt-get update	
+
 # Instala o unattended-upgrades
 apt-get -qyf install unattended-upgrades
 
