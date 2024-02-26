@@ -8,7 +8,7 @@ ln -sf /etc/skel /usr/local/cmc/modificados/skel
 
 # bashrc
 ln -sf /root/.bashrc /usr/local/cmc/modificados/bashrc
-ln -sf /root/.bash_aliases /usr/local/cmc/modificados/bash_aliases
+ln -sf /etc/skel/.bash_aliases /usr/local/cmc/modificados/bash_aliases
 
 # Configs de browsers
 ln -sf /usr/lib/firefox/defaults/pref/local-settings.js \
@@ -67,9 +67,6 @@ ln -sf /etc/sudoers.d/cmc /usr/local/cmc/modificados/sudoers.d-cmc
 
 # Desabilita TTYs
 ln -sf /etc/X11/xorg.conf /usr/local/cmc/modificados/xorg.conf
-
-# Job no cron hourly pra atualizar cache de usuários
-ln -sf /etc/cron.hourly/nssupdate /usr/local/cmc/modificados/nssupdate
 
 # Configura retencao do syslog e auth
 ln -sf /etc/logrotate.d/rsyslog /usr/local/cmc/modificados/rsyslog
