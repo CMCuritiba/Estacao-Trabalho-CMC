@@ -43,6 +43,7 @@ ln -sf /etc/dconf/db/local.d/01-cmc /usr/local/cmc/modificados/dconf-01-cmc
 ln -sf /etc/pam.d/common-session /usr/local/cmc/modificados/common-session
 ln -sf /etc/pam.d/common-auth /usr/local/cmc/modificados/common-auth
 ln -sf /etc/pam.d/common-account /usr/local/cmc/modificados/common-account
+ln -sf /etc/sssd/conf.d/01-cmc.conf /usr/local/cmc/modificados/sssd-01-cmc.conf
 
 # Serviço de script após rede
 ln -sf /etc/systemd/system/cmc-network-script.service /usr/local/cmc/modificados/cmc-network-script.service
