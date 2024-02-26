@@ -5,6 +5,7 @@ sed -i 's/^alias la/#alias la/g' /root/.bashrc
 sed -i 's/^alias l/#alias l/g' /root/.bashrc
 
 echo "# Aliases e funcoes locais
+alias lla='ls -lha'
 alias ll='ls -lh'
 alias la='ls -a'
 alias l='ls'
