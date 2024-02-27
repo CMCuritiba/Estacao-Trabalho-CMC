@@ -35,6 +35,7 @@ echo $HOST > /etc/hostname
 
 # Altera arquivo 'hosts' para o novo nome com o dominio (minusculo)
 sed -i "/^127.0.1.1/c\127.0.1.1\t"$HOST.${AD_DOMAIN,,} "/etc/hosts"
+sed -i "/^127.0.2.1/c\127.0.2.1\t"$HOST.${AD_DOMAIN,,} "/etc/hosts"
 
 # Ajuste o servico SSH para permitir autenticacao de senha
 sed -i "/#PasswordAuthentication yes/c\PasswordAuthentication yes" "/etc/ssh/sshd_config"
@@ -55,10 +56,10 @@ udp_preference_limit = 0
 " > /etc/krb5.conf
 
 # Cria o ticket do Kerberos para encontrar o dominio
-echo $AD_ADMIN_PWD | kinit $AD_ADMIN@$AD_DOMAIN
+echo $AD_JOIN_PWD | kinit $AD_JOIN@$AD_DOMAIN
 
 # Adiciona o computador ao dominio
-echo $AD_ADMIN_PWD | realm join -U $AD_ADMIN $AD_DOMAIN
+echo $AD_JOIN_PWD | realm join -U $AD_JOIN $AD_DOMAIN
 
 # Configuracao do SSSD para apontar para o dominio e manter cache infinito
 echo "[sssd]
@@ -107,11 +108,13 @@ systemctl restart sssd
 
 # Adiciona grupo com perfil de administrador no arquivo 'sudoers'
 if grep -w "dtic" "/etc/sudoers"; then
-    sed -i "/%dtic/c\%$AD_GROUP_SUDOERS\tALL=(ALL:ALL) ALL" "/etc/sudoers"
+    sed -i "/%dtic/c\%$DTIC_GID\tALL=(ALL:ALL) ALL" "/etc/sudoers"
 else
-    echo -e "\n$AD_GROUP_SUDOERS\tALL=(ALL:ALL) ALL" >> /etc/sudoers
+    echo -e "\n$DTIC_GID\tALL=(ALL:ALL) ALL" >> /etc/sudoers
 fi
 
+# para funcionar o 'cp' tem que retirar o alias
+unalias cp
 # Configuracao do nsswitch
 if ! cmp -s /etc/nsswitch.conf ../arquivos/nsswitch.conf.template; then
     cp -f --backup=t ../arquivos/nsswitch.conf.template /etc/nsswitch.conf
