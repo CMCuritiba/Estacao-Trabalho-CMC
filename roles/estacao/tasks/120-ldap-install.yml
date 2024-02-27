@@ -14,10 +14,9 @@
 # Ou seja, se ao rodar a role ja tiver configurado com os users vai ter uma seção
 # repetida
 - name: Add LDAP configuration to the file
-  vars:
-    config_dat: "/var/cache/debconf/config.dat"
   ansible.builtin.blockinfile:
-    path: "{{ config_dat }}"
+    path: /var/cache/debconf/config.dat
+    marker: "# {mark} ansible managed block ldap"
     block: |
       Name: nslcd/ldap-uris
       Template: nslcd/ldap-uris

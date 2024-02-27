@@ -13,15 +13,17 @@
         replace: '//br.\1'
 
     # Tira input da instalação do ttf-mscorefonts-installer
-    - name: Configurar msttcorefonts
+    - name: Configura msttcorefonts
       ansible.builtin.blockinfile:
         path: /var/cache/debconf/config.dat
+        marker: "# {mark} ansible managed block msttcorefonts"
         block: |
           Name: msttcorefonts/accepted-mscorefonts-eula
           Template: msttcorefonts/accepted-mscorefonts-eula
           Value: true
           Owners: ttf-mscorefonts-installer
           Flags: seen
+        
 
     # Update e Upgrade inicial:
     - name: Atualização e instalação de pacotes
