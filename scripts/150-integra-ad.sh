@@ -28,25 +28,27 @@ udp_preference_limit = 0
     ${AD_DOMAIN,,} = ${AD_DOMAIN^^}
 " >/etc/krb5.conf
 
-if ! realm list | grep -q "$AD_DOMAIN"; then
+if ! realm list | grep -iq "$AD_DOMAIN"; then
     RESOLVED="/etc/systemd/resolved.conf"
-    if ! host "${AD_DOMAIN,,}" >/dev/null 2>&1; then
+    if [ -n "$AD_IP_ADDRESS" ] && ! host "${AD_DOMAIN,,}" >/dev/null 2>&1; then
         # Força DNS temporariamente para garantir que JOIN funcione
         echo "DNS=$AD_IP_ADDRESS" >>"$RESOLVED"
         systemctl restart systemd-resolved.service
     fi
+    # Garante que o hostname esteja correto
+    bash -e /usr/local/cmc/scripts/cmc-boot.sh
 
     # Cria o ticket do Kerberos para encontrar o domínio
-    echo "$AD_JOIN_PASS" | kinit "$AD_JOIN_USER@$AD_DOMAIN"
+    echo "$AD_JOIN_PASS" | kinit "$AD_JOIN_USER@${AD_DOMAIN^^}"
 
     # Adiciona o computador ao domínio
-    echo "$AD_JOIN_PASS" | realm join -U "$AD_JOIN_USER" "$AD_DOMAIN"
+    echo "$AD_JOIN_PASS" | realm join -U "$AD_JOIN_USER" "${AD_DOMAIN^^}"
 
     # Desfaz configuração do DNS
-    if grep -q "^DNS" "$RESOLVED"; then
-        sed -i '/^DNS/d' "$RESOLVED"
-        systemctl restart systemd-resolved.service
-    fi
+    # if grep -q "^DNS" "$RESOLVED"; then
+    #     sed -i '/^DNS/d' "$RESOLVED"
+    #     systemctl restart systemd-resolved.service
+    # fi
 fi
 
 # Configuração do SSSD para apontar para o domínio e manter cache infinito
