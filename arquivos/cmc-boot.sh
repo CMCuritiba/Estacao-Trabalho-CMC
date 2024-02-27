@@ -6,8 +6,8 @@ IPATUAL=$(ip addr list "$INTERFACE" | grep -m1 -w "inet" | awk '{print $2}' | cu
 
 if [ -n "$IPATUAL" ] && [ -n "$CMCDOMAIN" ]; then
     # Obtem nome do IP consultando o DNS
-    FQDN="$(host "$IPATUAL" | head -n1 | awk '{print $5}')"
-    if ! grep "$CMCDOMAIN" <<<"$FQDN"; then
+    FQDN="$(nslookup "$IPATUAL" "$CMCDOMAIN" | head -n1 | awk '{print $4}')"
+    if ! grep -iq "$CMCDOMAIN" <<<"$FQDN"; then
         # Failback:
         # escreve nome da máquina como "ip-127.0.0.1"
         DNSNAME="ip-$(tr '.' '-' <<<"$IPATUAL")"

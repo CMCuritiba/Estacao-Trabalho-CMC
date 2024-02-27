@@ -7,7 +7,7 @@
 BOOTSH="/usr/local/cmc/scripts/cmc-boot.sh"
 
 cp ../arquivos/cmc-boot.sh "$BOOTSH"
-sed -i "s/^CMCDOMAIN=.*$/CMCDOMAIN=$AD_DOMAIN/" "$BOOTSH"
+sed -i "s/^CMCDOMAIN=.*$/CMCDOMAIN=${AD_DOMAIN,,}/" "$BOOTSH"
 
 echo "[Unit]
 Wants=network-online.target
