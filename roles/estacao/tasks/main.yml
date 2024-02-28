@@ -59,9 +59,12 @@
     - name: Task-140
       ansible.builtin.import_tasks: 140-unattended-upgrades.yml
 
+    - name: Task-150
+      ansible.builtin.import_tasks: 150-bashrc.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-150
-      ansible.builtin.import_tasks: 150-bashrc.yml
+    - name: Task-160
+      ansible.builtin.import_tasks: 160-nscd-cache.yml
