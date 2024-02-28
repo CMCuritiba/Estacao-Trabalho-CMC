@@ -21,4 +21,5 @@ ExecStart=/bin/bash $BOOTSH
 [Install]
 WantedBy=multi-user.target" >/etc/systemd/system/cmc-boot.service
 
-systemctl enable cmc-boot.service
+# Habilita o serviço e roda o script imediatamente
+systemctl --now enable cmc-boot.service
