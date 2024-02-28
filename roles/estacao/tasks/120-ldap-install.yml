@@ -58,14 +58,14 @@
     line: "session required pam_mkhomedir.so skel=/etc/skel umask=0022"
   notify: Restart PAM service
 
-- name: Configura NSLCD
-  block:
-    - name: Get file information for nslcd.conf
-      ansible.builtin.stat:
-        path: /etc/nslcd.conf
-      register: nslcd_conf
-      failed_when: not nslcd_conf.stat.exists
+- name: Get file information for nslcd.conf
+  ansible.builtin.stat:
+    path: /etc/nslcd.conf
+  register: nslcd_conf
 
+- name: Configura NSLCD
+  when: nslcd_conf.stat.exists
+  block:
     - name: Backup da configuração
       ansible.builtin.copy:
         src: "{{ nslcd_conf.stat.path }}"
@@ -93,7 +93,3 @@
         - "filter passwd (employeeNumber=*)"
         - "bind_timelimit 2"
       notify: Restart nslcd service
-  rescue:
-    - name: Exit with failure if nslcd.conf does not exist
-      ansible.builtin.debug:
-        msg: "O arquivo nslcd.conf não existe, continuando execução"
