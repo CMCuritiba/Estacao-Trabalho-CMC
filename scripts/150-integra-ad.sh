@@ -29,51 +29,45 @@ udp_preference_limit = 0
 " >/etc/krb5.conf
 
 if ! realm list | grep -iq "$AD_DOMAIN"; then
-    RESOLVED="/etc/systemd/resolved.conf"
-    if [ -n "$AD_IP_ADDRESS" ] && ! host "${AD_DOMAIN,,}" >/dev/null 2>&1; then
-        # Força DNS temporariamente para garantir que JOIN funcione
-        echo "DNS=$AD_IP_ADDRESS" >>"$RESOLVED"
-        systemctl restart systemd-resolved.service
-    fi
-    # Garante que o hostname esteja correto
-    bash -e /usr/local/cmc/scripts/cmc-boot.sh
-
     # Cria o ticket do Kerberos para encontrar o domínio
     echo "$AD_JOIN_PASS" | kinit "$AD_JOIN_USER@${AD_DOMAIN^^}"
 
     # Adiciona o computador ao domínio
     echo "$AD_JOIN_PASS" | realm join -U "$AD_JOIN_USER" "${AD_DOMAIN^^}"
-
-    # Desfaz configuração do DNS
-    # if grep -q "^DNS" "$RESOLVED"; then
-    #     sed -i '/^DNS/d' "$RESOLVED"
-    #     systemctl restart systemd-resolved.service
-    # fi
 fi
 
 # Configuração do SSSD para apontar para o domínio e manter cache infinito
 echo "# SSSD CMC
 
+[sssd]
+domains = ${AD_DOMAIN,,}
+config_file_version = 2
+services = nss,pam
+
+[nss]
+
+[pam]
+# Para não expirar o cache de login
+offline_credentials_expiration = 0
+offline_failed_login_attempts = 0
+offline_failed_login_delay = 0
+
 [domain/${AD_DOMAIN,,}]
-id_provider = ad
+realmd_tags = manages-system joined-with-adcli
 ad_domain = ${AD_DOMAIN,,}
-ad_server = ${AD_DOMAIN,,}
-#ad_hostname = $HOSTNAME.${AD_DOMAIN,,}
+id_provider = ad
 auth_provider = ad
 chpass_provider = ad
 access_provider = ad
-ad_gpo_access_control = disabled
 ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 
 # Para descoberta de DNS
 krb5_realm = ${AD_DOMAIN^^}
-krb5_server = ${AD_DOMAIN,,}
-krb5_kpasswd = ${AD_DOMAIN,,}
 
 # Para configurar DNS dinâmico
-#dyndns_server = ${AD_DOMAIN,,}
-#dyndns_update = True
-#dyndns_update_ptr = True
+# dyndns_server = ${AD_DOMAIN,,}
+# dyndns_update = True
+# dyndns_update_ptr = True
 #dyndns_refresh_interval = 43200
 #dyndns_ttl = 3600
 
@@ -87,7 +81,7 @@ use_fully_qualified_names = False
 fallback_homedir = /home/%u
 default_shell = /bin/bash
 
-# para usar uid and gid do active directory o atributo ldap_id_mapping fica desativado
+# para usar uid and gid do active directory
 ldap_id_mapping = False
 
 # necessario para uso correto das propriedades do active directory
