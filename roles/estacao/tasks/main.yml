@@ -62,9 +62,12 @@
     - name: Task-150
       ansible.builtin.import_tasks: 150-bashrc.yml
 
+    - name: Task-160
+      ansible.builtin.import_tasks: 160-nscd-cache.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-160
-      ansible.builtin.import_tasks: 160-nscd-cache.yml
+    - name: Task-170
+      ansible.builtin.import_tasks: 170-nfs-mount.yml
