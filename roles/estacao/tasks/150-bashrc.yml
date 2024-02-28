@@ -5,7 +5,6 @@
     path: /root/.bashrc
     regexp: "^(alias l[al]?.*)$"
     replace: '#\1'
-    backup: true
 
 - name: Configura /root/.bash_aliases
   ansible.builtin.copy:
