@@ -43,6 +43,7 @@ if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-sta
     apt-get -qyf install libu2f-udev
     dpkg -i --force-depends microsoft-edge-stable_112.0.1722.39-1_amd64.deb
     rm -f microsoft-edge-stable_112.0.1722.39-1_amd64.deb
+    apt-get -qyf install --only-upgrade microsoft-edge-stable
 fi
 
 # Atualiza os pacotes recém-instalados
