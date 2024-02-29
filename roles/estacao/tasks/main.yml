@@ -83,9 +83,12 @@
     - name: Task-220
       ansible.builtin.import_tasks: 220-vnc.yml
 
+    - name: Task-230
+      ansible.builtin.import_tasks: 230-menu-items.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-230
-      ansible.builtin.import_tasks: 230-menu-items.yml
+    - name: Task-240
+      ansible.builtin.import_tasks: 240-ntp-server.yml
