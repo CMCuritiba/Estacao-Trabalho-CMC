@@ -1,0 +1,15 @@
+---
+
+- name: Renomeia os itens de /usr/share/applications para .disable
+  ansible.builtin.command:
+    cmd: "mv {{ item }} {{ item }}.disable"
+    creates: "{{ item }}.disable"
+    removes: "{{ item }}"
+  with_items:
+    - /usr/share/applications/blueberry.desktop
+    - /usr/share/applications/bluetooth-sendto.desktop
+    - /usr/share/applications/nm-connection-editor.deskto
+    - /usr/share/applications/mintupdate.desktop
+    - /usr/share/applications/mintreport.desktop
+    - /usr/share/applications/lightdm-settings.desktop
+    - /usr/share/applications/mintwelcome.desktop
