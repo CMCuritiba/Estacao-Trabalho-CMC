@@ -2,6 +2,7 @@
 - name: "(logger) {{ item.msg }}"
   community.general.syslogger:
     msg: "{{ item.msg }}"
+  changed_when: false
 
 - name: "(action) {{ item.msg }}"
   ansible.builtin.lineinfile:
