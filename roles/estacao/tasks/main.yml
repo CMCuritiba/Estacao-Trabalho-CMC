@@ -74,9 +74,12 @@
     - name: Task-190
       ansible.builtin.import_tasks: 190-pam_mount-owncloud.yml
 
+    - name: Task-200
+      ansible.builtin.import_tasks: 200-script-rede.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-200
-      ansible.builtin.import_tasks: 200-script-rede.yml
+    - name: Task-210
+      ansible.builtin.import_tasks: 210-ssh-server.yml

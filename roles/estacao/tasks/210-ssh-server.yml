@@ -1,0 +1,12 @@
+---
+- name: Configura SSH
+  ansible.builtin.include_tasks: aux/ssh-config.yml
+  with_items:
+    - msg: Desabilitando login SSH para root
+      config:
+        name: "PermitRootLogin"
+        value: "no"
+    - msg: Restringindo SSH apenas para usuários da DTIC
+      config:
+        name: "AllowGroups"
+        value: "dtic"

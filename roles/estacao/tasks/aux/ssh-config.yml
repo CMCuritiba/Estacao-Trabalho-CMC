@@ -1,0 +1,10 @@
+---
+- name: "(logger) {{ item.msg }}"
+  community.general.syslogger:
+    msg: "{{ item.msg }}"
+
+- name: "(action) {{ item.msg }}"
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^{{ item.config.name }}"
+    line: "{{ item.config.name }} {{ item.config.value }}"
