@@ -1,0 +1,15 @@
+---
+- name: Instala pacotes (pam_mount-owncloud)
+  ansible.builtin.apt:
+    name:
+      - davfs2
+      - libpam-mount
+    state: present
+  environment:
+    DEBIAN_FRONTEND: nointeractive
+
+- name: Copia arquivo de configurção pam_mount-owncloud
+  ansible.builtin.copy:
+    dest: "/etc/security/pam_mount.conf.xml"
+    src: pam_mount.template.conf.xml
+    mode: preserve

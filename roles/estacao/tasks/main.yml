@@ -68,9 +68,12 @@
     - name: Task-170
       ansible.builtin.import_tasks: 170-nfs-mount.yml
 
+    - name: Task-180
+      ansible.builtin.import_tasks: 180-pam-login-offline.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-180
-      ansible.builtin.import_tasks: 180-pam-login-offline.yml
+    - name: Task-190
+      ansible.builtin.import_tasks: 190-pam_mount-owncloud.yml
