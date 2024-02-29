@@ -44,7 +44,7 @@
             filename: google-chrome
 
         # Instala programas
-        - name: Instalar programas
+        - name: (030-instala-programas.yml) Instalar programas
           ansible.builtin.apt:
             name:
               # Programas de acesso remoto e mídia

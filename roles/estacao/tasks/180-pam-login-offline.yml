@@ -20,7 +20,7 @@
 - name: Configura arquivos
   when: (files_to_check.results | map(attribute="stat.exists")) is all
   block:
-    - name: Instalação dos pacotes necessarios
+    - name: (180-pam-login-offline.yml) Instalação dos pacotes necessarios
       ansible.builtin.apt:
         name:
           - libnss-ldapd
