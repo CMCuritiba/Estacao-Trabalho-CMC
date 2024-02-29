@@ -60,3 +60,53 @@ Procedimento:
    [instalar uma extensão](https://github.com/commitizen/cz-cli#adapters).
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+### Testando
+
+É possível utilizar o [Vagrant](https://www.vagrantup.com/) para testes locais.
+
+1. Instale o VirtualBox:
+
+   ```shell
+   sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
+   ```
+
+2. Instale o Vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/install?product_intent=vagrant#linux);
+3. Utilize o [Vagrantfile](./Vagrantfile) na raiz do repositório para subir uma VM do Mint:
+
+   ```shell
+   vagrant up
+   ```
+
+4. Acesse a VM:
+
+   ```shell
+   vagrant ssh
+   ```
+
+5. Já dentro da VM, baixe o fonte (neste exemplo, do branch **develop**) e
+   execute o código:
+
+   ```shell
+   wget https://github.com/CMCuritiba/Estacao-Trabalho-CMC/archive/refs/heads/develop.zip
+   unzip develop.zip
+   cd Estacao-Trabalho-CMC-develop/
+   cp .env.example .env
+   chmod 600 .env
+   # edite o .env de acordo com o necessário:
+   nano .env
+   sudo ./principal.sh
+   ```
+
+6. Depois de executados os scripts da estação de trabalho, de volta no seu
+   computador, você pode dar SSH na VM usando o usuário `suporte` ou com seu
+   usuário do AD:
+
+   ```shell
+   # Para descobrir a porta para conexão:
+   vagrant ssh-config
+   # Para acessar a VM:
+   ssh -p 2222 suporte@localhost
+   # ou
+   ssh -p 2222 nome.sobrenome@localhost
+   ```
