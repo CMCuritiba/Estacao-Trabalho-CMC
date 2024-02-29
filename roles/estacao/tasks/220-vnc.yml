@@ -1,0 +1,25 @@
+---
+
+- name: Pega informações sobre /etc/xdg/autostart/vino-server.desktop
+  ansible.builtin.stat:
+    path: /etc/xdg/autostart/vino-server.desktop
+  register: vino_info
+
+- name: Cria arquivo e configura /etc/xdg/autostart/vino-server.desktop
+  when: not vino_info.stat.exists
+  ansible.builtin.copy:
+    dest: /etc/xdg/autostart/vino-server.desktop
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Terminal=false
+      Name=Vino
+      Exec=/usr/lib/vino/vino-server --sm-disable
+      X-GNOME-Autostart-enabled=true
+    mode: "0644"
+
+- name: Atualiza o launcher do vino-server para que inicie automaticamente
+  ansible.builtin.lineinfile:
+    path: /etc/xdg/autostart/vino-server.desktop
+    regexp: '^X-GNOME-Autostart-enabled'
+    line: "X-GNOME-Autostart-enabled=true"

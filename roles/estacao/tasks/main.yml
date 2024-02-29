@@ -77,9 +77,12 @@
     - name: Task-200
       ansible.builtin.import_tasks: 200-script-rede.yml
 
+    - name: Task-210
+      ansible.builtin.import_tasks: 210-ssh-server.yml
+
 - name: Tasks em teste
   when: estacao_teste is truthy
   become: true
   block:
-    - name: Task-210
-      ansible.builtin.import_tasks: 210-ssh-server.yml
+    - name: Task-220
+      ansible.builtin.import_tasks: 220-vnc.yml
