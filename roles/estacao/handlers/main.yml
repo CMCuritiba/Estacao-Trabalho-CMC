@@ -21,3 +21,13 @@
     name: nslcd
     state: restarted
   become: true
+
+- name: Restart cups service
+  ansible.builtin.service:
+    name: cups
+    state: restarted
+
+- name: Restart cups-browsed service
+  ansible.builtin.service:
+    name: cups-browsed
+    state: restarted
