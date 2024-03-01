@@ -23,7 +23,6 @@
           Value: true
           Owners: ttf-mscorefonts-installer
           Flags: seen
-        
 
     # Update e Upgrade inicial:
     - name: Atualização e instalação de pacotes
