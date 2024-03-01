@@ -16,6 +16,9 @@ platforms:
       - gui = true
 provisioner:
   name: ansible
+  config_options:
+      defaults:
+        timeout: 60
 verifier:
   name: ansible
 lint: |
