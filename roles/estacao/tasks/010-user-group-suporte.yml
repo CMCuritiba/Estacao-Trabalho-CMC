@@ -1,7 +1,7 @@
 ---
 # 010-user-group-suporte
 
-- name: Configura usuário suporte
+- name: "Configura usuário suporte : ({{ task_name }})"
   ansible.builtin.user:
     name: suporte
     create_home: true
@@ -18,7 +18,7 @@
 # As senhas são definidas nas variáveis suporte_passwd e root_passwd, não esqueça de alterá-las
 
 
-- name: Atualizar senha do usuário root
+- name: "Atualizar senha do usuário root : ({{ task_name }})"
   ansible.builtin.user:
     name: root
     password: "{{ estacao_env.pass_root | password_hash('sha512') }}"
@@ -28,7 +28,7 @@
 # Seta grupo principal de suporte para users, seta grupos do suporte
 # e deleta grupo suporte se existe
 
-- name: Remover grupo suporte, se existir
+- name: "Remover grupo suporte, se existir : ({{ task_name }})"
   ansible.builtin.group:
     name: suporte
     state: absent

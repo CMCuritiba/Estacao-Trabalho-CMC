@@ -1,7 +1,7 @@
 ---
 # 100-dconf
 
-- name: Cria os diretórios de configuração
+- name: "Cria os diretórios de configuração : ({{ task_name }})"
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -12,7 +12,7 @@
     - /usr/local/cmc/scripts
 
 # Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
-- name: Cria o arquivo de configuração /etc/dconf/profile/user
+- name: "Cria o arquivo de configuração /etc/dconf/profile/user : ({{ task_name }})"
   ansible.builtin.copy:
     content: |
       user-db:user
@@ -27,7 +27,7 @@
 # wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
 # rm -rf weather@mockturtl.zip
 
-- name: Criar o arquivo de configuração dconf
+- name: "Criar o arquivo de configuração dconf : ({{ task_name }})"
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -39,7 +39,7 @@
       dest: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
   notify: Atualiza dconf
 
-- name: Trava as configs do Vino
+- name: "Trava as configs do Vino : ({{ task_name }})"
   ansible.builtin.copy:
     content: |
       /org/gnome/desktop/remote-access/icon-visibility
@@ -50,7 +50,7 @@
     mode: "0644"
   notify: Atualiza dconf
 
-- name: Copy the root-terminal.sh script to the scripts directory
+- name: "Copy the root-terminal.sh script to the scripts directory : ({{ task_name }})"
   ansible.builtin.copy:
     src: "root-terminal.sh"
     dest: "/usr/local/cmc/scripts/root-terminal.sh"

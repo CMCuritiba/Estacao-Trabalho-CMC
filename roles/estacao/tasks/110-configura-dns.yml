@@ -1,13 +1,13 @@
 ---
 # 110-configura-dns
 
-- name: Check if resolved.conf exists
+- name: "Check if resolved.conf exists : ({{ task_name }})"
   ansible.builtin.stat:
     path: /etc/systemd/resolved.conf
   register: resolved_conf
 
 # Habilita cache de DNS
-- name: Configura DNS
+- name: "Configura DNS : ({{ task_name }})"
   ansible.builtin.lineinfile:
     path: "{{ resolved_conf.stat.path }}"
     line: "{{ item }}"

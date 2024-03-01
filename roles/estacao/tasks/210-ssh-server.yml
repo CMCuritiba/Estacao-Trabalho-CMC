@@ -1,5 +1,5 @@
 ---
-- name: Configura SSH
+- name: "Configura SSH : ({{ task_name }})"
   ansible.builtin.include_tasks: aux/ssh-config.yml
   with_items:
     - msg: Desabilitando login SSH para root

@@ -2,7 +2,7 @@
 # 130-login-manual
 
 # Desabilita login como guest
-- name: Configura lightdm
+- name: "Configura lightdm : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "{{ item.dest }}"
     content: "{{ item.content }}"

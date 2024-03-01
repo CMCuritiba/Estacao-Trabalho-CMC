@@ -1,6 +1,6 @@
 # 080-desabilita-tty
 
-- name: Desabilita a troca de terminals com CTRL + ALT + Fx
+- name: "Desabilita a troca de terminals com CTRL + ALT + Fx : ({{ task_name }})"
   ansible.builtin.blockinfile:
     path: /etc/X11/xorg.conf
     create: true

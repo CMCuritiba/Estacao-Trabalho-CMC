@@ -1,6 +1,6 @@
 ---
 
-- name: Renomeia os itens de /usr/share/applications para .disable
+- name: "Renomeia os itens de /usr/share/applications para .disable : ({{ task_name }})"
   ansible.builtin.command:
     cmd: "mv {{ item }} {{ item }}.disable"
     creates: "{{ item }}.disable"

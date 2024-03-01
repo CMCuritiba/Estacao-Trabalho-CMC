@@ -1,7 +1,7 @@
 ---
 # 050-config-browsers
 
-- name: Configura firefox
+- name: "Configura firefox : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "/usr/lib/firefox/{{ item.path }}"
     content: "{{ item.content }}"
@@ -29,7 +29,7 @@
         [XRE]
         EnableProfileMigrator=false
 
-- name: Coloca firefox como navegador padrão
+- name: "Coloca firefox como navegador padrão : ({{ task_name }})"
   community.general.alternatives:
     link: /usr/bin/x-www-browser
     name: x-www-browser
@@ -37,7 +37,7 @@
     priority: 999
     state: present
 
-- name: Cria pastas de configuração do Chrome
+- name: "Cria pastas de configuração do Chrome : ({{ task_name }})"
   ansible.builtin.file:
     state: directory
     path: "/etc/opt/chrome/policies/{{ item }}"
@@ -46,13 +46,13 @@
     - recommended
     - managed
 
-- name: Configura Google Chrome
+- name: "Configura Google Chrome : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     mode: "0644"
     content: "{{ estacao_google_chrome_recommended | ansible.builtin.to_json }}"
 
-- name: Gera bookmarks dos navegadores
+- name: "Gera bookmarks dos navegadores : ({{ task_name }})"
   ansible.builtin.template:
     dest: "{{ item.bookmarks_config_file }}"
     src: "templates/bookmarks_{{ item.browser }}.j2"

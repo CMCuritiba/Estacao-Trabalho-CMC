@@ -11,7 +11,7 @@
 # segundos, ou 18 horas.
 ################################################################################
 
-- name: Verifica se arquivos de configuração existem
+- name: "Verifica se arquivos de configuração existem : ({{ task_name }})"
   ansible.builtin.stat:
     path: "{{ item }}"
   with_items:
@@ -19,10 +19,10 @@
     - /etc/nscd.conf
   register: files_to_check
 
-- name: Configura NSCD
+- name: "Configura NSCD : ({{ task_name }})"
   when: (files_to_check.results | map(attribute="stat.exists")) is all
   block:
-    - name: Configura NSCD
+    - name: "Configura NSCD : ({{ task_name }})"
       ansible.builtin.copy:
         dest: /etc/nscd.conf
         backup: true
@@ -86,7 +86,7 @@
                   persistent              netgroup        yes
                   shared                  netgroup        yes
                   max-db-size             netgroup        33554432
-    - name: Configura NSSWITCH
+    - name: "Configura NSSWITCH : ({{ task_name }})"
       ansible.builtin.copy:
         dest: /etc/nsswitch.conf
         backup: true

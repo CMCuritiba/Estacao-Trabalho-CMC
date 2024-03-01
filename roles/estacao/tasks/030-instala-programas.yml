@@ -2,18 +2,18 @@
 # 030-instala-programas
 # Script para instalar programas adicionais
 
-- name: Bloco de superusuário
+- name: "Bloco de superusuário : ({{ task_name }})"
   become: true
   block:
     # Altera os repositórios para o c3sl
-    - name: Substituir URL do repositório do Ubuntu
+    - name: "Substituir URL do repositório do Ubuntu : ({{ task_name }})"
       ansible.builtin.replace:
         path: /etc/apt/sources.list.d/official-package-repositories.list
         regexp: '//(packages.linuxmint.com|archive.ubuntu.com)'
         replace: '//br.\1'
 
     # Tira input da instalação do ttf-mscorefonts-installer
-    - name: Configura msttcorefonts
+    - name: "Configura msttcorefonts : ({{ task_name }})"
       ansible.builtin.blockinfile:
         path: /var/cache/debconf/config.dat
         marker: "# {mark} ansible managed block msttcorefonts"
@@ -25,25 +25,25 @@
           Flags: seen
 
     # Update e Upgrade inicial:
-    - name: Atualização e instalação de pacotes
+    - name: "Atualização e instalação de pacotes : ({{ task_name }})"
       block:
-        - name: Atualizar sistema
+        - name: "Atualizar sistema : ({{ task_name }})"
           ansible.builtin.apt:
             update_cache: true
             upgrade: true
 
         # Chrome, pq chrome é especial:
-        - name: Adiciona chave so repositório google-chrome
+        - name: "Adiciona chave so repositório google-chrome : ({{ task_name }})"
           ansible.builtin.apt_key:
             url: 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
 
-        - name: Adicionar repositório do Google Chrome
+        - name: "Adicionar repositório do Google Chrome : ({{ task_name }})"
           ansible.builtin.apt_repository:
             repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
             filename: google-chrome
 
         # Instala programas
-        - name: (030-instala-programas.yml) Instalar programas
+        - name: "(030-instala-programas.yml) Instalar programas : ({{ task_name }})"
           ansible.builtin.apt:
             name:
               # Programas de acesso remoto e mídia
@@ -85,7 +85,7 @@
               - google-chrome-stable
             state: present
 
-        - name: Instalar pacote ttf-mscorefonts-installer
+        - name: "Instalar pacote ttf-mscorefonts-installer : ({{ task_name }})"
           environment:
             DEBIAN_FRONTEND: noninteractive
           ansible.builtin.apt:

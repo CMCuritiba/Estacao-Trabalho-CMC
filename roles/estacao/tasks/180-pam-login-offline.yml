@@ -9,7 +9,7 @@
 # dos programas locais.
 ################################################################################
 
-- name: Verifica se arquivos de configuração existem
+- name: "Verifica se arquivos de configuração existem : ({{ task_name }})"
   ansible.builtin.stat:
     path: "{{ item }}"
   with_items:
@@ -17,10 +17,10 @@
     - /etc/pam.d/common-account
   register: files_to_check
 
-- name: Configura arquivos
+- name: "Configura arquivos : ({{ task_name }})"
   when: (files_to_check.results | map(attribute="stat.exists")) is all
   block:
-    - name: (180-pam-login-offline.yml) Instalação dos pacotes necessarios
+    - name: "(180-pam-login-offline.yml) Instalação dos pacotes necessarios : ({{ task_name }})"
       ansible.builtin.apt:
         name:
           - libnss-ldapd
@@ -29,7 +29,7 @@
           - libpam-ccreds
         state: present
 
-    - name: Configura /etc/pam.d/common-auth
+    - name: "Configura /etc/pam.d/common-auth : ({{ task_name }})"
       ansible.builtin.copy:
         dest: "{{ item.path }}"
         backup: true
@@ -130,7 +130,7 @@
             session	optional	pam_systemd.so
             # and here are more per-package modules (the "Additional" block)
             # end of pam-auth-update config
-    - name: Config final do arquivo nsswitch
+    - name: "Config final do arquivo nsswitch : ({{ task_name }})"
       ansible.builtin.replace:
         backup: true
         path: /etc/nsswitch.conf

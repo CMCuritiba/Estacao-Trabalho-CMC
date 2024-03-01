@@ -14,81 +14,133 @@
   block:
     - name: Task-010
       ansible.builtin.import_tasks: 010-user-group-suporte.yml
+      vars:
+        task_name: Task-010
 
     - name: Task-020
       ansible.builtin.import_tasks: 020-remover-programas.yml
+      vars:
+        task_name: Task-020
 
     - name: Task-030
       ansible.builtin.import_tasks: 030-instala-programas.yml
+      vars:
+        task_name: Task-030
 
     - name: Task-035
       ansible.builtin.import_tasks: 035-imagens-cmc.yml
+      vars:
+        task_name: Task-035
 
     - name: Task-040
       ansible.builtin.import_tasks: 040-skel.yml
+      vars:
+        task_name: Task-040
 
     - name: Task-050
       ansible.builtin.import_tasks: 050-config-browsers.yml
+      vars:
+        task_name: Task-050
 
     - name: Task-055
       ansible.builtin.import_tasks: 055-programas-default.yml
+      vars:
+        task_name: Task-055
 
     - name: Task-060
       ansible.builtin.import_tasks: 060-autostart.yml
+      vars:
+        task_name: Task-060
 
     - name: Task-070
       ansible.builtin.import_tasks: 070-politica-informatica.yml
+      vars:
+        task_name: Task-070
 
     - name: Task-080
       ansible.builtin.import_tasks: 080-desabilita-tty.yml
+      vars:
+        task_name: Task-080
 
     - name: Task-100
       ansible.builtin.import_tasks: 100-dconf.yml
+      vars:
+        task_name: Task-100
 
     - name: Task-105
       ansible.builtin.import_tasks: 105-terminal-policy.yml
+      vars:
+        task_name: Task-105
 
     - name: Task-110
       ansible.builtin.import_tasks: 110-configura-dns.yml
+      vars:
+        task_name: Task-110
 
     - name: Task-120
       ansible.builtin.import_tasks: 120-ldap-install.yml
+      vars:
+        task_name: Task-120
 
     - name: Task-130
       ansible.builtin.import_tasks: 130-login-manual.yml
+      vars:
+        task_name: Task-130
 
     - name: Task-140
       ansible.builtin.import_tasks: 140-unattended-upgrades.yml
+      vars:
+        task_name: Task-140
 
     - name: Task-150
       ansible.builtin.import_tasks: 150-bashrc.yml
+      vars:
+        task_name: Task-150
 
     - name: Task-160
       ansible.builtin.import_tasks: 160-nscd-cache.yml
+      vars:
+        task_name: Task-160
 
     - name: Task-170
       ansible.builtin.import_tasks: 170-nfs-mount.yml
+      vars:
+        task_name: Task-170
 
     - name: Task-180
       ansible.builtin.import_tasks: 180-pam-login-offline.yml
+      vars:
+        task_name: Task-180
 
     - name: Task-190
       ansible.builtin.import_tasks: 190-pam_mount-owncloud.yml
+      vars:
+        task_name: Task-190
 
     - name: Task-200
       ansible.builtin.import_tasks: 200-script-rede.yml
+      vars:
+        task_name: Task-200
 
     - name: Task-210
       ansible.builtin.import_tasks: 210-ssh-server.yml
+      vars:
+        task_name: Task-210
 
     - name: Task-220
       ansible.builtin.import_tasks: 220-vnc.yml
+      vars:
+        task_name: Task-220
 
     - name: Task-230
       ansible.builtin.import_tasks: 230-menu-items.yml
+      vars:
+        task_name: Task-230
 
     - name: Task-240
       ansible.builtin.import_tasks: 240-ntp-server.yml
+      vars:
+        task_name: Task-240
 
 - name: Tasks em teste
   tags:
@@ -97,3 +149,5 @@
   block:
     - name: Task-250
       ansible.builtin.import_tasks: 250-configura-cups.yml
+      vars:
+        task_name: Task-250

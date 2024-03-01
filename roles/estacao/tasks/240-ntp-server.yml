@@ -1,6 +1,6 @@
 ---
 
-- name: Configura servidor NTP para ser o da Câmara
+- name: "Configura servidor NTP para ser o da Câmara : ({{ task_name }})"
   ansible.builtin.copy:
     dest: /etc/ntp.conf
     mode: "0644"

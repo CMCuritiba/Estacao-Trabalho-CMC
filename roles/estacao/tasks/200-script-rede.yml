@@ -3,7 +3,7 @@
 # After mount pode ser usado para que o serviço rode apenas após um mount no fstab
 # o nome do mnt-[coisa].mount pode ser descoberto com o seguinte comando:
 # systemctl list-units | grep '/path/to/mount' | awk '{ print $1 }'
-- name: Configura serviço de network da CMC
+- name: "Configura serviço de network da CMC : ({{ task_name }})"
   ansible.builtin.copy:
     dest: /etc/systemd/system/cmc-network-script.service
     content: |
@@ -20,12 +20,12 @@
       WantedBy=multi-user.target
     mode: "0644"
 
-- name: Restart cmc-network-script service
+- name: "Restart cmc-network-script service : ({{ task_name }})"
   ansible.builtin.service:
     name: cmc-network-script
     enabled: true
 
-- name: Pega hostname da rede
+- name: "Pega hostname da rede : ({{ task_name }})"
   ansible.builtin.file:
     path: /etc/hostname
     state: absent

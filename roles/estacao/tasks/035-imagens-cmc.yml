@@ -1,7 +1,7 @@
 ---
 # 035-imagens-cmc
 
-- name: Copiar ícones para /usr/share/pixmaps/
+- name: "Copiar ícones para /usr/share/pixmaps/ : ({{ task_name }})"
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/pixmaps/
@@ -10,7 +10,7 @@
     - imagens/Rainbow.png
     - imagens/suporte_tux.png
 
-- name: Copiar imagens de background para /usr/share/backgrounds/cmc/
+- name: "Copiar imagens de background para /usr/share/backgrounds/cmc/ : ({{ task_name }})"
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/backgrounds/cmc/

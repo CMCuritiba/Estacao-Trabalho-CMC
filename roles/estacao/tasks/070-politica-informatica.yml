@@ -1,13 +1,13 @@
 ---
 # 070-politica-informatica
 
-- name: Criar diretório /usr/local/cmc/scripts
+- name: "Criar diretório /usr/local/cmc/scripts : ({{ task_name }})"
   ansible.builtin.file:
     path: /usr/local/cmc/scripts
     state: directory
     mode: "0755"
 
-- name: Criar o script forcelogout.sh
+- name: "Criar o script forcelogout.sh : ({{ task_name }})"
   ansible.builtin.copy:
     content: |
       #!/bin/bash
@@ -18,7 +18,7 @@
     dest: /usr/local/cmc/scripts/forcelogout.sh
     mode: "0755"
 
-- name: Copiar o arquivo politica-informatica.txt
+- name: "Copiar o arquivo politica-informatica.txt : ({{ task_name }})"
   ansible.builtin.copy:
     src: politica-informatica.txt
     dest: /usr/local/cmc/politica-informatica.txt

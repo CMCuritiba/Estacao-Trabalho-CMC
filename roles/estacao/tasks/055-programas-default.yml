@@ -1,7 +1,7 @@
 ---
 # 055-programas-default
 
-- name: Create mimeapps.list file with the specified content
+- name: "Create mimeapps.list file with the specified content : ({{ task_name }})"
   ansible.builtin.copy:
     dest: /etc/skel/.config/mimeapps.list
     mode: "0644"

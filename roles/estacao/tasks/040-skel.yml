@@ -1,7 +1,7 @@
 ---
 # 040-skel
 
-- name: Cria os diretórios padrões
+- name: "Cria os diretórios padrões : ({{ task_name }})"
   ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
@@ -19,13 +19,13 @@
       group: nogroup
       mode: 1777
 
-- name: Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais
+- name: "Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais : ({{ task_name }})"
   ansible.builtin.file:
     path: /etc/skel/Docs.Locais
     src: /home/Docs.Locais
     state: link
 
-- name: Cria arquivo padrão user-dirs.dirs
+- name: "Cria arquivo padrão user-dirs.dirs : ({{ task_name }})"
   ansible.builtin.copy:
     dest: /etc/skel/.config/user-dirs.dirs
     content: |
@@ -34,21 +34,21 @@
       XDG_DOWNLOAD_DIR="$HOME/Downloads"
     mode: "0644"
 
-- name: Cria o arquivo user-dirs.locale com conteúdo "pt_BR"
+- name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR' : ({{ task_name }})"
   ansible.builtin.copy:
     content: "pt_BR"
     dest: /etc/skel/.config/user-dirs.locale
     mode: "0644"
 
 # Desabilita a atualização automatica dos user-dirs no XDG
-- name: Modifica o arquivo user-dirs.conf
+- name: "Modifica o arquivo user-dirs.conf : ({{ task_name }})"
   ansible.builtin.lineinfile:
     path: /etc/xdg/user-dirs.conf
     regexp: "^enabled="
     line: "enabled=False"
 
 # Cria icones de suporte, firefox, chrome
-- name: Cria atalhos padrões no desktop
+- name: "Cria atalhos padrões no desktop : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "/etc/skel/Desktop/{{ item }}.desktop"
     remote_src: false
@@ -60,14 +60,14 @@
     - Suporte
     - Rainbow
 
-- name: Configura o arquivo de sessão do GIMP
+- name: "Configura o arquivo de sessão do GIMP : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "/etc/skel/.gimp-2.10/sessionrc"
     remote_src: false
     src: "gimp_sessionrc"
     mode: "0644"
 
-- name: Cria política de privacidade
+- name: "Cria política de privacidade : ({{ task_name }})"
   ansible.builtin.copy:
     dest: "/etc/skel/.politicainformatica.sh"
     remote_src: false
@@ -76,7 +76,7 @@
 
 # Pode dar problema se ja tiver esse bloco e ele não tiver os markers
 # do ansible. TODO: Achar uma forma de evitar isso
-- name: Aplica política de privacidade
+- name: "Aplica política de privacidade : ({{ task_name }})"
   ansible.builtin.blockinfile:
     path: "/etc/skel/.profile"
     marker: '# {mark} ANSIBLE MANEGED BLOCK Politica de Privacidade'
