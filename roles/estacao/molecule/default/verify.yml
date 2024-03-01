@@ -8,5 +8,3 @@
     - name: "Include cmcuritiba.estacao"
       ansible.builtin.include_role:
         name: "cmcuritiba.estacao"
-      vars:
-        estacao_teste: true

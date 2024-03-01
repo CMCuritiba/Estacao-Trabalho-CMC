@@ -8,7 +8,8 @@
   become: true
 
 - name: Tasks concluidas
-  when: estacao_teste is falsy
+  tags:
+    - done
   become: true
   block:
     - name: Task-010
@@ -90,7 +91,8 @@
       ansible.builtin.import_tasks: 240-ntp-server.yml
 
 - name: Tasks em teste
-  when: estacao_teste is truthy
+  tags:
+    - develop
   become: true
   block:
     - name: Task-250
