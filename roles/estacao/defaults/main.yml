@@ -1,5 +1,15 @@
 ---
 # defaults file for estacao
-
-estacao_suporte_user: "suporte"
-estacao_suporte_pass: "password"
+estacao_default:
+  pass_support: "suporte"
+  pass_root: "root"
+  pass_vcn: "senha_vcn"
+  vcnpass64: "senha_vcn"
+  dtic_network: "1.0.0.0/24"
+  serv_ldap: "ldap://0.0.0.0/ ldap://0.0.0.1/"
+  ldap_users_dn: "ou=users,dc=example,dc=com"
+  ldap_groups_dn: "ou=groups,dc=example,dc=com"
+  bind_dn: "cn=binduser,dc=example,dc=com"
+  bind_pw: "password"
+  nfs_serv: "0.0.0.2:/remote/dir /local/dir nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0"
+  dtic_gid: "dtic"
