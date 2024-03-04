@@ -13,3 +13,4 @@ estacao_default:
   bind_pw: "password"
   nfs_serv: "0.0.0.2:/remote/dir /local/dir nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail   0   0"
   dtic_gid: "dtic"
+  dtic_gidnumber: "9999"

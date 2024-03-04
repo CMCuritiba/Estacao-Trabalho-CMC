@@ -13,6 +13,7 @@ estacao_env:
   bind_pw: "{{ lookup('ansible.builtin.env', 'BIND_PW') | default(estacao_default.bind_pw, true) }}"
   nfs_serv: "{{ lookup('ansible.builtin.env', 'NFS_SERV') | default(estacao_default.nfs_serv, true) }}"
   dtic_gid: "{{ lookup('ansible.builtin.env', 'DTIC_GID') | default(estacao_default.dtic_gid, true) }}"
+  dtic_gidnumber: "{{ lookup('ansible.builtin.env', 'DTIC_GIDNUMBER') | default(estacao_default.dtic_gidnumber, true) }}"
 
 estacao_google_chrome_recommended:
   HomepageLocation: "http://intranet.cmc.pr.gov.br/"

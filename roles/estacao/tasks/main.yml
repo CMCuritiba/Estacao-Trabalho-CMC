@@ -142,12 +142,17 @@
       vars:
         task_name: Task-240
 
+    - name: Task-250
+      ansible.builtin.import_tasks: 250-configura-cups.yml
+      vars:
+        task_name: Task-250
+
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-250
-      ansible.builtin.import_tasks: 250-configura-cups.yml
+    - name: Task-260
+      ansible.builtin.import_tasks: 260-bloqueio-cinnamon.yml
       vars:
-        task_name: Task-250
+        task_name: Task-260
