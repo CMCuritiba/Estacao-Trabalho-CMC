@@ -42,7 +42,7 @@ echo "# SSSD CMC
 [sssd]
 domains = ${AD_DOMAIN,,}
 config_file_version = 2
-services = nss,pam
+services = nss, pam
 
 [nss]
 
@@ -64,7 +64,8 @@ ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 # Para descoberta de DNS
 krb5_realm = ${AD_DOMAIN^^}
 
-# Para configurar DNS dinâmico
+dyndns_update = False
+# Para habilitar DNS dinâmico:
 # dyndns_server = ${AD_DOMAIN,,}
 # dyndns_update = True
 # dyndns_update_ptr = True
