@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Configuração do nsswitch
-if ! cmp -s /etc/nsswitch.conf ../arquivos/nsswitch.conf.template; then
-    cp -f --backup=t ../arquivos/nsswitch.conf.template /etc/nsswitch.conf
-fi
+# Substitui linha 'hosts:.*'' e cria um backup
+sed -i"-$(date +%F-%T)" 's/^hosts:.*/hosts:\t\tfiles dns/' /etc/nsswitch.conf
 
 # Automatiza a criação do diretório HOME após o login
 # Por default, utiliza:
