@@ -7,17 +7,14 @@ IPATUAL=$(ip addr list "$INTERFACE" | grep -m1 -w "inet" | awk '{print $2}' | cu
 if [ -n "$IPATUAL" ] && [ -n "$CMCDOMAIN" ]; then
     # Obtem nome do IP consultando o DNS
     FQDN="$(nslookup "$IPATUAL" "$CMCDOMAIN" | head -n1 | awk '{print $4}')"
-    if ! grep -iq "$CMCDOMAIN" <<<"$FQDN"; then
-        # Failback:
-        # escreve nome da máquina como "ip-127.0.0.1"
-        DNSNAME="ip-$(tr '.' '-' <<<"$IPATUAL")"
-    else
+    if grep -iq "$CMCDOMAIN" <<<"$FQDN"; then
         # obtem o shortname
         DNSNAME="$(cut -d '.' -f 1 <<<"$FQDN")"
-    fi
 
-    if [ -n "$DNSNAME" ] && ! grep -q "$DNSNAME" <<<"$(hostname)"; then
-        # echo "$DNSNAME"
-        hostnamectl set-hostname "$DNSNAME"
+        if [ -n "$DNSNAME" ] && ! grep -q "$DNSNAME" <<<"$(hostname)"; then
+            # echo "$DNSNAME"
+            # Atualiza hostname
+            hostnamectl set-hostname "$DNSNAME"
+        fi
     fi
 fi

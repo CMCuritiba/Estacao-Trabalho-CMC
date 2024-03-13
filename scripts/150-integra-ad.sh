@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Instala SSSD, REALM, KERBEROS e ADCLI
-DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd realmd krb5-user adcli
+DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd sssd-tools realmd krb5-user samba-common packagekit adcli
 
 # Configura arquivo do Kerberos com o nome do domínio e corrige problema de DNS reverso
 echo "[libdefaults]
@@ -55,11 +55,12 @@ offline_failed_login_delay = 0
 [domain/${AD_DOMAIN,,}]
 realmd_tags = manages-system joined-with-adcli
 ad_domain = ${AD_DOMAIN,,}
+ad_server = ${AD_DOMAIN,,}
 id_provider = ad
 auth_provider = ad
 chpass_provider = ad
 access_provider = ad
-ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
+#ad_access_filter = (&(objectClass=inetOrgPerson)(employeeNumber=*))
 
 # Para descoberta de DNS
 krb5_realm = ${AD_DOMAIN^^}
