@@ -1,0 +1,12 @@
+---
+# ARQUIVOS EM CRON.* NÃO PODEM TER NADA ALÉM DE LETRAS, NÚMERO, HÍFEN E
+# UNDERSCORE NO NOME (NÃO PODEM TER PONTO)
+
+- name: "Nssupdate : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: /etc/cron.hourly/nssupdate
+    mode: "0755"
+    content: |
+      #!/bin/bash
+      nss_updatedb ldap
+      exit 0

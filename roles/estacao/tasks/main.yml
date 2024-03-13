@@ -147,12 +147,17 @@
       vars:
         task_name: Task-250
 
+    - name: Task-260
+      ansible.builtin.import_tasks: 260-bloqueio-cinnamon.yml
+      vars:
+        task_name: Task-260
+
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-260
-      ansible.builtin.import_tasks: 260-bloqueio-cinnamon.yml
+    - name: Task-290
+      ansible.builtin.import_tasks: 290-nssupdate.yml
       vars:
-        task_name: Task-260
+        task_name: Task-290
