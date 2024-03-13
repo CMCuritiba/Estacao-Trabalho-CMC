@@ -152,12 +152,17 @@
       vars:
         task_name: Task-260
 
+    - name: Task-290
+      ansible.builtin.import_tasks: 290-nssupdate.yml
+      vars:
+        task_name: Task-290
+
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-290
-      ansible.builtin.import_tasks: 290-nssupdate.yml
+    - name: Task-300
+      ansible.builtin.import_tasks: 300-on-login.yml
       vars:
-        task_name: Task-290
+        task_name: Task-300

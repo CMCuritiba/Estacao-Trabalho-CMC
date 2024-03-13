@@ -1,0 +1,21 @@
+---
+
+- name: "Locka os icones do desktop : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: /usr/local/cmc/scripts/on-login.sh
+    mode: "0755"
+    content: |
+      #!/bin/sh
+      if [ $(id -u) = 0 ]
+      then
+          /usr/bin/chattr -f +i /home/*/Desktop/Suporte.desktop
+          /usr/bin/chattr -f +i /home/*/Desktop/Firefox.desktop
+          /usr/bin/chattr -f +i /home/*/Desktop/google-chrome.desktop
+          /usr/bin/chattr -f +i /home/*/Desktop/Rainbow.desktop
+      fi
+
+- name: "Adiciona para rodar no PAM Session : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: "session optional pam_exec.so /usr/local/cmc/scripts/on-login.sh"
+  notify: Restart PAM service
