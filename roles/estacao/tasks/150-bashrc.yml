@@ -20,11 +20,11 @@
 
       # Faz backup local
       function bkp() {
-        if [ -z \"\$1\" ]; then
-          echo \"Uso: bkp [arquivo]\";
+        if [ -z "$1" ]; then
+          echo "Uso: bkp [arquivo]";
         else
           mkdir -p ./bkp
-          'cp' -Lv --preserve=all \"\$1\" \"./bkp/\$1-\$(date +%F-%H-%M-%S)\"
+          'cp' -Lv --preserve=all "$1" "./bkp/$1-$(date +%F-%H-%M-%S)"
         fi
       }
     mode: "0644"
