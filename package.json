@@ -1,0 +1,23 @@
+{
+  "name": "infrastructure-automation",
+  "version": "1.0.0",
+  "description": "Gerenciamento de infraestrutura e automação",
+  "repository": "git@github.com:CMCuritiba/infrastructure-automation.git",
+  "author": "Bruno Oliveira <bruno.oliveira@cmc.pr.gov.br>",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}

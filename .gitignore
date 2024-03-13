@@ -16,3 +16,9 @@ vagrant/testes
 
 # Python venv molecule
 molecule-venv/
+
+# Node modules
+node_modules/
+
+# Yarn
+yarn.lock
