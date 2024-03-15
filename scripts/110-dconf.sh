@@ -16,52 +16,12 @@ sed -i 's/^vnc-password=.*$/vnc-password='"$VNCPASS64"'/' \
     /etc/dconf/db/local.d/01-cmc
 
 # Applet de calendario
-echo -e '{
-    "section1": {
-        "type": "section",
-        "description": "Display"
-    },
-    "show-week-numbers" : {
-        "type" : "switch",
-        "default" : false,
-        "description": "Show week numbers in calendar",
-        "tooltip": "Check this to show week numbers in the calendar."
-    },
-    "use-custom-format" : {
-        "type" : "switch",
-        "default" : true,
-        "description": "Use a custom date format",
-        "tooltip": "Check this to define a custom format for the date in the calendar applet.",
-        "value": true
-    },
-    "custom-format" : {
-        "type" : "entry",
-        "default" : "%a %e %b, %H:%M",
-        "description" : "Date format",
-        "indent": true,
-        "dependency" : "use-custom-format",
-        "tooltip" : "Set your custom format here.",
-        "value": "%a %e %b, %H:%M"
-    },
-    "format-button" : {
-        "type" : "button",
-        "description" : "Show information on date format syntax",
-        "indent": true,
-        "dependency" : "use-custom-format",
-        "callback" : "on_custom_format_button_pressed",
-        "tooltip" : "Click this button to know more about the syntax for date formats."
-    },
-    "section2": {
-        "type": "section",
-        "description": "Keyboard shortcuts"
-    },
-    "keyOpen": {
-        "type": "keybinding",
-        "description": "Show calendar",
-        "default": "<Super>c",
-        "tooltip" : "Set keybinding(s) to show the calendar."
-    }
-}' | jq . >/usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
+CALJSON="/usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json"
+if [ -f "$CALJSON" ]; then
+    cp -a "$CALJSON" "$CALJSON-$(date +%F%R)"
+    jq '."use-custom-format".default = true' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+    jq '."custom-format".default = "%A, %e %B %Y, %H:%M"' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+fi
 
 # Trava as configs do Vino
 mkdir -p /etc/dconf/db/local.d/locks
