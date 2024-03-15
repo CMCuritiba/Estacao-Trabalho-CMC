@@ -39,6 +39,9 @@ ln -sf /usr/bin/nm-applet /usr/local/cmc/modificados/nm-applet
 ln -sf /etc/dconf/profile/user /usr/local/cmc/modificados/dconf-user
 ln -sf /etc/dconf/db/local.d/01-cmc /usr/local/cmc/modificados/dconf-01-cmc
 
+# Configurações do Cinnamon
+ln -sf /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json /usr/local/cmc/modificados/settings-schema.json
+
 # AD e PAM
 ln -sf /etc/pam.d/common-session /usr/local/cmc/modificados/common-session
 ln -sf /etc/pam.d/common-auth /usr/local/cmc/modificados/common-auth
