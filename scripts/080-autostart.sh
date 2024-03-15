@@ -13,18 +13,18 @@ if [ -e "/etc/xdg/autostart/mintreport.desktop" ] ; then
     mv /etc/xdg/autostart/mintreport.desktop /etc/xdg/autostart/mintreport.desktop.disable
 fi
 
-# Desabilita o autostart para o gnome-keyring
-if [ -e "/etc/xdg/autostart/gnome-keyring-pkcs11.desktop" ] ; then
-    mv /etc/xdg/autostart/gnome-keyring-pkcs11.desktop /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
-fi
+# # Desabilita o autostart para o gnome-keyring
+# if [ -e "/etc/xdg/autostart/gnome-keyring-pkcs11.desktop" ] ; then
+#     mv /etc/xdg/autostart/gnome-keyring-pkcs11.desktop /etc/xdg/autostart/gnome-keyring-pkcs11.desktop.disable
+# fi
 
-if [ -e "/etc/xdg/autostart/gnome-keyring-secrets.desktop" ] ; then
-    mv /etc/xdg/autostart/gnome-keyring-secrets.desktop /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
-fi
+# if [ -e "/etc/xdg/autostart/gnome-keyring-secrets.desktop" ] ; then
+#     mv /etc/xdg/autostart/gnome-keyring-secrets.desktop /etc/xdg/autostart/gnome-keyring-secrets.desktop.disable
+# fi
 
-if [ -e "/etc/xdg/autostart/gnome-keyring-ssh.desktop" ] ; then
-    mv /etc/xdg/autostart/gnome-keyring-ssh.desktop /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
-fi
+# if [ -e "/etc/xdg/autostart/gnome-keyring-ssh.desktop" ] ; then
+#     mv /etc/xdg/autostart/gnome-keyring-ssh.desktop /etc/xdg/autostart/gnome-keyring-ssh.desktop.disable
+# fi
 
 echo '[Desktop Entry]
 Type=Application

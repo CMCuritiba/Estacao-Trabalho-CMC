@@ -22,10 +22,10 @@ chmod 700 /usr/bin/nm-connection-editor
 #chmod 700 /usr/bin/mate-network-properties
 chmod 700 /usr/bin/nm-applet
 
-#desabilita gnome-keyring - fica pedindo senha de root para usuários
-chmod 700 /usr/bin/gnome-keyring
-chmod 700 /usr/bin/gnome-keyring-3
-chmod 700 /usr/bin/gnome-keyring-daemon
+# #desabilita gnome-keyring - fica pedindo senha de root para usuários
+# chmod 700 /usr/bin/gnome-keyring
+# chmod 700 /usr/bin/gnome-keyring-3
+# chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Cria uma ACL para ajustar as permissões do usuário suporte
 setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
