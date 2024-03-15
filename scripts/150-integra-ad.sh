@@ -25,6 +25,7 @@ fi
 # - configura diretório home
 # - permite login apenas com uid
 # - faz cache de senha (permite login offline) TODO: verificar duração
+# - desativa atualização dinâmica de DNS
 # - TODO: filtra usuários
 #
 # Ref: https://docs.aws.amazon.com/directoryservice/latest/admin-guide/join_linux_instance.html
@@ -39,6 +40,7 @@ services = nss, pam
 ad_domain = ${AD_DOMAIN,,}
 krb5_realm = ${AD_DOMAIN^^}
 realmd_tags = manages-system joined-with-samba
+dyndns_update = False
 cache_credentials = True
 id_provider = ad
 krb5_store_password_if_offline = True
