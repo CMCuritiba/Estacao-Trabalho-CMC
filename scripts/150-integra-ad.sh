@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Instala SSSD, REALM, KERBEROS e ADCLI
-apt-get -qyf install sssd sssd-tools realmd krb5-user samba-common packagekit adcli
+DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd sssd-tools realmd krb5-user samba-common packagekit adcli
 
 if ! grep -iq "$AD_DOMAIN" <<<"$(hostname -f)"; then
     echo "Hostname não configurado, abortando."
