@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# LOGR="/etc/logrotate.d/rsyslog"
-LOGR="./rsyslog"
+LOGR="/etc/logrotate.d/rsyslog"
 if ! grep -q "rotate 27" "$LOGR" ||
     ! grep -q "weekly" "$LOGR"; then
     # Faz um backup (arquivos com a extensao .dpkg-old são ignorados pelo
