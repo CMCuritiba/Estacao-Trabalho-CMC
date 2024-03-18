@@ -49,9 +49,8 @@ ldap_id_mapping = False
 use_fully_qualified_names = False
 fallback_homedir = /home/%u
 access_provider = ad
-#ad_access_filter = (memberOf=cn=admins,ou=Testou,dc=example,dc=com)
-# ad_access_filter = (embployeeNumber=*)
-# " >/etc/sssd/conf.d/01-cmc.conf
+ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
+" >/etc/sssd/conf.d/01-cmc.conf
 
 # Altera permissão do arquivo sssd.conf
 chmod 600 /etc/sssd/conf.d/01-cmc.conf
