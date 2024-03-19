@@ -19,8 +19,10 @@ sed -i 's/^vnc-password=.*$/vnc-password='"$VNCPASS64"'/' \
 CALJSON="/usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json"
 if [ -f "$CALJSON" ]; then
     cp -a "$CALJSON" "$CALJSON-$(date +%F%R)"
-    jq '."use-custom-format".default = true' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
-    jq '."custom-format".default = "%A, %e %B %Y, %H:%M"' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+    # jq '."use-custom-format".default = true' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+    # jq '."custom-format".default = "%A, %e %B %Y, %H:%M"' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+    jq '."use-custom-format" += {"value": true}' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
+    jq '."custom-format" += {"value": "%A, %e %B %Y, %H:%M"}' "$CALJSON" >calendar.tmp && mv calendar.tmp "$CALJSON"
 fi
 
 # Trava as configs do Vino
