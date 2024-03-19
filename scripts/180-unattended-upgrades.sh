@@ -3,7 +3,7 @@
 # Automatiza o processo de atualizações de segurança
 
 # Necessário para carregar o source list do Chrome :/
-apt-get update	
+apt-get update
 
 # Instala o unattended-upgrades
 apt-get -qyf install unattended-upgrades
@@ -18,13 +18,9 @@ fi
 UNATTENDEDCONF="/etc/apt/apt.conf.d/50unattended-upgrades"
 
 # Adiciona os repositório relevantes ao arquivo de configuração
-sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"${distro_id}:${distro_codename}-updates\";' "$UNATTENDEDCONF"
-sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'-security\";' "$UNATTENDEDCONF"
-sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'\";' "$UNATTENDEDCONF"
-sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID}"':'"${DISTRIB_CODENAME}"'-updates\";' "$UNATTENDEDCONF"
 sed -i '/^\/\/Unattended-Upgrade::MinimalSteps/c\Unattended-Upgrade::MinimalSteps "true";' "$UNATTENDEDCONF"
 
-if apt-cache policy | grep -E "release.+Google.+amd64"; then
+if apt-cache policy | grep -qE "release.+Google.+amd64"; then
     GOOGLEPPA=$(apt-cache policy | grep -E "release.+Google.+amd64" | cut -d ',' -f 2 | cut -d '=' -f 2)
 
     if [[ -n "$GOOGLEPPA" ]]; then
