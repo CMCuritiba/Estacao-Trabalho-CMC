@@ -55,7 +55,7 @@ ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
 # Altera permissão do arquivo sssd.conf
 chmod 600 /etc/sssd/conf.d/01-cmc.conf
 
-# Restarta serviços REALMD e SSSD
+# Restarta o SSSD
 systemctl restart sssd
 
 # Testes com o AD

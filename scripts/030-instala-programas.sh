@@ -45,6 +45,3 @@ if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-sta
     rm -f microsoft-edge-stable_112.0.1722.39-1_amd64.deb
     apt-get -qyf install --only-upgrade microsoft-edge-stable
 fi
-
-# Atualiza os pacotes recém-instalados
-apt-get -y upgrade
