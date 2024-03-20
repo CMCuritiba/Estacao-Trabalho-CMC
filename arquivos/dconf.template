@@ -117,3 +117,7 @@ disable-connected-notifications=false
 # Num de desktops em 1 por padrão no Gnome
 [org/cinnamon/desktop/wm/preferences]
 num-workspaces=1
+
+[org/cinnamon/desktop/notifications]
+notification-duration=15
+remove-old=true
