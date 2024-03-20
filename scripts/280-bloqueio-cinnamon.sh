@@ -16,25 +16,25 @@ chmod 700 /usr/bin/cinnamon-menu-editor
 chmod 700 /usr/bin/cinnamon-desktop-editor
 
 # Desabilita edição de conexão:
-chmod 700 /usr/bin/nm-connection-editor
+#chmod 700 /usr/bin/nm-connection-editor
 
 # Desabilita editor de proxy/rede
 #chmod 700 /usr/bin/mate-network-properties
-chmod 700 /usr/bin/nm-applet
+#chmod 700 /usr/bin/nm-applet
 
-# #desabilita gnome-keyring - fica pedindo senha de root para usuários
-# chmod 700 /usr/bin/gnome-keyring
-# chmod 700 /usr/bin/gnome-keyring-3
-# chmod 700 /usr/bin/gnome-keyring-daemon
+#desabilita gnome-keyring - fica pedindo senha de root para usuários
+#chmod 700 /usr/bin/gnome-keyring
+#chmod 700 /usr/bin/gnome-keyring-3
+#chmod 700 /usr/bin/gnome-keyring-daemon
 
 # Cria uma ACL para ajustar as permissões do usuário suporte
 setfacl -m u:suporte:rwx /usr/bin/gnome-terminal
 setfacl -m u:suporte:rx /usr/bin/cinnamon-desktop-editor
-setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
-setfacl -m u:suporte:rx /usr/bin/nm-applet
+#setfacl -m u:suporte:rx /usr/bin/nm-connection-editor
+#setfacl -m u:suporte:rx /usr/bin/nm-applet
 
 # Cria uma ACL para ajustar as permissões da DTIC
 setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/gnome-terminal
 setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/cinnamon-desktop-editor
-setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/nm-connection-editor
-setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/nm-applet
+#setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/nm-connection-editor
+#setfacl -m "g:$DTIC_GROUP:rx" /usr/bin/nm-applet

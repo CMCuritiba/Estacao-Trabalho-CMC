@@ -32,8 +32,8 @@ ln -sf /usr/bin/gnome-terminal /usr/local/cmc/modificados/gnome-terminal
 ln -sf /usr/bin/mintupdate /usr/local/cmc/modificados/mintupdate
 ln -sf /usr/bin/mintreport /usr/local/cmc/modificados/mintreport
 ln -sf /usr/bin/cinnamon-desktop-editor /usr/local/cmc/modificados/cinnamon-desktop-editor
-ln -sf /usr/bin/nm-connection-editor /usr/local/cmc/modificados/nm-connection-editor
-ln -sf /usr/bin/nm-applet /usr/local/cmc/modificados/nm-applet
+# ln -sf /usr/bin/nm-connection-editor /usr/local/cmc/modificados/nm-connection-editor
+# ln -sf /usr/bin/nm-applet /usr/local/cmc/modificados/nm-applet
 
 # dconf
 ln -sf /etc/dconf/profile/user /usr/local/cmc/modificados/dconf-user
