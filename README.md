@@ -47,6 +47,7 @@ Procedimento:
 1. Clone este repositório para sua máquina;
 2. Opcionalmente, ative o [commitlint](https://github.com/conventional-changelog/commitlint) e
    o [commitzen](https://github.com/commitizen/cz-cli) no repositório:
+
    1. Instale o [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/) e o
       [`node`](https://nodejs.org/en/download);
    2. Na pasta do repositório, rode:
@@ -57,7 +58,7 @@ Procedimento:
 
    3. Esta configuração não é obrigatória, mas **fortemente** recomendada;
    4. O commitzen não integra com o VS Code, para uso no editor considere
-   [instalar uma extensão](https://github.com/commitizen/cz-cli#adapters).
+      [instalar uma extensão](https://github.com/commitizen/cz-cli#adapters).
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 

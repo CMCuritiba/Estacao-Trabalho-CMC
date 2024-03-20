@@ -14,6 +14,6 @@ RestartSec=60
 ExecStart=/bin/bash /mnt/suporte/etv4/scripts/boot.sh
 
 [Install]
-WantedBy=multi-user.target' > /etc/systemd/system/cmc-network-script.service
+WantedBy=multi-user.target' >/etc/systemd/system/cmc-network-script.service
 
 systemctl enable cmc-network-script.service

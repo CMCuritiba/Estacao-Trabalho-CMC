@@ -20,4 +20,4 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
     <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/gnome-terminal</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
     </action>
-</policyconfig>' > /usr/share/polkit-1/actions/org.freedesktop.policykit.terminal.policy
+</policyconfig>' >/usr/share/polkit-1/actions/org.freedesktop.policykit.terminal.policy

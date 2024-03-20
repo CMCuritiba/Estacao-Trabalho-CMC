@@ -6,7 +6,7 @@ echo '#!/bin/bash
 if [ -f "$HOME/.forcelogout" ]; then
 	rm "$HOME/.forcelogout";
 	pkill -9 -u "$USER"
-fi' > /usr/local/cmc/scripts/forcelogout.sh
+fi' >/usr/local/cmc/scripts/forcelogout.sh
 
 chmod +x /usr/local/cmc/scripts/forcelogout.sh
 

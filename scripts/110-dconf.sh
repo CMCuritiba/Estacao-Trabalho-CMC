@@ -6,7 +6,7 @@ mkdir -p /etc/dconf/db/local.d/
 
 # Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
 echo "user-db:user
-system-db:local" > /etc/dconf/profile/user
+system-db:local" >/etc/dconf/profile/user
 
 # Senha login remoto
 VNCPASS64="\'$(echo -e "$VNP_PASS" | base64 -w0)\'"
@@ -30,7 +30,7 @@ mkdir -p /etc/dconf/db/local.d/locks
 echo "/org/gnome/desktop/remote-access/icon-visibility
 /org/gnome/desktop/remote-access/authentication-methods
 /org/gnome/desktop/remote-access/enabled
-/org/gnome/desktop/remote-access/vnc-password" > /etc/dconf/db/local.d/locks/01-cmc
+/org/gnome/desktop/remote-access/vnc-password" >/etc/dconf/db/local.d/locks/01-cmc
 
 # Copia o script necessario para iniciar o terminal como root
 mkdir -p /usr/local/cmc/scripts

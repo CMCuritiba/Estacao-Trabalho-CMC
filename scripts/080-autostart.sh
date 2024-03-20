@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Desabilita o autostart da mensagem de bem vinda, do update manager e mintreport
-if [ -e "/etc/xdg/autostart/mintupdate.desktop" ] ; then
+if [ -e "/etc/xdg/autostart/mintupdate.desktop" ]; then
     mv /etc/xdg/autostart/mintupdate.desktop /etc/xdg/autostart/mintupdate.desktop.disable
 fi
 
-if [ -e "/etc/xdg/autostart/mintwelcome.desktop" ] ; then
+if [ -e "/etc/xdg/autostart/mintwelcome.desktop" ]; then
     mv /etc/xdg/autostart/mintwelcome.desktop /etc/xdg/autostart/mintwelcome.desktop.disable
 fi
 
-if [ -e "/etc/xdg/autostart/mintreport.desktop" ] ; then
+if [ -e "/etc/xdg/autostart/mintreport.desktop" ]; then
     mv /etc/xdg/autostart/mintreport.desktop /etc/xdg/autostart/mintreport.desktop.disable
 fi
 
@@ -31,4 +31,4 @@ Type=Application
 Terminal=false
 Name=ForceLogout
 Exec=/usr/local/cmc/scripts/forcelogout.sh
-X-GNOME-Autostart-enabled=true' > /etc/xdg/autostart/forcelogout.desktop
+X-GNOME-Autostart-enabled=true' >/etc/xdg/autostart/forcelogout.desktop

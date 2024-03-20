@@ -31,8 +31,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -qyf install ttf-mscorefonts-installer
 # SO
 apt-get install -qyf ncdu numlockx acct xmlstarlet jq nfs-common
 
-# Google Chrome
-if wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; then
+# Chrome, pq chrome é especial:
+if ! dpkg-query -l google-chrome-stable &>/dev/null; then
+    if ! wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; then
+        logger "Não foi possível baixar o Google Chrome."
+        exit 1
+    fi
     apt-get -qyf install ./google-chrome-stable_current_amd64.deb
     rm -f ./google-chrome-stable_current_amd64.deb
 fi

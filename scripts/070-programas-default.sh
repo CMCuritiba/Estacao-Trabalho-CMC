@@ -60,4 +60,4 @@ video/x-matroska=vlc.desktop;
 video/x-mpeg=vlc.desktop;
 video/x-ogm+ogg=vlc.desktop;
 application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop;
-audio/x-vorbis+ogg=rhythmbox.desktop;" > /etc/skel/.config/mimeapps.list
+audio/x-vorbis+ogg=rhythmbox.desktop;" >/etc/skel/.config/mimeapps.list

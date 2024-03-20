@@ -19,7 +19,7 @@ if ! grep -q "^BrowseRemoteProtocols none" "$CUPS_BROWSED"; then
         sed -i '/^BrowseRemoteProtocols/c\BrowseRemoteProtocols none' "$CUPS_BROWSED"
     else
         # Garante que a linha não está comentada
-        echo 'BrowseRemoteProtocols none' >> "$CUPS_BROWSED"
+        echo 'BrowseRemoteProtocols none' >>"$CUPS_BROWSED"
     fi
 fi
 
