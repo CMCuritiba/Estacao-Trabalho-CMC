@@ -20,18 +20,13 @@ date-format='%a %e %b, %H:%M'
 [org/cinnamon/desktop/interface]
 clock-show-date=true
 
-[org/gnome/terminal/legacy/profiles:/default]
-background-color='#FFFFFFFFDDDD'
-palette='#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC'
-bold-color='#000000000000'
-foreground-color='#000000000000'
-visible-name='Padrão'
-
 # Updates não devem ser visíveis
 [com/linuxmint/updates]
 hide-kernel-update-warning=true
 hide-systray=true
 hide-window-after-update=true
+show-cinnamon-updates=false
+show-flatpak-updates=false
 #level1-is-visible=false
 #level1-is-safe=true
 #level2-is-visible=false
@@ -52,7 +47,7 @@ hide-window-after-update=true
 last-active-tab=1
 
 # Desabilita linha de comando
-[org/gnome/desktop/lockdown]
+[org/cinnamon/desktop/lockdown]
 disable-command-line=true
 
 # Numlock ativado
@@ -114,15 +109,11 @@ show-package-manager=false
 picture-uri='file:///usr/share/backgrounds/cmc/desktop-bg.png'
 #'file:///usr/share/backgrounds/linuxmint/default_background.jpg'
 
-# 'Impressora Adicionada' aparece a todo momento, ainda não foi resolvido
-[org/gnome/settings-daemon/plugins/print-notifications]
-active=false
-
 # Desabilita notificação de rede On/Off
 [org/gnome/nm-applet]
-disable-disconnected-notifications=true
-disable-connected-notifications=true
+disable-disconnected-notifications=false
+disable-connected-notifications=false
 
 # Num de desktops em 1 por padrão no Gnome
-[org/gnome/desktop/wm/preferences]
+[org/cinnamon/desktop/wm/preferences]
 num-workspaces=1
