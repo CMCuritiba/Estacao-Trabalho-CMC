@@ -157,12 +157,18 @@
       vars:
         task_name: Task-290
 
+    - name: Task-300
+      ansible.builtin.import_tasks: 300-on-login.yml
+      vars:
+        task_name: Task-300
+
+
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-300
-      ansible.builtin.import_tasks: 300-on-login.yml
+    - name: Task-310
+      ansible.builtin.import_tasks: 310-configura-logs.yml
       vars:
-        task_name: Task-300
+        task_name: Task-310

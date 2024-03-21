@@ -1,0 +1,9 @@
+---
+
+- name: "Altera tempo de retencao do syslog, auth, messages e outros para 6 meses : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    backup: true
+    path: /etc/logrotate.d/rsyslog
+    regexp: '(\s*)rotate \d*$'
+    backrefs: true
+    line: '\1rotate 27'
