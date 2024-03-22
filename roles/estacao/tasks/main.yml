@@ -167,13 +167,17 @@
       vars:
         task_name: Task-310
 
+    - name: Task-990
+      ansible.builtin.import_tasks: 990-versionamento.yml
+      vars:
+        task_name: Task-990
 
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-990
-      ansible.builtin.import_tasks: 990-versionamento.yml
+    - name: Task-999
+      ansible.builtin.import_tasks: 999-arquivos-modificados.yml
       vars:
-        task_name: Task-990
+        task_name: Task-999
