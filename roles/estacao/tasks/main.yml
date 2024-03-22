@@ -162,13 +162,18 @@
       vars:
         task_name: Task-300
 
+    - name: Task-310
+      ansible.builtin.import_tasks: 310-configura-logs.yml
+      vars:
+        task_name: Task-310
+
 
 - name: Tasks em teste
   tags:
     - develop
   become: true
   block:
-    - name: Task-310
-      ansible.builtin.import_tasks: 310-configura-logs.yml
+    - name: Task-990
+      ansible.builtin.import_tasks: 990-versionamento.yml
       vars:
-        task_name: Task-310
+        task_name: Task-990
