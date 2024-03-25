@@ -20,13 +20,13 @@
     block: |
       Name: nslcd/ldap-uris
       Template: nslcd/ldap-uris
-      Value: "{{ estacao_env.serv_ldap }}"
+      Value: "{{ estacao_serv_ldap }}"
       Owners: nslcd
       Flags: seen
 
       Name: nslcd/ldap-base
       Template: nslcd/ldap-base
-      Value: "{{ estacao_env.ldap_users_dn }}"
+      Value: "{{ estacao_ldap_users_dn }}"
       Owners: nslcd
       Flags: seen
 
@@ -79,7 +79,7 @@
         path: "{{ nslcd_conf.stat.path }}"
         insertafter: "^base"
         firstmatch: true
-        line: 'base {{ estacao_env.ldap_groups_dn }}'
+        line: 'base {{ estacao_ldap_groups_dn }}'
       notify: Restart nslcd service
 
     - name: "Habilita bind, otimiza bind, filtra usuários válidos no LDAP : ({{ task_name }})"
@@ -88,8 +88,8 @@
         state: present
         line: "{{ item }}"
       with_items:
-        - "binddn {{ estacao_env.bind_dn }}"
-        - "bindpw {{ estacao_env.bind_pw }}"
+        - "binddn {{ estacao_bind_dn }}"
+        - "bindpw {{ estacao_bind_pw }}"
         - "filter passwd (employeeNumber=*)"
         - "bind_timelimit 2"
       notify: Restart nslcd service
