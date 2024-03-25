@@ -21,7 +21,7 @@
 - name: "Adiciona dtic aos sudoers : ({{ task_name }})"
   ansible.builtin.lineinfile:
     path: /etc/sudoers
-    line: "%{{ estacao_env.dtic_gid }}\tALL=(ALL:ALL) ALL"
+    line: "%{{ estacao_dtic_gid }}\tALL=(ALL:ALL) ALL"
     validate: 'visudo -cf %s'
 
 - name: "Cria uma ACL para ajustar as permissões do usuário suporte : ({{ task_name }})"
@@ -41,7 +41,7 @@
 - name: "Cria uma ACL para ajustar as permissões da DTIC : ({{ task_name }})"
   ansible.posix.acl:
     path: "{{ item.path }}"
-    entity: "{{ estacao_env.dtic_gidnumber }}"
+    entity: "{{ estacao_dtic_gidnumber }}"
     etype: group
     state: present
     permissions: "{{ item.permissions | default('rx') }}"
