@@ -37,11 +37,11 @@
         mode: "0644"
       with_items:
         - dest: "/etc/pam.d/common-auth"
-          src: "t-180/common-auth"
+          src: "common-auth"
         - dest: "/etc/pam.d/common-account"
-          src: "t-180/common-account"
+          src: "common-account"
         - dest: "/etc/pam.d/common-session"
-          src: "t-180/common-session"
+          src: "common-session"
 
     - name: "Config final do arquivo nsswitch : ({{ task_name }})"
       ansible.builtin.replace:
