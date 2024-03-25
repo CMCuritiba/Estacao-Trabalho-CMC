@@ -10,8 +10,8 @@
   ansible.builtin.replace:
     backup: true
     path: /etc/cups/cupsd.conf
-    regexp: 'Allow @LOCAL(?!\n  Allow {{ estacao_env.dtic_network }})'
-    replace: 'Allow @LOCAL\n  Allow {{ estacao_env.dtic_network }}'
+    regexp: 'Allow @LOCAL(?!\n  Allow {{ estacao_dtic_network }})'
+    replace: 'Allow @LOCAL\n  Allow {{ estacao_dtic_network }}'
   notify: Restart cups service
 
 - name: "Desativa o discovery do cups : ({{ task_name }})"
