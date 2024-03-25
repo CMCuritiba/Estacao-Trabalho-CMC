@@ -3,31 +3,16 @@
 
 - name: "Configura firefox : ({{ task_name }})"
   ansible.builtin.copy:
-    dest: "/usr/lib/firefox/{{ item.path }}"
-    content: "{{ item.content }}"
+    dest: "/usr/lib/firefox/{{ item.dest }}"
+    src: "{{ item.src }}"
     mode: "0644"
   with_items:
-    - path: "defaults/pref/local-settings.js"
-      content: |
-        //
-        pref("general.config.filename", "mozilla.cfg");
-        pref("general.config.obscure_value", 0);
-    - path: "mozilla.cfg"
-      content: |
-        //
-        lockPref("browser.startup.homepage", "http://intranet.cmc.pr.gov.br/");
-        lockPref("network.proxy.type", 0);
-        lockPref("browser.startup.page", 1);
-        lockPref("print.print_footerleft", "");
-        lockPref("print.print_footerright", "");
-        lockPref("print.print_headerleft", "");
-        lockPref("print.print_headerright", "");
-        lockPref("startup.homepage_welcome_url", "");
-        lockPref("browser.rights.3.shown", true);
-    - path: "browser/override.ini"
-      content: |
-        [XRE]
-        EnableProfileMigrator=false
+    - dest: "defaults/pref/local-settings.js"
+      src: "firefox-config.1"
+    - dest: "mozilla.cfg"
+      src: "firefox-config.2"
+    - dest: "browser/override.ini"
+      src: "firefox-config.3"
 
 - name: "Coloca firefox como navegador padrão : ({{ task_name }})"
   community.general.alternatives:
