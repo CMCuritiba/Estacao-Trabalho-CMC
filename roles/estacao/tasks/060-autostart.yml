@@ -18,10 +18,4 @@
   ansible.builtin.copy:
     dest: /etc/xdg/autostart/forcelogout.desktop
     mode: "0644"
-    content: |
-      [Desktop Entry]
-      Type=Application
-      Terminal=false
-      Name=ForceLogout
-      Exec=/usr/local/cmc/scripts/forcelogout.sh
-      X-GNOME-Autostart-enabled=true
+    src: "forcelogout.desktop"
