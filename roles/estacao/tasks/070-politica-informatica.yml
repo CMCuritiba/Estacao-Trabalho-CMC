@@ -9,13 +9,8 @@
 
 - name: "Criar o script forcelogout.sh : ({{ task_name }})"
   ansible.builtin.copy:
-    content: |
-      #!/bin/bash
-      if [ -f "$HOME/.forcelogout" ]; then
-          rm "$HOME/.forcelogout";
-          pkill -9 -u "$USER"
-      fi
     dest: /usr/local/cmc/scripts/forcelogout.sh
+    src: "forcelogout.sh"
     mode: "0755"
 
 - name: "Copiar o arquivo politica-informatica.txt : ({{ task_name }})"
