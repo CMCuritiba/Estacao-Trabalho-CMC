@@ -1,9 +1,11 @@
 #!/bin/bash
 # Script para instalar programas adicionais
 
-# Altera os repositórios para o c3sl
-sed -i 's|//archive.ubuntu.com|//br.archive.ubuntu.com|' /etc/apt/sources.list.d/official-package-repositories.list
-sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' /etc/apt/sources.list.d/official-package-repositories.list
+# Altera os repositórios para o BR
+sed -i 's|//archive.ubuntu.com|//br.archive.ubuntu.com|' \
+    /etc/apt/sources.list.d/official-package-repositories.list
+sed -i 's|//packages.linuxmint.com|//br.packages.linuxmint.com|' \
+    /etc/apt/sources.list.d/official-package-repositories.list
 
 # Update e Upgrade inicial:
 apt-get update

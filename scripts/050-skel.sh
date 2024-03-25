@@ -3,9 +3,9 @@
 # Cria os diretórios padrões
 mkdir -p /etc/skel/Desktop
 mkdir -p /etc/skel/Downloads
-mkdir -p /etc/skel/Music
-mkdir -p /etc/skel/Pictures
-mkdir -p /etc/skel/Videos
+mkdir -p /etc/skel/Música
+mkdir -p /etc/skel/Imagens
+mkdir -p /etc/skel/Vídeos
 mkdir -p /home/Docs.Locais
 ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 
@@ -13,9 +13,9 @@ ln -sf /home/Docs.Locais /etc/skel/Docs.Locais
 echo -e "XDG_DESKTOP_DIR=\"\$HOME/Desktop\"
 XDG_DOWNLOAD_DIR=\"\$HOME/Downloads\"
 XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
-XDG_MUSIC_DIR=\"\$HOME/Music\"
-XDG_PICTURES_DIR=\"\$HOME/Pictures\"
-XDG_VIDEOS_DIR=\"\$HOME/Videos\"
+XDG_MUSIC_DIR=\"\$HOME/Música\"
+XDG_PICTURES_DIR=\"\$HOME/Imagens\"
+XDG_VIDEOS_DIR=\"\$HOME/Vídeos\"
 " >/etc/skel/.config/user-dirs.dirs
 
 # Cria o arquivo padrão de local
