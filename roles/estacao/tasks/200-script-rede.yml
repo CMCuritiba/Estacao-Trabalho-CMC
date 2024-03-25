@@ -6,18 +6,7 @@
 - name: "Configura serviço de network da CMC : ({{ task_name }})"
   ansible.builtin.copy:
     dest: /etc/systemd/system/cmc-network-script.service
-    content: |
-      [Unit]
-      Wants=network-online.target mnt-suporte.mount
-      After=network-online.target mnt-suporte.mount
-
-      [Service]
-      Restart=on-failure
-      RestartSec=60
-      ExecStart=/bin/bash /mnt/suporte/etv4/scripts/boot.sh
-
-      [Install]
-      WantedBy=multi-user.target
+    src: "t-200/cmc-network-script.service"
     mode: "0644"
 
 - name: "Restart cmc-network-script service : ({{ task_name }})"
