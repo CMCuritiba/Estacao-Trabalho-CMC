@@ -1,0 +1,22 @@
+{
+  "name": "estacao-trabalho-cmc",
+  "version": "1.0.0",
+  "description": "Configuração do Linux Mint para uso nas estações de trabalho da CMC",
+  "repository": "https://github.com/CMCuritiba/Estacao-Trabalho-CMC/",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}

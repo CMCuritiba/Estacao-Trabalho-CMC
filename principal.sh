@@ -25,14 +25,14 @@ if [ -f "$scriptsDir/.env" ]; then
         exit 2
     fi
 
+    mkdir -p /usr/local/cmc
+
     # Atentar a ordem dos scripts a serem rodados
     # Coloca arquivo executado em /usr/local/cmc/script-andamento
     # Cria arquivo script-completo se terminar e deleta script-andamento
     if [ ! -f "/usr/local/cmc/script-andamento" ]; then
         touch /usr/local/cmc/script-andamento
     fi
-
-    mkdir -p /usr/local/cmc
 
     # O "read -d ''" é necessário para casar com o resultado do find utilizando
     # o parâmetro -print0. Isto garante o tratamento correto de qualquer nome

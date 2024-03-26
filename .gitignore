@@ -1,0 +1,8 @@
+# para nao comitar o .env
+.env
+
+.vscode/
+
+node_modules
+
+.vagrant
