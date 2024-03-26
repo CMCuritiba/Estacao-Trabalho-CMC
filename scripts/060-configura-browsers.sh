@@ -51,9 +51,9 @@ function buildBookmarksFirefox() {
         for s in "${!SGP[@]}"; do
             sgpjson=$(jq ".children += [{\"url\":\"${SGP[$s]}\",\"name\":\"$s\"}]" <<<"$sgpjson")
         done
-    fi
 
-    json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
+        json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
+    fi
 
     if [ ${#ADDONS[@]} -gt 0 ]; then
         # https://mozilla.github.io/policy-templates/#extensionsettings
@@ -66,30 +66,23 @@ function buildBookmarksFirefox() {
 }
 
 function buildBookmarksChrome() {
-    echo -n "{
-  \"DownloadDirectory\": \"/home/\${user_name}/Downloads\",
-  \"DefaultBrowserSettingEnabled\": false,
-  \"DisablePrintPreview\": true,
-  \"ManagedBookmarks\": [
-    {
-      \"toplevel_name\": \"Favoritos Gerenciados da CMC\"
-    },"
+    json='{"DownloadDirectory":"/home/${user_name}/Downloads","DefaultBrowserSettingEnabled":false,"DisablePrintPreview":true,"ManagedBookmarks":[{"toplevel_name":"Favoritos Gerenciados da CMC"}]}'
 
-    for i in "${!BOOKMARKS[@]}"; do
-        echo -n "{\"url\": \"${BOOKMARKS[$i]}\",\"name\": \"$i\"},"
+    # https://chromeenterprise.google/policies/#ManagedBookmarks
+    for b in "${!BOOKMARKS[@]}"; do
+        json=$(jq ".policies.ManagedBookmarks += [{\"url\":\"${BOOKMARKS[$b]}\", \"name\":\"$b\"}]" <<<"$json")
     done
 
-    echo -n "{\"name\": \"SGP\",\"children\":["
-    last="${SGP[@]: -1}"
-    for i in "${!SGP[@]}"; do
-        echo -n "{\"url\": \"${SGP[$i]}\",\"name\": \"$i\"}"
-        if [ "${SGP[$i]}" != "$last" ]; then
-            echo -n ","
-        fi
-    done
+    if [ ${#SGP[@]} -gt 0 ]; then
+        sgpjson='{"name":"SGP","children":[]}'
+        for s in "${!SGP[@]}"; do
+            sgpjson=$(jq ".children += [{\"url\":\"${SGP[$s]}\",\"name\":\"$s\"}]" <<<"$sgpjson")
+        done
 
-    # Fecha JSON
-    echo -n "]}]}"
+        json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
+    fi
+
+    jq <<<"$json"
 }
 
 ########################################################################
@@ -135,7 +128,7 @@ mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 
 favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
-buildBookmarksChrome "${!BOOKMARKS[@]}" | jq . >"$favsChrome"
+buildBookmarksChrome >"$favsChrome"
 
 echo '{
   "HomepageLocation": "https://www.cmc.pr.gov.br/",
