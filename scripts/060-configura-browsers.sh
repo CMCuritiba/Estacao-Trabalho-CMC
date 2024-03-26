@@ -1,81 +1,6 @@
 #!/bin/bash
 
-function buildBookmarksFirefox() {
-    echo -n "{
-  \"policies\": {
-    \"DisplayBookmarksToolbar\": true,
-    \"ManagedBookmarks\": [
-      {
-        \"toplevel_name\": \"Favoritos Gerenciados da CMC\"
-      },"
-
-    for i in "${!BOOKMARKS[@]}"; do
-        echo -n "{\"url\": \"${BOOKMARKS[$i]}\",\"name\": \"$i\"},"
-    done
-
-    echo -n "{\"name\": \"SGP\",\"children\":["
-    last="${SGP[@]: -1}"
-    for i in "${!SGP[@]}"; do
-        echo -n "{\"url\": \"${SGP[$i]}\",\"name\": \"$i\"}"
-        if [ "${SGP[$i]}" != "$last" ]; then
-            echo -n ","
-        fi
-    done
-
-    # Fecha JSON
-    echo -n "]}]}}"
-}
-
-function buildBookmarksChrome() {
-    echo -n "{
-  \"DownloadDirectory\": \"/home/\${user_name}/Downloads\",
-  \"DefaultBrowserSettingEnabled\": false,
-  \"DisablePrintPreview\": true,
-  \"ManagedBookmarks\": [
-    {
-      \"toplevel_name\": \"Favoritos Gerenciados da CMC\"
-    },"
-
-    for i in "${!BOOKMARKS[@]}"; do
-        echo -n "{\"url\": \"${BOOKMARKS[$i]}\",\"name\": \"$i\"},"
-    done
-
-    echo -n "{\"name\": \"SGP\",\"children\":["
-    last="${SGP[@]: -1}"
-    for i in "${!SGP[@]}"; do
-        echo -n "{\"url\": \"${SGP[$i]}\",\"name\": \"$i\"}"
-        if [ "${SGP[$i]}" != "$last" ]; then
-            echo -n ","
-        fi
-    done
-
-    # Fecha JSON
-    echo -n "]}]}"
-}
-
-# FIREFOX
-
-# Bloqueia edição de algumas configurações:
-echo '//
-pref("general.config.filename", "mozilla.cfg");
-pref("general.config.obscure_value", 0);' >/usr/lib/firefox/defaults/pref/local-settings.js
-
-# Cria e configura o arquivo mozilla.cfg na pasta /usr/lib/firefox:
-echo '//
-lockPref("browser.startup.homepage", "https://www.cmc.pr.gov.br/");
-lockPref("network.proxy.type", 0);
-lockPref("browser.startup.page", 1);
-lockPref("print.print_footerleft", "");
-lockPref("print.print_footerright", "");
-lockPref("print.print_headerleft", "");
-lockPref("print.print_headerright", "");
-lockPref("startup.homepage_welcome_url", "");
-lockPref("browser.rights.3.shown", true);' >/usr/lib/firefox/mozilla.cfg
-
-# Desabilita o Import Wizard
-echo "[XRE]
-EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
-
+# Cria lista de favoritos:
 # Lista de favoritos gerenciados pela DTIC
 declare -A BOOKMARKS
 BOOKMARKS["Câmara Municipal de Curitiba"]="https://www.cmc.pr.gov.br/"
@@ -108,14 +33,100 @@ SGP["Portal Contratos"]="http://portalcontratos.curitiba.pr.gov.br:7070/PortalCo
 SGP["Solicitações Web"]="http://sgp-web.curitiba.pr.gov.br/sgp/seg/login.do"
 SGP["Consulta Licitações"]="http://consultalicitacao.curitiba.pr.gov.br:9090/ConsultaLicitacoes/"
 
+# Cria lista de extensões:
+declare -A ADDONS
+ADDONS["pt-BR@dictionaries.addons.mozilla.org"]="https://addons.mozilla.org/firefox/downloads/file/4223181/corretor-123.2024.16.151.xpi"
+
+
+function buildBookmarksFirefox() {
+    json='{"policies":{"DisplayBookmarksToolbar":true,"ManagedBookmarks":[{"toplevel_name":"Favoritos Gerenciados da CMC"}]}}'
+
+    # https://mozilla.github.io/policy-templates/#managedbookmarks
+    for b in "${!BOOKMARKS[@]}"; do
+        json=$(jq ".policies.ManagedBookmarks += [{\"url\":\"${BOOKMARKS[$b]}\", \"name\":\"$b\"}]" <<<"$json")
+    done
+
+    if [ ${#SGP[@]} -gt 0 ]; then
+        sgpjson='{"name":"SGP","children":[]}'
+        for s in "${!SGP[@]}"; do
+            sgpjson=$(jq ".children += [{\"url\":\"${SGP[$s]}\",\"name\":\"$s\"}]" <<<"$sgpjson")
+        done
+    fi
+
+    json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
+
+    if [ ${#ADDONS[@]} -gt 0 ]; then
+        # https://mozilla.github.io/policy-templates/#extensionsettings
+        for a in "${!ADDONS[@]}"; do
+            json=$(jq ".policies.ExtensionSettings += {\"$a\":{\"installation_mode\":\"force_installed\",\"install_url\":\"${ADDONS[$a]}\", \"updates_disabled\":false}}" <<<"$json")
+        done
+    fi
+
+    jq <<<"$json"
+}
+
+function buildBookmarksChrome() {
+    echo -n "{
+  \"DownloadDirectory\": \"/home/\${user_name}/Downloads\",
+  \"DefaultBrowserSettingEnabled\": false,
+  \"DisablePrintPreview\": true,
+  \"ManagedBookmarks\": [
+    {
+      \"toplevel_name\": \"Favoritos Gerenciados da CMC\"
+    },"
+
+    for i in "${!BOOKMARKS[@]}"; do
+        echo -n "{\"url\": \"${BOOKMARKS[$i]}\",\"name\": \"$i\"},"
+    done
+
+    echo -n "{\"name\": \"SGP\",\"children\":["
+    last="${SGP[@]: -1}"
+    for i in "${!SGP[@]}"; do
+        echo -n "{\"url\": \"${SGP[$i]}\",\"name\": \"$i\"}"
+        if [ "${SGP[$i]}" != "$last" ]; then
+            echo -n ","
+        fi
+    done
+
+    # Fecha JSON
+    echo -n "]}]}"
+}
+
+########################################################################
+# FIREFOX
+########################################################################
+
+# Bloqueia edição de algumas configurações:
+echo '//
+pref("general.config.filename", "mozilla.cfg");
+pref("general.config.obscure_value", 0);' >/usr/lib/firefox/defaults/pref/local-settings.js
+
+# Cria e configura o arquivo mozilla.cfg na pasta /usr/lib/firefox:
+echo '//
+lockPref("browser.startup.homepage", "https://www.cmc.pr.gov.br/");
+lockPref("network.proxy.type", 0);
+lockPref("browser.startup.page", 1);
+lockPref("print.print_footerleft", "");
+lockPref("print.print_footerright", "");
+lockPref("print.print_headerleft", "");
+lockPref("print.print_headerright", "");
+lockPref("startup.homepage_welcome_url", "");
+lockPref("browser.rights.3.shown", true);' >/usr/lib/firefox/mozilla.cfg
+
+# Desabilita o Import Wizard
+echo "[XRE]
+EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
+
 # Cria e configura o arquivo policies.json na pasta /usr/lib/firefox/distribution/
 # Referencia para policies:
-# https://github.com/mozilla/policy-templates/blob/master/README.md#bookmarks
-# https://github.com/mozilla/policy-templates/blob/v2.11/README.md
+# https://mozilla.github.io/policy-templates/
 favsFirefox="/usr/lib/firefox/distribution/policies.json" # type: json file
-buildBookmarksFirefox "${!BOOKMARKS[@]}" | jq . >"$favsFirefox"
+buildBookmarksFirefox >"$favsFirefox"
 
+
+########################################################################
 # GOOGLE CHROME
+########################################################################
 
 # Cria e configura o arquivo cmc.json na pasta /etc/opt/chrome/policies/managed/ e recommended/
 # Referencia para policies:
