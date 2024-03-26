@@ -33,12 +33,12 @@ SGP["Portal Contratos"]="http://portalcontratos.curitiba.pr.gov.br:7070/PortalCo
 SGP["Solicitações Web"]="http://sgp-web.curitiba.pr.gov.br/sgp/seg/login.do"
 SGP["Consulta Licitações"]="http://consultalicitacao.curitiba.pr.gov.br:9090/ConsultaLicitacoes/"
 
-# Cria lista de extensões:
-declare -A ADDONS
-ADDONS["pt-BR@dictionaries.addons.mozilla.org"]="https://addons.mozilla.org/firefox/downloads/file/4223181/corretor-123.2024.16.151.xpi"
+# Cria lista de extensões para o Firefox:
+declare -A FF_ADDONS
+FF_ADDONS["pt-BR@dictionaries.addons.mozilla.org"]="https://addons.mozilla.org/firefox/downloads/file/4223181/corretor-123.2024.16.151.xpi"
 
 
-function buildBookmarksFirefox() {
+function buildPoliciesFirefox() {
     json='{"policies":{"DisplayBookmarksToolbar":true,"ManagedBookmarks":[{"toplevel_name":"Favoritos Gerenciados da CMC"}]}}'
 
     # https://mozilla.github.io/policy-templates/#managedbookmarks
@@ -55,17 +55,17 @@ function buildBookmarksFirefox() {
         json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
     fi
 
-    if [ ${#ADDONS[@]} -gt 0 ]; then
+    if [ ${#FF_ADDONS[@]} -gt 0 ]; then
         # https://mozilla.github.io/policy-templates/#extensionsettings
-        for a in "${!ADDONS[@]}"; do
-            json=$(jq ".policies.ExtensionSettings += {\"$a\":{\"installation_mode\":\"force_installed\",\"install_url\":\"${ADDONS[$a]}\", \"updates_disabled\":false}}" <<<"$json")
+        for a in "${!FF_ADDONS[@]}"; do
+            json=$(jq ".policies.ExtensionSettings += {\"$a\":{\"installation_mode\":\"force_installed\",\"install_url\":\"${FF_ADDONS[$a]}\", \"updates_disabled\":false}}" <<<"$json")
         done
     fi
 
-    jq <<<"$json"
+    jq . <<<"$json"
 }
 
-function buildBookmarksChrome() {
+function buildPoliciesChrome() {
     json='{"DownloadDirectory":"/home/${user_name}/Downloads","DefaultBrowserSettingEnabled":false,"DisablePrintPreview":true,"ManagedBookmarks":[{"toplevel_name":"Favoritos Gerenciados da CMC"}]}'
 
     # https://chromeenterprise.google/policies/#ManagedBookmarks
@@ -82,7 +82,7 @@ function buildBookmarksChrome() {
         json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
     fi
 
-    jq <<<"$json"
+    jq . <<<"$json"
 }
 
 ########################################################################
@@ -114,7 +114,7 @@ EnableProfileMigrator=false" >/usr/lib/firefox/browser/override.ini
 # Referencia para policies:
 # https://mozilla.github.io/policy-templates/
 favsFirefox="/usr/lib/firefox/distribution/policies.json" # type: json file
-buildBookmarksFirefox >"$favsFirefox"
+buildPoliciesFirefox >"$favsFirefox"
 
 
 ########################################################################
@@ -128,7 +128,7 @@ mkdir -p /etc/opt/chrome/policies/recommended
 mkdir -p /etc/opt/chrome/policies/managed
 
 favsChrome="/etc/opt/chrome/policies/managed/cmc.json" # type: json file
-buildBookmarksChrome >"$favsChrome"
+buildPoliciesChrome >"$favsChrome"
 
 echo '{
   "HomepageLocation": "https://www.cmc.pr.gov.br/",
