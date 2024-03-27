@@ -26,6 +26,7 @@ ln -sf /etc/opt/chrome/policies/recommended/cmc.json \
 
 # Coisas no autostart
 ln -sf /etc/xdg/autostart/forcelogout.desktop /usr/local/cmc/modificados/forcelogout.desktop
+ln -sf /etc/xdg/autostart/vino-server.desktop /usr/local/cmc/modificados/vino-server.desktop
 
 # Bloqueio de execução de alguns programas
 ln -sf /usr/bin/gnome-terminal /usr/local/cmc/modificados/gnome-terminal

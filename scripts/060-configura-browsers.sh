@@ -66,6 +66,7 @@ function buildPoliciesFirefox() {
 }
 
 function buildPoliciesChrome() {
+    # shellcheck disable=SC2016
     json='{"DownloadDirectory":"/home/${user_name}/Downloads","DefaultBrowserSettingEnabled":false,"DisablePrintPreview":true,"ManagedBookmarks":[{"toplevel_name":"Favoritos Gerenciados da CMC"}]}'
 
     # https://chromeenterprise.google/policies/#ManagedBookmarks
