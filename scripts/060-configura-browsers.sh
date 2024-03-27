@@ -70,7 +70,7 @@ function buildPoliciesChrome() {
 
     # https://chromeenterprise.google/policies/#ManagedBookmarks
     for b in "${!BOOKMARKS[@]}"; do
-        json=$(jq ".policies.ManagedBookmarks += [{\"url\":\"${BOOKMARKS[$b]}\", \"name\":\"$b\"}]" <<<"$json")
+        json=$(jq ".ManagedBookmarks += [{\"url\":\"${BOOKMARKS[$b]}\", \"name\":\"$b\"}]" <<<"$json")
     done
 
     if [ ${#SGP[@]} -gt 0 ]; then
@@ -79,7 +79,7 @@ function buildPoliciesChrome() {
             sgpjson=$(jq ".children += [{\"url\":\"${SGP[$s]}\",\"name\":\"$s\"}]" <<<"$sgpjson")
         done
 
-        json=$(jq --argjson s "${sgpjson}" '.policies.ManagedBookmarks += [$s]' <<<"$json")
+        json=$(jq --argjson s "${sgpjson}" '.ManagedBookmarks += [$s]' <<<"$json")
     fi
 
     jq . <<<"$json"
