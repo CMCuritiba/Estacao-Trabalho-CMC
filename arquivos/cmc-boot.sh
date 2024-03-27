@@ -18,3 +18,7 @@ if [ -n "$IPATUAL" ] && [ -n "$CMCDOMAIN" ]; then
         fi
     fi
 fi
+
+# Desabilita o IPv6, nao funciona via sysctl.conf, bug:
+# https://bugs.launchpad.net/ubuntu/+source/linux/+bug/997605
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
