@@ -33,3 +33,9 @@ if [[ "$ZOOM_VERSION_INSTALLED" != *"$ZOOM_VERSION_AVAILABLE"* ]]; then
     fi
     logger "[$0] zoom atualizado para versão $ZOOM_VERSION_AVAILABLE."
 fi
+
+# if [ ! -f "/etc/skel/Desktop/Zoom.desktop" ] &&
+#     [ -f "/usr/share/applications/Zoom.desktop" ]; then
+#     cp /usr/share/applications/Zoom.desktop \
+#         /etc/skel/Desktop/Zoom.desktop
+# fi
