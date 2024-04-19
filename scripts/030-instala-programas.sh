@@ -44,7 +44,7 @@ if ! dpkg-query -l google-chrome-stable &>/dev/null; then
 fi
 
 # Microsoft Edge
-if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_112.0.1722.39-1_amd64.deb; then
+if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_112.0.1722.54-1_amd64.deb; then
     # Instala dependência
     apt-get -qyf install libu2f-udev
     dpkg -i --force-depends microsoft-edge-stable_112.0.1722.39-1_amd64.deb
