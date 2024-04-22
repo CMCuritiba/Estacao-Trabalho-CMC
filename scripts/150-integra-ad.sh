@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Instala SSSD, REALM, KERBEROS e ADCLI
-DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd sssd-tools realmd krb5-user samba-common packagekit adcli
+DEBIAN_FRONTEND=noninteractive apt-get -qyf install sssd sssd-ad sssd-tools realmd krb5-user samba-common packagekit adcli
 
 if ! grep -iq "$AD_DOMAIN" <<<"$(hostname -f)"; then
     echo "Hostname não configurado, abortando."
@@ -45,11 +45,13 @@ cache_credentials = True
 id_provider = ad
 krb5_store_password_if_offline = True
 default_shell = /bin/bash
-ldap_id_mapping = False
 use_fully_qualified_names = False
 fallback_homedir = /home/%u
 access_provider = ad
 ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
+ad_gpo_access_control = disabled
+ldap_id_mapping = False
+ldap_user_name = uid
 " >/etc/sssd/conf.d/01-cmc.conf
 
 # Altera permissão do arquivo sssd.conf
