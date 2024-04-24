@@ -83,6 +83,10 @@ ln -sf /mnt/suporte/etv4/scripts/boot.sh /usr/local/cmc/modificados/boot.sh
 ln -sf /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy \
     /usr/local/cmc/modificados/org.freedesktop.UDisks2.policy
 
+# Assegura permissão de dispositivos bluetooth
+ln -sf /usr/share/polkit-1/actions/org.blueman.policy \
+    /usr/local/cmc/modificados/org.blueman.policy
+
 # Script de boot das estações de trabalho
 ln -sf /etc/systemd/system/cmc-boot.service \
     /usr/local/cmc/modificados/cmc-boot.service
