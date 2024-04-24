@@ -47,7 +47,7 @@ fi
 if wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb; then
     # Instala dependência
     apt-get -qyf install libu2f-udev
-    dpkg -i --force-depends microsoft-edge-stable_112.0.1722.51-1_amd64.deb
-    rm -f microsoft-edge-stable_112.0.1722.51-1_amd64.deb
+    dpkg -i --force-depends microsoft-edge-stable_124.0.2478.51-1_amd64.deb
+    rm -f microsoft-edge-stable_124.0.2478.51-1_amd64.deb
     apt-get -qyf install --only-upgrade microsoft-edge-stable
 fi
