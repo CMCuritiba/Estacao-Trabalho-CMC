@@ -1,0 +1,11 @@
+[Unit]
+Description=Zoom update service
+After=network.target
+After=network-online.target mnt-suporte.mount
+
+[Service]
+User=root
+ExecStart=/usr/local/cmc/scripts/zoom-update.sh
+
+[Install]
+WantedBy=multi-user.target
