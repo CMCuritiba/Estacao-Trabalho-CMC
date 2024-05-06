@@ -9,7 +9,7 @@
 
 ## Requisitos
 
-1. Os _scripts_ foram testados no **Mint 21.1 Cinnamon**.
+1. Os _scripts_ foram testados no **Mint 21.3 Cinnamon**.
 
 ## Instalação/configuração
 
