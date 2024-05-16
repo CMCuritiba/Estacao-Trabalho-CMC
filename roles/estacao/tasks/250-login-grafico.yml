@@ -1,5 +1,5 @@
 ---
-- name: Desabilita login como guest
+- name: "Desabilita login como guest : ({{ task_name }})"
   ansible.builtin.copy:
     content: |
       [Seat:*]
@@ -8,14 +8,14 @@
       allow-guest=false
     dest: /etc/lightdm/lightdm.conf
 
-- name: Habilita login manual e esconde usuarios
+- name: "Habilita login manual e esconde usuarios: ({{ task_name }})"
   ansible.builtin.copy:
     content: |
       [Seat:*]
       greeter-session=slick-greeter
     dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
 
-- name: Muda background do greeter
+- name: "Muda background do greeter: ({{ task_name }})"
   ansible.builtin.template:
     src: templates/greeter-background.j2
     dest: /etc/lightdm/slick-greeter.conf

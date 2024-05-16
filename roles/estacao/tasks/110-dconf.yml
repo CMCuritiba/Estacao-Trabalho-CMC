@@ -31,7 +31,7 @@
     dest: /etc/dconf/db/local.d/01-cmc
     mode: "0644"
 
-- name: "Configurar o applet de calendário: ({{ task }})"
+- name: "Configurar o applet de calendário: ({{ task_name }})"
   block:
     - name: "Read JSON file : ({{ task_name }})"
       set_fact:

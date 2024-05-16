@@ -1,5 +1,5 @@
 ---
-- name: Cria os diretorios padrao
+- name: "Cria os diretorios padrao : ({{ task_name }})"
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
