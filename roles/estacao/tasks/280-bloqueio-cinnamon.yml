@@ -28,6 +28,7 @@
 #     - {entity: "g:{{estacao_dtic_group}}:rx", file: /usr/bin/cinnamon-desktop-editor}
 #   ignore_errors: true
 
+- name: "Cria uma ACL para ajustar as permissões do usuário suporte: ({{ task_name }})"
   ansible.posix.acl:
     path: "{{ item.path }}"
     entity: suporte
