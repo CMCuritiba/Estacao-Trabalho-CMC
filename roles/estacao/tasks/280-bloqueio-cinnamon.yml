@@ -17,17 +17,6 @@
   tags:
     - molecule-notest
 
-
-# - name: "Cria uma ACL para ajustar as permissões de suporte e DTIC: ({{ task_name }})"
-#   ansible.builtin.shell:
-#     cmd: " setfacl -m {{ item.entity }} {{ item.file }}"
-#   loop:
-#     - {entity: u:suporte:rwx, file: /usr/bin/gnome-terminal}
-#     - {entity: u:suporte:rx, file: /usr/bin/cinnamon-desktop-editor}
-#     - {entity: "g:{{estacao_dtic_group}}:rx", file: /usr/bin/gnome-terminal}
-#     - {entity: "g:{{estacao_dtic_group}}:rx", file: /usr/bin/cinnamon-desktop-editor}
-#   ignore_errors: true
-
 - name: "Cria uma ACL para ajustar as permissões do usuário suporte: ({{ task_name }})"
   ansible.posix.acl:
     path: "{{ item.path }}"
