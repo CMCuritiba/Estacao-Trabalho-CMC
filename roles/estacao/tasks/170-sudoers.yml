@@ -1,5 +1,5 @@
 ---
   - name: "Adiciona grupo DTIC : ({{ task_name }})"
     ansible.builtin.copy:
-      content: "%{{estacao_dtic_group}} ALL=(ALL:ALL) ALL"
+      content: "%{{ estacao_dtic_group }} ALL=(ALL:ALL) ALL"
       dest: /etc/sudoers.d/cmc

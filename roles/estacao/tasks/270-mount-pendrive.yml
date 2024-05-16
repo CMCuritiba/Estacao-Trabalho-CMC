@@ -1,6 +1,6 @@
 ---
 - name: "Garante que xmlstarlet está instalado : ({{ task_name }})"
-  package:
+  ansible.builtin.package:
     name: xmlstarlet
     state: present
 

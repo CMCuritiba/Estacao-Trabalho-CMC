@@ -13,3 +13,4 @@
       # Tokyo Drift
       driftfile /var/lib/ntp/ntp.drift
     dest: /etc/ntp.conf
+    mode: "0644"

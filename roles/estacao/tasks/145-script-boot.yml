@@ -2,12 +2,12 @@
 - name: "Copia conteudo de cmt-boot : ({{ task_name }}) "
   ansible.builtin.template:
     src: cmc-boot.sh.j2
-    dest: "{{estacao_bootsh}}"
+    dest: "{{ estacao_bootsh }}"
     mode: "0755"
 
 - name: "Configura dominio cmc : ({{ task_name }})"
   ansible.builtin.lineinfile:
-    path: "{{estacao_bootsh}}"
+    path: "{{ estacao_bootsh }}"
     regexp: ^CMCDOMAIN=
     line: "CMCDOMAIN={{estacao_ad_domain | lower}}"
 
@@ -18,7 +18,7 @@
     mode: "0644"
 
 - name: "Habilita o serviço e roda o script imediatamente : ({{ task_name }})"
-  systemd:
+  ansible.builtin.systemd:
     name: cmc-boot.service
     enabled: true
     state: started

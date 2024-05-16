@@ -52,7 +52,7 @@
 
 - name: "Adiciona o computador ao domínio caso não esteja : ({{ task_name }})"
   ansible.builtin.shell:
-    cmd: echo "{{estacao_ad_join_pass}}" | realm join -U "{{estacao_ad_join_user}}" "{{estacao_ad_domain | lower}}"
+    cmd: echo "{{ estacao_ad_join_pass }}" | realm join -U "{{ estacao_ad_join_user }}" "{{ estacao_ad_domain | lower }}"
   when: ad_domain_list.rc != 0
 
 - name: "Configuração do sssd : ({{ task_name }})"
@@ -62,5 +62,5 @@
     mode: "0600"
   notify: Restarta o SSSD
 
-- name: flush handlers
-  meta: flush_handlers
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

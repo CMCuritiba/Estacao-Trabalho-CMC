@@ -2,7 +2,7 @@
 - name: "Copia arquivo zoom-updater para seu respectivo diretorio : ({{ task_name }})"
   block:
     - name: "Copy zoom-update.sh : ({{ task_name }})"
-      copy:
+      ansible.builtin.copy:
         src: "zoom-update.sh"
         dest: "/usr/local/cmc/scripts/zoom-update.sh"
         mode: "0755"
@@ -10,28 +10,28 @@
 - name: "Instala serviço no systemd : ({{ task_name }})"
   block:
     - name: "Copy zoom-update.service : ({{ task_name }})"
-      copy:
+      ansible.builtin.copy:
         src: "zoom-update.service"
         dest: "/etc/systemd/system/zoom-update.service"
 
 - name: "Cria timer de serviço no systemd : ({{ task_name }})"
   block:
     - name: "Copia zoom-update.timer : ({{ task_name }})"
-      copy:
+      ansible.builtin.copy:
         src: "zoom-update.timer"
         dest: "/etc/systemd/system/zoom-update.timer"
 
 - name: "Reload systemd daemon : ({{ task_name }})"
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
 
 - name: "Enable e start em zoom-update.service : ({{ task_name }})"
-  systemd:
+  ansible.builtin.systemd:
     name: "zoom-update.service"
     enabled: true
     state: started
 
 - name: "Enable em zoom-update.timer : ({{ task_name }})"
-  systemd:
+  ansible.builtin.systemd:
     name: "zoom-update.timer"
     enabled: true

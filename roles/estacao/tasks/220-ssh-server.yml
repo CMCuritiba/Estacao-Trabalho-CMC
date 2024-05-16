@@ -12,5 +12,5 @@
     line: "{{ item.name }} {{ item.value }}"
   notify: Restarta o SSHD
   loop:
-    - {name: "PermitRootLogin" , value: "no"}
-    - {name: "AllowGroups" , value: "{{ estacao_dtic_group }} suporte"}
+    - {name: "PermitRootLogin", value: "no"}
+    - {name: "AllowGroups", value: "{{ estacao_dtic_group }} suporte"}

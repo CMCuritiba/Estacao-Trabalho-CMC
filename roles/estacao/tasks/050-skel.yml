@@ -3,6 +3,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0755"
   loop:
     - /etc/skel/Desktop
     - /etc/skel/Downloads
@@ -27,11 +28,13 @@
       XDG_MUSIC_DIR=\"\$HOME/Música\"
       XDG_PICTURES_DIR=\"\$HOME/Imagens\"
       XDG_VIDEOS_DIR=\"\$HOME/Vídeos\
+    mode: "0644"
 
 - name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR' : ({{ task_name }})"
   ansible.builtin.copy:
     content: "pt_BR"
     dest: /etc/skel/.config/user-dirs.locale
+    mode: "0644"
 
 # Desabilita a atualização automatica dos user-dirs no XDG
 - name: "Modifica o arquivo user-dirs.conf : ({{ task_name }})"
@@ -49,7 +52,7 @@
     group: nogroup
 
 - name: "Garante que docs locais está sem arquivos : ({{ task_name }})"
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: rm -rf /home/Docs.Locais/*
 
 - name: "Cria icones de firefox e chrome : ({{ task_name }})"
@@ -58,14 +61,8 @@
     dest: "{{ item.dest }}"
     mode: "+x"
   loop:
-    - {
-        src: "/usr/share/applications/firefox.desktop",
-        dest: "/etc/skel/Desktop/firefox.desktop",
-      }
-    - {
-        src: "/usr/share/applications/google-chrome.desktop",
-        dest: "/etc/skel/Desktop/google-chrome.desktop",
-      }
+    - {src: "/usr/share/applications/firefox.desktop", dest: "/etc/skel/Desktop/firefox.desktop"}
+    - {src: "/usr/share/applications/google-chrome.desktop", dest: "/etc/skel/Desktop/google-chrome.desktop"}
 
 - name: "Cria icone de suporte: ({{ task_name }})"
   ansible.builtin.copy:
@@ -92,3 +89,4 @@
     state: present
     backrefs: true
     regexp: 'bash \$HOME\/\.politicainformatica\.sh;'
+    mode: "0644"

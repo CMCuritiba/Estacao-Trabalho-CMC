@@ -34,21 +34,22 @@
 - name: "Configurar o applet de calendário: ({{ task_name }})"
   block:
     - name: "Read JSON file : ({{ task_name }})"
-      set_fact:
+      ansible.builtin.set_fact:
         json_content: "{{ lookup('file', estacao_caljson) | from_json }}"
 
     - name: "Set 'use-custom-format' to true : ({{ task_name }})"
-      set_fact:
+      ansible.builtin.set_fact:
         json_content: "{{ json_content | combine({'use-custom-format': {'value': true}}) }}"
 
     - name: "Set custom format value : ({{ task_name }})"
-      set_fact:
+      ansible.builtin.set_fact:
         json_content: "{{ json_content | combine({'custom-format': {'value': '%A, %e %B %Y, %H:%M'}}) }}"
 
     - name: "Write updated JSON back to file : ({{ task_name }})"
-      copy:
+      ansible.builtin.copy:
         content: "{{ json_content | to_nice_json }}"
         dest: "{{ estacao_caljson }}"
+        mode: "0644"
 
 - name: "Trava as configs do Vino : ({{ task_name }})"
   ansible.builtin.copy:

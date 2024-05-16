@@ -3,7 +3,7 @@
   block:
     - name: "Altera tempo de rotacao: ({{ task_name }})"
       ansible.builtin.replace:
-        path: "{{item}}"
+        path: "{{ item }}"
         regexp: 'rotate(.+)'
         replace: 'rotate 27'
       loop:
@@ -12,7 +12,7 @@
 
     - name: "Altera tempo de frequencia: ({{ task_name }})"
       ansible.builtin.replace:
-        path: "{{item}}"
+        path: "{{ item }}"
         regexp: 'daily'
         replace: 'weekly'
       loop:
