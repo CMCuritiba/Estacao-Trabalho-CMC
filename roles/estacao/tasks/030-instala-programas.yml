@@ -1,0 +1,83 @@
+---
+# Script para instalar programas adicionais
+
+# Altera os repositórios para o c3sl
+- name: "Substituir URL do repositório do Ubuntu : ({{ task_name }})"
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: '//(packages.linuxmint.com|archive.ubuntu.com)'
+    replace: '//br.\1'
+
+- name: "Update e Upgrade inicial : ({{ task_name }})"
+  ansible.builtin.apt:
+    update_cache: true
+    state: latest
+    # cache_valid_time: 86400
+
+- name: "Tira input da instalação do ttf-mscorefonts-installer : {{ task_name }} "
+  ansible.builtin.blockinfile:
+    block: |
+      Name: msttcorefonts/accepted-mscorefonts-eula
+      Template: msttcorefonts/accepted-mscorefonts-eula
+      Value: true
+      Owners: ttf-mscorefonts-installer
+      Flags: seen
+    path: "/var/cache/debconf/config.dat"
+    insertafter: EOF
+
+- name: "Instala programas : ({{ task_name }})"
+  ansible.builtin.apt:
+    name:
+      - rdesktop
+      - vino
+      - openssh-server
+      - vlc
+      - audacity
+      - exfat-fuse
+      - shotwell
+      - gimp
+      - gimp-help-pt
+      - drawing
+      - inkscape
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-vaapi
+      - libavcodec-extra
+      - libdvdcss2
+      - libdvdnav4
+      - vim
+      - gedit
+      - pdfsam
+      - unrar
+      - ncdu
+      - numlockx
+      - acct
+      - xmlstarlet
+      - jq
+      - nfs-common
+      - libu2f-udev
+    state: present
+
+- name: "Instalar pacote ttf-mscorefonts-installer : ({{ task_name }})"
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  ansible.builtin.apt:
+    name: ttf-mscorefonts-installer
+    state: present
+
+- name: "Instala Google Chrome: ({{ task_name }})"
+  ansible.builtin.apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    state: present
+
+- name: "Download do arquivo .deb Microsoft Edge : ({{ task_name }})"
+  ansible.builtin.apt:
+    deb: "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb"
+    state: present
+  ignore_errors: true #Joga erro caso tenha uma versão já instalada
+
+- name: "Verifica se Microsoft Edge esta na versao mais recente : ({{ task_name }}) "
+  ansible.builtin.apt:
+    name: microsoft-edge-stable
+    state: latest

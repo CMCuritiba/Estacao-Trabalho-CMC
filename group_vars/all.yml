@@ -1,0 +1,12 @@
+estacao_suporte_pass: senha_usuario_suporte
+estacao_root_pass: senha_usuario_root
+estacao_vnc_pass: senha_login_remoto_vnc
+estacao_dtic_group: grupo
+estacao_dtic_network: "0.0.0.0/24"
+estacao_ad_ip_address:
+  - 0.0.0.0
+  - 1.1.1.1
+estacao_ad_domain: example.com
+estacao_ad_join_user: administrator
+estacao_ad_join_pass: password
+estacao_nfs_serv: 0.0.0.0:/remote/dir /local/dir nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail 0 0

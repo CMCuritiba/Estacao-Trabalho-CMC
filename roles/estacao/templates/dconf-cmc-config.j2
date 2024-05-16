@@ -1,0 +1,122 @@
+# DCONF CMC
+
+[org/nemo/window-state]
+start-with-sidebar=true
+start-with-toolbar=true
+start-with-status-bar=true
+
+# Configurações de acesso remoto
+[org/gnome/desktop/remote-access]
+icon-visibility='client'
+authentication-methods=['vnc']
+enabled=true
+vnc-password='{{estacao_vnc_pass | b64encode}}'
+
+# Habilita o screensaver para exibir data e hora
+[org/cinnamon/desktop/screensaver]
+use-custom-format=true
+date-format='%a %e %b, %H:%M'
+
+[org/cinnamon/desktop/interface]
+clock-show-date=true
+
+# Updates não devem ser visíveis
+[com/linuxmint/updates]
+hide-kernel-update-warning=true
+hide-systray=true
+hide-window-after-update=true
+show-cinnamon-updates=false
+show-flatpak-updates=false
+#level1-is-visible=false
+#level1-is-safe=true
+#level2-is-visible=false
+#level2-is-safe=true
+#level3-is-visible=false
+#level3-is-safe=false
+#level4-is-visible=false
+#level4-is-safe=false
+#level5-is-safe=false
+#level5-is-visible=false
+#kernel-updates-are-visible=false
+#kernel-updates-are-safe=false
+#security-updates-are-safe=false
+#security-updates-are-visible=true
+#show-policy-configuration=false
+
+[com/linuxmint/mintmenu/plugins/applications]
+last-active-tab=1
+
+# Desabilita linha de comando
+[org/cinnamon/desktop/lockdown]
+disable-command-line=true
+
+# Numlock ativado
+[org/cinnamon/settings-daemon/peripherals/keyboard]
+numlock-state='on'
+
+# Terminal de root
+[org/cinnamon/desktop/keybindings/custom-keybindings/custom0]
+binding=['<Primary><Shift><Alt>t']
+command='/usr/local/cmc/scripts/root-terminal.sh'
+name='Terminal de root'
+
+[org/nemo/preferences]
+show-open-in-terminal-toolbar=false
+
+[org/cinnamon/desktop/keybindings]
+custom-list=['custom0']
+
+# Sons do Sistema
+[org/cinnamon/desktop/sound]
+volume-sound-enabled=false
+event-sounds=false
+
+[org/cinnamon/sounds]
+login-enabled=false
+logout-enabled=false
+switch-enabled=false
+plug-enabled=false
+unplug-enabled=false
+tile-enabled=false
+
+[com/linuxmint/mintmenu]
+plugins-list=['places', 'system_management', 'newpane', 'applications', 'newpane', 'recent']
+applet-text='Menu'
+
+# Lixeira no desktop
+[org/nemo/desktop]
+trash-icon-visible=true
+
+# Atalhos do menu
+[com/linuxmint/mintmenu/plugins/places]
+show-gtk-bookmarks=false
+show-network=false
+
+# Atalho para usuário (Encerrar sessão, bloquear tela, trocar usuário)
+[org/cinnamon]
+enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:1:show-desktop@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:2', 'panel1:right:1:systray@cinnamon.org:3', 'panel1:right:2:xapp-status@cinnamon.org:4', 'panel1:right:3:notifications@cinnamon.org:5', 'panel1:right:4:printers@cinnamon.org:6', 'panel1:right:5:removable-drives@cinnamon.org:7', 'panel1:right:6:keyboard@cinnamon.org:8', 'panel1:right:7:network@cinnamon.org:9', 'panel1:right:8:sound@cinnamon.org:10', 'panel1:right:9:power@cinnamon.org:11', 'panel1:right:10:calendar@cinnamon.org:12', 'panel1:right:1:user@cinnamon.org:13', 'panel1:right:0:weather@mockturtl:14']
+next-applet-id='15'
+
+[com/linuxmint/mintmenu/plugins/system_management]
+show-lock-screen=true
+show-control-center=false
+show-terminal=false
+show-software-manager=false
+show-package-manager=false
+
+# Background padrão
+[org/cinnamon/desktop/background]
+picture-uri='file://{{estacao_wallpaper_filename}}'
+
+# Desabilita notificação de rede On/Off
+[org/gnome/nm-applet]
+disable-disconnected-notifications=false
+disable-connected-notifications=false
+
+# Num de desktops em 1 por padrão no Gnome
+[org/cinnamon/desktop/wm/preferences]
+num-workspaces=1
+
+[org/cinnamon/desktop/notifications]
+notification-duration=15
+remove-old=true

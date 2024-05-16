@@ -1,0 +1,16 @@
+---
+# Remove alguns programas padrão desnecessários
+- name: "Remover Programas : ({{ task_name }})"
+  ansible.builtin.apt:
+    name:
+      - thunderbird*
+      - transmission*
+      - avahi-daemon
+      - xed
+      - hexchat*
+      - celluloid*
+      - hypnotix*
+      - redshift*
+      - warpinator" # Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
+    state: absent
+    update_cache: true

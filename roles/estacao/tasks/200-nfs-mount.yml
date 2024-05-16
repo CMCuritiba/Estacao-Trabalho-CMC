@@ -1,0 +1,31 @@
+---
+- name: "Verifica se /etc/fstab existe : ({{ task_name }})"
+  ansible.builtin.stat:
+    path: /etc/fstab
+  register: fstab_file
+
+- name: "Montando NSF : ({{ task_name }})"
+  when: fstab_file.stat.exists
+  block:
+    - name: "Cria diretório de montagem : ({{ task_name }})"
+      ansible.builtin.file:
+        path: /mnt/suporte
+        state: directory
+        mode: "0755"
+
+    - name: "Configura /etc/fstab : ({{ task_name }})"
+      ansible.posix.mount:
+        path: "{{ path }}"
+        src: "{{ src }}"
+        fstype: "{{ fstype }}"
+        opts: "{{ opts }}"
+        dump: "{{ dump }}"
+        backup: true
+        state: present
+      vars:
+        src: "{{ estacao_nfs_serv.split()[0] | trim }}"
+        path: "{{ estacao_nfs_serv.split()[1] | trim }}"
+        fstype: "{{ estacao_nfs_serv.split()[2] | trim }}"
+        opts: "{{ estacao_nfs_serv.split()[3] | trim }}"
+        dump: "{{ estacao_nfs_serv.split()[4] | trim }}"
+        passno: "{{ estacao_nfs_serv.split()[5] | trim }}"

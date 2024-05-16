@@ -1,8 +1,24 @@
-# para nao comitar o .env
-.env
-
+# VS Code
 .vscode/
 
-node_modules
+# Logs
+logs/
+log/
+*.log.*
+*.log
 
+# dotenv environment variables file
+.env
+
+# Vagrant
 .vagrant
+vagrant/testes
+
+# Python venv molecule
+molecule-venv/
+
+# Node modules
+node_modules/
+
+# Yarn
+yarn.lock

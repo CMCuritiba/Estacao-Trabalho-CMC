@@ -1,0 +1,67 @@
+---
+# Esse script roda por último, criar aqui links em /usr/local/cmc/modificados para qualquer arquivo (ou pasta, se forem muitos) que foram modificados
+- name: "Cria pasta de modificados : ({{ task_name }})"
+  ansible.builtin.file:
+    path: /usr/local/cmc/modificados
+    state: directory
+    mode: "0755"
+
+- name: "Cria links : ({{ task_name }})"
+  ansible.builtin.file:
+    dest: "/usr/local/cmc/modificados/{{ item.dest | default(item.src.split('/')[-1]) }}"
+    src: "{{ item.src }}"
+    force: true
+    state: link
+  with_items:
+    - src: /etc/skel
+    - src: /root/.bashrc
+      dest: bashrc
+    - src: /root/.bash_aliases
+      dest: bash_aliases
+    - src: /usr/lib/firefox/defaults/pref/local-settings.js
+      dest: firefox-local-settings.js
+    - src: /usr/lib/firefox/mozilla.cfg
+    - src: /usr/lib/firefox/browser/override.ini
+      dest: firefox-override.ini
+    - src: /usr/lib/firefox/distribution/policies.json
+      dest: firefox-policies.json
+    - src: /etc/opt/chrome/policies/managed/cmc.json
+      dest: chrome-policies-managed-cmc.json
+    - src: /etc/opt/chrome/policies/recommended/cmc.json
+      dest: chrome-policies-recommended-cmc.json
+    - src: /etc/xdg/autostart/forcelogout.desktop
+    - src: /etc/xdg/autostart/vino-server.desktop
+    - src: /usr/bin/gnome-terminal
+    - src: /usr/bin/mintupdate
+    - src: /usr/bin/mintreport
+    - src: /usr/bin/cinnamon-desktop-editor
+    # - src: /usr/bin/nm-connection-editor
+    # - src: /usr/bin/nm-applet
+    - src: /etc/dconf/profile/user
+      dest: dconf-user
+    - src: /etc/dconf/db/local.d/01-cmc
+      dest: dconf-01-cmc
+    - src: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
+    - src: /etc/pam.d/common-session
+    - src: /etc/pam.d/common-auth
+    - src: /etc/pam.d/common-account
+    - src: /etc/sssd/conf.d/01-cmc.conf
+      dest: sssd-01-cmc.conf
+    - src: /etc/systemd/system/cmc-network-script.service
+    - src: /usr/share/pixmaps/suporte_tux.png
+    - src: /usr/share/backgrounds/cmc/desktop-bg.png
+    - src: /etc/ntp.conf
+    - src: /etc/cups/cupsd.conf
+    - src: /etc/cups/cups-browsed.conf
+    - src: /etc/nsswitch.conf
+    - src: /etc/sudoers.d/cmc
+      dest: sudoers.d-cmc
+    - src: /etc/X11/xorg.conf
+    - src: /etc/logrotate.d/rsyslog
+    - src: /etc/logrotate.d/sssd-common
+    - src: /mnt/suporte/etv4/scripts/boot.sh
+    - src: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
+    - src: /usr/share/polkit-1/actions/org.blueman.policy
+    - src: /etc/systemd/system/cmc-boot.service
+    - src: /etc/systemd/system/zoom-update.service
+    - src: /etc/systemd/system/zoom-update.timer

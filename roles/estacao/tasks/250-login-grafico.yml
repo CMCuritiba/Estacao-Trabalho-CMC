@@ -1,0 +1,22 @@
+---
+- name: Desabilita login como guest
+  ansible.builtin.copy:
+    content: |
+      [Seat:*]
+      greeter-show-manual-login=true
+      greeter-hide-users=true
+      allow-guest=false
+    dest: /etc/lightdm/lightdm.conf
+
+- name: Habilita login manual e esconde usuarios
+  ansible.builtin.copy:
+    content: |
+      [Seat:*]
+      greeter-session=slick-greeter
+    dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
+
+- name: Muda background do greeter
+  ansible.builtin.template:
+    src: templates/greeter-background.j2
+    dest: /etc/lightdm/slick-greeter.conf
+    mode: "0644"

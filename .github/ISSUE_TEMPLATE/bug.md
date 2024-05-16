@@ -17,7 +17,7 @@ assignees: ""
 
 Uma descrição clara e concisa do bug
 
-### Comportamento esperado
+### Comportamento Esperado
 
 Uma descrição clara e concisa do comportamento que você esperava acontecer.
 
@@ -27,7 +27,7 @@ Não obrigatório, mas sugira uma correção/explicação para o bug.
 
 Se existem multiplas soluções, por favor enumere-as e as descreva separadamente. Deixe comparações para depois da enumeração.
 
-### Para reproduzir
+### Para Reproduzir
 
 Passos para reproduzir o comportamento:
 
@@ -42,9 +42,16 @@ Se possível, adicione screenshots mostrando o problema.
 
 ### Desktop (por favor preencha os campos abaixo)
 
-- SO: [e.g. Mint]
-- Versão [e.g. 21.3]
-- Aplicativo [e.g. chrome, firefox, gimp]
+- OS: [e.g. Debian]
+- Browser [e.g. chrome, safari]
+- Version [e.g. 22]
+
+### Smartphone (por favor preencha os campos abaixo)
+
+- Device: [e.g. iPhone6]
+- OS: [e.g. iOS8.1]
+- Browser [e.g. stock browser, safari]
+- Version [e.g. 22]
 
 ### Contexto Adicional
 

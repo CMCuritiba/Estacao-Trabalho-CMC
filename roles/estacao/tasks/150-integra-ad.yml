@@ -1,0 +1,66 @@
+---
+- name: "Seta hostname: ({{ task_name }})"
+  ansible.builtin.command:
+    cmd: "{{ estacao_bootsh }}"
+
+- name: Verifica hostname
+  ansible.builtin.command:
+    cmd: hostname -f
+  register: hostname
+  changed_when: false
+
+- name: "Garante que hostname esteja configurado"
+  ansible.builtin.assert:
+    that: (estacao_ad_domain | lower) in hostname.stdout
+    fail_msg: "Hostname não configurado, abortando"
+
+- name: "Instala SSSD, REALM, KERBEROS e ADCLI : ({{ task_name }})"
+  ansible.builtin.apt:
+    name:
+      - sssd
+      - sssd-tools
+      - realmd
+      - krb5-user
+      - samba-common
+      - packagekit
+      - adcli
+    state: present
+    force_apt_get: true
+    force: true
+
+- name: "Configura arquivo do Kerberos com o domínio e evita problema de DNS reverso : ({{ task_name }})"
+  block:
+    - name: "Configura default_realm para estacao_ad_domain : ({{ task_name }})"
+      ansible.builtin.lineinfile:
+        path: /etc/krb5.conf
+        regexp: default_realm.*
+        line: "default_realm = {{estacao_ad_domain | upper}}"
+
+    - name: "Garante rdns = false: ({{ task_name }}) "
+      ansible.builtin.lineinfile:
+        path: /etc/krb5.conf
+        regexp: \s*rdns.+false$
+        line: "\trdns = false"
+        insertafter: "^default_realm"
+
+- name: "Verifica se estacao_ad_domain está na lista realm : ({{ task_name }})"
+  ansible.builtin.shell:
+    cmd: realm list | grep -iq "{{estacao_ad_domain}}"
+  register: ad_domain_list
+  ignore_errors: true
+  changed_when: false
+
+- name: "Adiciona o computador ao domínio caso não esteja : ({{ task_name }})"
+  ansible.builtin.shell:
+    cmd: echo "{{estacao_ad_join_pass}}" | realm join -U "{{estacao_ad_join_user}}" "{{estacao_ad_domain | lower}}"
+  when: ad_domain_list.rc != 0
+
+- name: "Configuração do sssd : ({{ task_name }})"
+  ansible.builtin.template:
+    src: templates/sssd-conf.j2
+    dest: /etc/sssd/conf.d/01-cmc.conf
+    mode: "0600"
+  notify: Restarta o SSSD
+
+- name: flush handlers
+  meta: flush_handlers

@@ -1,0 +1,6 @@
+---
+- name: Executar role estacao
+  hosts: et1
+  become: true
+  roles:
+    - role: estacao

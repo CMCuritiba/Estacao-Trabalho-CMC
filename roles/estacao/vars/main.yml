@@ -1,0 +1,9 @@
+---
+
+estacao_bootsh: /usr/local/cmc/scripts/cmc-boot.sh
+estacao_wallpaper_filename: /usr/share/backgrounds/cmc/desktop-bg.png
+estacao_login_bg_filename: /usr/share/backgrounds/cmc/login-bg.jpg
+estacao_sshd: /etc/ssh/sshd_config
+estacao_unattended_conf: /etc/apt/apt.conf.d/50unattended-upgrades
+estacao_vino: /etc/xdg/autostart/vino-server.desktop
+estacao_caljson: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json

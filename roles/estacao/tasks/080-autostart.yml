@@ -1,0 +1,20 @@
+---
+# Desabilita o autostart da mensagem de bem vinda, do update manager e mintreport
+- name: "Desabilitar autostart's : ({{ task_name }})"
+  ansible.builtin.command:
+    cmd: "mv {{ item }} {{ item }}.disable"
+    creates: "{{ item }}.disable"
+    removes: "{{ item }}"
+  with_items:
+    - /etc/xdg/autostart/mintupdate.desktop
+    - /etc/xdg/autostart/mintwelcome.desktop
+    - /etc/xdg/autostart/mintreport.desktop
+    - /etc/xdg/autostart/gnome-keyring-pkcs11.desktop
+    - /etc/xdg/autostart/gnome-keyring-secrets.desktop
+    - /etc/xdg/autostart/gnome-keyring-ssh.desktop
+
+- name: "Criar arquivo de autostart forcelogout.desktop : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: /etc/xdg/autostart/forcelogout.desktop
+    mode: "0644"
+    src: "forcelogout.desktop"

@@ -1,0 +1,288 @@
+---
+- name: Incluir váriaveis
+  ansible.builtin.include_vars:
+    file: ../../../group_vars/all.yml
+  when: molecule_yml is defined
+  tags:
+    - always
+
+- name: Cria diretório /usr/local/cmc
+  ansible.builtin.file:
+    path: "/usr/local/cmc"
+    state: directory
+    mode: "0755"
+  tags:
+    - always
+    - done
+
+- name: Task-010
+  ansible.builtin.import_tasks: 010-user-group-suporte.yml
+  vars:
+    task_name: Task-010
+  tags:
+    - t-010
+    - done
+
+- name: Task-020
+  ansible.builtin.import_tasks: 020-remover-programas.yml
+  vars:
+    task_name: Task-020
+  tags:
+    - t-020
+    - done
+
+- name: Task-030
+  ansible.builtin.import_tasks: 030-instala-programas.yml
+  vars:
+    task_name: Task-030
+  tags:
+    - t-030
+    - done
+
+- name: Task-040
+  ansible.builtin.import_tasks: 040-imagens-cmc.yml
+  vars:
+    task_name: Task-040
+  tags:
+    - t-040
+    - done
+
+- name: Task-050
+  ansible.builtin.import_tasks: 050-skel.yml
+  vars:
+    task_name: Task-050
+  tags:
+    - t-050
+    - done
+
+- name: Task-060
+  ansible.builtin.import_tasks: 060-configura-browsers.yml
+  vars:
+    task_name: Task-060
+  tags:
+    - t-060
+    - done
+
+- name: Task-070
+  ansible.builtin.import_tasks: 070-programas-default.yml
+  vars:
+    task_name: Task-070
+  tags:
+    - t-070
+    - done
+
+- name: Task-080
+  ansible.builtin.import_tasks: 080-autostart.yml
+  vars:
+    task_name: Task-080
+  tags:
+    - t-080
+    - done
+
+- name: Task-090
+  ansible.builtin.import_tasks: 090-politica-informatica.yml
+  vars:
+    task_name: Task-090
+  tags:
+    - t-090
+    - done
+
+- name: Task-100
+  ansible.builtin.import_tasks: 100-desabilita-tty.yml
+  vars:
+    task_name: Task-100
+  tags:
+    - t-100
+    - done
+
+- name: Task-110
+  ansible.builtin.import_tasks: 110-dconf.yml
+  vars:
+    task_name: Task-110
+  tags:
+    - t-110
+    - done
+
+- name: Task-120
+  ansible.builtin.import_tasks: 120-terminal-policy.yml
+  vars:
+    task_name: Task-120
+  tags:
+    - t-120
+    - done
+
+- name: Task-130
+  ansible.builtin.import_tasks: 130-ntp-server.yml
+  vars:
+    task_name: Task-130
+  tags:
+    - t-130
+    - done
+
+- name: Task-140
+  ansible.builtin.import_tasks: 140-configura-dns.yml
+  vars:
+    task_name: Task-140
+  tags:
+    - t-140
+    - done
+
+- name: Task-145
+  ansible.builtin.import_tasks: 145-script-boot.yml
+  vars:
+    task_name: Task-145
+  tags:
+    - t-145
+    - done
+
+- name: Task-150
+  ansible.builtin.import_tasks: 150-integra-ad.yml
+  vars:
+    task_name: Task-150
+  tags:
+    - t-150
+    - done
+
+- name: Task-160
+  ansible.builtin.import_tasks: 160-configura-pam.yml
+  vars:
+    task_name: Task-160
+  tags:
+    - t-160
+    - done
+
+- name: Task-170
+  ansible.builtin.import_tasks: 170-sudoers.yml
+  vars:
+    task_name: Task-170
+  tags:
+    - t-170
+    - done
+
+- name: Task-180
+  ansible.builtin.import_tasks: 180-unattended-upgrades.yml
+  vars:
+    task_name: Task-180
+  tags:
+    - t-180
+    - done
+
+- name: Task-190
+  ansible.builtin.import_tasks: 190-bashrc.yml
+  vars:
+    task_name: Task-190
+  tags:
+    - t-190
+    - done
+
+- name: Task-200
+  ansible.builtin.import_tasks: 200-nfs-mount.yml
+  vars:
+    task_name: Task-200
+  tags:
+    - t-200
+    - done
+
+- name: Task-210
+  ansible.builtin.import_tasks: 210-script-rede.yml
+  vars:
+    task_name: Task-210
+  tags:
+    - t-210
+    - done
+
+- name: Task-220
+  ansible.builtin.import_tasks: 220-ssh-server.yml
+  vars:
+    task_name: Task-220
+  tags:
+    - t-220
+    - done
+
+- name: Task-230
+  ansible.builtin.import_tasks: 230-vnc.yml
+  vars:
+    task_name: Task-230
+  tags:
+    - t-230
+    - done
+
+- name: Task-240
+  ansible.builtin.import_tasks: 240-menu-items.yml
+  vars:
+    task_name: Task-240
+  tags:
+    - t-240
+    - done
+
+- name: Task-250
+  ansible.builtin.import_tasks: 250-login-grafico.yml
+  vars:
+    task_name: Task-250
+  tags:
+    - t-250
+    - done
+
+- name: Task-260
+  ansible.builtin.import_tasks: 260-configura-cups.yml
+  vars:
+    task_name: Task-260
+  tags:
+    - t-260
+    - done
+
+- name: Task-270
+  ansible.builtin.import_tasks: 270-mount-pendrive.yml
+  vars:
+    task_name: Task-270
+  tags:
+    - t-270
+    - done
+
+- name: Task-280
+  ansible.builtin.import_tasks: 280-bloqueio-cinnamon.yml
+  vars:
+    task_name: Task-280
+  tags:
+    - t-280
+    - done
+
+- name: Task-290
+  ansible.builtin.import_tasks: 290-on-login.yml
+  vars:
+    task_name: Task-290
+  tags:
+    - t-290
+    - done
+
+- name: Task-300
+  ansible.builtin.import_tasks: 300-configura-logs.yml
+  vars:
+    task_name: Task-300
+  tags:
+    - t-300
+    - done
+
+- name: Task-310
+  ansible.builtin.import_tasks: 310-zoom-autoupdate.yml
+  vars:
+    task_name: Task-310
+  tags:
+    - t-310
+    - done
+
+- name: Task-990
+  ansible.builtin.import_tasks: 990-versionamento.yml
+  vars:
+    task_name: Task-990
+  tags:
+    - t-990
+    - done
+
+- name: Task-999
+  ansible.builtin.import_tasks: 999-arquivos-modificados.yml
+  vars:
+    task_name: Task-999
+  tags:
+    - t-999
+    - done

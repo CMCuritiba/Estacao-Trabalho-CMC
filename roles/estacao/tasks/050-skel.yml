@@ -1,0 +1,94 @@
+---
+- name: Cria os diretorios padrao
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/skel/Desktop
+    - /etc/skel/Downloads
+    - /etc/skel/Música
+    - /etc/skel/Imagens
+    - /etc/skel/Vídeos
+    - /home/Docs.Locais
+
+- name: "Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais : ({{ task_name }})"
+  ansible.builtin.file:
+    path: /etc/skel/Docs.Locais
+    src: /home/Docs.Locais
+    state: link
+
+- name: "Cria arquivo padrão user-dirs.dirs : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: /etc/skel/.config/user-dirs.dirs
+    content: |
+      XDG_DESKTOP_DIR=\"\$HOME/Desktop\"
+      XDG_DOWNLOAD_DIR=\"\$HOME/Downloads\"
+      XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
+      XDG_MUSIC_DIR=\"\$HOME/Música\"
+      XDG_PICTURES_DIR=\"\$HOME/Imagens\"
+      XDG_VIDEOS_DIR=\"\$HOME/Vídeos\
+
+- name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR' : ({{ task_name }})"
+  ansible.builtin.copy:
+    content: "pt_BR"
+    dest: /etc/skel/.config/user-dirs.locale
+
+# Desabilita a atualização automatica dos user-dirs no XDG
+- name: "Modifica o arquivo user-dirs.conf : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: /etc/xdg/user-dirs.conf
+    regexp: "^enabled=True"
+    line: "enabled=False"
+
+- name: "Atualiza permissoes dos DOCS locais : ({{ task_name }})"
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
+    mode: "1777"
+    owner: nobody
+    group: nogroup
+
+- name: "Garante que docs locais está sem arquivos : ({{ task_name }})"
+  ansible.builtin.shell:
+    cmd: rm -rf /home/Docs.Locais/*
+
+- name: "Cria icones de firefox e chrome : ({{ task_name }})"
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "+x"
+  loop:
+    - {
+        src: "/usr/share/applications/firefox.desktop",
+        dest: "/etc/skel/Desktop/firefox.desktop",
+      }
+    - {
+        src: "/usr/share/applications/google-chrome.desktop",
+        dest: "/etc/skel/Desktop/google-chrome.desktop",
+      }
+
+- name: "Cria icone de suporte: ({{ task_name }})"
+  ansible.builtin.copy:
+    src: atalhos/Suporte.desktop
+    dest: /etc/skel/Desktop/Suporte.desktop
+    mode: "+x"
+
+- name: "Cria política de privacidade : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: "/etc/skel/.politicainformatica.sh"
+    remote_src: false
+    src: ".politicainformatica.sh"
+    mode: "0644"
+
+- name: "Força logout se nao aceitar a politica de privacidade : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: /etc/skel/.profile
+    insertafter: EOF
+    line: |
+      if [ -f "$HOME/.politicainformatica.sh" ]; then
+        bash $HOME/.politicainformatica.sh;
+      fi
+    create: true
+    state: present
+    backrefs: true
+    regexp: 'bash \$HOME\/\.politicainformatica\.sh;'

@@ -1,8 +1,9 @@
 {
-  "name": "estacao-trabalho-cmc",
+  "name": "infrastructure-automation",
   "version": "1.0.0",
-  "description": "Configuração do Linux Mint para uso nas estações de trabalho da CMC",
-  "repository": "https://github.com/CMCuritiba/Estacao-Trabalho-CMC/",
+  "description": "Gerenciamento de infraestrutura e automação",
+  "repository": "git@github.com:CMCuritiba/infrastructure-automation.git",
+  "author": "Bruno Oliveira <bruno.oliveira@cmc.pr.gov.br>",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
@@ -13,7 +14,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "scripts": {

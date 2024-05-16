@@ -1,0 +1,22 @@
+---
+- name: "Garante que xmlstarlet está instalado : ({{ task_name }})"
+  package:
+    name: xmlstarlet
+    state: present
+
+- name: "Define permissões para dispositivos externos : ({{ task_name }})"
+  community.general.xml:
+    path: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
+    xpath: "//policyconfig/action[@id='org.freedesktop.udisks2.{{ item[0] }}']/defaults/{{ item[1] }}"
+    value: 'yes'
+  loop: "{{ file_system_actions | product(default_acls) | list }}"
+  register: xml_edit
+  vars:
+    file_system_actions:
+      - filesystem-mount
+      - filesystem-unmount-others
+      - filesystem-mount-system
+    default_acls:
+      - allow_any
+      - allow_inactive
+      - allow_active

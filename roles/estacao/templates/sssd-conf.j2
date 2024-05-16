@@ -1,0 +1,23 @@
+# SSSD CMC
+
+[sssd]
+domains = {{estacao_ad_domain | lower}}
+config_file_version = 2
+services = nss, pam
+
+[domain/{{estacao_ad_domain | lower}}]
+ad_domain = {{estacao_ad_domain | lower}}
+krb5_realm = {{estacao_ad_domain | upper}}
+realmd_tags = manages-system joined-with-samba
+dyndns_update = False
+cache_credentials = True
+id_provider = ad
+krb5_store_password_if_offline = True
+default_shell = /bin/bash
+use_fully_qualified_names = False
+fallback_homedir = /home/%u
+access_provider = ad
+ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
+ad_gpo_access_control = disabled
+ldap_id_mapping = False
+ldap_user_name = uid

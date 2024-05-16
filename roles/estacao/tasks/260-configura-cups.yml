@@ -1,0 +1,22 @@
+---
+- name: "Altera cupsd.conf para permitir acesso remoto : ({{ task_name }})"
+  ansible.builtin.shell: cupsctl && cupsctl --remote-admin
+  register: old_cupsconfig
+  changed_when: old_cupsconfig.stdout is regex("_remote_admin=0")
+  notify: Restart cups service
+
+- name: "Garante acesso vindo da TI : ({{ task_name }})"
+  ansible.builtin.replace:
+    backup: true
+    path: /etc/cups/cupsd.conf
+    regexp: 'Allow @LOCAL(?!\n  Allow {{ estacao_dtic_network }})'
+    replace: 'Allow @LOCAL\n  Allow {{ estacao_dtic_network }}'
+  notify: Restart cups service
+
+- name: "Desativa o discovery do cups : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: /etc/cups/cups-browsed.conf
+    regexp: '^BrowseRemoteProtocols'
+    line: "BrowseRemoteProtocols none"
+    backup: true
+  notify: Restart cups-browsed service

@@ -1,0 +1,82 @@
+estacao_suporte_pass: senha_usuario_suporte
+estacao_root_pass: senha_usuario_root
+estacao_vnc_pass: senha_login_remoto_vnc
+estacao_dtic_group: grupo
+estacao_dtic_network: "0.0.0.0/24"
+estacao_ad_ip_address:
+  - 0.0.0.0
+  - 1.1.1.1
+estacao_ad_domain: example.com
+estacao_ad_join_user: administrator
+estacao_ad_join_pass: password
+estacao_nfs_serv: 0.0.0.0:/remote/dir /local/dir nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail 0 0
+
+# Variáveis da estação de trabalho
+estacao_google_chrome_recommended:
+  HomepageLocation: "http://intranet.cmc.pr.gov.br/"
+  RestoreOnStartup: 4
+  RestoreOnStartupURLs:
+    - "http://intranet.cmc.pr.gov.br/"
+  HomepageIsNewTabPage: false
+
+# Bookmarks dos navegadores
+estacao_bookmarks:
+  - name: "Câmara Municipal de Curitiba"
+    url: "https://www.cmc.pr.gov.br/"
+  - name: "Intranet"
+    url: "https://intranet.cmc.pr.gov.br/"
+  - name: "Correio"
+    url: "https://correio.cmc.pr.gov.br/"
+  - name: "SPL II"
+    url: "https://www.cmc.pr.gov.br/spl/"
+  - name: "SPAe"
+    url: "https://spae.cmc.pr.gov.br/"
+  - name: "Nuvem"
+    url: "https://nuvem.cmc.pr.gov.br/"
+  - name: "RH-Online"
+    url: "https://www.cmc.pr.gov.br/portalrh/"
+  - name: "Eloweb Gestão Pública"
+    url: "https://acesso.cmcuritiba.eloweb.net/"
+  - name: "Chamados"
+    url: "https://chamados.cmc.pr.gov.br/"
+  - name: "Suporte"
+    url: "https://chamados.cmc.pr.gov.br/#knowledge_base"
+  - name: "Senha"
+    url: "https://senha.cmc.pr.gov.br/"
+  - name: "APL"
+    url: "https://apl.cmc.pr.gov.br/"
+  - name: "BIB"
+    url: "https://www.cmc.pr.gov.br/bib/"
+  - name: "SPA - Legado"
+    url: "https://spa.cmc.pr.gov.br/"
+  - name: "Cerimonial"
+    url: "https://cerimonial.cmc.pr.gov.br/"
+  - name: "Minha Biblioteca"
+    url: "https://minha-biblioteca.cmc.pr.gov.br/"
+  - name: "Registro de frequência"
+    url: "https://www.cmc.pr.gov.br/registro-frequencia/"
+  - name: "Votação"
+    url: "https://votacao.cmc.pr.gov.br/"
+  - name: "Zoom"
+    url: "https://cmc-pr-gov-br.zoom.us/"
+  - name: "Rainbow"
+    url: "https://web.openrainbow.com/"
+  - name: "GIP"
+    url: "https://gip.cmc.pr.gov.br/"
+  - name: "Legisladoc"
+    url: "https://legisladoc.curitiba.pr.gov.br/"
+  - name: "Prefeitura Municipal de Curitiba"
+    url: "https://www.curitiba.pr.gov.br/"
+  - name: "SGP"
+    children:
+      - name: "SGP WEB"
+        url: "https://sgpweb.curitiba.pr.gov.br"
+      - name: "Consolidação"
+        url: "http://172.27.115.72:7070/Consolidacao/pages/login.jsf"
+      - name: "Portal Contratos"
+        url: "http://portalcontratos.curitiba.pr.gov.br:7070/PortalContratos/portal.do?formAction=init"
+      - name: "Solicitações Web"
+        url: "http://sgp-web.curitiba.pr.gov.br/sgp/seg/login.do"
+      - name: "Consulta Licitações"
+        url: "http://consultalicitacao.curitiba.pr.gov.br:9090/ConsultaLicitacoes/"
+

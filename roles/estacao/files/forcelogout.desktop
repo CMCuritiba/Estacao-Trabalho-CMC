@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=ForceLogout
+Exec=/usr/local/cmc/scripts/forcelogout.sh
+X-GNOME-Autostart-enabled=true

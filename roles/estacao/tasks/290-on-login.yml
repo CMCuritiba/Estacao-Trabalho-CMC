@@ -1,0 +1,12 @@
+---
+- name: "Locka os icones do desktop : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: /usr/local/cmc/scripts/on-login.sh
+    mode: "0755"
+    src: "on-login.sh"
+
+- name: "Adiciona para rodar no PAM Session : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: "session optional pam_exec.so /usr/local/cmc/scripts/on-login.sh"
+  notify: Restart PAM service

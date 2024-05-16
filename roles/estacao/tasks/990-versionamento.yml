@@ -1,0 +1,8 @@
+---
+# Esquema de versionamento SemVer: https://semver.org/
+# Formato: ET-MAJOR.MINOR.PATCH
+- name: "Mantém versionamento : ({{ task_name }})"
+  ansible.builtin.copy:
+    dest: "/usr/local/cmc/version"
+    content: "ET-5"
+    mode: "0644"

@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include cmcuritiba.estacao"
+      ansible.builtin.include_role:
+        name: "cmcuritiba.estacao"
+      tags:
+        - always
+      vars:
+        ansible_become: true

@@ -1,0 +1,16 @@
+---
+- name: "Ajuste do serviço SSH para permitir autenticacao de senha: ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_sshd }}"
+    regexp: "#PasswordAuthentication yes"
+    line: "PasswordAuthentication yes"
+
+- name: "Configura SSH : ({{ task_name }})"
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_sshd }}"
+    regexp: "^{{ item.name }}"
+    line: "{{ item.name }} {{ item.value }}"
+  notify: Restarta o SSHD
+  loop:
+    - {name: "PermitRootLogin" , value: "no"}
+    - {name: "AllowGroups" , value: "{{ estacao_dtic_group }} suporte"}
