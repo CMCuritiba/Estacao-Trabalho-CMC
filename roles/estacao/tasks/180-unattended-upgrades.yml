@@ -62,7 +62,7 @@
         msg: Repositório google não encontrado, continuando execução
 
 - name: "Coleta informações do Edge: ({{ task_name }})"
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: apt-cache policy | grep -E "release.+edge.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2
   register: edge_origin
 
