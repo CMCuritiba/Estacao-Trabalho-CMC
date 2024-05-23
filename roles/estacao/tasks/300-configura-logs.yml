@@ -18,4 +18,3 @@
       loop:
         - /etc/logrotate.d/rsyslog
         - /etc/logrotate.d/sssd-common
-

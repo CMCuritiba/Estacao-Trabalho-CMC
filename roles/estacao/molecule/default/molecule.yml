@@ -19,6 +19,9 @@ provisioner:
   config_options:
       defaults:
         timeout: 60
+  inventory:
+    link:
+      group_vars: ../../../../../inventory/group_vars/
 verifier:
   name: ansible
 lint: |

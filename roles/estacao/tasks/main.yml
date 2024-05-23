@@ -1,11 +1,4 @@
 ---
-- name: Incluir váriaveis
-  ansible.builtin.include_vars:
-    file: ../../../group_vars/all.yml
-  when: molecule_yml is defined
-  tags:
-    - always
-
 - name: Cria diretório /usr/local/cmc
   ansible.builtin.file:
     path: "/usr/local/cmc"
