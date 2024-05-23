@@ -9,4 +9,4 @@ estacao_ad_ip_address:
 estacao_ad_domain: example.com
 estacao_ad_join_user: administrator
 estacao_ad_join_pass: password
-estacao_nfs_serv: 0.0.0.0:/remote/dir /local/dir nfs timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail 0 0
+estacao_nfs_serv: 0.0.0.0:/remote/dir

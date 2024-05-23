@@ -35,6 +35,7 @@ Procedimento:
    - `estacao_ad_join_pass`: password de usuário de join (apenas para permitir a
      configuração, não ficará _hard-coded_ na ET)
    - `estacao_nfs_serv`: servidor nfs
+   - `estacao_mnt_suporte`: **OPCIONAL**, ponto de montagem local
 
 6. <a name="ansible-install"></a>Garanta que ansible esteja instalado:
 
