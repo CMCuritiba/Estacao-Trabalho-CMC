@@ -14,8 +14,6 @@
     # - /usr/bin/gnome-keyring
     # - /usr/bin/gnome-keyring-3
     # - /usr/bin/gnome-keyring-daemon
-  tags:
-    - molecule-notest
 
 - name: "Cria uma ACL para ajustar as permissões do usuário suporte: ({{ task_name }})"
   ansible.posix.acl:
