@@ -40,6 +40,7 @@ if apt-cache policy | grep -qE "release.+edge.+stable"; then
 fi
 
 # FIXME: Não vai funcionar, pq o firefox não é instalado como o Chrome e edge, ele vem com o mint
+# NOTE: Colocar no unattended-upgrades seco ou instalar o firefox a mão?
 if apt-cache policy | grep -qE "release.+firefox.+stable"; then
     FIREFOXORIGIN=$(apt-cache policy | grep -E "release.+firefox.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2)
 
