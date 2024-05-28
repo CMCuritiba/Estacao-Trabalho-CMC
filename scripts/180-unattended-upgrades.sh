@@ -38,3 +38,12 @@ if apt-cache policy | grep -qE "release.+edge.+stable"; then
         sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${EDGEORIGIN}"':stable\";' "$UNATTENDEDCONF"
     fi
 fi
+
+# FIXME: Não vai funcionar, pq o firefox não é instalado como o Chrome e edge, ele vem com o mint
+if apt-cache policy | grep -qE "release.+firefox.+stable"; then
+    FIREFOXORIGIN=$(apt-cache policy | grep -E "release.+firefox.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2)
+
+    if [[ -n "$FIREFOXORIGIN" ]]; then
+        sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${FIREFOXORIGIN}"':stable\";' "$UNATTENDEDCONF"
+    fi
+fi
