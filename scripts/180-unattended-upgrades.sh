@@ -39,12 +39,16 @@ if apt-cache policy | grep -qE "release.+edge.+stable"; then
     fi
 fi
 
-# FIXME: Não vai funcionar, pq o firefox não é instalado como o Chrome e edge, ele vem com o mint
-# NOTE: Colocar no unattended-upgrades seco ou instalar o firefox a mão?
-if apt-cache policy | grep -qE "release.+firefox.+stable"; then
-    FIREFOXORIGIN=$(apt-cache policy | grep -E "release.+firefox.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2)
-
-    if [[ -n "$FIREFOXORIGIN" ]]; then
-        sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${FIREFOXORIGIN}"':stable\";' "$UNATTENDEDCONF"
+# Permite a atualização automática do FireFox
+# A linha nativa do arquivo é LinuxMint:virginia
+# Necessário incluir linuxmint:virginia
+if [ -f /etc/lsb-release ]; then
+    source "/etc/lsb-release"
+    if ! grep -q "${DISTRIB_ID,,}:${DISTRIB_CODENAME,,}"; then
+        sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID,,}"':'"${DISTRIB_CODENAME,,}"'\";' "$UNATTENDEDCONF"
     fi
+else
+    echo "Versão base do Mint não encontrada"
+    exit 1
 fi
+
