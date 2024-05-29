@@ -38,3 +38,17 @@ if apt-cache policy | grep -qE "release.+edge.+stable"; then
         sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${EDGEORIGIN}"':stable\";' "$UNATTENDEDCONF"
     fi
 fi
+
+# Permite a atualização automática do FireFox
+# A linha nativa do arquivo é LinuxMint:virginia
+# Necessário incluir linuxmint:virginia
+if [ -f /etc/lsb-release ]; then
+    source "/etc/lsb-release"
+    if ! grep -q "${DISTRIB_ID,,}:${DISTRIB_CODENAME,,}" "$UNATTENDEDCONF"; then
+        sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID,,}"':'"${DISTRIB_CODENAME,,}"'\";' "$UNATTENDEDCONF"
+    fi
+else
+    echo "Versão base do Mint não encontrada"
+    exit 1
+fi
+

@@ -2,4 +2,4 @@
 # Esquema de versionamento SemVer: https://semver.org/
 # Formato: ET-MAJOR.MINOR.PATCH
 
-echo "ET-6" >/usr/local/cmc/version
+echo "ET-6.0.1" >/usr/local/cmc/version
