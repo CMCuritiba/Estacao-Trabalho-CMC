@@ -1,5 +1,5 @@
 ---
-- name: "Cria os diretorios padrao : ({{ task_name }})"
+- name: "Cria os diretorios padrao"
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -12,13 +12,13 @@
     - /etc/skel/Vídeos
     - /home/Docs.Locais
 
-- name: "Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais : ({{ task_name }})"
+- name: "Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais"
   ansible.builtin.file:
     path: /etc/skel/Docs.Locais
     src: /home/Docs.Locais
     state: link
 
-- name: "Cria arquivo padrão user-dirs.dirs : ({{ task_name }})"
+- name: "Cria arquivo padrão user-dirs.dirs"
   ansible.builtin.copy:
     dest: /etc/skel/.config/user-dirs.dirs
     content: |
@@ -30,20 +30,20 @@
       XDG_VIDEOS_DIR=\"\$HOME/Vídeos\
     mode: "0644"
 
-- name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR' : ({{ task_name }})"
+- name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR'"
   ansible.builtin.copy:
     content: "pt_BR"
     dest: /etc/skel/.config/user-dirs.locale
     mode: "0644"
 
 # Desabilita a atualização automatica dos user-dirs no XDG
-- name: "Modifica o arquivo user-dirs.conf : ({{ task_name }})"
+- name: "Modifica o arquivo user-dirs.conf"
   ansible.builtin.lineinfile:
     path: /etc/xdg/user-dirs.conf
     regexp: "^enabled=True"
     line: "enabled=False"
 
-- name: "Atualiza permissoes dos DOCS locais : ({{ task_name }})"
+- name: "Atualiza permissoes dos DOCS locais"
   ansible.builtin.file:
     path: /home/Docs.Locais
     state: directory
@@ -51,11 +51,11 @@
     owner: nobody
     group: nogroup
 
-- name: "Garante que docs locais está sem arquivos : ({{ task_name }})"
+- name: "Garante que docs locais está sem arquivos"
   ansible.builtin.command:
     cmd: rm -rf /home/Docs.Locais/*
 
-- name: "Cria icones de firefox e chrome : ({{ task_name }})"
+- name: "Cria icones de firefox e chrome"
   ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -64,20 +64,20 @@
     - {src: "/usr/share/applications/firefox.desktop", dest: "/etc/skel/Desktop/firefox.desktop"}
     - {src: "/usr/share/applications/google-chrome.desktop", dest: "/etc/skel/Desktop/google-chrome.desktop"}
 
-- name: "Cria icone de suporte: ({{ task_name }})"
+- name: "Cria icone de suporte)"
   ansible.builtin.copy:
     src: atalhos/Suporte.desktop
     dest: /etc/skel/Desktop/Suporte.desktop
     mode: "+x"
 
-- name: "Cria política de privacidade : ({{ task_name }})"
+- name: "Cria política de privacidade"
   ansible.builtin.copy:
     dest: "/etc/skel/.politicainformatica.sh"
     remote_src: false
     src: ".politicainformatica.sh"
     mode: "0644"
 
-- name: "Força logout se nao aceitar a politica de privacidade : ({{ task_name }})"
+- name: "Força logout se nao aceitar a politica de privacidade"
   ansible.builtin.lineinfile:
     path: /etc/skel/.profile
     insertafter: EOF

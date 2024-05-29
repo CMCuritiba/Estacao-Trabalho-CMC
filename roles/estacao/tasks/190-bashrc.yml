@@ -1,11 +1,11 @@
 ---
-- name: "Comenta linhas de alias do /root/.bashrc : ({{ task_name }})"
+- name: "Comenta linhas de alias do /root/.bashrc"
   ansible.builtin.replace:
     path: /root/.bashrc
     regexp: "^(alias l[al]?.*)$"
     replace: '#\1'
 
-- name: "Configura /root/.bash_aliases : ({{ task_name }})"
+- name: "Configura /root/.bash_aliases"
   ansible.builtin.copy:
     dest: "{{ item }}"
     src: "bash_aliases"

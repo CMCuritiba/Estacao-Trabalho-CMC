@@ -1,5 +1,5 @@
 ---
-- name: "Substitui linha 'hosts:.*'' e cria um backup: ({{ task_name }})"
+- name: "Substitui linha 'hosts:.*'' e cria um backup"
   ansible.builtin.lineinfile:
     path: /etc/nsswitch.conf
     regexp: "^hosts:.*$"
@@ -7,7 +7,7 @@
     backrefs: true
     backup: true
 
-- name: "Automatiza a criação do diretório HOME após o login: ({{ task_name }})"
+- name: "Automatiza a criação do diretório HOME após o login"
   ansible.builtin.command:
     cmd: pam-auth-update --force --enable mkhomedir
   register: pam_update

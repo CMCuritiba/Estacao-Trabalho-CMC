@@ -1,5 +1,5 @@
 ---
-- name: "Copiar ícones para /usr/share/pixmaps/ : ({{ task_name }})"
+- name: "Copiar ícones para /usr/share/pixmaps/"
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/pixmaps/
@@ -8,7 +8,7 @@
     # - imagens/Rainbow.png
     - imagens/suporte_tux.png
 
-- name: "Copiar imagens de background para /usr/share/backgrounds/cmc/ : ({{ task_name }})"
+- name: "Copiar imagens de background para /usr/share/backgrounds/cmc/"
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/backgrounds/cmc/

@@ -1,5 +1,5 @@
 ---
-- name: "Instala unattended-upgrades : ({{ task_name }})"
+- name: "Instala unattended-upgrades"
   ansible.builtin.apt:
     state: present
     update_cache: true
@@ -7,7 +7,7 @@
       - unattended-upgrades
 
 # Me perdoe, mas essa foi a melhor forma que achei de fazer isso. Está feio, capenga e xoxo mas funciona ;)
-- name: "Coleta informações de distribuição : ({{ task_name }})"
+- name: "Coleta informações de distribuição"
   ansible.builtin.shell:
     cmd: '. /etc/upstream-release/lsb-release && echo "$DISTRIB_ID\n$DISTRIB_CODENAME"'
   register: distrib_info
@@ -16,7 +16,7 @@
     (distrib_info.rc != 0) or
     ((distrib_info.stdout_lines | length) == 0)
 
-- name: "Adiciona os repositórios relevantes ao arquivo de configuração : ({{ task_name }})"
+- name: "Adiciona os repositórios relevantes ao arquivo de configuração"
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
     insertafter: "{{ item.after_line }}"
@@ -34,15 +34,15 @@
     distrib_id: "{{ distrib_info.stdout_lines[0] }}"
     distrib_codename: "{{ distrib_info.stdout_lines[1] }}"
 
-- name: "Permite minimal steps para unattended-upgrades : ({{ task_name }})"
+- name: "Permite minimal steps para unattended-upgrades"
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
     line: 'Unattended-Upgrade::MinimalSteps "true";'
     regexp: '//Unattended-Upgrade::MinimalSteps'
 
-- name: "Adiciona repositório google-chrome : ({{ task_name }})"
+- name: "Adiciona repositório google-chrome"
   block:
-    - name: "Procura pelo repositório google no APT-CACHE : ({{ task_name }})"
+    - name: "Procura pelo repositório google no APT-CACHE"
       ansible.builtin.shell:
         cmd: set -o pipefail && apt-cache policy | grep -E "release.+Google.+amd64" | cut -d ',' -f 2 | cut -d '=' -f 2
         executable: /usr/bin/bash
@@ -50,23 +50,23 @@
       failed_when: google_ppa.rc != 0
       changed_when: false
 
-    - name: "Adiciona repo google (Unattended-Upgrades) : ({{ task_name }})"
+    - name: "Adiciona repo google (Unattended-Upgrades)"
       ansible.builtin.lineinfile:
         path: "{{ estacao_unattended_conf }}"
         insertafter: "Unattended-Upgrade::Allowed-Origins {"
         line: "\t\"{{ google_ppa.stdout }}:stable\";"
       when: google_ppa.stdout != ''
   rescue:
-    - name: "Repositório google não encontrado : ({{ task_name }})"
+    - name: "Repositório google não encontrado"
       ansible.builtin.debug:
         msg: Repositório google não encontrado, continuando execução
 
-- name: "Coleta informações do Edge: ({{ task_name }})"
+- name: "Coleta informações do Edge)"
   ansible.builtin.shell:
     cmd: apt-cache policy | grep -E "release.+edge.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2
   register: edge_origin
 
-- name: "Configura atualização automática do Edge: ({{ task_name }})"
+- name: "Configura atualização automática do Edge)"
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
     insertafter: "Unattended-Upgrade::Allowed-Origins {"

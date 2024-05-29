@@ -1,19 +1,19 @@
 ---
-- name: "Verifica se /etc/fstab existe : ({{ task_name }})"
+- name: "Verifica se /etc/fstab existe"
   ansible.builtin.stat:
     path: /etc/fstab
   register: fstab_file
 
-- name: "Montando NFS : ({{ task_name }})"
+- name: "Montando NFS"
   when: fstab_file.stat.exists
   block:
-    - name: "Cria diretório de montagem : ({{ task_name }})"
+    - name: "Cria diretório de montagem"
       ansible.builtin.file:
         path: /mnt/suporte
         state: directory
         mode: "0755"
 
-    - name: "Configura /etc/fstab : ({{ task_name }})"
+    - name: "Configura /etc/fstab"
       ansible.posix.mount:
         path: "{{ estacao_mnt_suporte }}"
         src: "{{ estacao_nfs_serv }}"

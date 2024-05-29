@@ -1,12 +1,12 @@
 ---
 # Esse script roda por último, criar aqui links em /usr/local/cmc/modificados para qualquer arquivo (ou pasta, se forem muitos) que foram modificados
-- name: "Cria pasta de modificados : ({{ task_name }})"
+- name: "Cria pasta de modificados"
   ansible.builtin.file:
     path: /usr/local/cmc/modificados
     state: directory
     mode: "0755"
 
-- name: "Cria links : ({{ task_name }})"
+- name: "Cria links"
   ansible.builtin.file:
     dest: "/usr/local/cmc/modificados/{{ item.dest | default(item.src.split('/')[-1]) }}"
     src: "{{ item.src }}"

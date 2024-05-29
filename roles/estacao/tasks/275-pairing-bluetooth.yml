@@ -1,5 +1,5 @@
 ---
-- name: "Assegura permissão de dispositivos bluetooth : ({{ task_name }})"
+- name: "Assegura permissão de dispositivos bluetooth"
   community.general.xml:
     path: /usr/share/polkit-1/actions/org.blueman.policy
     xpath: "//policyconfig/action[@id='org.blueman.{{ item[0] }}']/defaults/{{ item[1] }}"

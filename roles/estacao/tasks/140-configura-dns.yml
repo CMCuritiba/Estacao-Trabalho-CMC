@@ -1,5 +1,5 @@
 ---
-- name: "Força DNS para garantir que JOIN funcione : ({{ task_name }})"
+- name: "Força DNS para garantir que JOIN funcione"
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
     line: "{{ item.line }}"

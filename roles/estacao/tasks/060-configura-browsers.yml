@@ -1,5 +1,5 @@
 ---
-- name: "Configura firefox : ({{ task_name }})"
+- name: "Configura firefox"
   ansible.builtin.copy:
     dest: "/usr/lib/firefox/{{ item.dest }}"
     src: "{{ item.src }}"
@@ -12,7 +12,7 @@
     - dest: "browser/override.ini"
       src: "firefox-config.3"
 
-- name: "Cria pastas de configuração do Chrome : ({{ task_name }})"
+- name: "Cria pastas de configuração do Chrome"
   ansible.builtin.file:
     state: directory
     path: "/etc/opt/chrome/policies/{{ item }}"
@@ -21,13 +21,13 @@
     - recommended
     - managed
 
-- name: "Configura Google Chrome : ({{ task_name }})"
+- name: "Configura Google Chrome"
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     mode: "0644"
     content: "{{ estacao_google_chrome_recommended | ansible.builtin.to_nice_json }}"
 
-- name: "Gera bookmarks dos navegadores : ({{ task_name }})"
+- name: "Gera bookmarks dos navegadores"
   ansible.builtin.template:
     dest: "{{ item.bookmarks_config_file }}"
     src: "templates/bookmarks_{{ item.browser }}.j2"

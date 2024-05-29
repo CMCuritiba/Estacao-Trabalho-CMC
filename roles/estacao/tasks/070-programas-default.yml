@@ -1,5 +1,5 @@
 ---
-- name: "Create mimeapps.list file with the specified content : ({{ task_name }})"
+- name: "Create mimeapps.list file with the specified content"
   ansible.builtin.copy:
     dest: /etc/skel/.config/mimeapps.list
     mode: "0644"

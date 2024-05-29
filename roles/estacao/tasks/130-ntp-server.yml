@@ -1,5 +1,5 @@
 ---
-- name: "Popula o arquivo de configuração : ({{ task_name }})"
+- name: "Popula o arquivo de configuração"
   ansible.builtin.copy:
     content: |
       # Servidor da camara

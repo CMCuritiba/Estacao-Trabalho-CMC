@@ -4,13 +4,13 @@
 # o nome do mnt-[coisa].mount pode ser descoberto com o seguinte comando:
 # systemctl list-units | grep '/path/to/mount' | awk '{ print $1 }'
 
-- name: "Configura serviço de network da CMC : ({{ task_name }})"
+- name: "Configura serviço de network da CMC"
   ansible.builtin.copy:
     dest: /etc/systemd/system/cmc-network-script.service
     src: "cmc-network-script.service"
     mode: "0644"
 
-- name: "Restart cmc-network-script service : ({{ task_name }})"
+- name: "Restart cmc-network-script service"
   ansible.builtin.service:
     name: cmc-network-script
     enabled: true

@@ -1,7 +1,7 @@
 ---
-- name: "Altera tempo de retencao do syslog, auth, messages e outros para 6 meses : ({{ task_name }})"
+- name: "Altera tempo de retencao do syslog, auth, messages e outros para 6 meses"
   block:
-    - name: "Altera tempo de rotacao: ({{ task_name }})"
+    - name: "Altera tempo de rotacao)"
       ansible.builtin.replace:
         path: "{{ item }}"
         regexp: 'rotate(.+)'
@@ -10,7 +10,7 @@
         - /etc/logrotate.d/rsyslog
         - /etc/logrotate.d/sssd-common
 
-    - name: "Altera tempo de frequencia: ({{ task_name }})"
+    - name: "Altera tempo de frequencia)"
       ansible.builtin.replace:
         path: "{{ item }}"
         regexp: 'daily'

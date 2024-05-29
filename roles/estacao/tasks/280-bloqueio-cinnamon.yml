@@ -1,5 +1,5 @@
 ---
-- name: "Remove execução dos programas default : ({{ task_name }})"
+- name: "Remove execução dos programas default"
   ansible.builtin.file:
     path: "{{ item }}"
     mode: "0700"
@@ -15,7 +15,7 @@
     # - /usr/bin/gnome-keyring-3
     # - /usr/bin/gnome-keyring-daemon
 
-- name: "Cria uma ACL para ajustar as permissões do usuário suporte: ({{ task_name }})"
+- name: "Cria uma ACL para ajustar as permissões do usuário suporte)"
   ansible.posix.acl:
     path: "{{ item.path }}"
     entity: suporte
@@ -29,7 +29,7 @@
     # - path: /usr/bin/nm-connection-editor
     # - path: /usr/bin/nm-applet
 
-- name: "Cria uma ACL para ajustar as permissões da DTIC : ({{ task_name }})"
+- name: "Cria uma ACL para ajustar as permissões da DTIC"
   ansible.posix.acl:
     path: "{{ item.path }}"
     entity: "{{ estacao_dtic_group }}"

@@ -96,7 +96,7 @@ Procedimento:
    sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
    ```
 
-2. Edite o arquivo /inventory/group_vars/all.yml de acordo com o necessário
+2. Utilize o arquivo /inventory/group_vars/all.yml.exemple como exemplo para criar seu arquivo de configuração
 
 3. Dentro de roles/estacao execute:
 

@@ -9,238 +9,170 @@
 
 - name: Task-010
   ansible.builtin.import_tasks: 010-user-group-suporte.yml
-  vars:
-    task_name: Task-010
   tags:
     - t-010
 
 - name: Task-020
   ansible.builtin.import_tasks: 020-remover-programas.yml
-  vars:
-    task_name: Task-020
   tags:
     - t-020
 
 - name: Task-030
   ansible.builtin.import_tasks: 030-instala-programas.yml
-  vars:
-    task_name: Task-030
   tags:
     - t-030
 
 - name: Task-040
   ansible.builtin.import_tasks: 040-imagens-cmc.yml
-  vars:
-    task_name: Task-040
   tags:
     - t-040
 
 - name: Task-050
   ansible.builtin.import_tasks: 050-skel.yml
-  vars:
-    task_name: Task-050
   tags:
     - t-050
 
 - name: Task-060
   ansible.builtin.import_tasks: 060-configura-browsers.yml
-  vars:
-    task_name: Task-060
   tags:
     - t-060
 
 - name: Task-070
   ansible.builtin.import_tasks: 070-programas-default.yml
-  vars:
-    task_name: Task-070
   tags:
     - t-070
 
 - name: Task-080
   ansible.builtin.import_tasks: 080-autostart.yml
-  vars:
-    task_name: Task-080
   tags:
     - t-080
 
 - name: Task-090
   ansible.builtin.import_tasks: 090-politica-informatica.yml
-  vars:
-    task_name: Task-090
   tags:
     - t-090
 
 - name: Task-100
   ansible.builtin.import_tasks: 100-desabilita-tty.yml
-  vars:
-    task_name: Task-100
   tags:
     - t-100
 
 - name: Task-110
   ansible.builtin.import_tasks: 110-dconf.yml
-  vars:
-    task_name: Task-110
   tags:
     - t-110
 
 - name: Task-120
   ansible.builtin.import_tasks: 120-terminal-policy.yml
-  vars:
-    task_name: Task-120
   tags:
     - t-120
 
 - name: Task-130
   ansible.builtin.import_tasks: 130-ntp-server.yml
-  vars:
-    task_name: Task-130
   tags:
     - t-130
 
 - name: Task-140
   ansible.builtin.import_tasks: 140-configura-dns.yml
-  vars:
-    task_name: Task-140
   tags:
     - t-140
 
 - name: Task-145
   ansible.builtin.import_tasks: 145-script-boot.yml
-  vars:
-    task_name: Task-145
   tags:
     - t-145
 
 - name: Task-150
   ansible.builtin.import_tasks: 150-integra-ad.yml
-  vars:
-    task_name: Task-150
   tags:
     - t-150
 
 - name: Task-160
   ansible.builtin.import_tasks: 160-configura-pam.yml
-  vars:
-    task_name: Task-160
   tags:
     - t-160
 
 - name: Task-170
   ansible.builtin.import_tasks: 170-sudoers.yml
-  vars:
-    task_name: Task-170
   tags:
     - t-170
 
 - name: Task-180
   ansible.builtin.import_tasks: 180-unattended-upgrades.yml
-  vars:
-    task_name: Task-180
   tags:
     - t-180
 
 - name: Task-190
   ansible.builtin.import_tasks: 190-bashrc.yml
-  vars:
-    task_name: Task-190
   tags:
     - t-190
 
 - name: Task-200
   ansible.builtin.import_tasks: 200-nfs-mount.yml
-  vars:
-    task_name: Task-200
   tags:
     - t-200
 
 - name: Task-210
   ansible.builtin.import_tasks: 210-script-rede.yml
-  vars:
-    task_name: Task-210
   tags:
     - t-210
 
 - name: Task-220
   ansible.builtin.import_tasks: 220-ssh-server.yml
-  vars:
-    task_name: Task-220
   tags:
     - t-220
 
 - name: Task-230
   ansible.builtin.import_tasks: 230-vnc.yml
-  vars:
-    task_name: Task-230
   tags:
     - t-230
 
 - name: Task-240
   ansible.builtin.import_tasks: 240-menu-items.yml
-  vars:
-    task_name: Task-240
   tags:
     - t-240
 
 - name: Task-250
   ansible.builtin.import_tasks: 250-login-grafico.yml
-  vars:
-    task_name: Task-250
   tags:
     - t-250
 
 - name: Task-260
   ansible.builtin.import_tasks: 260-configura-cups.yml
-  vars:
-    task_name: Task-260
   tags:
     - t-260
 
 - name: Task-270
   ansible.builtin.import_tasks: 270-mount-pendrive.yml
-  vars:
-    task_name: Task-270
   tags:
     - t-270
 
 - name: Task-280
   ansible.builtin.import_tasks: 280-bloqueio-cinnamon.yml
-  vars:
-    task_name: Task-280
   tags:
     - t-280
 
 - name: Task-290
   ansible.builtin.import_tasks: 290-on-login.yml
-  vars:
-    task_name: Task-290
   tags:
     - t-290
 
 - name: Task-300
   ansible.builtin.import_tasks: 300-configura-logs.yml
-  vars:
-    task_name: Task-300
   tags:
     - t-300
 
 - name: Task-310
   ansible.builtin.import_tasks: 310-zoom-autoupdate.yml
-  vars:
-    task_name: Task-310
   tags:
     - t-310
 
 - name: Task-990
   ansible.builtin.import_tasks: 990-versionamento.yml
-  vars:
-    task_name: Task-990
   tags:
     - t-990
 
 - name: Task-999
   ansible.builtin.import_tasks: 999-arquivos-modificados.yml
-  vars:
-    task_name: Task-999
   tags:
     - t-999
