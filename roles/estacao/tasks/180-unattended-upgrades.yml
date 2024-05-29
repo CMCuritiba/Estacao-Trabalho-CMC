@@ -61,12 +61,12 @@
       ansible.builtin.debug:
         msg: Repositório google não encontrado, continuando execução
 
-- name: "Coleta informações do Edge)"
+- name: "Coleta informações do Edge"
   ansible.builtin.shell:
     cmd: apt-cache policy | grep -E "release.+edge.+stable" | cut -d ',' -f 1 | cut -d '=' -f 2
   register: edge_origin
 
-- name: "Configura atualização automática do Edge)"
+- name: "Configura atualização automática do Edge"
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
     insertafter: "Unattended-Upgrade::Allowed-Origins {"

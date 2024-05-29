@@ -66,7 +66,7 @@
     name: ttf-mscorefonts-installer
     state: present
 
-- name: "Instala Google Chrome)"
+- name: "Instala Google Chrome"
   ansible.builtin.apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     state: present
@@ -77,7 +77,7 @@
     state: present
   ignore_errors: true #Joga erro caso tenha uma versão já instalada
 
-- name: "Verifica se Microsoft Edge esta na versao mais recente "
+- name: "Verifica se Microsoft Edge esta na versao mais recente"
   ansible.builtin.apt:
     name: microsoft-edge-stable
     state: latest

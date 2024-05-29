@@ -1,5 +1,5 @@
 ---
-- name: "Copia conteudo de cmt-boot "
+- name: "Copia conteudo de cmt-boot"
   ansible.builtin.template:
     src: cmc-boot.sh.j2
     dest: "{{ estacao_bootsh }}"

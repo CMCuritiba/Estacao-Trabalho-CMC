@@ -1,5 +1,5 @@
 ---
-- name: "Seta hostname)"
+- name: "Seta hostname"
   ansible.builtin.command:
     cmd: "{{ estacao_bootsh }}"
 
@@ -36,7 +36,7 @@
         regexp: default_realm.*
         line: "default_realm = {{estacao_ad_domain | upper}}"
 
-    - name: "Garante rdns = false) "
+    - name: "Garante rdns = false"
       ansible.builtin.lineinfile:
         path: /etc/krb5.conf
         regexp: \s*rdns.+false$

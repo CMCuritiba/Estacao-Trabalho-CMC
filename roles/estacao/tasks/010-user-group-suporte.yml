@@ -1,5 +1,5 @@
 ---
-- name: "Cria grupo 'suporte' se não existe "
+- name: "Cria grupo 'suporte' se não existe"
   ansible.builtin.group:
     name: suporte
     state: present
@@ -14,7 +14,7 @@
     create_home: true
     state: present
 
-- name: "Atualiza senhas de suporte e root)"
+- name: "Atualiza senhas de suporte e root"
   ansible.builtin.user:
     name: "{{ item.name }}"
     password: "{{ item.password | password_hash('sha512') }}"

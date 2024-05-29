@@ -15,7 +15,7 @@
     # - /usr/bin/gnome-keyring-3
     # - /usr/bin/gnome-keyring-daemon
 
-- name: "Cria uma ACL para ajustar as permissões do usuário suporte)"
+- name: "Cria uma ACL para ajustar as permissões do usuário suporte"
   ansible.posix.acl:
     path: "{{ item.path }}"
     entity: suporte

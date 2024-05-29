@@ -1,5 +1,5 @@
 ---
-- name: "Ajuste do serviço SSH para permitir autenticacao de senha)"
+- name: "Ajuste do serviço SSH para permitir autenticacao de senha"
   ansible.builtin.lineinfile:
     path: "{{ estacao_sshd }}"
     regexp: "#PasswordAuthentication yes"
