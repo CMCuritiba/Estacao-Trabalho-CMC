@@ -44,7 +44,7 @@ fi
 # Necessário incluir linuxmint:virginia
 if [ -f /etc/lsb-release ]; then
     source "/etc/lsb-release"
-    if ! grep -q "${DISTRIB_ID,,}:${DISTRIB_CODENAME,,}"; then
+    if ! grep -q "${DISTRIB_ID,,}:${DISTRIB_CODENAME,,}" "$UNATTENDEDCONF"; then
         sed -i '/Unattended-Upgrade::Allowed-Origins {/a\\t\"'"${DISTRIB_ID,,}"':'"${DISTRIB_CODENAME,,}"'\";' "$UNATTENDEDCONF"
     fi
 else
