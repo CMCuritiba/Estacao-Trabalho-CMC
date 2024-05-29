@@ -20,7 +20,9 @@ Procedimento:
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET;
 3. Faça login com o usuário criado;
 4. Baixe o _codigo_ do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
-5. Altere o valor das variáveis presentes em /inventory/group_vars/all.yml, utilizando os já presentes como base. As variáveis são:
+5. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.exemple)
+   como exemplo para criar seu arquivo de configuração de acordo com o
+   necessário. As variáveis são:
 
    - `estacao_suporte_pass`: senha do usuário suporte
    - `estacao_root_pass`: senha do usuário root
@@ -96,7 +98,9 @@ Procedimento:
    sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
    ```
 
-2. Utilize o arquivo /inventory/group_vars/all.yml.exemple como exemplo para criar seu arquivo de configuração
+2. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.exemple)
+   como exemplo para criar seu arquivo de configuração de acordo com o
+   necessário
 
 3. Dentro de roles/estacao execute:
 
@@ -138,7 +142,7 @@ Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é
    sudo apt install pip -y
    pip install --user ansible
    source ~/.profile # Necessário apenas na primeira vez
-   nano /inventory/group_vars/all.yml
+   nano inventory/group_vars/all.yml # Edite de acordo com o necessário
    sed -i 's/et1/localhost/g' playbook.yml
    ansible-playbook --diff playbook.yml
    ```
