@@ -1,9 +1,9 @@
 {
-  "name": "infrastructure-automation",
+  "name": "Estações de Trabalho",
   "version": "1.0.0",
-  "description": "Gerenciamento de infraestrutura e automação",
-  "repository": "git@github.com:CMCuritiba/infrastructure-automation.git",
-  "author": "Bruno Oliveira <bruno.oliveira@cmc.pr.gov.br>",
+  "description": "Role para as estações de trabalho imagem mint/cinnamon",
+  "repository": "git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git",
+  "author": "Lucas Gasperin <lpg2024@cmc.pr.gov.br>",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
