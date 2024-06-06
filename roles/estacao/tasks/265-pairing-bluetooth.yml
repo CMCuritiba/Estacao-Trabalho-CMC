@@ -5,7 +5,6 @@
     xpath: "//policyconfig/action[@id='org.blueman.{{ item[0] }}']/defaults/{{ item[1] }}"
     value: 'yes'
   loop: "{{ file_system_actions | product(default_acls) | list }}"
-  register: xml_edit
   vars:
     file_system_actions:
       - network.setup

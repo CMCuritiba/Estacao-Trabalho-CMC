@@ -2,6 +2,8 @@
 - name: "Cria os diretórios de configuração"
   ansible.builtin.file:
     path: "{{ item }}"
+    owner: root
+    group: root
     state: directory
     mode: "0755"
   loop:

@@ -6,3 +6,5 @@
     - name: "Include cmcuritiba.estacao"
       ansible.builtin.include_role:
         name: "cmcuritiba.estacao"
+      tags:
+      - always 

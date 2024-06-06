@@ -26,12 +26,12 @@
     daemon_reload: true
 
 - name: "Enable e start em zoom-update.service"
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: "zoom-update.service"
     enabled: true
     state: started
 
 - name: "Enable em zoom-update.timer"
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: "zoom-update.timer"
     enabled: true

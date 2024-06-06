@@ -1,11 +1,5 @@
 ---
-- name: "Verifica se /etc/fstab existe"
-  ansible.builtin.stat:
-    path: /etc/fstab
-  register: fstab_file
-
 - name: "Montando NFS"
-  when: fstab_file.stat.exists
   block:
     - name: "Cria diretório de montagem"
       ansible.builtin.file:
@@ -16,7 +10,7 @@
     - name: "Configura /etc/fstab"
       ansible.posix.mount:
         path: "{{ estacao_mnt_suporte }}"
-        src: "{{ estacao_nfs_serv }}"
+        src: "{{ estacao_nfs_serv }}:{{ estacao_nfs_src }}"
         fstype: "nfs"
         opts: "timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail"
         dump: 0

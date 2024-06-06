@@ -15,15 +15,11 @@
     # cache_valid_time: 86400
 
 - name: "Tira input da instalação do ttf-mscorefonts-installer"
-  ansible.builtin.blockinfile:
-    block: |
-      Name: msttcorefonts/accepted-mscorefonts-eula
-      Template: msttcorefonts/accepted-mscorefonts-eula
-      Value: true
-      Owners: ttf-mscorefonts-installer
-      Flags: seen
-    path: "/var/cache/debconf/config.dat"
-    insertafter: EOF
+  ansible.builtin.debconf:
+    name: ttf-mscorefonts-installer
+    question: "msttcorefonts/accepted-mscorefonts-eula"
+    vtype: select
+    value: "true"
 
 - name: "Instala programas"
   ansible.builtin.apt:
@@ -81,3 +77,10 @@
   ansible.builtin.apt:
     name: microsoft-edge-stable
     state: latest
+
+- name: "Create mimeapps.list file with the specified content"
+  ansible.builtin.copy:
+    dest: /etc/skel/.config/mimeapps.list
+    mode: "0644"
+    src: "mimeapps.list"
+

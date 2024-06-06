@@ -4,19 +4,16 @@
   ansible.builtin.service:
     name: systemd-resolved.service
     state: restarted
-  become: true
 
 - name: Restart PAM service
   ansible.builtin.service:
     name: systemd-logind
     state: restarted
-  become: true
 
 - name: Restart nslcd service
   ansible.builtin.service:
     name: nslcd
     state: restarted
-  become: true
 
 - name: Restart cups service
   ansible.builtin.service:

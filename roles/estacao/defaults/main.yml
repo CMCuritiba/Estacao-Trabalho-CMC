@@ -12,14 +12,6 @@ estacao_ad_join_pass: password
 estacao_nfs_serv: "0.0.0.0:/remote/dir"
 estacao_mnt_suporte: "/mnt/suporte"
 
-# Variáveis da estação de trabalho
-estacao_google_chrome_recommended:
-  HomepageLocation: "http://intranet.cmc.pr.gov.br/"
-  RestoreOnStartup: 4
-  RestoreOnStartupURLs:
-    - "http://intranet.cmc.pr.gov.br/"
-  HomepageIsNewTabPage: false
-
 # Bookmarks dos navegadores
 estacao_bookmarks:
   - name: "Câmara Municipal de Curitiba"

@@ -4,8 +4,6 @@
     path: "/usr/local/cmc"
     state: directory
     mode: "0755"
-  tags:
-    - always
 
 - name: Task-010
   ansible.builtin.import_tasks: 010-user-group-suporte.yml
@@ -38,134 +36,129 @@
     - t-060
 
 - name: Task-070
-  ansible.builtin.import_tasks: 070-programas-default.yml
+  ansible.builtin.import_tasks: 070-autostart.yml
   tags:
     - t-070
 
 - name: Task-080
-  ansible.builtin.import_tasks: 080-autostart.yml
+  ansible.builtin.import_tasks: 080-politica-informatica.yml
   tags:
     - t-080
 
 - name: Task-090
-  ansible.builtin.import_tasks: 090-politica-informatica.yml
+  ansible.builtin.import_tasks: 090-desabilita-tty.yml
   tags:
     - t-090
 
 - name: Task-100
-  ansible.builtin.import_tasks: 100-desabilita-tty.yml
+  ansible.builtin.import_tasks: 100-dconf.yml
   tags:
     - t-100
 
 - name: Task-110
-  ansible.builtin.import_tasks: 110-dconf.yml
+  ansible.builtin.import_tasks: 110-terminal-policy.yml
   tags:
     - t-110
 
 - name: Task-120
-  ansible.builtin.import_tasks: 120-terminal-policy.yml
+  ansible.builtin.import_tasks: 120-ntp-server.yml
   tags:
     - t-120
 
 - name: Task-130
-  ansible.builtin.import_tasks: 130-ntp-server.yml
+  ansible.builtin.import_tasks: 130-configura-dns.yml
   tags:
     - t-130
 
+- name: Task-135
+  ansible.builtin.import_tasks: 135-script-boot.yml
+  tags:
+    - t-135
+
 - name: Task-140
-  ansible.builtin.import_tasks: 140-configura-dns.yml
+  ansible.builtin.import_tasks: 140-integra-ad.yml
   tags:
     - t-140
 
-- name: Task-145
-  ansible.builtin.import_tasks: 145-script-boot.yml
-  tags:
-    - t-145
-
 - name: Task-150
-  ansible.builtin.import_tasks: 150-integra-ad.yml
+  ansible.builtin.import_tasks: 150-configura-pam.yml
   tags:
     - t-150
 
 - name: Task-160
-  ansible.builtin.import_tasks: 160-configura-pam.yml
+  ansible.builtin.import_tasks: 160-sudoers.yml
   tags:
     - t-160
 
 - name: Task-170
-  ansible.builtin.import_tasks: 170-sudoers.yml
+  ansible.builtin.import_tasks: 170-unattended-upgrades.yml
   tags:
     - t-170
 
 - name: Task-180
-  ansible.builtin.import_tasks: 180-unattended-upgrades.yml
+  ansible.builtin.import_tasks: 180-bashrc.yml
   tags:
     - t-180
 
 - name: Task-190
-  ansible.builtin.import_tasks: 190-bashrc.yml
+  ansible.builtin.import_tasks: 190-nfs-mount.yml
   tags:
     - t-190
 
 - name: Task-200
-  ansible.builtin.import_tasks: 200-nfs-mount.yml
+  ansible.builtin.import_tasks: 200-script-rede.yml
   tags:
     - t-200
 
 - name: Task-210
-  ansible.builtin.import_tasks: 210-script-rede.yml
+  ansible.builtin.import_tasks: 210-ssh-server.yml
   tags:
     - t-210
 
 - name: Task-220
-  ansible.builtin.import_tasks: 220-ssh-server.yml
+  ansible.builtin.import_tasks: 220-vnc.yml
   tags:
     - t-220
 
 - name: Task-230
-  ansible.builtin.import_tasks: 230-vnc.yml
+  ansible.builtin.import_tasks: 230-menu-items.yml
   tags:
     - t-230
 
 - name: Task-240
-  ansible.builtin.import_tasks: 240-menu-items.yml
+  ansible.builtin.import_tasks: 240-login-grafico.yml
   tags:
     - t-240
 
 - name: Task-250
-  ansible.builtin.import_tasks: 250-login-grafico.yml
+  ansible.builtin.import_tasks: 250-configura-cups.yml
   tags:
     - t-250
 
 - name: Task-260
-  ansible.builtin.import_tasks: 260-configura-cups.yml
+  ansible.builtin.import_tasks: 260-mount-pendrive.yml
   tags:
     - t-260
 
 - name: Task-270
-  ansible.builtin.import_tasks: 270-mount-pendrive.yml
+  ansible.builtin.import_tasks: 270-bloqueio-cinnamon.yml
   tags:
     - t-270
 
 - name: Task-280
-  ansible.builtin.import_tasks: 280-bloqueio-cinnamon.yml
+  ansible.builtin.import_tasks: 280-on-login.yml
   tags:
     - t-280
 
 - name: Task-290
-  ansible.builtin.import_tasks: 290-on-login.yml
+  ansible.builtin.import_tasks: 290-configura-logs.yml
   tags:
     - t-290
 
 - name: Task-300
-  ansible.builtin.import_tasks: 300-configura-logs.yml
+  ansible.builtin.import_tasks: 300-zoom-autoupdate.yml
   tags:
     - t-300
-
-- name: Task-310
-  ansible.builtin.import_tasks: 310-zoom-autoupdate.yml
-  tags:
-    - t-310
 
 - name: Task-990
   ansible.builtin.import_tasks: 990-versionamento.yml

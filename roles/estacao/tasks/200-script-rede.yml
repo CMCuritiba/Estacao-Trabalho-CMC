@@ -14,5 +14,3 @@
   ansible.builtin.service:
     name: cmc-network-script
     enabled: true
-
-

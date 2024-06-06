@@ -18,7 +18,7 @@
     mode: "0644"
 
 - name: "Habilita o serviço e roda o script imediatamente"
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: cmc-boot.service
     enabled: true
     state: started

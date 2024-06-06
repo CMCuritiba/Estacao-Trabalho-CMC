@@ -24,8 +24,8 @@
 - name: "Configura Google Chrome"
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
+    src: "chrome-config"
     mode: "0644"
-    content: "{{ estacao_google_chrome_recommended | ansible.builtin.to_nice_json }}"
 
 - name: "Gera bookmarks dos navegadores"
   ansible.builtin.template:

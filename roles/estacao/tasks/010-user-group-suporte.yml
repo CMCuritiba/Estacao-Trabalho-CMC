@@ -2,11 +2,12 @@
 - name: "Cria grupo 'suporte' se não existe"
   ansible.builtin.group:
     name: suporte
-    state: present
 
 - name: "Configura usuário 'suporte'"
   ansible.builtin.user:
     name: suporte
+    password: "{{ estacao_suporte_pass | password_hash('sha512') }}"
+    update_password: always
     groups:
       - suporte
       - sudo
@@ -14,12 +15,8 @@
     create_home: true
     state: present
 
-- name: "Atualiza senhas de suporte e root"
+- name: "Atualiza a senha de root"
   ansible.builtin.user:
-    name: "{{ item.name }}"
-    password: "{{ item.password | password_hash('sha512') }}"
-  loop:
-    - { name: "suporte", password: "{{ estacao_suporte_pass }}" }
-    - { name: "root", password: "{{ estacao_root_pass }}" }
-  tags:
-    - passwords
+    name: root
+    password: "{{ estacao_root_pass | password_hash('sha512') }}"
+    update_password: always

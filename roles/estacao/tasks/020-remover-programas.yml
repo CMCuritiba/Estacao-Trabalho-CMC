@@ -14,3 +14,6 @@
       - warpinator" # Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
     state: absent
     update_cache: true
+    autoremove: yes
+    purge: true
+

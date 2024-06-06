@@ -1,14 +1,10 @@
 ---
-- name: "Pega informações sobre vino-server"
-  ansible.builtin.stat:
-    path: "{{ estacao_vino }}"
-  register: vino_info
-
 - name: "Cria arquivo e configura vino-server"
-  when: not vino_info.stat.exists
   ansible.builtin.copy:
     dest: "{{ estacao_vino }}"
     src: "vino-server.desktop"
+    owner: root
+    group: root
     mode: "0644"
 
 - name: "Atualiza o launcher do vino-server para que inicie automaticamente"
