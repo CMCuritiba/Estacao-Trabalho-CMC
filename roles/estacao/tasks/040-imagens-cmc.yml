@@ -1,14 +1,13 @@
 ---
-- name: "Copiar ícones para /usr/share/pixmaps/"
+- name: Copia imagem para o icone de suporte no desktop
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/pixmaps/
     mode: "0644"
   loop:
-    # - imagens/Rainbow.png
     - imagens/suporte_tux.png
 
-- name: "Copiar imagens de background para /usr/share/backgrounds/cmc/"
+- name: Copia imagens de papel de parede e greeter
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/share/backgrounds/cmc/
