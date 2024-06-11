@@ -73,3 +73,9 @@ estacao_bookmarks:
         url: "http://sgp-web.curitiba.pr.gov.br/sgp/seg/login.do"
       - name: "Consulta Licitações"
         url: "http://consultalicitacao.curitiba.pr.gov.br:9090/ConsultaLicitacoes/"
+
+# Extensões para o Firefox
+# https://mozilla.github.io/policy-templates/#extensionsettings
+estacao_firefox_addons:
+  - name: "pt-BR@dictionaries.addons.mozilla.org"
+    url: "https://addons.mozilla.org/firefox/downloads/file/4223181/corretor-123.2024.16.151.xpi"

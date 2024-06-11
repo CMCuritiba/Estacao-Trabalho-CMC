@@ -22,6 +22,19 @@
       {% endif %}
       }{{loop.last | ternary('', ',')}}
     {% endfor %}
+    {% if estacao_firefox_addons is defined and estacao_firefox_addons | length > 0 %}
+    ],
+      {% for addon in estacao_firefox_addons %}
+    {
+      "{{ addon.name }}": {
+        "installation_mode": "force_installed",
+        "install_url": "{{ addon.url }}",
+        "updates_disabled": false
+      }{{loop.last | ternary('', ',')}}
+    }
+      {% endfor %}
+    {% else %}
     ]
+    {% endif %}
   }
 }

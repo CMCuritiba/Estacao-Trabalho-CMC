@@ -43,6 +43,7 @@
   loop:
     # Referencia para policies do Firefox:
     # https://mozilla.github.io/policy-templates/
+    # # https://mozilla.github.io/policy-templates/#managedbookmarks
     - src: "templates/bookmarks_firefox.j2"
       dest: "/usr/lib/firefox/distribution/policies.json"
     # Referencia para policies do Chrome:
