@@ -1,9 +1,9 @@
 {
-  "name": "Estações de Trabalho",
+  "name": "estacao-de-trabalho",
   "version": "1.0.0",
   "description": "Role para as estações de trabalho imagem mint/cinnamon",
   "repository": "git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git",
-  "author": "Lucas Gasperin <lpg2024@cmc.pr.gov.br>",
+  "author": "Divisão de Arquitetura de Serviços",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",

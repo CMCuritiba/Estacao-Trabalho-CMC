@@ -13,6 +13,9 @@
       ansible.builtin.copy:
         src: "zoom-update.service"
         dest: "/etc/systemd/system/zoom-update.service"
+        owner: root
+        group: root
+        mode: "0644"
 
 - name: "Cria timer de serviço no systemd"
   block:
@@ -20,6 +23,9 @@
       ansible.builtin.copy:
         src: "zoom-update.timer"
         dest: "/etc/systemd/system/zoom-update.timer"
+        owner: root
+        group: root
+        mode: "0644"
 
 - name: "Reload systemd daemon"
   ansible.builtin.systemd:

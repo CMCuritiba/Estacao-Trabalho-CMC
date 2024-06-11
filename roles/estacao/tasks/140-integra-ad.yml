@@ -34,7 +34,7 @@
       ansible.builtin.lineinfile:
         path: /etc/krb5.conf
         regexp: default_realm.*
-        line: "default_realm = {{estacao_ad_domain | upper}}"
+        line: "default_realm = {{ estacao_ad_domain | upper }}"
 
     - name: "Garante rdns = false"
       ansible.builtin.lineinfile:
@@ -45,7 +45,7 @@
 
 - name: "Verifica se estacao_ad_domain está na lista realm"
   ansible.builtin.shell:
-    cmd: realm list | grep -iq "{{estacao_ad_domain}}"
+    cmd: realm list | grep -iq "{{ estacao_ad_domain }}"
   register: ad_domain_list
   ignore_errors: true
   changed_when: false
@@ -59,6 +59,8 @@
   ansible.builtin.template:
     src: templates/sssd-conf.j2
     dest: /etc/sssd/conf.d/01-cmc.conf
+    owner: root
+    group: root
     mode: "0600"
   notify: Restarta o SSSD
 

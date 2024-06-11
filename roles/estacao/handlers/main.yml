@@ -26,11 +26,11 @@
     state: restarted
 
 - name: Restarta o SSSD
-  systemd:
+  ansible.builtin.service:
     name: sssd
     state: restarted
 
 - name: Restarta o SSHD
-  systemd:
+  ansible.builtin.service:
     name: sshd
     state: restarted

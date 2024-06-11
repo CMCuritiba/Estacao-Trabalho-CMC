@@ -72,4 +72,3 @@ estacao_bookmarks:
         url: "http://sgp-web.curitiba.pr.gov.br/sgp/seg/login.do"
       - name: "Consulta Licitações"
         url: "http://consultalicitacao.curitiba.pr.gov.br:9090/ConsultaLicitacoes/"
-

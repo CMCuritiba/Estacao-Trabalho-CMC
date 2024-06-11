@@ -1,5 +1,5 @@
 ---
-- name: Executar role estacao
+- name: Aplica role estacao
   hosts: et1
   become: true
   roles:

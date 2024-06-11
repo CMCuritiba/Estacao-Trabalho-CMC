@@ -61,8 +61,14 @@
     dest: "{{ item.dest }}"
     mode: "+x"
   loop:
-    - {src: "/usr/share/applications/firefox.desktop", dest: "/etc/skel/Desktop/firefox.desktop"}
-    - {src: "/usr/share/applications/google-chrome.desktop", dest: "/etc/skel/Desktop/google-chrome.desktop"}
+    - {
+        src: "/usr/share/applications/firefox.desktop",
+        dest: "/etc/skel/Desktop/firefox.desktop",
+      }
+    - {
+        src: "/usr/share/applications/google-chrome.desktop",
+        dest: "/etc/skel/Desktop/google-chrome.desktop",
+      }
 
 - name: "Cria icone de suporte"
   ansible.builtin.copy:

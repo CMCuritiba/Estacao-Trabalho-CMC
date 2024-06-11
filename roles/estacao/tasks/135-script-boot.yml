@@ -9,7 +9,7 @@
   ansible.builtin.lineinfile:
     path: "{{ estacao_bootsh }}"
     regexp: ^CMCDOMAIN=
-    line: "CMCDOMAIN={{estacao_ad_domain | lower}}"
+    line: "CMCDOMAIN={{ estacao_ad_domain | lower }}"
 
 - name: "Configura cmc-boot.service"
   ansible.builtin.template:
@@ -22,4 +22,3 @@
     name: cmc-boot.service
     enabled: true
     state: started
-

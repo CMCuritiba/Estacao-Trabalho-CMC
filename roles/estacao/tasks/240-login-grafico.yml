@@ -7,6 +7,9 @@
       greeter-hide-users=true
       allow-guest=false
     dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: "Habilita login manual e esconde usuarios"
   ansible.builtin.copy:
@@ -14,6 +17,9 @@
       [Seat:*]
       greeter-session=slick-greeter
     dest: /usr/share/lightdm/lightdm.conf.d/90-slick-greeter.conf
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: "Muda background do greeter"
   ansible.builtin.template:
