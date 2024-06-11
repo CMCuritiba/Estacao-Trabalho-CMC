@@ -1,6 +1,6 @@
 {
-  "name": "estacao-de-trabalho",
-  "version": "1.0.0",
+  "name": "estacao-trabalho-cmc",
+  "version": "6.0.0",
   "description": "Role para as estações de trabalho imagem mint/cinnamon",
   "repository": "git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git",
   "author": "Divisão de Arquitetura de Serviços",
