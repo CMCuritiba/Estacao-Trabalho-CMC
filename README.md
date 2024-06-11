@@ -60,16 +60,27 @@ Procedimento:
 ### Configurando seu ambiente de trabalho
 
 1. Clone este repositório para sua máquina
+
+      ```shell
+      mkdir ~/workspace
+      cd ~/workspace/
+      git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
+      ```
+
 2. Instale o ansible, molecule e vagrant:
 
    1. Instale o [ansible](#ansible-install)
    2. <a name="vagrant-install"></a>Instale o Vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/install?product_intent=vagrant#linux)
-   3. Instale o molecule e seus plugins, conforme a seguir ou de acordo com a [documentação oficial](https://ansible.readthedocs.io/projects/molecule/installation/):
+   3. Instale o molecule e seus plugins, de acordo com a [documentação oficial](https://ansible.readthedocs.io/projects/molecule/installation/):
 
       ```shell
-      pip install molecule
-      pip install "molecule-plugins[vagrant]"
-      pip install python-vagrant
+      # Antes de instalar, crie e ative um virtualenv
+      $ cd ~/workspace/
+      $ python3 -m venv molecule
+      $ source ~/workspace/molecule/bin/activate
+      # Instale o molecule e os plugins
+      (molecule) $ pip install molecule
+      (molecule) $ pip install "molecule-plugins[vagrant]"
       ```
 
 3. Opcionalmente, ative o [commitlint](https://github.com/conventional-changelog/commitlint) e
@@ -79,6 +90,7 @@ Procedimento:
    2. Na pasta do repositório, rode:
 
       ```shell
+      cd ~/workspace/Estacao-Trabalho-CMC/
       npm install
       ```
 
@@ -102,16 +114,18 @@ Procedimento:
    como exemplo para criar seu arquivo de configuração de acordo com o
    necessário
 
-3. Dentro de roles/estacao execute:
+3. Teste o _converge_:
 
    ```shell
-   molecule converge -- --diff
+   cd ~/workspace/Estacao-Trabalho-CMC/roles/estacao/
+   $ source ~/workspace/molecule/bin/activate
+   (molecule) $ molecule converge -- --diff
    ```
 
 4. Se for necessário testar apenas tasks específicas, é possível ser realizado com:
 
    ```shell
-   molecule converge -- --tags "<tag-desejada>" --diff
+   (molecule) $ molecule converge -- --tags "<tag-desejada>" --diff
    ```
 
 O molecule deve criar uma instância do Vagrant e testar o _role_ automaticamente.
