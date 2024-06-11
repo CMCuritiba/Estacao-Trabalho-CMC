@@ -1,18 +1,21 @@
 ---
-- name: "Configura firefox"
+- name: Aplica configurações do Firefox
   ansible.builtin.copy:
     dest: "/usr/lib/firefox/{{ item.dest }}"
     src: "{{ item.src }}"
     mode: "0644"
   loop:
+    # Bloqueia edição de algumas configurações:
     - dest: "defaults/pref/local-settings.js"
       src: "firefox-config.1"
+    # Cria e configura o arquivo mozilla.cfg:
     - dest: "mozilla.cfg"
       src: "firefox-config.2"
+    # Desabilita o Import Wizard
     - dest: "browser/override.ini"
       src: "firefox-config.3"
 
-- name: "Cria pastas de configuração do Chrome"
+- name: Cria pastas de policies do Chrome
   ansible.builtin.file:
     state: directory
     path: "/etc/opt/chrome/policies/{{ item }}"
@@ -23,7 +26,7 @@
     - recommended
     - managed
 
-- name: "Configura Google Chrome"
+- name: Aplica configurações recomendadas no Google Chrome
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     src: "chrome-config"
@@ -31,14 +34,18 @@
     group: root
     mode: "0644"
 
-- name: "Gera bookmarks dos navegadores"
+- name: Configura bookmarks gerenciados nos navegadores
   ansible.builtin.template:
-    dest: "{{ item.bookmarks_config_file }}"
-    src: "templates/bookmarks_{{ item.browser }}.j2"
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
     lstrip_blocks: true
     mode: "0644"
   loop:
-    - browser: "firefox"
-      bookmarks_config_file: "/usr/lib/firefox/distribution/policies.json"
-    - browser: google-chrome
-      bookmarks_config_file: "/etc/opt/chrome/policies/managed/cmc.json"
+    # Referencia para policies do Firefox:
+    # https://mozilla.github.io/policy-templates/
+    - src: "templates/bookmarks_firefox.j2"
+      dest: "/usr/lib/firefox/distribution/policies.json"
+    # Referencia para policies do Chrome:
+    # https://cloud.google.com/docs/chrome-enterprise/policies/
+    - src: "templates/bookmarks_google-chrome.j2"
+      dest: "/etc/opt/chrome/policies/managed/cmc.json"
