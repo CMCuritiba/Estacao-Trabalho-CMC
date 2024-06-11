@@ -18,6 +18,8 @@
       user-db:user
       system-db:local
     dest: /etc/dconf/profile/user
+    owner: root
+    group: root
     mode: "0644"
 
 # Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
@@ -31,6 +33,8 @@
   ansible.builtin.template:
     src: dconf-cmc-config.j2
     dest: /etc/dconf/db/local.d/01-cmc
+    owner: root
+    group: root
     mode: "0644"
 
 - name: "Configurar o applet de calendário"

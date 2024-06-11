@@ -16,7 +16,7 @@
 - name: "Desativa o discovery do cups"
   ansible.builtin.lineinfile:
     path: /etc/cups/cups-browsed.conf
-    regexp: '^BrowseRemoteProtocols'
+    regexp: "^BrowseRemoteProtocols"
     line: "BrowseRemoteProtocols none"
     backup: true
   notify: Restart cups-browsed service

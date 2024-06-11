@@ -16,6 +16,8 @@
   ansible.builtin.file:
     state: directory
     path: "/etc/opt/chrome/policies/{{ item }}"
+    owner: root
+    group: root
     mode: "0755"
   loop:
     - recommended
@@ -25,6 +27,8 @@
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
     src: "chrome-config"
+    owner: root
+    group: root
     mode: "0644"
 
 - name: "Gera bookmarks dos navegadores"

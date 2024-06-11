@@ -12,7 +12,7 @@
   ansible.builtin.apt:
     update_cache: true
     state: latest # noqa: package-latest
-    # cache_valid_time: 86400
+    cache_valid_time: 86400
 
 - name: "Tira input da instalação do ttf-mscorefonts-installer"
   ansible.builtin.debconf:
@@ -71,7 +71,7 @@
   ansible.builtin.apt:
     deb: "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb"
     state: present
-  ignore_errors: true #Joga erro caso tenha uma versão já instalada
+  ignore_errors: true # Joga erro caso tenha uma versão já instalada
 
 - name: "Verifica se Microsoft Edge esta na versao mais recente"
   ansible.builtin.apt:

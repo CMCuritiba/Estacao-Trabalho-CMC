@@ -8,7 +8,7 @@
   community.general.xml:
     path: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
     xpath: "//policyconfig/action[@id='org.freedesktop.udisks2.{{ item[0] }}']/defaults/{{ item[1] }}"
-    value: 'yes'
+    value: "yes"
   loop: "{{ file_system_actions | product(default_acls) | list }}"
   vars:
     file_system_actions:

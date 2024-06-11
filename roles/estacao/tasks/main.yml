@@ -4,6 +4,8 @@
     path: "/usr/local/cmc"
     state: directory
     mode: "0755"
+    owner: root
+    group: root
 
 - name: Task-010
   ansible.builtin.import_tasks: 010-user-group-suporte.yml
