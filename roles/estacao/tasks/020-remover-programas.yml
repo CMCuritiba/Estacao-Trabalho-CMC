@@ -1,6 +1,6 @@
 ---
 # Remove alguns programas padrão desnecessários
-- name: "Remover Programas"
+- name: Remove programas
   ansible.builtin.apt:
     name:
       - thunderbird*
