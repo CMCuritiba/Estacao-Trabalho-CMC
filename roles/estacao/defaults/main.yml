@@ -1,16 +1,17 @@
-estacao_suporte_pass: senha_usuario_suporte
-estacao_root_pass: senha_usuario_root
-estacao_vnc_pass: senha_login_remoto_vnc
-estacao_dtic_group: grupo
-estacao_dtic_network: "0.0.0.0/24"
-estacao_ad_ip_address:
+estacao_suporte_pass: senha_usuario_suporte # type: string password
+estacao_root_pass: senha_usuario_root # type: string password
+estacao_vnc_pass: senha_login_remoto_vnc # type: string password
+estacao_dtic_group: grupo # type: string nome de grupo
+estacao_dtic_network: "0.0.0.0/24" # type: string CIDR
+estacao_ad_ip_address: # type: list of IPs
   - 0.0.0.0
   - 1.1.1.1
-estacao_ad_domain: example.com
-estacao_ad_join_user: administrator
-estacao_ad_join_pass: password
-estacao_nfs_serv: "0.0.0.0:/remote/dir"
-estacao_mnt_suporte: "/mnt/suporte"
+estacao_ad_domain: example.com # type: string FQDN
+estacao_ad_join_user: administrator # type: string username
+estacao_ad_join_pass: password # type: string password
+estacao_nfs_serv: 0.0.0.0 # type: string IP|FQDN
+estacao_nfs_src: /remote/dir # type: string dirname
+estacao_mnt_suporte: "/mnt/suporte" # type: string dirname
 
 # Bookmarks dos navegadores
 estacao_bookmarks:
