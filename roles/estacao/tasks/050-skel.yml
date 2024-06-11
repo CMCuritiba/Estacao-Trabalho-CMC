@@ -1,8 +1,11 @@
 ---
-- name: "Cria os diretorios padrao"
+
+- name: Cria os diretórios padrão
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    owner: root
+    group: root
     mode: "0755"
   loop:
     - /etc/skel/Desktop
@@ -10,9 +13,21 @@
     - /etc/skel/Música
     - /etc/skel/Imagens
     - /etc/skel/Vídeos
-    - /home/Docs.Locais
 
-- name: "Cria o link simbólico /etc/skel/Docs.Locais apontando para /home/Docs.Locais"
+- name: Garante que Docs.Locais está sem arquivos
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: absent
+
+- name: Cria Docs.Locais
+  ansible.builtin.file:
+    path: /home/Docs.Locais
+    state: directory
+    mode: "1777"
+    owner: nobody
+    group: nogroup
+
+- name: Cria o link simbólico para Docs.Locais
   ansible.builtin.file:
     path: /etc/skel/Docs.Locais
     src: /home/Docs.Locais
@@ -36,30 +51,20 @@
     dest: /etc/skel/.config/user-dirs.locale
     mode: "0644"
 
-# Desabilita a atualização automatica dos user-dirs no XDG
-- name: "Modifica o arquivo user-dirs.conf"
+- name: Desabilita a atualização automatica dos user-dirs no XDG
   ansible.builtin.lineinfile:
     path: /etc/xdg/user-dirs.conf
     regexp: "^enabled=True"
     line: "enabled=False"
 
-- name: "Atualiza permissoes dos DOCS locais"
-  ansible.builtin.file:
-    path: /home/Docs.Locais
-    state: directory
-    mode: "1777"
-    owner: nobody
-    group: nogroup
-
-- name: "Garante que docs locais está sem arquivos"
-  ansible.builtin.command:
-    cmd: rm -rf /home/Docs.Locais/*
-
-- name: "Cria icones de firefox e chrome"
+- name: Cria icones de Firefox e Chrome
   ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    owner: root
+    group: root
     mode: "+x"
+    remote_src: true
   loop:
     - {
         src: "/usr/share/applications/firefox.desktop",
@@ -70,17 +75,20 @@
         dest: "/etc/skel/Desktop/google-chrome.desktop",
       }
 
-- name: "Cria icone de suporte"
+- name: Cria icone de Suporte
   ansible.builtin.copy:
     src: atalhos/Suporte.desktop
     dest: /etc/skel/Desktop/Suporte.desktop
+    owner: root
+    group: root
     mode: "+x"
 
 - name: "Cria política de privacidade"
   ansible.builtin.copy:
     dest: "/etc/skel/.politicainformatica.sh"
-    remote_src: false
     src: ".politicainformatica.sh"
+    owner: root
+    group: root
     mode: "0644"
 
 - name: "Força logout se nao aceitar a politica de privacidade"
