@@ -75,12 +75,11 @@ Procedimento:
 3. Opcionalmente, ative o [commitlint](https://github.com/conventional-changelog/commitlint) e
    o [commitzen](https://github.com/commitizen/cz-cli) no repositório:
 
-   1. Instale o [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/) e o
-      [`node`](https://nodejs.org/en/download);
+   1. Instale [`npm e node`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm);
    2. Na pasta do repositório, rode:
 
       ```shell
-      yarn
+      npm install
       ```
 
    3. Esta configuração não é obrigatória, mas **fortemente** recomendada;
