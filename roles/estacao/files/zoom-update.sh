@@ -15,7 +15,7 @@ else
     # echo "ultima versão disponível para download: $ZOOM_VERSION_AVAILABLE"
 fi
 
-ZOOM_VERSION_INSTALLED=$(apt-cache policy zoom | grep "Installed:" | awk '{print $2}')
+ZOOM_VERSION_INSTALLED=$(apt-cache policy zoom | grep -E "Installed|Instalado" | awk '{print $2}')
 # echo "versão do zoom instalada: $ZOOM_VERSION_INSTALLED"
 if [[ "$ZOOM_VERSION_INSTALLED" != *"$ZOOM_VERSION_AVAILABLE"* ]]; then
     if [ -f "$instalador_rede" ]; then
