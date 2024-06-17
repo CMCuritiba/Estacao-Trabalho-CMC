@@ -1,18 +1,18 @@
 ---
-- name: "Cria diretório /usr/local/cmc/scripts"
+- name: Cria diretório de scripts da CMC
   ansible.builtin.file:
-    path: /usr/local/cmc/scripts
+    path: "{{ estacao_cmc_scripts_dir }}"
     state: directory
     mode: "0755"
 
-- name: "Cria o script forcelogout.sh"
+- name: Cria o script forcelogout.sh
   ansible.builtin.copy:
-    dest: /usr/local/cmc/scripts/forcelogout.sh
+    dest: "{{ estacao_cmc_scripts_dir }}/forcelogout.sh"
     src: "forcelogout.sh"
     mode: "0755"
 
-- name: "Copia o arquivo politica-informatica.txt"
+- name: Copia as politicas de informática
   ansible.builtin.copy:
     src: politica-informatica.txt
-    dest: /usr/local/cmc/politica-informatica.txt
+    dest: "{{ estacao_politica }}"
     mode: "0644"

@@ -3,6 +3,6 @@
 # Formato: ET-MAJOR.MINOR.PATCH
 - name: "Mantém versionamento"
   ansible.builtin.copy:
-    dest: "/usr/local/cmc/version"
+    dest: "{{ estacao_cmc_dir }}/version"
     content: "ET-6.0.2"
     mode: "0644"

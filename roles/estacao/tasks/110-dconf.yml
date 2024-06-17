@@ -9,7 +9,7 @@
   loop:
     - /etc/dconf/profile
     - /etc/dconf/db/local.d/locks
-    - /usr/local/cmc/scripts
+    - "{{ estacao_cmc_scripts_dir }}"
 
 # Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
 - name: "Cria o arquivo de configuração /etc/dconf/profile/user"
@@ -70,7 +70,7 @@
 - name: "Copia  o script necessario para iniciar o terminal como root"
   ansible.builtin.copy:
     src: "root-terminal.sh"
-    dest: "/usr/local/cmc/scripts/root-terminal.sh"
+    dest: "{{ estacao_cmc_scripts_dir }}/root-terminal.sh"
     mode: "0755"
 
 - name: "Atualiza dconf"

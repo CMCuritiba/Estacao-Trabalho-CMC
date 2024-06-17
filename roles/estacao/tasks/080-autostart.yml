@@ -11,9 +11,9 @@
     - /etc/xdg/autostart/mintreport.desktop
 
 - name: "Criar arquivo de autostart forcelogout.desktop"
-  ansible.builtin.copy:
+  ansible.builtin.template:
+    src: "forcelogout.desktop.j2"
     dest: /etc/xdg/autostart/forcelogout.desktop
     owner: root
     group: root
     mode: "0644"
-    src: "forcelogout.desktop"

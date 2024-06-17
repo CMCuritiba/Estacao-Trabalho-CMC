@@ -5,16 +5,10 @@
     dest: "{{ estacao_bootsh }}"
     mode: "0755"
 
-- name: "Configura dominio cmc"
-  ansible.builtin.lineinfile:
-    path: "{{ estacao_bootsh }}"
-    regexp: ^CMCDOMAIN=
-    line: "CMCDOMAIN={{ estacao_ad_domain | lower }}"
-
 - name: "Configura cmc-boot.service"
   ansible.builtin.template:
-    src: cmc-boot.j2
-    dest: /etc/systemd/system/cmc-boot.service
+    src: cmc-boot.service.j2
+    dest: "{{ estacao_servico_boot }}"
     mode: "0644"
 
 - name: "Habilita o serviço e roda o script imediatamente"

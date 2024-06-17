@@ -1,7 +1,7 @@
 ---
-- name: Cria diretório /usr/local/cmc
+- name: Cria diretório da CMC
   ansible.builtin.file:
-    path: "/usr/local/cmc"
+    path: "{{ estacao_cmc_dir }}"
     state: directory
     mode: "0755"
     owner: root

@@ -3,8 +3,10 @@
   block:
     - name: "Cria diretório de montagem"
       ansible.builtin.file:
-        path: /mnt/suporte
+        path: "{{ estacao_mnt_suporte }}"
         state: directory
+        owner: root
+        group: root
         mode: "0755"
 
     - name: "Configura /etc/fstab"

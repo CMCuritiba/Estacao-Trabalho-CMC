@@ -5,7 +5,7 @@ After=network-online.target mnt-suporte.mount
 
 [Service]
 User=root
-ExecStart=/usr/local/cmc/scripts/zoom-update.sh
+ExecStart={{ estacao_zoomsh }}
 
 [Install]
 WantedBy=multi-user.target

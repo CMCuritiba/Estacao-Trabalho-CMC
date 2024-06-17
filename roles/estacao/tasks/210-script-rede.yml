@@ -5,9 +5,9 @@
 # systemctl list-units | grep '/path/to/mount' | awk '{ print $1 }'
 
 - name: "Configura serviço de network da CMC"
-  ansible.builtin.copy:
-    dest: /etc/systemd/system/cmc-network-script.service
-    src: "cmc-network-script.service"
+  ansible.builtin.template:
+    src: "cmc-network-script.service.j2"
+    dest: "{{ estacao_servico_network }}"
     mode: "0644"
 
 - name: "Restart cmc-network-script service"

@@ -1,14 +1,18 @@
 ---
-# Esse script roda por último, criar aqui links em /usr/local/cmc/modificados para qualquer arquivo (ou pasta, se forem muitos) que foram modificados
+# Adicionar aqui links para qualquer arquivo (ou pasta, se forem muitos) que
+# foram modificados
+
 - name: "Cria pasta de modificados"
   ansible.builtin.file:
-    path: /usr/local/cmc/modificados
+    path: "{{ estacao_cmc_modificados_dir }}"
+    owner: root
+    group: root
     state: directory
     mode: "0755"
 
 - name: "Cria links"
   ansible.builtin.file:
-    dest: "/usr/local/cmc/modificados/{{ item.dest | default(item.src.split('/')[-1]) }}"
+    dest: "{{ estacao_cmc_modificados_dir }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
     src: "{{ item.src }}"
     force: true
     state: link
@@ -47,7 +51,7 @@
     - src: /etc/pam.d/common-account
     - src: /etc/sssd/conf.d/01-cmc.conf
       dest: sssd-01-cmc.conf
-    - src: /etc/systemd/system/cmc-network-script.service
+    - src: "{{ estacao_servico_network }}"
     - src: /usr/share/pixmaps/suporte_tux.png
     - src: /usr/share/backgrounds/cmc/desktop-bg.png
     - src: /etc/ntp.conf
@@ -59,9 +63,9 @@
     - src: /etc/X11/xorg.conf
     - src: /etc/logrotate.d/rsyslog
     - src: /etc/logrotate.d/sssd-common
-    - src: /mnt/suporte/etv4/scripts/boot.sh
+    - src: "{{ estacao_mnt_suporte }}/etv4/scripts/boot.sh"
     - src: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
     - src: /usr/share/polkit-1/actions/org.blueman.policy
-    - src: /etc/systemd/system/cmc-boot.service
-    - src: /etc/systemd/system/zoom-update.service
-    - src: /etc/systemd/system/zoom-update.timer
+    - src: "{{ estacao_servico_boot }}"
+    - src: "{{ estacao_servico_zoom_update }}"
+    - src: "{{ estacao_servico_zoom_timer }}"

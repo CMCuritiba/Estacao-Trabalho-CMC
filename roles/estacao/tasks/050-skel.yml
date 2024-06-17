@@ -1,5 +1,4 @@
 ---
-
 - name: Cria os diretórios padrão
   ansible.builtin.file:
     path: "{{ item }}"
@@ -84,12 +83,12 @@
     mode: "+x"
 
 - name: "Cria política de privacidade"
-  ansible.builtin.copy:
+  ansible.builtin.template:
+    src: "politicainformatica.sh.j2"
     dest: "/etc/skel/.politicainformatica.sh"
-    src: ".politicainformatica.sh"
     owner: root
     group: root
-    mode: "0644"
+    mode: "0755"
 
 - name: "Força logout se nao aceitar a politica de privacidade"
   ansible.builtin.lineinfile:
