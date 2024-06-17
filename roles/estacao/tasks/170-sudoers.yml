@@ -1,7 +1,7 @@
 ---
 - name: "Adiciona grupo DTIC"
   community.general.sudoers:
-    name: 'cmc'
-    group: '{{ estacao_dtic_group }}'
+    name: "cmc"
+    group: "{{ estacao_dtic_group }}"
     nopassword: false
-    commands: 'ALL'
+    commands: "ALL"

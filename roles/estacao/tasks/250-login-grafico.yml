@@ -23,6 +23,6 @@
 
 - name: "Muda background do greeter"
   ansible.builtin.template:
-    src: templates/greeter-background.j2
+    src: greeter-background.j2
     dest: /etc/lightdm/slick-greeter.conf
     mode: "0644"

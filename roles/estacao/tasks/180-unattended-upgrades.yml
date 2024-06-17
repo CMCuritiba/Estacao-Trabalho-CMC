@@ -6,7 +6,8 @@
     name:
       - unattended-upgrades
 
-# Me perdoe, mas essa foi a melhor forma que achei de fazer isso. Está feio, capenga e xoxo mas funciona ;)
+# Me perdoe, mas essa foi a melhor forma que achei de fazer isso.
+# Está feio, capenga e xoxo mas funciona ;)
 - name: "Coleta informações de distribuição"
   ansible.builtin.shell:
     cmd: '. /etc/upstream-release/lsb-release && echo "$DISTRIB_ID\n$DISTRIB_CODENAME"'
@@ -16,12 +17,12 @@
     (distrib_info.rc != 0) or
     ((distrib_info.stdout_lines | length) == 0)
 
-- name: "Adiciona os repositórios relevantes ao arquivo de configuração"
+- name: Adiciona os repositórios relevantes nas atualizações
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
     insertafter: 'Unattended-Upgrade::Allowed-Origins {'
     line: "{{ item }}"
-  with_items:
+  with_items: # noqa: no-tabs
     - "\t\"${distro_id}:${distro_codename}-updates\";"
     - "\t\"{{ distrib_id }}:{{ distrib_codename }}-security\";"
     - "\t\"{{ distrib_id }}:{{ distrib_codename }}\";"

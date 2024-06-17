@@ -7,6 +7,6 @@
     backrefs: true
     backup: true
 
-- name: "Automatiza a criação do diretório HOME após o login"
+- name: Automatiza a criação do diretório HOME após o login
   ansible.builtin.command:
     cmd: pam-auth-update --force --enable mkhomedir

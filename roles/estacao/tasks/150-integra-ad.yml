@@ -1,5 +1,5 @@
 ---
-- name: "Seta hostname"
+- name: Seta hostname
   ansible.builtin.command:
     cmd: "{{ estacao_bootsh }}"
 
@@ -28,7 +28,8 @@
     force_apt_get: true
     force: true
 
-- name: "Configura arquivo do Kerberos com o domínio e evita problema de DNS reverso"
+# Configura arquivo do Kerberos com o domínio e evita problema de DNS reverso
+- name: Configura Kerberos
   block:
     - name: "Configura default_realm para estacao_ad_domain"
       ansible.builtin.lineinfile:
@@ -40,7 +41,7 @@
       ansible.builtin.lineinfile:
         path: /etc/krb5.conf
         regexp: \s*rdns.+false$
-        line: "\trdns = false"
+        line: "\trdns = false" # noqa: no-tabs
         insertafter: "^default_realm"
 
 - name: "Verifica se estacao_ad_domain está na lista realm"
@@ -50,7 +51,7 @@
   ignore_errors: true
   changed_when: false
 
-- name: "Adiciona o computador ao domínio caso não esteja"
+- name: Adiciona o computador ao domínio caso não esteja
   ansible.builtin.shell:
     cmd: echo "{{ estacao_ad_join_pass }}" | realm join -U "{{ estacao_ad_join_user }}" "{{ estacao_ad_domain | lower }}"
   when: ad_domain_list.rc != 0
