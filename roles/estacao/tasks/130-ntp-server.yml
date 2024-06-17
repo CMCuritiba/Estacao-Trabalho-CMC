@@ -1,0 +1,16 @@
+---
+- name: "Popula o arquivo de configuração"
+  ansible.builtin.copy:
+    content: |
+      # Servidor da camara
+      server  ntp1.cmc.pr.gov.br
+      server  ntp2.cmc.pr.gov.br
+
+      # Loops locais
+      server  127.127.1.0
+      fudge   127.127.1.0 stratum 10
+
+      # Tokyo Drift
+      driftfile /var/lib/ntp/ntp.drift
+    dest: /etc/ntp.conf
+    mode: "0644"

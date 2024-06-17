@@ -1,0 +1,11 @@
+---
+- name: "Desabilita a troca de terminals com CTRL + ALT + Fx"
+  ansible.builtin.blockinfile:
+    path: /etc/X11/xorg.conf
+    create: true
+    mode: "0644"
+    state: present
+    block: |
+      Section "ServerFlags"
+        Option "DontVTSwitch" "true"
+      EndSection

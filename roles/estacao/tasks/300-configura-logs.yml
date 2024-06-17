@@ -1,0 +1,20 @@
+---
+# Altera tempo de retencao do syslog, auth, messages e outros para 6 meses
+
+- name: Mantém logs por 27 semanas (~6 meses)
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "rotate(.+)"
+    replace: "rotate 27"
+  loop:
+    - /etc/logrotate.d/rsyslog
+    - /etc/logrotate.d/sssd-common
+
+- name: Rotaciona logs diariamente
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "daily"
+    replace: "weekly"
+  loop:
+    - /etc/logrotate.d/rsyslog
+    - /etc/logrotate.d/sssd-common

@@ -1,0 +1,19 @@
+---
+- name: "Montando NFS"
+  block:
+    - name: "Cria diretório de montagem"
+      ansible.builtin.file:
+        path: /mnt/suporte
+        state: directory
+        mode: "0755"
+
+    - name: "Configura /etc/fstab"
+      ansible.posix.mount:
+        path: "{{ estacao_mnt_suporte }}"
+        src: "{{ estacao_nfs_serv }}:{{ estacao_nfs_src }}"
+        fstype: "nfs"
+        opts: "timeo=5,retrans=3,retry=10,ro,fg,intr,_netdev,soft,nofail"
+        dump: 0
+        passno: 0
+        backup: true
+        state: present
