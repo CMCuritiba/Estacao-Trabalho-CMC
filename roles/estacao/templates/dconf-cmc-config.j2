@@ -10,7 +10,7 @@ start-with-status-bar=true
 icon-visibility='client'
 authentication-methods=['vnc']
 enabled=true
-vnc-password='{{estacao_vnc_pass | b64encode}}'
+vnc-password='{{ estacao_vnc_pass | b64encode }}'
 
 # Habilita o screensaver para exibir data e hora
 [org/cinnamon/desktop/screensaver]
@@ -106,7 +106,7 @@ show-package-manager=false
 
 # Background padrão
 [org/cinnamon/desktop/background]
-picture-uri='file://{{estacao_wallpaper_filename}}'
+picture-uri='file://{{ estacao_wallpaper_filename }}'
 
 # Desabilita notificação de rede On/Off
 [org/gnome/nm-applet]

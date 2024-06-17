@@ -44,9 +44,9 @@
     # Referencia para policies do Firefox:
     # https://mozilla.github.io/policy-templates/
     # # https://mozilla.github.io/policy-templates/#managedbookmarks
-    - src: "templates/bookmarks_firefox.j2"
+    - src: "bookmarks_firefox.j2"
       dest: "/usr/lib/firefox/distribution/policies.json"
     # Referencia para policies do Chrome:
     # https://cloud.google.com/docs/chrome-enterprise/policies/
-    - src: "templates/bookmarks_google-chrome.j2"
+    - src: "bookmarks_google-chrome.j2"
       dest: "/etc/opt/chrome/policies/managed/cmc.json"

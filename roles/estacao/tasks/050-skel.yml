@@ -32,7 +32,7 @@
     src: /home/Docs.Locais
     state: link
 
-- name: "Cria arquivo padrão user-dirs.dirs"
+- name: Configura user-dirs.dirs
   ansible.builtin.copy:
     dest: /etc/skel/.config/user-dirs.dirs
     content: |
@@ -44,7 +44,7 @@
       XDG_VIDEOS_DIR=\"\$HOME/Vídeos\
     mode: "0644"
 
-- name: "Cria o arquivo user-dirs.locale com conteúdo 'pt_BR'"
+- name: Configura o user-dirs.locale para 'pt_BR'
   ansible.builtin.copy:
     content: "pt_BR"
     dest: /etc/skel/.config/user-dirs.locale
@@ -62,7 +62,7 @@
     dest: "{{ item.dest }}"
     owner: root
     group: root
-    mode: "+x"
+    mode: "0755"
     remote_src: true
   loop:
     - {
@@ -76,11 +76,11 @@
 
 - name: Cria icone de Suporte
   ansible.builtin.copy:
-    src: atalhos/Suporte.desktop
+    src: Suporte.desktop
     dest: /etc/skel/Desktop/Suporte.desktop
     owner: root
     group: root
-    mode: "+x"
+    mode: "0755"
 
 - name: "Cria política de privacidade"
   ansible.builtin.template:
@@ -90,16 +90,14 @@
     group: root
     mode: "0755"
 
-- name: "Força logout se nao aceitar a politica de privacidade"
-  ansible.builtin.lineinfile:
+- name: Força logout se não aceitar a política de privacidade
+  ansible.builtin.blockinfile:
     path: /etc/skel/.profile
     insertafter: EOF
-    line: |
+    marker: "### {mark} Politica ET"
+    block: |
       if [ -f "$HOME/.politicainformatica.sh" ]; then
         bash $HOME/.politicainformatica.sh;
       fi
-    create: true
     state: present
-    backrefs: true
-    regexp: 'bash \$HOME\/\.politicainformatica\.sh;'
     mode: "0644"

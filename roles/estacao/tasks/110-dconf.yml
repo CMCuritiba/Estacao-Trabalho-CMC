@@ -9,7 +9,6 @@
   loop:
     - /etc/dconf/profile
     - /etc/dconf/db/local.d/locks
-    - "{{ estacao_cmc_scripts_dir }}"
 
 # Seta o local do arquivo de config (local, ou seja, ficará em /db/local.d)
 - name: "Cria o arquivo de configuração /etc/dconf/profile/user"
@@ -22,14 +21,7 @@
     group: root
     mode: "0644"
 
-# Baixa e copia o applet "weather@mockturtl" na pasta correta (Projeto abandonado)
-# Ao baixar o applet pela interface gráfica fica em português,
-# mas se pegar essa pasta em português e colocar ela em "/usr/share/cinnamon/applets" (local onde ficam os applets nativos do cinnamon)
-# ele volta a ficar em inglês
-# wget -P /usr/share/cinnamon/applets https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip && unzip /usr/share/cinnamon/applets/weather@mockturtl.zip -d /usr/share/cinnamon/applets/
-# rm -rf weather@mockturtl.zip
-
-- name: "Criar o arquivo de configuração dconf"
+- name: Criar o arquivo de configuração dconf
   ansible.builtin.template:
     src: dconf-cmc-config.j2
     dest: /etc/dconf/db/local.d/01-cmc

@@ -7,5 +7,5 @@
     state: present
     block: |
       Section "ServerFlags"
-        Option "DontVTSwitch" "true"
+          Option "DontVTSwitch" "true"
       EndSection
