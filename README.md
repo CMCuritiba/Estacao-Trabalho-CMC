@@ -4,7 +4,7 @@
 
 1. Devem ser criadas _tasks_ para todas as operações possíveis.
 2. De preferência, evitar a necessidade de _input_ enquanto a _task_ roda.
-3. As _tasks_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguros para múltiplas execuções).
+3. As _tasks_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguras para múltiplas execuções).
 4. Buscar sempre seguir as [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html)
 
 ## Requisitos
@@ -15,11 +15,10 @@
 
 Procedimento:
 
-1. Instale o Mint normalmente.
-   - Crie a conta padrão `suporte`.
-2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET;
-3. Faça login com o usuário criado;
-4. Baixe o _codigo_ do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
+1. Instale o Mint normalmente e crie a conta padrão `suporte`.
+2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET.
+3. Faça login com o usuário criado.
+4. Baixe o código do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
 5. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.exemple)
    como exemplo para criar seu arquivo de configuração de acordo com o
    necessário. As variáveis são:
@@ -43,7 +42,7 @@ Procedimento:
    - `estacao_ntp_servers`: **OPCIONAL**, lista de servidores NTP
    - `estacao_ad_fallback_ip`: **OPCIONAL**, lista de ips para fallback
 
-6. <a name="ansible-install"></a>Garanta que ansible esteja instalado:
+6. <a name="ansible-install"></a>Garanta que Ansible esteja instalado:
 
    ```shell
    pip install ansible
@@ -72,11 +71,11 @@ Procedimento:
    git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
    ```
 
-2. Instale o ansible, molecule e vagrant:
+2. Instale o Ansible, Molecule e Vagrant:
 
-   1. Instale o [ansible](#ansible-install)
+   1. Instale o [Ansible](#ansible-install)
    2. <a name="vagrant-install"></a>Instale o Vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/install?product_intent=vagrant#linux)
-   3. Instale o molecule e seus plugins, de acordo com a [documentação oficial](https://ansible.readthedocs.io/projects/molecule/installation/):
+   3. Instale o Molecule e seus plugins, de acordo com a [documentação oficial](https://ansible.readthedocs.io/projects/molecule/installation/):
 
       ```shell
       # Antes de instalar, crie e ative um virtualenv
