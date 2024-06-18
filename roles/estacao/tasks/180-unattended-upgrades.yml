@@ -29,14 +29,6 @@
 #   ansible.builtin.debug:
 #     msg: "{{ ansible_facts.packages['google-chrome-stable'] }}"
 
-# No Mint 21.3 o firefox não é atualizado pela linha nativa no arquivo
-# 'LinuxMint:virginia', é necessário incluir 'linuxmint:virginia'
-- name: Habilita atualização automática do Firefox
-  ansible.builtin.lineinfile:
-    path: "{{ estacao_unattended_conf }}"
-    insertafter: "Unattended-Upgrade::Allowed-Origins {"
-    line: "\t\"{{ ansible_facts.lsb['id'] | lower }}:{{ ansible_facts.lsb['codename'] | lower }}\";"
-
 - name: Habilita atualização automática do Chrome
   ansible.builtin.lineinfile:
     path: "{{ estacao_unattended_conf }}"
@@ -48,3 +40,11 @@
     path: "{{ estacao_unattended_conf }}"
     insertafter: "Unattended-Upgrade::Allowed-Origins {"
     line: "\t\"{{ ansible_facts.packages['microsoft-edge-stable'][0].origin }}:stable\";"
+
+# No Mint 21.3 o firefox não é atualizado pela linha nativa no arquivo
+# 'LinuxMint:virginia', é necessário incluir 'linuxmint:virginia'
+- name: Habilita atualização automática do Firefox
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_unattended_conf }}"
+    insertafter: "Unattended-Upgrade::Allowed-Origins {"
+    line: "\t\"{{ ansible_facts.lsb['id'] | lower }}:{{ ansible_facts.lsb['codename'] | lower }}\";"
