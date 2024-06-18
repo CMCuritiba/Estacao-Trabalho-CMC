@@ -134,7 +134,7 @@
 - name: Configura o login gráfico
   ansible.builtin.import_tasks: 250-login-grafico.yml
   tags:
-    - login
+    - lightdm
     - login-grafico
 
 - name: Configura o CUPS
@@ -157,6 +157,7 @@
   tags:
     - bloqueio
     - cinnamon
+    - acl
 
 - name: Locka os icones do desktop
   ansible.builtin.import_tasks: 290-on-login.yml
@@ -177,6 +178,7 @@
   ansible.builtin.import_tasks: 990-versionamento.yml
   tags:
     - versionamento
+    - versao
 
 - name: Cria pasta de modificados e links
   ansible.builtin.import_tasks: 999-arquivos-modificados.yml
