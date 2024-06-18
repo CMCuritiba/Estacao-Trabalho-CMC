@@ -4,7 +4,7 @@
 - name: Mantém logs por 27 semanas (~6 meses)
   ansible.builtin.replace:
     path: "{{ item }}"
-    regexp: "rotate(.+)"
+    regexp: 'rotate\s+\d+'
     replace: "rotate 27"
   loop:
     - /etc/logrotate.d/rsyslog

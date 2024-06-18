@@ -10,5 +10,5 @@
 - name: "Atualiza o launcher do vino-server para que inicie automaticamente"
   ansible.builtin.lineinfile:
     path: "{{ estacao_vino }}"
-    regexp: '^X-GNOME-Autostart-enabled'
+    regexp: "^X-GNOME-Autostart-enabled"
     line: "X-GNOME-Autostart-enabled=true"

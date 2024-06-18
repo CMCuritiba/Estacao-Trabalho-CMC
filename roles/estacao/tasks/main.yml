@@ -7,7 +7,7 @@
     owner: root
     group: root
 
-- name: Configura o grupo e usuário 'suporte'
+- name: Configura o grupo e usuário de suporte
   ansible.builtin.import_tasks: 010-user-group-suporte.yml
   tags:
     - suporte
@@ -109,6 +109,7 @@
   ansible.builtin.import_tasks: 200-nfs-mount.yml
   tags:
     - nfs
+    - mount
 
 - name: Configura serviço de network da CMC
   ansible.builtin.import_tasks: 210-script-rede.yml
@@ -134,6 +135,7 @@
   ansible.builtin.import_tasks: 250-login-grafico.yml
   tags:
     - login
+    - login-grafico
 
 - name: Configura o CUPS
   ansible.builtin.import_tasks: 260-configura-cups.yml
@@ -154,6 +156,7 @@
   ansible.builtin.import_tasks: 280-bloqueio-cinnamon.yml
   tags:
     - bloqueio
+    - cinnamon
 
 - name: Locka os icones do desktop
   ansible.builtin.import_tasks: 290-on-login.yml

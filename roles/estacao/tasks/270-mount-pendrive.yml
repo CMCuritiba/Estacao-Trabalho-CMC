@@ -1,9 +1,4 @@
 ---
-- name: "Garante que xmlstarlet está instalado"
-  ansible.builtin.package:
-    name: xmlstarlet
-    state: present
-
 - name: "Define permissões para dispositivos externos"
   community.general.xml:
     path: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy

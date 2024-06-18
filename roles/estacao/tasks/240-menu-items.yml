@@ -5,6 +5,7 @@
     creates: "{{ item }}.disable"
     removes: "{{ item }}"
   loop:
+    # - /usr/share/applications/nm-connection-editor.desktop
     - /usr/share/applications/mintupdate.desktop
     - /usr/share/applications/mintreport.desktop
     - /usr/share/applications/lightdm-settings.desktop

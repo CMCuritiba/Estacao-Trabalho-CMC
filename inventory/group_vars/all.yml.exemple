@@ -1,3 +1,5 @@
+---
+estacao_suporte_user: suporte
 estacao_suporte_pass: senha_usuario_suporte
 estacao_root_pass: senha_usuario_root
 estacao_vnc_pass: senha_login_remoto_vnc

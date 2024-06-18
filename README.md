@@ -24,6 +24,7 @@ Procedimento:
    como exemplo para criar seu arquivo de configuração de acordo com o
    necessário. As variáveis são:
 
+   - `estacao_suporte_user`: usuário local para suporte
    - `estacao_suporte_pass`: senha do usuário suporte
    - `estacao_root_pass`: senha do usuário root
    - `VNP_PASS`: senha do login remoto (VNC)

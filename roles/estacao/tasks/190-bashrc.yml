@@ -1,9 +1,9 @@
 ---
 - name: "Comenta linhas de alias do /root/.bashrc"
-  ansible.builtin.replace:
+  ansible.builtin.lineinfile:
     path: /root/.bashrc
-    regexp: "^(alias l[al]?.*)$"
-    replace: '#\1'
+    regexp: "^alias l[al]?"
+    state: absent
 
 - name: "Configura /root/.bash_aliases"
   ansible.builtin.copy:

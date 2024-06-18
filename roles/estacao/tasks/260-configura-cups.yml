@@ -7,10 +7,10 @@
 
 - name: "Garante acesso vindo da TI"
   ansible.builtin.replace:
-    backup: true
     path: /etc/cups/cupsd.conf
     regexp: 'Allow @LOCAL(?!\n  Allow {{ estacao_dtic_network }})'
     replace: 'Allow @LOCAL\n  Allow {{ estacao_dtic_network }}'
+    backup: true
   notify: Restart cups service
 
 - name: "Desativa o discovery do cups"

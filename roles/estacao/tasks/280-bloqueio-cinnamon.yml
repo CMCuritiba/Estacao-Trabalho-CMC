@@ -1,8 +1,8 @@
 ---
-- name: "Remove execução dos programas default"
+- name: Restringe execução dos programas listados
   ansible.builtin.file:
     path: "{{ item }}"
-    mode: "0700"
+    mode: "0750"
   with_items:
     - /usr/bin/gnome-terminal
     - /usr/bin/mintupdate
@@ -15,27 +15,26 @@
     # - /usr/bin/gnome-keyring-3
     # - /usr/bin/gnome-keyring-daemon
 
-- name: "Cria uma ACL para ajustar as permissões do usuário suporte"
+- name: Cria uma ACL para ajustar as permissões do usuário de suporte
   ansible.posix.acl:
     path: "{{ item.path }}"
-    entity: suporte
+    entity: "{{ estacao_suporte_user }}"
     etype: user
     state: present
-    permissions: "{{ item.permissions | default('rx') }}"
+    permissions: "rx"
   loop:
     - path: /usr/bin/gnome-terminal
-      permissions: "rwx"
     - path: /usr/bin/cinnamon-desktop-editor
     # - path: /usr/bin/nm-connection-editor
     # - path: /usr/bin/nm-applet
 
-- name: "Cria uma ACL para ajustar as permissões da DTIC"
+- name: Cria uma ACL para ajustar as permissões da DTIC
   ansible.posix.acl:
     path: "{{ item.path }}"
-    entity: "{{ estacao_dtic_group }}"
+    entity: "{{ estacao_dtic_group if molecule_yml is not defined else 'vagrant' }}"
     etype: group
     state: present
-    permissions: "{{ item.permissions | default('rx') }}"
+    permissions: "rx"
   loop:
     - path: /usr/bin/gnome-terminal
     - path: /usr/bin/cinnamon-desktop-editor
