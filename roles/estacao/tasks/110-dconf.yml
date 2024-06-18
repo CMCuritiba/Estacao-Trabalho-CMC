@@ -31,13 +31,18 @@
 
 - name: "Configurar o applet de calendário"
   block:
-    - name: "Read JSON file"
-      ansible.builtin.set_fact:
-        json_content: "{{ lookup('file', estacao_caljson) | from_json }}"
+    - name: Lê configuração do applet em formato JSON
+      ansible.builtin.slurp:
+        src: "{{ estacao_caljson }}"
+      register: caljson
+
+    # - name: Exibe conteúdo do json
+    #   ansible.builtin.debug:
+    #     msg: "{{ caljson['content'] | b64decode }}"
 
     - name: "Set 'use-custom-format' to true"
       ansible.builtin.set_fact:
-        json_content: "{{ json_content | combine({'use-custom-format': {'value': true}}) }}"
+        json_content: "{{ caljson['content'] | b64decode | from_json | combine({'use-custom-format': {'value': true}}) }}"
 
     - name: "Set custom format value"
       ansible.builtin.set_fact:
@@ -48,6 +53,7 @@
         content: "{{ json_content | to_nice_json }}"
         dest: "{{ estacao_caljson }}"
         mode: "0644"
+        backup: true
 
 - name: "Trava as configs do Vino"
   ansible.builtin.copy:
