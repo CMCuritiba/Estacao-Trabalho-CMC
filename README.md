@@ -15,7 +15,7 @@
 
 Procedimento:
 
-1. Instalar o Mint normalmente;
+1. Instale o Mint normalmente.
    - Crie a conta padrão `suporte`.
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET;
 3. Faça login com o usuário criado;
@@ -45,16 +45,18 @@ Procedimento:
 
 6. <a name="ansible-install"></a>Garanta que ansible esteja instalado:
 
-   - `pip install ansible`
+   ```shell
+   pip install ansible
+   ```
 
 7. Aplique o _playbook_ :
 
-      ```shell
-      ansible-playbook -Kk playbook.yml --diff
-      ```
+   ```shell
+   ansible-playbook -Kk playbook.yml --diff
+   ```
 
-      - `-k` : senha para sudo
-      - `-K` : senha para ssh
+   - `-k` : Requere a senha para sudo.
+   - `-K` : Requere a senha para ssh.
 
 8. Reinicie e faça login com seu usuário do domínio.
 
@@ -64,11 +66,11 @@ Procedimento:
 
 1. Clone este repositório para sua máquina
 
-      ```shell
-      mkdir ~/workspace
-      cd ~/workspace/
-      git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
-      ```
+   ```shell
+   mkdir ~/workspace
+   cd ~/workspace/
+   git clone git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git
+   ```
 
 2. Instale o ansible, molecule e vagrant:
 
@@ -161,7 +163,7 @@ Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é
    source ~/.profile # Necessário apenas na primeira vez
    nano inventory/group_vars/all.yml # Edite de acordo com o necessário
    sed -i 's/et1/localhost/g' playbook.yml
-   ansible-playbook --diff playbook.yml
+   ansible-playbook --diff playbook.yml -i inventory
    ```
 
 5. Depois de executadas as tasks, de volta no seu computador, você pode dar SSH na VM usuário `suporte` ou com seu
