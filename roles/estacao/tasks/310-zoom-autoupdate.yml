@@ -1,7 +1,7 @@
 ---
 - name: Instala script de atualização do zoom
   ansible.builtin.template:
-    src: "zoom-update.sh.j2"
+    src: zoom-update.sh.j2
     dest: "{{ estacao_zoomsh }}"
     owner: root
     group: root
@@ -9,7 +9,7 @@
 
 - name: Instala serviço de atualização do zoom
   ansible.builtin.template:
-    src: "zoom-update.service.j2"
+    src: zoom-update.service.j2
     dest: "{{ estacao_servico_zoom_update }}"
     owner: root
     group: root
@@ -17,23 +17,19 @@
 
 - name: Cria timer de atualização do zoom
   ansible.builtin.copy:
-    src: "zoom-update.timer"
+    src: zoom-update.timer
     dest: "{{ estacao_servico_zoom_timer }}"
     owner: root
     group: root
     mode: "0644"
 
-- name: "Reload systemd daemon"
-  ansible.builtin.systemd:
-    daemon_reload: true
-
-- name: "Enable e start em zoom-update.service"
+- name: Habilita o serviço
   ansible.builtin.service:
-    name: "zoom-update.service"
+    name: zoom-update.service
     enabled: true
     state: started
 
-- name: "Enable em zoom-update.timer"
+- name: Habilita o timer
   ansible.builtin.service:
-    name: "zoom-update.timer"
+    name: zoom-update.timer
     enabled: true
