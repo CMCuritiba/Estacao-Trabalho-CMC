@@ -19,6 +19,10 @@ estacao_ntp_servers: # type: list of IP|FQDN
   - b.st1.ntp.br
   - c.st1.ntp.br
 
+estacao_ad_fallback_ip: # type: list of IP
+  - 8.8.8.8
+  - 9.9.9.9
+
 # Bookmarks dos navegadores
 estacao_bookmarks:
   - name: "Câmara Municipal de Curitiba"

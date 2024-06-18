@@ -40,6 +40,7 @@ Procedimento:
    - `estacao_nfs_src`: caminho do ponto de montagem remoto
    - `estacao_mnt_suporte`: **OPCIONAL**, ponto de montagem local
    - `estacao_ntp_servers`: **OPCIONAL**, lista de servidores NTP
+   - `estacao_ad_fallback_ip`: **OPCIONAL**, lista de ips para fallback
 
 6. <a name="ansible-install"></a>Garanta que ansible esteja instalado:
 
