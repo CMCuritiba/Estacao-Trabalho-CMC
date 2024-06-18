@@ -11,7 +11,7 @@
   ansible.builtin.apt:
     update_cache: true
     state: latest # noqa: package-latest
-    # cache_valid_time: 86400
+    cache_valid_time: 86400
 
 - name: Tira input da instalação do ttf-mscorefonts-installer
   ansible.builtin.debconf:
@@ -83,9 +83,3 @@
     name: microsoft-edge-stable
     state: latest
     only_upgrade: true
-
-- name: "Create mimeapps.list file with the specified content"
-  ansible.builtin.copy:
-    dest: /etc/skel/.config/mimeapps.list
-    mode: "0644"
-    src: "mimeapps.list"

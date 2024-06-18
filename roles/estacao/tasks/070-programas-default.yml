@@ -1,8 +1,0 @@
----
-- name: "Programas default"
-  ansible.builtin.copy:
-    src: mimeapps.list
-    dest: "/etc/skel/.config/mimeapps.list"
-    owner: root
-    group: root
-    mode: "0644"

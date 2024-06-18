@@ -101,3 +101,11 @@
       fi
     state: present
     mode: "0644"
+
+- name: Configura aplicações default por tipo de arquivo
+  ansible.builtin.copy:
+    src: mimeapps.list
+    dest: /etc/skel/.config/mimeapps.list
+    owner: root
+    group: root
+    mode: "0644"

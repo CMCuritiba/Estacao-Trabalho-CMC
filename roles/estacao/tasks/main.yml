@@ -39,11 +39,6 @@
   tags:
     - browsers
 
-- name: Configura programas default
-  ansible.builtin.import_tasks: 070-programas-default.yml
-  tags:
-    - defaults
-
 - name: Configura autostart e cria forcelogout.desktop
   ansible.builtin.import_tasks: 080-autostart.yml
   tags:
