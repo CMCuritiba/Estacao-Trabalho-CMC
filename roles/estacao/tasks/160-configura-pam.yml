@@ -2,9 +2,8 @@
 - name: "Substitui linha 'hosts:.*'' e cria um backup"
   ansible.builtin.lineinfile:
     path: /etc/nsswitch.conf
-    regexp: "^hosts:.*$"
-    line: 'hosts:\t\tfiles dns'
-    backrefs: true
+    regexp: "^hosts:"
+    line: "hosts:\t\tfiles dns"
     backup: true
 
 - name: Automatiza a criação do diretório HOME após o login
