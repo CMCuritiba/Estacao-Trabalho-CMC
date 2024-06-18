@@ -10,4 +10,4 @@
     - { line: "Domains={{ estacao_ad_domain }}", regexp: "^Domains" }
     - { line: "FallbackDNS={{ estacao_ad_fallback_ip | join(' ') }}", regexp: "^FallbackDNS" }
     - { line: "DNS={{ estacao_ad_ip_address | join(' ') }}", regexp: "^DNS" }
-  notify: Restart resolved
+  notify: Restart DNS

@@ -4,7 +4,7 @@
     path: "{{ estacao_sshd }}"
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} {{ item.value }}"
-  notify: Restarta o SSHD
+  notify: Restart SSH
   loop:
     # Habilita autenticacao por senha
     - { name: "PasswordAuthentication", value: "yes" }

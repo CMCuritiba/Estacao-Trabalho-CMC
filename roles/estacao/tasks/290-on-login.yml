@@ -11,4 +11,4 @@
   ansible.builtin.lineinfile:
     path: /etc/pam.d/common-session
     line: "session optional pam_exec.so {{ estacao_loginsh }}"
-  notify: Restart PAM service
+  notify: Restart PAM

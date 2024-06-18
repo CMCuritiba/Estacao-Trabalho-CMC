@@ -62,7 +62,7 @@
     owner: root
     group: root
     mode: "0600"
-  notify: Restarta o SSSD
+  notify: Restart SSSD
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers

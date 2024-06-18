@@ -3,7 +3,7 @@
   ansible.builtin.shell: cupsctl && cupsctl --remote-admin
   register: old_cupsconfig
   changed_when: old_cupsconfig.stdout is regex("_remote_admin=0")
-  notify: Restart cups service
+  notify: Restart cups
 
 - name: "Garante acesso vindo da TI"
   ansible.builtin.replace:
@@ -11,7 +11,7 @@
     regexp: 'Allow @LOCAL(?!\n  Allow {{ estacao_dtic_network }})'
     replace: 'Allow @LOCAL\n  Allow {{ estacao_dtic_network }}'
     backup: true
-  notify: Restart cups service
+  notify: Restart cups
 
 - name: "Desativa o discovery do cups"
   ansible.builtin.lineinfile:
@@ -19,4 +19,4 @@
     regexp: "^BrowseRemoteProtocols"
     line: "BrowseRemoteProtocols none"
     backup: true
-  notify: Restart cups-browsed service
+  notify: Restart cups-browsed
