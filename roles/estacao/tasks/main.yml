@@ -40,137 +40,137 @@
     - browsers
 
 - name: Configura autostart e cria forcelogout.desktop
-  ansible.builtin.import_tasks: 080-autostart.yml
+  ansible.builtin.import_tasks: 070-autostart.yml
   tags:
     - autostart
 
 - name: Cria arquivo de politica-informatica e forcelogout
-  ansible.builtin.import_tasks: 090-politica-informatica.yml
+  ansible.builtin.import_tasks: 080-politica-informatica.yml
   tags:
     - politica
 
 - name: Desabilita tty (troca de terminais)
-  ansible.builtin.import_tasks: 100-desabilita-tty.yml
+  ansible.builtin.import_tasks: 090-desabilita-tty.yml
   tags:
     - tty
 
 - name: Configura dconf e applet de calendário
-  ansible.builtin.import_tasks: 110-dconf.yml
+  ansible.builtin.import_tasks: 100-dconf.yml
   tags:
     - dconf
 
 - name: Criar arquivo de política do PolicyKit
-  ansible.builtin.import_tasks: 120-terminal-policy.yml
+  ansible.builtin.import_tasks: 110-terminal-policy.yml
   tags:
     - terminal
 
 - name: Popula o arquivo de configuração do NTP
-  ansible.builtin.import_tasks: 130-ntp-server.yml
+  ansible.builtin.import_tasks: 120-ntp-server.yml
   tags:
     - ntp
 
 - name: Configura o DNS
-  ansible.builtin.import_tasks: 140-configura-dns.yml
+  ansible.builtin.import_tasks: 130-configura-dns.yml
   tags:
     - dns
 
 - name: Configura script de boot
-  ansible.builtin.import_tasks: 145-script-boot.yml
+  ansible.builtin.import_tasks: 135-script-boot.yml
   tags:
     - boot
 
 - name: Configura integração com AD (Active Directory)
-  ansible.builtin.import_tasks: 150-integra-ad.yml
+  ansible.builtin.import_tasks: 140-integra-ad.yml
   tags:
     - ad
 
 - name: Configura PAM
-  ansible.builtin.import_tasks: 160-configura-pam.yml
+  ansible.builtin.import_tasks: 150-configura-pam.yml
   tags:
     - pam
 
 - name: Adiciona grupo DTIC ao sudoers
-  ansible.builtin.import_tasks: 170-sudoers.yml
+  ansible.builtin.import_tasks: 160-sudoers.yml
   tags:
     - sudoers
 
 - name: Instala unattended-upgrades e repositórios
-  ansible.builtin.import_tasks: 180-unattended-upgrades.yml
+  ansible.builtin.import_tasks: 170-unattended-upgrades.yml
   tags:
     - atualizacoes
     - unattended
 
 - name: Configura o bashrc
-  ansible.builtin.import_tasks: 190-bashrc.yml
+  ansible.builtin.import_tasks: 180-bashrc.yml
   tags:
     - bashrc
 
 - name: Monta o NFS
-  ansible.builtin.import_tasks: 200-nfs-mount.yml
+  ansible.builtin.import_tasks: 190-nfs-mount.yml
   tags:
     - nfs
     - mount
 
 - name: Configura serviço de network da CMC
-  ansible.builtin.import_tasks: 210-script-rede.yml
+  ansible.builtin.import_tasks: 200-script-rede.yml
   tags:
     - rede
 
 - name: Configura o serviço SSH
-  ansible.builtin.import_tasks: 220-ssh-server.yml
+  ansible.builtin.import_tasks: 210-ssh-server.yml
   tags:
     - ssh
 
 - name: Configura o VNC
-  ansible.builtin.import_tasks: 230-vnc.yml
+  ansible.builtin.import_tasks: 220-vnc.yml
   tags:
     - vnc
 
 - name: Desabilita itens do menu
-  ansible.builtin.import_tasks: 240-menu-items.yml
+  ansible.builtin.import_tasks: 230-menu-items.yml
   tags:
     - menu
 
 - name: Configura o login gráfico
-  ansible.builtin.import_tasks: 250-login-grafico.yml
+  ansible.builtin.import_tasks: 240-login-grafico.yml
   tags:
     - lightdm
     - login-grafico
 
 - name: Configura o CUPS
-  ansible.builtin.import_tasks: 260-configura-cups.yml
+  ansible.builtin.import_tasks: 250-configura-cups.yml
   tags:
     - cups
 
 - name: Define permissões para dispositivos externos
-  ansible.builtin.import_tasks: 270-mount-pendrive.yml
+  ansible.builtin.import_tasks: 260-mount-pendrive.yml
   tags:
     - pendrive
 
 - name: Assegura permissão de dispositivos bluetooth
-  ansible.builtin.import_tasks: 275-pairing-bluetooth.yml
+  ansible.builtin.import_tasks: 265-pairing-bluetooth.yml
   tags:
     - bluetooth
 
 - name: Remove execução dos programas default e ajusta permissões
-  ansible.builtin.import_tasks: 280-bloqueio-cinnamon.yml
+  ansible.builtin.import_tasks: 270-bloqueio-cinnamon.yml
   tags:
     - bloqueio
     - cinnamon
     - acl
 
 - name: Locka os icones do desktop
-  ansible.builtin.import_tasks: 290-on-login.yml
+  ansible.builtin.import_tasks: 280-on-login.yml
   tags:
     - login
 
 - name: Configura logs
-  ansible.builtin.import_tasks: 300-configura-logs.yml
+  ansible.builtin.import_tasks: 290-configura-logs.yml
   tags:
     - logs
 
 - name: Configura Zoom autoupdate
-  ansible.builtin.import_tasks: 310-zoom-autoupdate.yml
+  ansible.builtin.import_tasks: 300-zoom-autoupdate.yml
   tags:
     - zoom
 
