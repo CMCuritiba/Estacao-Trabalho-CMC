@@ -18,6 +18,7 @@
   ansible.builtin.apt:
     name:
       - sssd
+      - sssd-ad
       - sssd-tools
       - realmd
       - krb5-user
@@ -25,26 +26,24 @@
       - packagekit
       - adcli
     state: present
-    force_apt_get: true
-    force: true
 
 # Configura arquivo do Kerberos com o domínio e evita problema de DNS reverso
 - name: Configura Kerberos
   block:
-    - name: "Configura default_realm para estacao_ad_domain"
+    - name: Configura default_realm para domínio da CMC
       ansible.builtin.lineinfile:
         path: /etc/krb5.conf
         regexp: default_realm.*
         line: "default_realm = {{ estacao_ad_domain | upper }}"
 
-    - name: "Garante rdns = false"
+    - name: Desativa DNS reverso
       ansible.builtin.lineinfile:
         path: /etc/krb5.conf
         regexp: \s*rdns.+false$
         line: "\trdns = false" # noqa: no-tabs
         insertafter: "^default_realm"
 
-- name: "Verifica se estacao_ad_domain está na lista realm"
+- name: Verifica se a máquina já está no realm
   ansible.builtin.shell:
     cmd: realm list | grep -iq "{{ estacao_ad_domain }}"
   register: ad_domain_list
