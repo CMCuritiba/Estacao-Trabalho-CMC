@@ -1,4 +1,10 @@
 ---
+# Insere yes nas tags allow_any, allow_inactive e allow_active 
+# dentro das tags action de id fylesystem-mount, filesystem-unmount-others
+# e filesystem-mount-system no arquivo de permissões do Udisks2
+# para autenticação automática do usuário. Mais informações em:
+# https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html
+
 - name: "Define permissões para dispositivos externos"
   community.general.xml:
     path: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
