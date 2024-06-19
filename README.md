@@ -19,7 +19,7 @@ Procedimento:
 2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET.
 3. Faça login com o usuário criado.
 4. Baixe o código do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
-5. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.exemple)
+5. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
    como exemplo para criar seu arquivo de configuração de acordo com o
    necessário. As variáveis são:
 
@@ -42,7 +42,7 @@ Procedimento:
    - `estacao_ntp_servers`: **OPCIONAL**, lista de servidores NTP
    - `estacao_ad_fallback_ip`: **OPCIONAL**, lista de ips para fallback
 
-6. <a name="ansible-install"></a>Garanta que Ansible esteja instalado:
+6. <a name="ansible-install"></a>Garanta que o Ansible esteja instalado:
 
    ```shell
    pip install ansible
@@ -114,7 +114,7 @@ Procedimento:
    sudo apt install virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-qt
    ```
 
-2. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.exemple)
+2. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
    como exemplo para criar seu arquivo de configuração de acordo com o
    necessário
 
