@@ -76,10 +76,12 @@ Configure o seu computador:
          ansible_host: 10.0.199.200
    ```
 
-5. Verifique se é possível alcançar a máquina via ansible:
+5. Verifique se é possível alcançar a(s) máquina(s) via ansible (veja parâmetros
+   adicionais no próximo item):
 
    ```shell
    ansible all -m ping -i inventory/inventory.yml
+   ansible pc-dtic-199 -m ping -i inventory/inventory.yml
    ```
 
 6. Aplique o _playbook_ :
@@ -93,6 +95,8 @@ Configure o seu computador:
    - `-K`: Solicita a senha para ssh
    - `-i`: Inventário a ser utilizado
    - `--diff`: Mostra o resultado de cada operação
+   - Você pode utilizar o parâmetro `--check` para apenas verificar o que será
+     feito, sem alterar nada efetivamente (modo _dry-run_).
 
 O playbook deve terminar sem erros.
 
