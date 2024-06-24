@@ -11,7 +11,7 @@
   ansible.builtin.apt:
     update_cache: true
     state: latest # noqa: package-latest
-    cache_valid_time: 86400
+    # não usar cache_valid_time aqui para forçar atualização do repo
 
 - name: Tira input da instalação do ttf-mscorefonts-installer
   ansible.builtin.debconf:
@@ -51,6 +51,7 @@
       - unrar
       - ttf-mscorefonts-installer
       # SO
+      - linux-oem-22.04 # driver de vídeo
       - ncdu
       - numlockx
       - acct
