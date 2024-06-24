@@ -79,18 +79,19 @@ Configure o seu computador:
 5. Verifique se é possível alcançar a máquina via ansible:
 
    ```shell
-   ansible ping
+   ansible all -m ping -i inventory/inventory.yml
    ```
 
 6. Aplique o _playbook_ :
 
    ```shell
-   ansible-playbook -u suporte -Kk playbook.yml --diff
+   ansible-playbook -u suporte -Kk playbook.yml -i inventory/inventory.yml --diff
    ```
 
    - `-u`: Usuário criado no novo computador a ser configurado
-   - `-k`: Requere a senha para sudo
-   - `-K`: Requere a senha para ssh
+   - `-k`: Solicita a senha para sudo
+   - `-K`: Solicita a senha para ssh
+   - `-i`: Inventário a ser utilizado
    - `--diff`: Mostra o resultado de cada operação
 
 O playbook deve terminar sem erros.
