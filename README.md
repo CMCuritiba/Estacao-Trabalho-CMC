@@ -3,34 +3,52 @@
 ## Diretrizes
 
 1. Devem ser criadas _tasks_ para todas as operações possíveis.
-2. De preferência, evitar a necessidade de _input_ enquanto a _task_ roda.
-3. As _tasks_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguras para múltiplas execuções).
-4. Buscar sempre seguir as [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html)
+2. As _tasks_ devem ser [idempotentes](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html#term-idempotency) (seguras para múltiplas execuções).
+3. Buscar sempre seguir as [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html)
 
 ## Requisitos
 
 1. O _role_ foi testado no **Mint 21.3 Cinnamon**.
 
-## Instalação/configuração
+## Instalação/configuração para produção
 
 Procedimento:
 
-1. Instale o Mint normalmente e crie a conta padrão `suporte`.
-2. É recomendado realizar a atualização do sistema operacional antes de configurar a ET.
-3. Faça login com o usuário criado.
-4. Baixe o código do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC).
-5. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
-   como exemplo para criar seu arquivo de configuração de acordo com o
-   necessário. As variáveis são:
+1. Instale o Mint em um novo computador:
+   1. Instale o SO com idioma Português do Brasil;
+   2. Crie a conta padrão `suporte`.
+2. Faça login com o usuário criado;
+3. É recomendado realizar a atualização do sistema operacional antes de
+   configurar a ET;
+4. Certifique-se de que o serviço SSH esteja funcionando e que você consiga
+   acessar este computador por ssh com o usuário criado;
+
+A configuração da estação é realizada de forma remota por SSH com o Ansible.
+Configure o seu computador:
+
+1. <a name="ansible-install"></a>Para começar, instale o Ansible de acordo com a
+   [documentação oficial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+   (sugerimos [fazer a instalação usando o pip](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip)):
+
+   ```shell
+   curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+   python3 get-pip.py --user
+   python3 -m pip install --user ansible
+   ```
+
+2. Baixe o código do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC)
+   via `git` ou baixando o zip.
+3. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
+   como exemplo para criar um novo arquivo de configuração `all.yml`, de acordo
+   com o necessário. As variáveis são:
 
    - `estacao_suporte_user`: usuário local para suporte
    - `estacao_suporte_pass`: senha do usuário suporte
    - `estacao_root_pass`: senha do usuário root
-   - `VNP_PASS`: senha do login remoto (VNC)
+   - `estacao_vnc_pass`: senha do login remoto (VNC)
    - `estacao_dtic_group`: grupo do AD que irá gerenciar as estações
    - `estacao_dtic_network`: CIDR da rede que irá gerenciar as estações
-   - `estacao_ad_ip_address`: IP do servidor AD (apenas para facilitar a configuração,
-     não ficará _hard-coded_ na ET)
+   - `estacao_ad_ip_addresses`: lista de endereços IP do servidor AD
    - `estacao_ad_domain`: dominio do AD
    - `estacao_ad_join_user`: nome do usuário de join (apenas para permitir a
      configuração, não ficará _hard-coded_ na ET)
@@ -40,24 +58,44 @@ Procedimento:
    - `estacao_nfs_src`: caminho do ponto de montagem remoto
    - `estacao_mnt_suporte`: **OPCIONAL**, ponto de montagem local
    - `estacao_ntp_servers`: **OPCIONAL**, lista de servidores NTP
-   - `estacao_ad_fallback_ip`: **OPCIONAL**, lista de ips para fallback
+   - `estacao_ad_fallback_ips`: **OPCIONAL**, lista de IPs para fallback de DNS
 
-6. <a name="ansible-install"></a>Garanta que o Ansible esteja instalado:
+4. Adicione o nome ou o endereço IP do computador onde será configurada a
+   estação no [inventário](./inventory/inventory.yml). Você poderá aplicar a
+   configuração em mais de um computador ao mesmo tempo, configurando os hosts
+   no inventário. Por exemplo, para aplicar em dois computadores ao mesmo tempo,
+   um utilizando o nome DNS e o outro utilizando seu endereço IP, configure o
+   inventário como a seguir:
 
-   ```shell
-   pip install ansible
+   ```yaml
+   ---
+   all:
+   hosts:
+      pc-dtic-199:
+      et2:
+         ansible_host: 10.0.199.200
    ```
 
-7. Aplique o _playbook_ :
+5. Verifique se é possível alcançar a máquina via ansible:
 
    ```shell
-   ansible-playbook -Kk playbook.yml --diff
+   ansible ping
    ```
 
-   - `-k` : Requere a senha para sudo.
-   - `-K` : Requere a senha para ssh.
+6. Aplique o _playbook_ :
 
-8. Reinicie e faça login com seu usuário do domínio.
+   ```shell
+   ansible-playbook -u suporte -Kk playbook.yml --diff
+   ```
+
+   - `-u`: Usuário criado no novo computador a ser configurado
+   - `-k`: Requere a senha para sudo
+   - `-K`: Requere a senha para ssh
+   - `--diff`: Mostra o resultado de cada operação
+
+O playbook deve terminar sem erros.
+
+Reinicie a nova estação de trabalho e faça login com seu usuário do domínio.
 
 ## Contribuindo
 

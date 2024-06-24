@@ -5,7 +5,7 @@ estacao_root_pass: senha_usuario_root # type: string password
 estacao_vnc_pass: senha_login_remoto_vnc # type: string password
 estacao_dtic_group: grupo # type: string nome de grupo
 estacao_dtic_network: "0.0.0.0/24" # type: string CIDR
-estacao_ad_ip_address: # type: list of IPs
+estacao_ad_ip_addresses: # type: list of IPs
   - 0.0.0.0
   - 1.1.1.1
 estacao_ad_domain: example.com # type: string FQDN
@@ -21,7 +21,7 @@ estacao_ntp_servers: # type: list of IP|FQDN
   - b.st1.ntp.br
   - c.st1.ntp.br
 
-estacao_ad_fallback_ip: # type: list of IP
+estacao_ad_fallback_ips: # type: list of IP
   - 8.8.8.8
   - 9.9.9.9
 

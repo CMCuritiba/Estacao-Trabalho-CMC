@@ -8,6 +8,6 @@
   loop:
     - { line: "Cache=no-negative", regexp: "^Cache" }
     - { line: "Domains={{ estacao_ad_domain }}", regexp: "^Domains" }
-    - { line: "FallbackDNS={{ estacao_ad_fallback_ip | join(' ') }}", regexp: "^FallbackDNS" }
-    - { line: "DNS={{ estacao_ad_ip_address | join(' ') }}", regexp: "^DNS" }
+    - { line: "FallbackDNS={{ estacao_ad_fallback_ips | join(' ') }}", regexp: "^FallbackDNS" }
+    - { line: "DNS={{ estacao_ad_ip_addresses | join(' ') }}", regexp: "^DNS" }
   notify: Restart DNS

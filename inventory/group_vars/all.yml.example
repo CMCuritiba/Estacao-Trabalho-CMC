@@ -5,7 +5,7 @@ estacao_root_pass: senha_usuario_root
 estacao_vnc_pass: senha_login_remoto_vnc
 estacao_dtic_group: grupo
 estacao_dtic_network: "0.0.0.0/24"
-estacao_ad_ip_address:
+estacao_ad_ip_addresses:
   - 0.0.0.0
   - 1.1.1.1
 estacao_ad_domain: example.com
