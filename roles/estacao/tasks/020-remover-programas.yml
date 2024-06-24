@@ -3,15 +3,15 @@
 - name: Remove programas
   ansible.builtin.apt:
     name:
-      - thunderbird*
-      - transmission*
-      - avahi-daemon
-      - xed
-      - hexchat*
-      - celluloid*
-      - hypnotix*
-      - redshift*
-      - warpinator" # Programa para compartilhar arquivos em rede local, é uma reimplementação do Giver.
+      - "thunderbird*"
+      - "transmission*"
+      - "avahi-daemon"
+      - "xed"
+      - "hexchat*"
+      - "celluloid*"
+      - "hypnotix*"
+      - "redshift*"
+      - "warpinator"
     state: absent
     update_cache: true
     cache_valid_time: 86400
