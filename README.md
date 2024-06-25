@@ -91,8 +91,8 @@ Configure o seu computador:
    ```
 
    - `-u`: Usuário criado no novo computador a ser configurado
-   - `-k`: Solicita a senha para sudo
-   - `-K`: Solicita a senha para ssh
+   - `-K`: Solicita a senha para sudo
+   - `-k`: Solicita a senha para ssh
    - `-i`: Inventário a ser utilizado
    - `--diff`: Mostra o resultado de cada operação
    - Você pode utilizar o parâmetro `--check` para apenas verificar o que será
