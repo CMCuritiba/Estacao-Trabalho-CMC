@@ -36,6 +36,18 @@ Configure o seu computador:
    python3 -m pip install --user ansible
    ```
 
+   Instale as dependências da _role_:
+
+   ```shell
+   python3 -m pip install --user passlib
+   ```
+
+   Para acessar o computador remoto, será necessário o `sshpass`:
+
+   ```shell
+   sudo apt install -y sshpass
+   ```
+
 2. Baixe o código do [repositório](https://github.com/CMCuritiba/Estacao-Trabalho-CMC)
    via `git` ou baixando o zip.
 3. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
@@ -116,8 +128,8 @@ Reinicie a nova estação de trabalho e faça login com seu usuário do domínio
 
 2. Instale o Ansible, Molecule e Vagrant:
 
-   1. Instale o [Ansible](#ansible-install)
-   2. <a name="vagrant-install"></a>Instale o Vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/install?product_intent=vagrant#linux)
+   1. Instale o [Ansible](#ansible-install) o `sshpass`;
+   2. <a name="vagrant-install"></a>Instale o Vagrant de acordo com a [documentação oficial](https://developer.hashicorp.com/vagrant/install?product_intent=vagrant#linux);
    3. Instale o Molecule e seus plugins, de acordo com a [documentação oficial](https://ansible.readthedocs.io/projects/molecule/installation/):
 
       ```shell
@@ -128,6 +140,10 @@ Reinicie a nova estação de trabalho e faça login com seu usuário do domínio
       # Instale o molecule e os plugins
       (molecule) $ pip install molecule
       (molecule) $ pip install "molecule-plugins[vagrant]"
+      # Por alguma razão o molecule se perde ao buscar os módulos instalados:
+      (molecule) $ pip install ansible
+      # Instale as dependências da role:
+      (molecule) $ pip install passlib
       ```
 
 3. Opcionalmente, ative o [commitlint](https://github.com/conventional-changelog/commitlint) e
@@ -175,7 +191,17 @@ Reinicie a nova estação de trabalho e faça login com seu usuário do domínio
    (molecule) $ molecule converge -- --tags "<tag-desejada>" --diff
    ```
 
-O molecule deve criar uma instância do Vagrant e testar o _role_ automaticamente.
+O molecule criará, por meio do Vagrant, uma instância no VirtualBox utilizando a
+versão do Mint especificada no [molecule](./roles/estacao/molecule/default/molecule.yml)
+e aplicará a _role_ automaticamente na VM.
+
+A primeira execução irá demorar um pouco porque será necessário baixar a imagem
+do Mint (~3.5 GB).
+
+Para testar com outras versões do Mint ou outros sistemas operacionais, basta
+alterar ou adicionar instâncias no [molecule](./roles/estacao/molecule/default/molecule.yml).
+
+---
 
 Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é possível utilizar apenas o [Vagrant](https://www.vagrantup.com/) para os testes locais.
 
@@ -186,7 +212,7 @@ Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é
    vagrant up
    ```
 
-3. Acesse a VM:
+3. Acesse a VM (com o usuário `vagrant`):
 
    ```shell
    vagrant ssh
@@ -205,7 +231,7 @@ Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é
    source ~/.profile # Necessário apenas na primeira vez
    nano inventory/group_vars/all.yml # Edite de acordo com o necessário
    sed -i 's/et1/localhost/g' playbook.yml
-   ansible-playbook --diff playbook.yml -i inventory
+   ansible-playbook --diff playbook.yml -i inventory/inventory.yml
    ```
 
 5. Depois de executadas as tasks, de volta no seu computador, você pode dar SSH na VM usuário `suporte` ou com seu
