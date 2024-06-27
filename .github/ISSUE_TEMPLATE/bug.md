@@ -17,7 +17,7 @@ assignees: ""
 
 Uma descrição clara e concisa do bug
 
-### Comportamento esperado
+### Comportamento Esperado
 
 Uma descrição clara e concisa do comportamento que você esperava acontecer.
 
@@ -27,7 +27,7 @@ Não obrigatório, mas sugira uma correção/explicação para o bug.
 
 Se existem multiplas soluções, por favor enumere-as e as descreva separadamente. Deixe comparações para depois da enumeração.
 
-### Para reproduzir
+### Para Reproduzir
 
 Passos para reproduzir o comportamento:
 

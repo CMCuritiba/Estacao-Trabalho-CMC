@@ -1,0 +1,8 @@
+---
+- name: Configura servidor NTP para ser o da Câmara
+  ansible.builtin.template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: "0644"

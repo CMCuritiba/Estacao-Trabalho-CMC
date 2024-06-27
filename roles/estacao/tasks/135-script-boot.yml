@@ -1,0 +1,18 @@
+---
+- name: Configura script de boot
+  ansible.builtin.template:
+    src: cmc-boot.sh.j2
+    dest: "{{ estacao_bootsh }}"
+    mode: "0755"
+
+- name: Configura cmc-boot.service
+  ansible.builtin.template:
+    src: cmc-boot.service.j2
+    dest: "{{ estacao_servico_boot }}"
+    mode: "0644"
+
+- name: Habilita o serviço e roda o script imediatamente
+  ansible.builtin.service:
+    name: cmc-boot.service
+    enabled: true
+    state: started

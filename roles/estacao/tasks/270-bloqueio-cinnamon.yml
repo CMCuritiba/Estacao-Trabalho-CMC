@@ -1,0 +1,42 @@
+---
+- name: Restringe execução dos programas listados
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: "0750"
+  with_items:
+    - /usr/bin/gnome-terminal
+    - /usr/bin/mintupdate
+    - /usr/bin/mintreport
+    - /usr/bin/cinnamon-menu-editor
+    - /usr/bin/cinnamon-desktop-editor
+    # - /usr/bin/nm-connection-editor
+    # - /usr/bin/nm-applet
+    # - /usr/bin/gnome-keyring
+    # - /usr/bin/gnome-keyring-3
+    # - /usr/bin/gnome-keyring-daemon
+
+- name: Cria uma ACL para ajustar as permissões do usuário de suporte
+  ansible.posix.acl:
+    path: "{{ item.path }}"
+    entity: "{{ estacao_suporte_user }}"
+    etype: user
+    state: present
+    permissions: "rx"
+  loop:
+    - path: /usr/bin/gnome-terminal
+    - path: /usr/bin/cinnamon-desktop-editor
+    # - path: /usr/bin/nm-connection-editor
+    # - path: /usr/bin/nm-applet
+
+- name: Cria uma ACL para ajustar as permissões da DTIC
+  ansible.posix.acl:
+    path: "{{ item.path }}"
+    entity: "{{ estacao_dtic_group if molecule_yml is not defined else 'vagrant' }}"
+    etype: group
+    state: present
+    permissions: "rx"
+  loop:
+    - path: /usr/bin/gnome-terminal
+    - path: /usr/bin/cinnamon-desktop-editor
+    # - path: /usr/bin/nm-connection-editor
+    # - path: /usr/bin/nm-applet

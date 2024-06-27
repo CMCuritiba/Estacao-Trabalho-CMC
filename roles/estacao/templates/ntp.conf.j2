@@ -1,0 +1,11 @@
+# Servidor da camara
+{% for ntp in estacao_ntp_servers %}
+server {{ ntp }}
+{% endfor %}
+
+# Loops locais
+server  127.127.1.0
+fudge   127.127.1.0 stratum 10
+
+# Drift
+driftfile /var/lib/ntp/ntp.drift

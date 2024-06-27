@@ -1,0 +1,31 @@
+---
+# handlers file for estacao
+- name: Restart DNS
+  ansible.builtin.service:
+    name: systemd-resolved.service
+    state: restarted
+
+- name: Restart PAM
+  ansible.builtin.service:
+    name: systemd-logind
+    state: restarted
+
+- name: Restart cups
+  ansible.builtin.service:
+    name: cups
+    state: restarted
+
+- name: Restart cups-browsed
+  ansible.builtin.service:
+    name: cups-browsed
+    state: restarted
+
+- name: Restart SSSD
+  ansible.builtin.service:
+    name: sssd
+    state: restarted
+
+- name: Restart SSH
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

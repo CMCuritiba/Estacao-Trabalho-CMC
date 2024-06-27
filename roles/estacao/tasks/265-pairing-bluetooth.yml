@@ -1,0 +1,20 @@
+---
+# Insere yes nas tags allow_inactive e allow_active 
+# dentro das tags action de id network.setup e rfkill.setstate
+# no arquivo de permissões do Blueman para autenticação
+# automática do usuário. Mais informações em:
+# https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html
+
+- name: "Assegura permissão de dispositivos bluetooth"
+  community.general.xml:
+    path: /usr/share/polkit-1/actions/org.blueman.policy
+    xpath: "//policyconfig/action[@id='org.blueman.{{ item[0] }}']/defaults/{{ item[1] }}"
+    value: "yes"
+  loop: "{{ file_system_actions | product(default_acls) | list }}"
+  vars:
+    file_system_actions:
+      - network.setup
+      - rfkill.setstate
+    default_acls:
+      - allow_inactive
+      - allow_active

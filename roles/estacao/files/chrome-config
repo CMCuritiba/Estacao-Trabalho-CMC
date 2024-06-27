@@ -1,0 +1,6 @@
+{
+  "HomepageLocation": "https://www.cmc.pr.gov.br/",
+  "RestoreOnStartup": 4,
+  "RestoreOnStartupURLs": ["https://www.cmc.pr.gov.br/"],
+  "HomepageIsNewTabPage": false
+}
