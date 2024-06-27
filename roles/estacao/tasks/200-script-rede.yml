@@ -8,13 +8,13 @@
 
 - name: Configura serviço de rede da CMC
   ansible.builtin.template:
-    src: "cmc-network-script.service.j2"
+    src: "cmc-network.service.j2"
     dest: "{{ estacao_servico_network }}"
     owner: root
     group: root
     mode: "0644"
 
-- name: "Restart cmc-network-script service"
+- name: "Restart cmc-network service"
   ansible.builtin.service:
-    name: cmc-network-script
+    name: cmc-network
     enabled: true
