@@ -174,8 +174,8 @@ Reinicie a nova estação de trabalho e faça login com seu usuário do domínio
    ```
 
 2. Utilize o arquivo [`all.yml.example`](./inventory/group_vars/all.yml.example)
-   como exemplo para criar seu arquivo de configuração de acordo com o
-   necessário
+   como exemplo para criar um novo arquivo de configuração `all.yml`, de acordo
+   com o necessário;
 
 3. Teste o _converge_:
 
@@ -185,10 +185,12 @@ Reinicie a nova estação de trabalho e faça login com seu usuário do domínio
    (molecule) $ molecule converge -- --diff
    ```
 
-4. Se for necessário testar apenas tasks específicas, é possível ser realizado com:
+4. Se for necessário testar apenas tasks específicas, é possível ser utilizar o
+   parâmetro `--tags "tag-desejada"` informando as tags definidas na [role](./roles/estacao/tasks/main.yml).
+   Para, por exemplo, aplicar apenas as tasks relacionadas ao DNS:
 
    ```shell
-   (molecule) $ molecule converge -- --tags "<tag-desejada>" --diff
+   (molecule) $ molecule converge -- --tags "dns" --diff
    ```
 
 O molecule criará, por meio do Vagrant, uma instância no VirtualBox utilizando a
@@ -196,7 +198,7 @@ versão do Mint especificada no [molecule](./roles/estacao/molecule/default/mole
 e aplicará a _role_ automaticamente na VM.
 
 A primeira execução irá demorar um pouco porque será necessário baixar a imagem
-do Mint (~3.5 GB).
+do Mint (~3,5 GB).
 
 Para testar com outras versões do Mint ou outros sistemas operacionais, basta
 alterar ou adicionar instâncias no [molecule](./roles/estacao/molecule/default/molecule.yml).
