@@ -66,8 +66,6 @@ Configure o seu computador:
      configuração, não ficará _hard-coded_ na ET)
    - `estacao_ad_join_pass`: password de usuário de join (apenas para permitir a
      configuração, não ficará _hard-coded_ na ET)
-   - `estacao_nfs_serv`: ip do servidor nfs
-   - `estacao_nfs_src`: caminho do ponto de montagem remoto
    - `estacao_s3fs_bucket_name`: nome do aws s3 bucket para o mount
    - `estacao_s3fs_access_key`: access key para acesso ao bucket de mount
    - `estacao_s3fs_secret_access_key`: secret access key para acesso ao bucket de mount
