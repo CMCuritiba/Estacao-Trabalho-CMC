@@ -13,3 +13,7 @@ estacao_ad_join_user: administrator
 estacao_ad_join_pass: password
 estacao_nfs_serv: 0.0.0.0
 estacao_nfs_src: /remote/dir
+estacao_s3fs_bucket_name: bucket
+estacao_s3fs_access_key: access_key
+estacao_s3fs_secret_access_key: secret_access_key
+
