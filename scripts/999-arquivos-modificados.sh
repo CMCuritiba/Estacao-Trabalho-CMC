@@ -90,6 +90,8 @@ ln -sf /usr/share/polkit-1/actions/org.blueman.policy \
 # Script de boot das estações de trabalho
 ln -sf /etc/systemd/system/cmc-boot.service \
     /usr/local/cmc/modificados/cmc-boot.service
+ln -sf /etc/systemd/system/cmc-boot.timer \
+    /usr/local/cmc/modificados/cmc-boot.timer
 
 # Serviço de atualização automática do zoom
 ln -sf /etc/systemd/system/zoom-update.service \

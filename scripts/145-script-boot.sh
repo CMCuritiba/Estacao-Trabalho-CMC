@@ -10,6 +10,7 @@ cp ../arquivos/cmc-boot.sh "$BOOTSH"
 sed -i "s/^CMCDOMAIN=.*$/CMCDOMAIN=${AD_DOMAIN,,}/" "$BOOTSH"
 
 echo "[Unit]
+Description=Script de boot da CMC
 Wants=network-online.target
 After=network-online.target
 
@@ -21,5 +22,17 @@ ExecStart=/bin/bash $BOOTSH
 [Install]
 WantedBy=multi-user.target" >/etc/systemd/system/cmc-boot.service
 
+echo "[Unit]
+Description=Script de boot da CMC
+
+[Timer]
+OnBootSec=2h
+OnUnitActiveSec=6h
+
+[Install]
+WantedBy=timers.target" >/etc/systemd/system/cmc-boot.timer
+
 # Habilita o serviço e roda o script imediatamente
+systemctl daemon-reload
 systemctl --now enable cmc-boot.service
+systemctl enable cmc-boot.timer
