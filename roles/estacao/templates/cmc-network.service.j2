@@ -5,7 +5,7 @@ After=network-online.target mnt-suporte.mount
 [Service]
 Restart=on-failure
 RestartSec=60
-ExecStart=/bin/bash {{ estacao_mnt_suporte }}/etv4/scripts/boot.sh
+ExecStart=/bin/bash {{ estacao_mnt_suporte }}/scripts/boot.sh
 
 [Install]
 WantedBy=multi-user.target

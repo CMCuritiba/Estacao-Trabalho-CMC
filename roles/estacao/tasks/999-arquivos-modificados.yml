@@ -2,18 +2,18 @@
 # Adicionar aqui links para qualquer arquivo (ou pasta, se forem muitos) que
 # foram modificados
 
-- name: "Cria pasta de modificados"
+- name: 'Cria pasta de modificados'
   ansible.builtin.file:
-    path: "{{ estacao_cmc_modificados_dir }}"
+    path: '{{ estacao_cmc_modificados_dir }}'
     owner: root
     group: root
     state: directory
-    mode: "0755"
+    mode: '0755'
 
-- name: "Cria links"
+- name: 'Cria links'
   ansible.builtin.file:
     dest: "{{ estacao_cmc_modificados_dir }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
-    src: "{{ item.src }}"
+    src: '{{ item.src }}'
     force: true
     state: link
   with_items:
@@ -60,7 +60,7 @@
     - src: /etc/sssd/conf.d/01-cmc.conf
       dest: sssd-01-cmc.conf
     # Serviço de script após rede
-    - src: "{{ estacao_servico_network }}"
+    - src: '{{ estacao_servico_network }}'
     # Imagens novas
     - src: /usr/share/pixmaps/suporte_tux.png
     - src: /usr/share/backgrounds/cmc/desktop-bg.png
@@ -80,13 +80,13 @@
     - src: /etc/logrotate.d/rsyslog
     - src: /etc/logrotate.d/sssd-common
     # Scripts de rede
-    - src: "{{ estacao_mnt_suporte }}/etv4/scripts/boot.sh"
+    - src: '{{ estacao_mnt_suporte }}/scripts/boot.sh'
     # Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
     - src: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
     # Assegura permissão de dispositivos bluetooth
     - src: /usr/share/polkit-1/actions/org.blueman.policy
     # Script de boot das estações de trabalho
-    - src: "{{ estacao_servico_boot }}"
+    - src: '{{ estacao_servico_boot }}'
     # Serviço de atualização automática do zoom
-    - src: "{{ estacao_servico_zoom_update }}"
-    - src: "{{ estacao_servico_zoom_timer }}"
+    - src: '{{ estacao_servico_zoom_update }}'
+    - src: '{{ estacao_servico_zoom_timer }}'

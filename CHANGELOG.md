@@ -5,6 +5,12 @@ Todas as alterações significativas neste projeto serão documentadas aqui.
 O formato é baseado em [Keep a Changelog](http://keepachangelog.com/) e este
 projeto segue [Semantic Versioning](http://semver.org/).
 
+## 6.1.0 - 2024-07-10
+
+### Feat
+
+Substitui mount através de servidor NFS por AWS S3 bucket, via s3fs. Permitindo atualizações automáticas tanto na rede local quanto em estações em _home office_.
+
 ## 6.0.4 - 2024-06-25
 
 ### Fix

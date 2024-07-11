@@ -1,9 +1,9 @@
 ---
 - name: Cria diretório da CMC
   ansible.builtin.file:
-    path: "{{ estacao_cmc_dir }}"
+    path: '{{ estacao_cmc_dir }}'
     state: directory
-    mode: "0755"
+    mode: '0755'
     owner: root
     group: root
 
@@ -105,10 +105,10 @@
   tags:
     - bashrc
 
-- name: Monta o NFS
-  ansible.builtin.import_tasks: 190-nfs-mount.yml
+- name: Monta o bucket S3
+  ansible.builtin.import_tasks: 190-s3fs-mount.yml
   tags:
-    - nfs
+    - s3fs
     - mount
 
 - name: Configura serviço de network da CMC
