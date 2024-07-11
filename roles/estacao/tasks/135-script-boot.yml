@@ -11,8 +11,20 @@
     dest: "{{ estacao_servico_boot }}"
     mode: "0644"
 
+- name: Configura cmc-boot.timer
+  ansible.builtin.template:
+    src: cmc-boot.timer.j2
+    dest: "{{ estacao_servico_boot_timer }}"
+    mode: "0644"
+
 - name: Habilita o serviço e roda o script imediatamente
   ansible.builtin.service:
     name: cmc-boot.service
+    enabled: true
+    state: started
+
+- name: Habilita o timer
+  ansible.builtin.service:
+    name: cmc-boot.timer
     enabled: true
     state: started

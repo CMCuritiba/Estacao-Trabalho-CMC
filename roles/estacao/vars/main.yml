@@ -14,6 +14,7 @@ estacao_vino: /etc/xdg/autostart/vino-server.desktop
 estacao_caljson: "/usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json"
 
 estacao_servico_boot: "/etc/systemd/system/cmc-boot.service"
+estacao_servico_boot_timer: "/etc/systemd/system/cmc-boot.timer"
 estacao_servico_network: "/etc/systemd/system/cmc-network.service"
 estacao_zoomsh: "{{ estacao_cmc_scripts_dir }}/zoom-update.sh"
 estacao_servico_zoom_update: "/etc/systemd/system/zoom-update.service"
