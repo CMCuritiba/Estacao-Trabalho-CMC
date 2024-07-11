@@ -26,7 +26,7 @@ echo "[Unit]
 Description=Script de boot do CMC
 
 [Timer]
-OnBootSec=0min
+OnBootSec=4h
 OnUnitActiveSec=12h
 
 [Install]
