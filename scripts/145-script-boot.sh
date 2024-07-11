@@ -26,8 +26,8 @@ echo "[Unit]
 Description=Script de boot do CMC
 
 [Timer]
-OnBootSec=4h
-OnUnitActiveSec=12h
+OnBootSec=2h
+OnUnitActiveSec=6h
 
 [Install]
 WantedBy=timers.target" >/etc/systemd/system/cmc-boot.timer
