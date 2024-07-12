@@ -135,7 +135,7 @@ O playbook deve terminar sem erros.
 
 Reinicie a nova estação de trabalho e faça login com seu usuário do domínio.
 
-## Contribuindo
+## Trabalhando no código
 
 ### Configurando seu ambiente de trabalho
 
@@ -279,3 +279,11 @@ Caso seja necessário realizar os testes manualmente sem utilizar o Molecule, é
    # ou
    ssh -p 2222 nome.sobrenome@localhost
    ```
+
+## Como contribuir
+
+Toda contribuição é bem vinda!
+
+Para ajudar-nos a manter o bom trabalho, por favor leia nossas
+[diretrizes](.github/CONTRIBUTING.md) e
+[código de conduta](.github/CODE_OF_CONDUCT.md).
