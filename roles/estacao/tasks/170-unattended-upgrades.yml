@@ -1,0 +1,50 @@
+---
+# - name: Print all available facts
+#   ansible.builtin.debug:
+#     var: ansible_facts
+
+- name: "Instala unattended-upgrades"
+  ansible.builtin.apt:
+    state: present
+    update_cache: true
+    cache_valid_time: 86400
+    name:
+      - unattended-upgrades
+
+- name: Habilita minimal steps para unattended-upgrades
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_unattended_conf }}"
+    line: 'Unattended-Upgrade::MinimalSteps "true";'
+    regexp: '//Unattended-Upgrade::MinimalSteps'
+
+- name: Obtem informações dos pacotes instalados
+  ansible.builtin.package_facts:
+    manager: auto
+
+# - name: Print the package facts
+#   ansible.builtin.debug:
+#     var: ansible_facts.packages
+
+# - name: Check chrome info
+#   ansible.builtin.debug:
+#     msg: "{{ ansible_facts.packages['google-chrome-stable'] }}"
+
+- name: Habilita atualização automática do Chrome
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_unattended_conf }}"
+    insertafter: "Unattended-Upgrade::Allowed-Origins {"
+    line: "\t\"{{ ansible_facts.packages['google-chrome-stable'][0].origin }}:stable\";"
+
+- name: Habilita atualização automática do Edge
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_unattended_conf }}"
+    insertafter: "Unattended-Upgrade::Allowed-Origins {"
+    line: "\t\"{{ ansible_facts.packages['microsoft-edge-stable'][0].origin }}:stable\";"
+
+# No Mint 21.3 o firefox não é atualizado pela linha nativa no arquivo
+# 'LinuxMint:virginia', é necessário incluir 'linuxmint:virginia'
+- name: Habilita atualização automática do Firefox
+  ansible.builtin.lineinfile:
+    path: "{{ estacao_unattended_conf }}"
+    insertafter: "Unattended-Upgrade::Allowed-Origins {"
+    line: "\t\"{{ ansible_facts.lsb['id'] | lower }}:{{ ansible_facts.lsb['codename'] | lower }}\";"

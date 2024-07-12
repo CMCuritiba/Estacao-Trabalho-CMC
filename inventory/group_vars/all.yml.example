@@ -1,0 +1,17 @@
+---
+estacao_suporte_user: suporte
+estacao_suporte_pass: senha_usuario_suporte
+estacao_root_pass: senha_usuario_root
+estacao_vnc_pass: senha_login_remoto_vnc
+estacao_dtic_group: grupo
+estacao_dtic_network: "0.0.0.0/24"
+estacao_ad_ip_addresses:
+  - 0.0.0.0
+  - 1.1.1.1
+estacao_ad_domain: example.com
+estacao_ad_join_user: administrator
+estacao_ad_join_pass: password
+estacao_s3fs_bucket_name: bucket
+estacao_s3fs_access_key: access_key
+estacao_s3fs_secret_access_key: secret_access_key
+

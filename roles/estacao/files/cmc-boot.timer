@@ -1,0 +1,11 @@
+[Unit]
+Description=Boot script
+
+# A timer which will start 2 hours after boot and again every 6 hours while the
+# system is running.
+[Timer]
+OnBootSec=2h
+OnUnitActiveSec=6h
+
+[Install]
+WantedBy=timers.target
