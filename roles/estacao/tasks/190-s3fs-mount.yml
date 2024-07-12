@@ -1,26 +1,26 @@
 ---
 - name: Configura chaves AWS
   ansible.builtin.copy:
-    path: /etc/passwd-s3fs
-    content: '{{ estacao_s3fs_access_key }}:{{ estacao_s3fs_secret_access_key }}'
+    dest: /etc/passwd-s3fs
+    content: "{{ estacao_s3fs_access_key }}:{{ estacao_s3fs_secret_access_key }}"
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Cria diretório de montagem
   ansible.builtin.file:
-    path: '{{ estacao_mnt_suporte }}'
+    path: "{{ estacao_mnt_suporte }}"
     state: directory
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
 
 - name: Configura fstab
   ansible.posix.mount:
-    path: '{{ estacao_mnt_suporte }}'
-    src: '{{ estacao_s3fs_bucket_name }}'
-    fstype: 'fuse.s3fs'
-    opts: '_netdev,ro,umask=0227,retries=3,nofail,use_cache=/tmp,connect_timeout=5,readwrite_timeout=5,stat_cache_expire=5'
+    path: "{{ estacao_mnt_suporte }}"
+    src: "{{ estacao_s3fs_bucket_name }}"
+    fstype: "fuse.s3fs"
+    opts: "_netdev,ro,umask=0227,retries=3,nofail,use_cache=/tmp,connect_timeout=5,readwrite_timeout=5,stat_cache_expire=5,endpoint={{ estacao_s3fs_endpoint }}"
     dump: 0
     passno: 0
     backup: true
