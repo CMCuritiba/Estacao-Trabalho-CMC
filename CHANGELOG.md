@@ -5,6 +5,12 @@ Todas as alterações significativas neste projeto serão documentadas aqui.
 O formato é baseado em [Keep a Changelog](http://keepachangelog.com/) e este
 projeto segue [Semantic Versioning](http://semver.org/).
 
+## 6.1.1 - 2024-07-11
+
+### Feat
+
+Configura script de boot para rodar periodicamente.
+
 ## 6.1.0 - 2024-07-10
 
 ### Feat
