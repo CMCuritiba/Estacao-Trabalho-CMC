@@ -3,18 +3,24 @@
   ansible.builtin.template:
     src: cmc-boot.sh.j2
     dest: "{{ estacao_bootsh }}"
+    owner: root
+    group: root
     mode: "0755"
 
 - name: Configura cmc-boot.service
   ansible.builtin.template:
     src: cmc-boot.service.j2
     dest: "{{ estacao_servico_boot }}"
+    owner: root
+    group: root
     mode: "0644"
 
 - name: Configura cmc-boot.timer
-  ansible.builtin.template:
-    src: cmc-boot.timer.j2
+  ansible.builtin.copy:
+    src: cmc-boot.timer
     dest: "{{ estacao_servico_boot_timer }}"
+    owner: root
+    group: root
     mode: "0644"
 
 - name: Habilita o serviço e roda o script imediatamente
