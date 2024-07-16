@@ -1,4 +1,5 @@
 ---
+
 # Altera tempo de retencao do syslog, auth, messages e outros para 6 meses
 
 - name: Mantém logs por 27 semanas (~6 meses)
@@ -18,3 +19,21 @@
   loop:
     - /etc/logrotate.d/rsyslog
     - /etc/logrotate.d/sssd-common
+
+# Desabilita IPV6 method para evitar inundação de logs
+
+- name: Descobre nome da conexão
+  ansible.builtin.shell: nmcli -t -f NAME connection show | head -n 1
+  register: conn_name
+
+- name: Desabilita IPV6 method
+  community.general.nmcli:
+    type: ethernet
+    conn_name: "{{ conn_name.stdout }}"
+    method6: "disabled"
+    state: present
+
+- name: Reinicia NetworkManager
+  ansible.builtin.service:
+    name: NetworkManager
+    state: restarted
