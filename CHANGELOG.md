@@ -7,9 +7,9 @@ projeto segue [Semantic Versioning](http://semver.org/).
 
 ## 6.1.2 - 2024-07-16
 
-### Feat
+### Refactor
 
-Desativa o ipv6 method para mitigar inundação de logs.
+Habilita o ipv6 para mitigar inundação de logs.
 
 ## 6.1.1 - 2024-07-11
 
