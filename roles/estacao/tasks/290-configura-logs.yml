@@ -1,4 +1,5 @@
 ---
+
 # Altera tempo de retencao do syslog, auth, messages e outros para 6 meses
 
 - name: Mantém logs por 27 semanas (~6 meses)
