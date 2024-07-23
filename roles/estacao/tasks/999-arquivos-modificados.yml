@@ -64,8 +64,6 @@
     # Imagens novas
     - src: /usr/share/pixmaps/suporte_tux.png
     - src: /usr/share/backgrounds/cmc/desktop-bg.png
-    # Serviço NTP
-    - src: /etc/ntp.conf
     # Configura CUPS
     - src: /etc/cups/cupsd.conf
     - src: /etc/cups/cups-browsed.conf

@@ -80,7 +80,6 @@ Configure o **seu** computador:
    - `estacao_s3fs_secret_access_key`: secret access key para acesso ao bucket de mount
    - `estacao_s3fs_endpoint`: **OPCIONAL**, região do bucket
    - `estacao_mnt_suporte`: **OPCIONAL**, ponto de montagem local
-   - `estacao_ntp_servers`: **OPCIONAL**, lista de servidores NTP
    - `estacao_ad_fallback_ips`: **OPCIONAL**, lista de IPs para fallback de DNS
 
 4. Adicione o nome ou o endereço IP do computador onde será configurada a

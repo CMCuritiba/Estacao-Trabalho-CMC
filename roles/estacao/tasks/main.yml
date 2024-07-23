@@ -64,18 +64,13 @@
   tags:
     - terminal
 
-- name: Popula o arquivo de configuração do NTP
-  ansible.builtin.import_tasks: 120-ntp-server.yml
-  tags:
-    - ntp
-
 - name: Configura o DNS
-  ansible.builtin.import_tasks: 130-configura-dns.yml
+  ansible.builtin.import_tasks: 120-configura-dns.yml
   tags:
     - dns
 
 - name: Configura script de boot
-  ansible.builtin.import_tasks: 135-script-boot.yml
+  ansible.builtin.import_tasks: 130-script-boot.yml
   tags:
     - boot
 
