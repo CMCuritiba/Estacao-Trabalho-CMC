@@ -1,0 +1,91 @@
+---
+# Adicionar aqui links para qualquer arquivo (ou pasta, se forem muitos) que
+# foram modificados
+
+- name: 'Cria pasta de modificados'
+  ansible.builtin.file:
+    path: '{{ estacao_cmc_modificados_dir }}'
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+
+- name: 'Cria links'
+  ansible.builtin.file:
+    dest: "{{ estacao_cmc_modificados_dir }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
+    src: '{{ item.src }}'
+    force: true
+    state: link
+  with_items:
+    # Skel inteiro basicamente
+    - src: /etc/skel
+    # bashrc
+    - src: /root/.bashrc
+      dest: bashrc
+    - src: /root/.bash_aliases
+      dest: bash_aliases
+    # Configs de browsers
+    - src: /usr/lib/firefox/defaults/pref/local-settings.js
+      dest: firefox-local-settings.js
+    - src: /usr/lib/firefox/mozilla.cfg
+    - src: /usr/lib/firefox/browser/override.ini
+      dest: firefox-override.ini
+    - src: /usr/lib/firefox/distribution/policies.json
+      dest: firefox-policies.json
+    - src: /etc/opt/chrome/policies/managed/cmc.json
+      dest: chrome-policies-managed-cmc.json
+    - src: /etc/opt/chrome/policies/recommended/cmc.json
+      dest: chrome-policies-recommended-cmc.json
+    # Coisas no autostart
+    - src: /etc/xdg/autostart/forcelogout.desktop
+    - src: /etc/xdg/autostart/vino-server.desktop
+    # Bloqueio de execução de alguns programas
+    - src: /usr/bin/gnome-terminal
+    - src: /usr/bin/mintupdate
+    - src: /usr/bin/mintreport
+    - src: /usr/bin/cinnamon-desktop-editor
+    # - src: /usr/bin/nm-connection-editor
+    # - src: /usr/bin/nm-applet
+    # dconf
+    - src: /etc/dconf/profile/user
+      dest: dconf-user
+    - src: /etc/dconf/db/local.d/01-cmc
+      dest: dconf-01-cmc
+    # Configurações do Cinnamon
+    - src: /usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json
+    # AD e PAM
+    - src: /etc/pam.d/common-session
+    - src: /etc/pam.d/common-auth
+    - src: /etc/pam.d/common-account
+    - src: /etc/sssd/conf.d/01-cmc.conf
+      dest: sssd-01-cmc.conf
+    # Serviço de script após rede
+    - src: '{{ estacao_servico_network }}'
+    # Imagens novas
+    - src: /usr/share/pixmaps/suporte_tux.png
+    - src: /usr/share/backgrounds/cmc/desktop-bg.png
+    # Configura CUPS
+    - src: /etc/cups/cupsd.conf
+    - src: /etc/cups/cups-browsed.conf
+    # NSSwitch
+    - src: /etc/nsswitch.conf
+    # Sudoers
+    - src: /etc/sudoers.d/cmc
+      dest: sudoers.d-cmc
+    # Desabilita TTYs
+    - src: /etc/X11/xorg.conf
+    # Configura retencao do syslog e auth
+    - src: /etc/logrotate.d/rsyslog
+    - src: /etc/logrotate.d/sssd-common
+    # Scripts de rede
+    - src: '{{ estacao_mnt_suporte }}/scripts/boot.sh'
+    # Assegura permissão de montagem de dispositivos externos (pendrives, HDs, etc)
+    - src: /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
+    # Assegura permissão de dispositivos bluetooth
+    - src: /usr/share/polkit-1/actions/org.blueman.policy
+    # Script de boot das estações de trabalho
+    - src: '{{ estacao_servico_boot }}'
+    - src: '{{ estacao_servico_boot_timer }}'
+    # Serviço de atualização automática do zoom
+    - src: '{{ estacao_servico_zoom_update }}'
+    - src: '{{ estacao_servico_zoom_timer }}'

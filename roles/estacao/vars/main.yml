@@ -1,0 +1,21 @@
+---
+
+estacao_cmc_dir: "/usr/local/cmc"
+estacao_cmc_scripts_dir: "{{ estacao_cmc_dir }}/scripts"
+estacao_cmc_modificados_dir: "{{ estacao_cmc_dir }}/modificados"
+estacao_bootsh: "{{ estacao_cmc_scripts_dir }}/cmc-boot.sh"
+estacao_loginsh: "{{ estacao_cmc_scripts_dir }}/on-login.sh"
+estacao_politica: "{{ estacao_cmc_dir }}/politica-informatica.txt"
+estacao_wallpaper_filename: /usr/share/backgrounds/cmc/desktop-bg.png
+estacao_login_bg_filename: /usr/share/backgrounds/cmc/login-bg.jpg
+estacao_sshd: /etc/ssh/sshd_config
+estacao_unattended_conf: /etc/apt/apt.conf.d/50unattended-upgrades
+estacao_vino: /etc/xdg/autostart/vino-server.desktop
+estacao_caljson: "/usr/share/cinnamon/applets/calendar@cinnamon.org/settings-schema.json"
+
+estacao_servico_boot: "/etc/systemd/system/cmc-boot.service"
+estacao_servico_boot_timer: "/etc/systemd/system/cmc-boot.timer"
+estacao_servico_network: "/etc/systemd/system/cmc-network.service"
+estacao_zoomsh: "{{ estacao_cmc_scripts_dir }}/zoom-update.sh"
+estacao_servico_zoom_update: "/etc/systemd/system/zoom-update.service"
+estacao_servico_zoom_timer: "/etc/systemd/system/zoom-update.timer"

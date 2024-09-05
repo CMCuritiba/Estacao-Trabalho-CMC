@@ -1,0 +1,11 @@
+[Unit]
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+RestartSec=60
+ExecStart=/bin/bash {{ estacao_bootsh }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+# Aliases e funcoes locais
+alias ll='ls -lh'
+alias la='ls -a'
+alias l='ls'
+alias mv='mv -iv'
+alias cp='cp -iv'
+alias rm='rm -iv'
+
+# Faz backup local
+function bkp() {
+    if [ -z "$1" ]; then
+        echo "Uso: bkp [arquivo]";
+    else
+        mkdir -p ./bkp
+        'cp' -Lv --preserve=all "$1" "./bkp/$1-$(date +%F-%H-%M-%S)"
+    fi
+}

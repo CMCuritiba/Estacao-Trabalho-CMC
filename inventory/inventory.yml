@@ -1,0 +1,8 @@
+---
+all:
+  hosts:
+    et1:
+    # et2:
+    #   ansible_host: 190.0.2.50
+    # et3:
+    #   ansible_host: 190.0.2.51
