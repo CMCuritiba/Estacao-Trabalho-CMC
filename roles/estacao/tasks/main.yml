@@ -1,0 +1,181 @@
+---
+- name: Cria diretório da CMC
+  ansible.builtin.file:
+    path: '{{ estacao_cmc_dir }}'
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Configura o grupo e usuário de suporte
+  ansible.builtin.import_tasks: 010-user-group-suporte.yml
+  tags:
+    - suporte
+
+- name: Remove programas desnecessários
+  ansible.builtin.import_tasks: 020-remover-programas.yml
+  tags:
+    - pacotes
+    - remove-pacotes
+
+- name: Instala programas necessários
+  ansible.builtin.import_tasks: 030-instala-programas.yml
+  tags:
+    - pacotes
+    - instala-pacotes
+
+- name: Configura imagens de fundo
+  ansible.builtin.import_tasks: 040-imagens-cmc.yml
+  tags:
+    - imagens
+
+- name: Configura skel e cria diretórios
+  ansible.builtin.import_tasks: 050-skel.yml
+  tags:
+    - skel
+
+- name: Configura browsers e plugins
+  ansible.builtin.import_tasks: 060-configura-browsers.yml
+  tags:
+    - browsers
+
+- name: Configura autostart e cria forcelogout.desktop
+  ansible.builtin.import_tasks: 070-autostart.yml
+  tags:
+    - autostart
+
+- name: Cria arquivo de politica-informatica e forcelogout
+  ansible.builtin.import_tasks: 080-politica-informatica.yml
+  tags:
+    - politica
+
+- name: Desabilita tty (troca de terminais)
+  ansible.builtin.import_tasks: 090-desabilita-tty.yml
+  tags:
+    - tty
+
+- name: Configura dconf e applet de calendário
+  ansible.builtin.import_tasks: 100-dconf.yml
+  tags:
+    - dconf
+
+- name: Criar arquivo de política do PolicyKit
+  ansible.builtin.import_tasks: 110-terminal-policy.yml
+  tags:
+    - terminal
+
+- name: Configura o DNS
+  ansible.builtin.import_tasks: 120-configura-dns.yml
+  tags:
+    - dns
+
+- name: Configura script de boot
+  ansible.builtin.import_tasks: 130-script-boot.yml
+  tags:
+    - boot
+
+- name: Configura integração com AD (Active Directory)
+  ansible.builtin.import_tasks: 140-integra-ad.yml
+  tags:
+    - ad
+
+- name: Configura PAM
+  ansible.builtin.import_tasks: 150-configura-pam.yml
+  tags:
+    - pam
+
+- name: Adiciona grupo DTIC ao sudoers
+  ansible.builtin.import_tasks: 160-sudoers.yml
+  tags:
+    - sudoers
+
+- name: Instala unattended-upgrades e repositórios
+  ansible.builtin.import_tasks: 170-unattended-upgrades.yml
+  tags:
+    - atualizacoes
+    - unattended
+
+- name: Configura o bashrc
+  ansible.builtin.import_tasks: 180-bashrc.yml
+  tags:
+    - bashrc
+
+- name: Monta o bucket S3
+  ansible.builtin.import_tasks: 190-s3fs-mount.yml
+  tags:
+    - s3fs
+    - mount
+
+- name: Configura serviço de network da CMC
+  ansible.builtin.import_tasks: 200-script-rede.yml
+  tags:
+    - rede
+
+- name: Configura o serviço SSH
+  ansible.builtin.import_tasks: 210-ssh-server.yml
+  tags:
+    - ssh
+
+- name: Configura o VNC
+  ansible.builtin.import_tasks: 220-vnc.yml
+  tags:
+    - vnc
+
+- name: Desabilita itens do menu
+  ansible.builtin.import_tasks: 230-menu-items.yml
+  tags:
+    - menu
+
+- name: Configura o login gráfico
+  ansible.builtin.import_tasks: 240-login-grafico.yml
+  tags:
+    - lightdm
+    - login-grafico
+
+- name: Configura o CUPS
+  ansible.builtin.import_tasks: 250-configura-cups.yml
+  tags:
+    - cups
+
+- name: Define permissões para dispositivos externos
+  ansible.builtin.import_tasks: 260-mount-pendrive.yml
+  tags:
+    - pendrive
+
+- name: Assegura permissão de dispositivos bluetooth
+  ansible.builtin.import_tasks: 265-pairing-bluetooth.yml
+  tags:
+    - bluetooth
+
+- name: Remove execução dos programas default e ajusta permissões
+  ansible.builtin.import_tasks: 270-bloqueio-cinnamon.yml
+  tags:
+    - bloqueio
+    - cinnamon
+    - acl
+
+- name: Locka os icones do desktop
+  ansible.builtin.import_tasks: 280-on-login.yml
+  tags:
+    - login
+
+- name: Configura logs
+  ansible.builtin.import_tasks: 290-configura-logs.yml
+  tags:
+    - logs
+
+- name: Configura Zoom autoupdate
+  ansible.builtin.import_tasks: 300-zoom-autoupdate.yml
+  tags:
+    - zoom
+
+- name: Mantém versionamento
+  ansible.builtin.import_tasks: 990-versionamento.yml
+  tags:
+    - versionamento
+    - versao
+
+- name: Cria pasta de modificados e links
+  ansible.builtin.import_tasks: 999-arquivos-modificados.yml
+  tags:
+    - links

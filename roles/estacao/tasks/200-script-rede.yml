@@ -1,0 +1,20 @@
+---
+# 'After network-online' pode ser usado para que o serviço rode apenas após as
+# interfaces de rede estarem prontas.
+# 'After mount' pode ser usado para que o serviço rode apenas após um mount no
+# fstab.
+# O nome do mnt-[coisa].mount pode ser descoberto com o seguinte comando:
+# systemctl list-units | grep '/path/to/mount' | awk '{ print $1 }'
+
+- name: Configura serviço de rede da CMC
+  ansible.builtin.template:
+    src: "cmc-network.service.j2"
+    dest: "{{ estacao_servico_network }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Restart cmc-network service
+  ansible.builtin.service:
+    name: cmc-network
+    enabled: true

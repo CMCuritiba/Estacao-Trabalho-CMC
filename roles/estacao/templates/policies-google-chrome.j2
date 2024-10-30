@@ -1,0 +1,27 @@
+{
+  "DownloadDirectory": "/home/${user_name}/Downloads",
+  "DefaultBrowserSettingEnabled": false,
+  "DisablePrintPreview": true,
+  "ManagedBookmarks": [
+    {
+      "toplevel_name": "Favoritos Gerenciados da CMC"
+    },
+    {% for bookmark in estacao_bookmarks %}
+      {
+        "name": "{{ bookmark.name }}",
+      {% if bookmark.url is defined %}
+        "url": "{{ bookmark.url }}"
+      {% else %}
+        "children": [
+        {% for child in bookmark.children %}
+          {
+            "name": "{{ child.name }}",
+            "url": "{{ child.url }}"
+          }{{loop.last | ternary('', ',')}}
+        {% endfor %}
+        ]
+      {% endif %}
+      }{{loop.last | ternary('', ',')}}
+    {% endfor %}
+  ]
+}

@@ -1,0 +1,23 @@
+---
+- name: Cria grupo local para suporte
+  ansible.builtin.group:
+    name: "{{ estacao_suporte_user }}"
+
+- name: Configura usuário para suporte
+  ansible.builtin.user:
+    name: "{{ estacao_suporte_user }}"
+    password: "{{ estacao_suporte_pass | password_hash('sha512') }}"
+    update_password: always
+    groups:
+      - "{{ estacao_suporte_user }}"
+      - sudo
+    append: false # garante que o usuário não esteja em nenhum outro grupo
+    shell: /bin/bash
+    create_home: true
+    state: present
+
+- name: Atualiza a senha de root
+  ansible.builtin.user:
+    name: root
+    password: "{{ estacao_root_pass | password_hash('sha512') }}"
+    update_password: always

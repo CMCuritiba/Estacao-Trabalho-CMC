@@ -1,0 +1,19 @@
+---
+# Remove alguns programas padrão desnecessários
+- name: Remove programas
+  ansible.builtin.apt:
+    name:
+      - "thunderbird*"
+      - "transmission*"
+      - "avahi-daemon"
+      - "xed"
+      - "hexchat*"
+      - "celluloid*"
+      - "hypnotix*"
+      - "redshift*"
+      - "warpinator"
+    state: absent
+    update_cache: true
+    cache_valid_time: 86400
+    autoremove: true
+    purge: true

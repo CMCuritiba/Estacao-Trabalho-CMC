@@ -1,0 +1,41 @@
+{
+  "policies": {
+    "DisplayBookmarksToolbar": true,
+    "DisableAppUpdate": true,
+    "ManagedBookmarks": [
+      {
+        "toplevel_name": "Favoritos Gerenciados da CMC"
+      },
+    {% for bookmark in estacao_bookmarks %}
+      {
+        "name": "{{ bookmark.name }}",
+      {% if bookmark.url is defined %}
+        "url": "{{ bookmark.url }}"
+      {% else %}
+        "children": [
+        {% for child in bookmark.children %}
+          {
+            "name": "{{ child.name }}",
+            "url": "{{ child.url }}"
+          }{{loop.last | ternary('', ',')}}
+        {% endfor %}
+        ]
+      {% endif %}
+      }{{loop.last | ternary('', ',')}}
+    {% endfor %}
+    {% if estacao_firefox_addons is defined and estacao_firefox_addons | length > 0 %}
+    ],
+      {% for addon in estacao_firefox_addons %}
+    {
+      "{{ addon.name }}": {
+        "installation_mode": "force_installed",
+        "install_url": "{{ addon.url }}",
+        "updates_disabled": false
+      }{{loop.last | ternary('', ',')}}
+    }
+      {% endfor %}
+    {% else %}
+    ]
+    {% endif %}
+  }
+}

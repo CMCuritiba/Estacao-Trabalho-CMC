@@ -1,0 +1,17 @@
+---
+- name: Copia imagem para o icone de suporte no desktop
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/share/pixmaps/
+    mode: "0644"
+  loop:
+    - imagens/suporte_tux.png
+
+- name: Copia imagens de papel de parede e greeter
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/share/backgrounds/cmc/
+    mode: "0644"
+  loop:
+    - imagens/login-bg.jpg
+    - imagens/desktop-bg.png

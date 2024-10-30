@@ -1,0 +1,14 @@
+---
+- name: Locka os icones do desktop
+  ansible.builtin.copy:
+    src: "on-login.sh"
+    dest: "{{ estacao_loginsh }}"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Adiciona para rodar no PAM Session
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: "session optional pam_exec.so {{ estacao_loginsh }}"
+  notify: Restart PAM
