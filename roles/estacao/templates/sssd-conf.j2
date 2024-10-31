@@ -21,3 +21,6 @@ ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
 ad_gpo_access_control = disabled
 ldap_id_mapping = False
 ldap_user_name = uid
+dns_resolver_timeout = 12
+ad_server = ip-c613012e.cmc.local, ipc6130250.cmc.local
+ad_server = {{% for ip_name in estacao_ad_ip_names %}} {{ip_name}} {{% ", " if not loop.last else ""%}} {{%endfor%}} 
