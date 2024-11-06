@@ -6,7 +6,8 @@
     owner: root
     group: root
     mode: "0755"
-  tags: "ad"
+  tags: 
+    -"ad"
 
 - name: Configura cmc-boot.service
   ansible.builtin.template:
