@@ -4,9 +4,6 @@ estacao_root_pass: senha_usuario_root # type: string password
 estacao_vnc_pass: senha_login_remoto_vnc # type: string password
 estacao_dtic_group: grupo # type: string nome de grupo
 estacao_dtic_network: "0.0.0.0/24" # type: string CIDR
-estacao_ad_ip_names: # type: list of IP names
-  - ip1.dominio
-  - ip2.dominio
 estacao_ad_ip_addresses: # type: list of IPs
   - 0.0.0.0
   - 1.1.1.1

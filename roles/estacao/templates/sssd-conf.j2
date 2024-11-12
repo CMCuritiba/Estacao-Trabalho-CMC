@@ -21,5 +21,7 @@ ad_access_filter = (&(employeeNumber=*)(objectClass=inetOrgPerson))
 ad_gpo_access_control = disabled
 ldap_id_mapping = False
 ldap_user_name = uid
-dns_resolver_timeout = 12
-ad_server = {{ estacao_ad_ip_names | join(', ')}}
+ldap_opt_timeout = 20
+ldap_network_timeout = 20
+dns_resolver_timeout = 20
+ad_server = {{ ad_domain_controllers }}

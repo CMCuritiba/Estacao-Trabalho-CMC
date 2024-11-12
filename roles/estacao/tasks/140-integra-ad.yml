@@ -9,7 +9,7 @@
   register: hostname
   changed_when: false
 
-- name: "Garante que hostname esteja configurado"
+- name: Garante que hostname esteja configurado
   ansible.builtin.assert:
     that: (estacao_ad_domain | lower) in hostname.stdout
     fail_msg: "Hostname não configurado, abortando"
@@ -27,7 +27,16 @@
       - adcli
     state: present
 
-- name: "Configuração do Kerberos"
+- name: Pega AD Domain Controllers
+  ansible.builtin.shell:
+    cmd: adcli info cmc.local | grep domain-controllers | cut -d"=" -f2 | xargs | sed 's/ /, /g'
+  register: ad_domain_controllers_list
+
+- name: Seta lista  
+  ansible.builtin.set_fact:
+    ad_domain_controllers: "{{ad_domain_controllers_list.stdout | lower}}"
+
+- name: Configuração do Kerberos
   ansible.builtin.template:
     src: templates/krb5-conf.j2
     dest: /etc/krb5.conf
@@ -48,7 +57,7 @@
     cmd: echo "{{ estacao_ad_join_pass }}" | realm join -U "{{ estacao_ad_join_user }}" "{{ estacao_ad_domain | lower }}"
   when: ad_domain_list.rc != 0
 
-- name: "Configuração do sssd"
+- name: Configuração do sssd
   ansible.builtin.template:
     src: templates/sssd-conf.j2
     dest: /etc/sssd/conf.d/01-cmc.conf

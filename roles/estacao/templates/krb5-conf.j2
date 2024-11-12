@@ -19,13 +19,12 @@ udp_preference_limit = 0
 
 [realms]
 	{{estacao_ad_domain | upper}} = {
-{% for ip_name in estacao_ad_ip_names %}
+{% for ip_name in (ad_domain_controllers | split(', ')) %}
 		kdc = {{ip_name}}
 {% endfor %}
 		admin_server = {{estacao_ad_domain | lower}}
 		default_domain = {{estacao_ad_domain | lower}}
 	}
-
 
 [domain_realm]
 	.{{estacao_ad_domain | lower}} = {{estacao_ad_domain | upper}}
