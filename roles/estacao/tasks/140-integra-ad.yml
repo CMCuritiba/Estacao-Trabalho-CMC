@@ -70,13 +70,11 @@
   ansible.builtin.shell:
     cmd: test ! -d /etc/systemd/system/sssd.service.d && mkdir /etc/systemd/system/sssd.service.d
   ignore_errors: true
-  tags: testanetconf
 
 - name: Cria network.conf
   ansible.builtin.template:
     src: templates/network.conf.j2
     dest: /etc/systemd/system/sssd.service.d/network.conf
-  tags: testanetconf
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
