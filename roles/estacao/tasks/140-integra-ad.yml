@@ -68,8 +68,7 @@
 
 - name: Cria diretorio sssd.service.d se nao existir
   ansible.builtin.shell:
-    cmd: test ! -d /etc/systemd/system/sssd.service.d && mkdir /etc/systemd/system/sssd.service.d
-  ignore_errors: true
+    cmd: mkdir -p /etc/systemd/system/sssd.service.d
 
 - name: Cria network.conf
   ansible.builtin.template:
