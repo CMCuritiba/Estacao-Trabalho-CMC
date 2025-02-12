@@ -1,6 +1,6 @@
-# How to contribute
+# Contributing Guidelines
 
-Welcome to Estação-Trabalho-CMC project!
+Welcome to **Estação-Trabalho-CMC** project!
 
 Thank you for your interest in contributing! By participating, you are helping to improve and maintain this project, making it more useful for everyone.
 
@@ -62,7 +62,7 @@ For examples and more on this topic, see also:
 
 ## Submitting Pull Requests (PRs)
 
-In general, we follow the [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow#following-github-flow). Please, follow these steps when submitting a PR:
+In general, we use [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow#following-github-flow). Please, follow these steps when submitting a PR:
 
 1. **Clone the project** to your machine (fork the repository to your own Github account only if needed).
 2. **Create a new branch** referring to an open issue (`feat/feature-name` or `fix/fix-name`).
@@ -108,7 +108,7 @@ To ask questions or discuss ideas, use the following channels:
 
 - Issues on GitHub for problems and suggestions.
 - Pull Requests to discuss code changes.
-- [E-mail](mailto:suporte@cmc.pr.gov.br).
+- [E-mail](mailto:suporte@cmc.pr.gov.br) for other subjects.
 
 ---
 
