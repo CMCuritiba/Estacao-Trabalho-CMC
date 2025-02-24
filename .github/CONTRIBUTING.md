@@ -45,7 +45,7 @@ Para alterações que afetem a funcionalidade principal ou exijam _breaking chan
 ## Padrões de Código
 
 - Siga a convenção de estilo estabelecida pelo projeto (ESLint, PEP8, etc.).
-- Use indentacão consistente.
+- Use indentação consistente.
 - Nomeie variáveis e funções de forma clara e sem abreviações excessivas.
 - Escreva comentários explicativos quando necessário.
 
