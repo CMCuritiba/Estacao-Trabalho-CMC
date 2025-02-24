@@ -75,7 +75,7 @@ Em geral, seguimos o [Github Flow](https://docs.github.com/en/get-started/using-
 7. **Faça _lint_** do seu código.
 8. **Adicione documentação** caso sua contribuição exija.
 9. **Faça _bump_ da versão** nos arquivos apropriados (incluindo `README.md` e `CHANGELOG.md`) para a nova versão que este _Pull Request_ representaria. O esquema de versionamento que usamos é [SemVer](http://semver.org/) e [Keep a Changelog](http://keepachangelog.com/).
-10. **Descreva claramente o que sua PR faz** e referencie _issues_ relacionadas.
+10. **Descreva claramente o que seu PR faz** e referencie _issues_ relacionadas.
 
 Em geral, os PRs devem:
 
