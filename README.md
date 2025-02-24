@@ -114,7 +114,7 @@ Configure o **seu** computador:
    ansible et2 -m ping -u suporte -k -i inventory/inventory.yml
    ```
 
-6. Para aplicar o _playbook_, você utilizará o usuário/senha utilizados na
+6. Para aplicar o _playbook_, você utilizará o usuário/senha informados na
    instalação do Mint no novo computador ([definido aqui](#user_suporte)).
    Aplique o _playbook_ com o comando:
 

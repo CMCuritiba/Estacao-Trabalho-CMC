@@ -1,102 +1,116 @@
-# How to contribute
+# Guia de Contribuição
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+[English version available here.](./CONTRIBUTING-en.md)
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+Bem-vindo(a) ao projeto **Estação-Trabalho-CMC**!
 
-## Code of Conduct
+Obrigado pelo seu interesse em contribuir! Ao participar, você está ajudando a melhorar e manter este projeto, tornando-o mais útil para todos.
 
-We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md).
+Este documento fornece diretrizes para garantir que suas contribuições sejam bem recebidas e incorporadas de forma eficiente ao projeto.
 
-## Getting started
+## Como Contribuir
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+Aceitamos vários tipos de contribuições, incluindo:
 
-Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
+- Relatar um bug
+- Discutir o estado atual do código
+- Enviar uma correção
+- Propor novos recursos
+- Melhorar a documentação
+- Tornar-se um mantenedor
 
-- Search for existing Issues and PRs before creating your own.
-- We work hard to makes sure issues are handled in a timely manner but, depending on the impact, it could take a while to investigate the root cause. A friendly ping in the comment thread to the submitter or a contributor can help draw attention if your issue is blocking.
-- Issues should be used to report problems, request a new feature, or to discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the information we need to investigate.
-- If you find an Issue that addresses the problem you're having, please add your own reproduction information to the existing issue rather than creating a new one.
-- In general, PRs should:
-  - Only fix/add the functionality in question OR address wide-spread whitespace/style issues, not both.
-  - Add unit or integration tests for fixed or changed functionality (if a test suite already exists).
-  - Address a single concern in the least number of changed lines as possible.
-  - Include documentation in the repo or on our docs site.
-  - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
+Ao contribuir para este repositório, primeiro discuta a alteração que deseja fazer com os proprietários deste repositório antes de fazer uma alteração.
 
-For changes that address core functionality or would require breaking changes (e.g. a major release), it's best to open an Issue to discuss your proposal first. This is not required but can save time creating and reviewing changes.
+### Relatando Problemas (_Issues_)
 
-In general, we follow the [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow#following-github-flow):
+Caso encontre um erro ou tenha uma sugestão de melhoria, siga estes passos ao abrir uma _issue_:
 
-1. Clone the project to your machine (fork the repository to your own Github account only if needed).
-1. Create a branch with a succinct but descriptive name referring to an open issue.
-1. Commit changes to the branch.
-1. If you've added code that should be tested, add tests.
-1. Make sure your code lints.
-1. Update the README with details of changes.
-1. Increase the version numbers in the appropriate files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-1. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.
+1. **Verifique se a _issue_ já existe** para evitar duplicatas.
+2. **Forneça um título claro e descritivo**.
+3. **Explique o problema atual e como sua sugestão pode melhorá-lo**.
+4. **Inclua detalhes do ambiente** (versão do sistema operacional, versão do software, etc.).
+5. **Descreva os passos para reproduzir o problema**.
+6. **Inclua logs ou prints** se relevante.
 
-### Commit Message Guidelines
+Procure se ater ao modelo de _issue_ fornecido e evite remover ou deixar em branco qualquer seção.
 
-We have precise rules over how our git commit messages can be formatted. This leads to **more readable messages** that are easy to follow when looking through the **project history** and allows various magic **automation**.
+Algumas diretrizes gerais:
 
-#### Commit Message Format
+- Trabalhamos arduamente para garantir que os problemas sejam resolvidos em tempo hábil, mas, dependendo do impacto, pode demorar um pouco para investigar a causa raiz. Se o seu problema estiver bloqueando, um ping amigável no tópico de comentários pode ajudar a chamar a atenção do autor ou colaborador.
+- As _issues_ devem ser usadas ​​para relatar problemas, solicitar um novo recurso ou discutir possíveis alterações antes da criação de um PR. Quando você cria uma nova _issue_, será carregado um modelo que o guiará na coleta e no fornecimento das informações que precisamos investigar.
+- Se você encontrar uma _issue_ que resolva o problema que você está enfrentando, adicione suas próprias informações de reprodução ao problema existente em vez de criar um novo.
 
-The commit message should be structured as follows:
+Para alterações que afetem a funcionalidade principal ou exijam _breaking changes_ (por exemplo, uma _major release_), é melhor abrir uma _issue_ para discutir sua proposta primeiro. Isso não é obrigatório, mas pode economizar tempo na criação e revisão de alterações.
 
-```
-<type>[optional scope]: <description>
+## Padrões de Código
 
-[optional body]
+- Siga a convenção de estilo estabelecida pelo projeto (ESLint, PEP8, etc.).
+- Use indentação consistente.
+- Nomeie variáveis e funções de forma clara e sem abreviações excessivas.
+- Escreva comentários explicativos quando necessário.
 
-[optional footer(s)]
-```
+## Mensagens de Commit
 
-The commit contains the following structural elements, to communicate intent to the consumers of your code:
+Temos regras precisas sobre como nossas mensagens de commit do git podem ser formatadas. Isso leva a **mensagens mais legíveis** que são fáceis de seguir ao examinar o **histórico do projeto** e permite várias **automações** mágicas.
 
-- **fix**: a commit of the type `fix` patches a bug in your codebase.
-- **feat**: a commit of the type `feat` introduces a new feature to the codebase.
-- **BREAKING CHANGE**: a commit that has a footer `BREAKING CHANGE:`, or appends a `!` after the type/scope, introduces a breaking change. A BREAKING CHANGE can be part of commits of any type.
-- types other than `fix` and `feat` are allowed:
-  - `build`: Changes that affect the build system or external dependencies (example scopes: ansible, docker, terraform, python)
-  - `ci`: Changes to our CI configuration files and scripts (example scopes: Travis, Jenkins, Github)
-  - `docs`: Documentation only changes
-  - `perf`: A code change that improves performance
-  - `refactor`: A code change that neither fixes a bug nor adds a feature
-  - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-  - `test`: Adding missing tests or correcting existing tests
-  - `chore`: Lesser tasks; no production code change
-  - `revert`: Reverts a previous commit (should include the header or hash of the reverted commit)
-- footers should contain any information about **Breaking Changes** and is also the place to reference GitHub issues that this commit **Closes**.
+Nós utilizamos os [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) reforçados pelo [commitlint](https://github.com/conventional-changelog/commitlint) e o [commitzen](https://github.com/commitizen/cz-cli). Ative-os em sua cópia do repositório e escreva mensagens de commit claras e descritivas, no formato: `feat: adiciona funcionalidade x` ou `fix: corrige bug y`.
 
-Example:
+Para exemplos e mais sobre este tópico, veja também:
 
-```
-fix: prevent racing of requests
-
-Introduce a request id and a reference to latest request. Dismiss
-incoming responses other than from latest request.
-
-Remove timeouts which were used to mitigate the racing issue but are
-obsolete now.
-
-Reviewed-by: Z
-Refs: #123
-```
-
-**References:**
-
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [How to Write a Perfect Git Commit Message](https://medium.com/@bruno-bernardes-tech/how-to-write-a-perfect-git-commit-message-b1e7a1537d51)
 - [Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md)
 - [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+- [How to Write Better Git Commit Messages](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
 
-## Any contributions you make will be under the GPL Software License
+### Enviando _Pull Requests_ (PRs)
 
-In short, when you submit code changes, your submissions are understood to be under the same [GPL-3.0-or-later](https://choosealicense.com/licenses/gpl-3.0/) that covers the project. Feel free to contact the maintainers if that's a concern.
+Em geral, seguimos o [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow#following-github-flow). Siga estas etapas ao enviar um PR:
+
+1. **Clone o repositório** para sua máquina (_fork_ o projeto para sua própria conta do Github somente se necessário).
+2. **Crie um novo branch** referenciando uma _issue_ aberta (`feat/nome-da-feature` ou `fix/nome-do-fix`).
+3. **Siga as boas práticas de commit** (consulte a seção [Mensagens de Commit](#mensagens-de-commit)).
+4. **Garanta que seu código segue os padrões do projeto** (consulte a seção [Padrões de Código](#padrões-de-código)).
+5. **Adicione testes** caso o código adicionado exija testes.
+6. **Execute os testes antes de enviar o PR**.
+7. **Faça _lint_** do seu código.
+8. **Adicione documentação** caso sua contribuição exija.
+9. **Faça _bump_ da versão** nos arquivos apropriados (incluindo `README.md` e `CHANGELOG.md`) para a nova versão que este _Pull Request_ representaria. O esquema de versionamento que usamos é [SemVer](http://semver.org/) e [Keep a Changelog](http://keepachangelog.com/).
+10. **Descreva claramente o que seu PR faz** e referencie _issues_ relacionadas.
+
+Em geral, os PRs devem:
+
+- Apenas corrigir/adicionar a funcionalidade em questão OU resolver problemas generalizados de espaço em branco/estilo, não ambos.
+- Adicionar testes unitários ou de integração para funcionalidades corrigidas ou alteradas (se já existir um conjunto de testes).
+- Tratar um único assunto com o menor número possível de linhas alteradas.
+- Incluir documentação no repositório ou em nosso site de documentção.
+- Serem acompanhados de um modelo completo de _Pull Request_ (carregado automaticamente quando um PR é criado).
+
+## Revisão e Aprovação
+
+Todas as contribuições passarão por revisão antes de se fazer o _merge_ ao código principal. A revisão levará em conta:
+
+- Clareza e qualidade do código.
+- Adesão às diretrizes do projeto.
+- Impacto da mudança no sistema.
+
+Se ajustes forem necessários, os revisores farão sugestões e solicitarão alterações antes da aprovação final.
+
+## Código de Conduta
+
+Nós levamos a sério nossa comunidade de código aberto e mantemos altos padrões de comunicação, tanto para nós quanto para outros colaboradores. Ao participar e contribuir para este projeto, você concorda em respeitar nosso [Código de Conduta](./CODE_OF_CONDUCT.md).
+
+## Quaisquer contribuições que você fizer estarão sob a licença de software GPL
+
+Resumindo, quando você submete alterações de código, entende-se que seus envios estão sob a mesma [licença GPL-3.0-ou-later](https://choosealicense.com/licenses/gpl-3.0/) que cobre o projeto. Sinta-se à vontade para entrar em contato com os mantenedores se isso for uma preocupação.
+
+## Canais de Comunicação
+
+Para tirar dúvidas ou discutir ideias, use os seguintes canais:
+
+- _Issues_ no GitHub para problemas e sugestões.
+- _Pull Requests_ para discutir mudanças no código.
+- [E-mail](mailto:suporte@cmc.pr.gov.br) para demais assuntos.
+
+---
+
+:heart: Adoramos sua contribuição! Obrigado por tornar este projeto melhor!
