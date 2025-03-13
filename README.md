@@ -1,5 +1,14 @@
 # Repositório para os scripts da imagem Mint/Cinnamon
 
+- [Repositório para os scripts da imagem Mint/Cinnamon](#repositório-para-os-scripts-da-imagem-mintcinnamon)
+  - [Diretrizes](#diretrizes)
+  - [Requisitos](#requisitos)
+  - [Instalação/configuração para produção](#instalaçãoconfiguração-para-produção)
+  - [Trabalhando no código](#trabalhando-no-código)
+    - [Configurando seu ambiente de trabalho](#configurando-seu-ambiente-de-trabalho)
+    - [Testando](#testando)
+  - [Como contribuir](#como-contribuir)
+
 ## Diretrizes
 
 1. Devem ser criadas _tasks_ para todas as operações possíveis.
