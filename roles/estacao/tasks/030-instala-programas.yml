@@ -1,11 +1,17 @@
 ---
 # Script para instalar programas adicionais
 
-- name: Altera repositórios para fontes no Brasil
+- name: Altera repositório Ubuntu para fonte no Brasil
   ansible.builtin.replace:
     path: /etc/apt/sources.list.d/official-package-repositories.list
-    regexp: '//(packages.linuxmint.com|archive.ubuntu.com)'
+    regexp: "//(archive.ubuntu.com)"
     replace: '//br.\1'
+
+- name: Altera repositório linuxmint para fonte no Brasil
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/official-package-repositories.list
+    regexp: "//packages.linuxmint.com"
+    replace: "//mint-packages.c3sl.ufpr.br"
 
 - name: Update e Upgrade inicial
   ansible.builtin.apt:
@@ -16,9 +22,9 @@
 - name: Tira input da instalação do ttf-mscorefonts-installer
   ansible.builtin.debconf:
     name: ttf-mscorefonts-installer
-    question: 'msttcorefonts/accepted-mscorefonts-eula'
+    question: "msttcorefonts/accepted-mscorefonts-eula"
     vtype: select
-    value: 'true'
+    value: "true"
 
 - name: Instala programas
   ansible.builtin.apt:
@@ -69,7 +75,7 @@
 
 - name: Instala o Microsoft Edge
   ansible.builtin.apt:
-    deb: 'https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb'
+    deb: "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb"
     state: present
   register: ret
   failed_when: >
@@ -80,7 +86,7 @@
 #   ansible.builtin.debug:
 #     var: ret
 
-- name: 'Verifica se Microsoft Edge esta na versao mais recente'
+- name: "Verifica se Microsoft Edge esta na versao mais recente"
   ansible.builtin.apt:
     name: microsoft-edge-stable
     state: latest

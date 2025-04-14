@@ -5,6 +5,12 @@ Todas as alterações significativas neste projeto serão documentadas aqui.
 O formato é baseado em [Keep a Changelog](http://keepachangelog.com/) e este
 projeto segue [Semantic Versioning](http://semver.org/).
 
+## 6.1.4
+
+### Fix
+
+Corrige atualização de pacotes.
+
 ## 6.1.3 - 2024-07-17
 
 ### Refactor
