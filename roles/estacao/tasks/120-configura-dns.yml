@@ -1,5 +1,34 @@
 ---
 
+# Consultas DNS
+#
+# A ordem de consultas ao DNS depende das configurações de Domains e DNS no
+# arquivo /etc/systemd/resolved.conf.
+#
+# Se você utilizar, por exemplo (considerando 0.0.0.1 como autoritativo do
+# domínio 'exemplo.com'):
+# Domains=exemplo.com
+# DNS=0.0.0.1#exemplo.com 8.8.8.8
+#
+# Quaiquer consultas DNS, por exemplo o host 'host1', o FQDN
+# 'host1.exemplo.com' ou 'google.com', serão primeiro direcionadas para o
+# servidor 8.8.8.8 e depois o 0.0.0.1.
+#
+# Se alterarmos para (adicionar '~' ao domínio):
+# Domains=~exemplo.com
+# DNS=0.0.0.1#exemplo.com 8.8.8.8
+#
+# Quaisquer consultas DNS serão primeiro direcionadas para o servidor 0.0.0.1
+# e depois o 8.8.8.8.
+#
+# Aparentemente o systemd ainda não possui suporte para configuração de
+# conditional forwarding, e um PR com uma solução segue em aberto:
+# - https://github.com/systemd/systemd/pull/34368 
+#
+# Refs:
+# - https://manpages.ubuntu.com/manpages/jammy/man5/resolved.conf.5.html
+#
+
 # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html#products
 
 - name: "Força DNS para garantir que JOIN funcione"
