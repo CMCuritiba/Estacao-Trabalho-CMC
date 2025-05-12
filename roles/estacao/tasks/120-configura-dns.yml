@@ -1,4 +1,7 @@
 ---
+
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html#products
+
 - name: "Força DNS para garantir que JOIN funcione"
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
@@ -8,6 +11,6 @@
   loop:
     - { line: "Cache=no-negative", regexp: "^Cache" }
     - { line: "Domains={{ estacao_ad_domain }}", regexp: "^Domains" }
-    - { line: "FallbackDNS={{ estacao_ad_fallback_ips | join(' ') }}", regexp: "^FallbackDNS" }
-    - { line: "DNS={{ estacao_ad_ip_addresses | join(' ') }}", regexp: "^DNS" }
+    - { line: "FallbackDNS={{ estacao_dns_fallback_ips | join(' ') }}", regexp: "^FallbackDNS" }
+    - { line: "DNS={{ estacao_ad_ip_addresses | product([ estacao_ad_domain ]) | map('join', '#') | join(' ') }} {{ estacao_dns_global_ips | join(' ') }}", regexp: "^DNS" }
   notify: Restart DNS

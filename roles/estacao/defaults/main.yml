@@ -15,9 +15,12 @@ estacao_s3fs_bucket_name: bucket # type: string name
 estacao_s3fs_access_key: access_key # type: string password
 estacao_s3fs_secret_access_key: secret_access_key # type: string password
 estacao_s3fs_endpoint: "sa-east-1" # type: string aws region
-estacao_ad_fallback_ips: # type: list of IP
+estacao_dns_global_ips: # type: list of IP
   - 8.8.8.8
   - 9.9.9.9
+estacao_dns_fallback_ips: # type: list of IP
+  - 8.8.4.4
+  - 1.1.1.1
 # Bookmarks dos navegadores
 estacao_bookmarks:
   - name: "Câmara Municipal de Curitiba"
