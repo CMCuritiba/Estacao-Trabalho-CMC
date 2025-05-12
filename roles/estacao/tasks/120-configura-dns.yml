@@ -10,8 +10,8 @@
 # Domains=exemplo.com
 # DNS=0.0.0.1#exemplo.com 8.8.8.8
 #
-# Quaiquer consultas DNS, por exemplo o host 'host1', o FQDN
-# 'host1.exemplo.com' ou 'google.com', serão primeiro direcionadas para o
+# Quaiquer consultas DNS (por exemplo, o host 'host1', o FQDN
+# 'host1.exemplo.com' ou 'google.com') serão primeiro direcionadas para o
 # servidor 8.8.8.8 e depois o 0.0.0.1.
 #
 # Se alterarmos para (adicionar '~' ao domínio):
@@ -31,7 +31,7 @@
 
 # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html#products
 
-- name: "Força DNS para garantir que JOIN funcione"
+- name: "Aplica configurações de DNS"
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
     line: "{{ item.line }}"
@@ -43,3 +43,7 @@
     - { line: "FallbackDNS={{ estacao_dns_fallback_ips | join(' ') }}", regexp: "^FallbackDNS" }
     - { line: "DNS={{ estacao_ad_ip_addresses | product([ estacao_ad_domain ]) | map('join', '#') | join(' ') }} {{ estacao_dns_global_ips | join(' ') }}", regexp: "^DNS" }
   notify: Restart DNS
+
+# Os IPs do AD são configurados explicitamente no DNS para evitar problemas com
+# o fornecimento de servidores de DNS pelo DHCP e para garantir que o JOIN no
+# AD funcione corretamente.
