@@ -44,8 +44,8 @@
     # Referencia para policies do Firefox:
     # https://mozilla.github.io/policy-templates/
     # # https://mozilla.github.io/policy-templates/#managedbookmarks
-    - src: "policies-firefox.j2"
-      dest: "/usr/lib/firefox/distribution/policies.json"
+    - src: "policies.json"
+      dest: "/etc/firefox/policies"
     # Referencia para policies do Chrome:
     # https://cloud.google.com/docs/chrome-enterprise/policies/
     - src: "policies-google-chrome.j2"
