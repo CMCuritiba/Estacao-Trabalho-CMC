@@ -1,10 +1,416 @@
 ---
-# This is an example playbook to execute Ansible tests.
+# Molecule verify playbook for Estação de Trabalho CMC
+# Este arquivo automatiza os testes que podem ser validados programaticamente
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
   tasks:
-    - name: "Include cmcuritiba.estacao"
-      ansible.builtin.include_role:
-        name: "cmcuritiba.estacao"
+
+    # Categoria: Usuários e Grupos (010-user-group-suporte.yml)
+    - name: "Test 001-002: Verify support user exists and is in correct groups"
+      block:
+        - name: Get support user info
+          ansible.builtin.getent:
+            database: passwd
+            key: "{{ estacao_suporte_user }}"
+          register: user_info
+
+        - name: Verify support user exists
+          ansible.builtin.assert:
+            that: "estacao_suporte_user in user_info.ansible_facts.getent_passwd"
+            fail_msg: "Support user {{ estacao_suporte_user }} does not exist"
+            success_msg: "Support user {{ estacao_suporte_user }} exists"
+
+        - name: Get support user groups
+          ansible.builtin.command: "id {{ estacao_suporte_user }}"
+          register: user_groups
+          changed_when: false
+
+        - name: Verify support user is in sudo group
+          ansible.builtin.assert:
+            that: "'sudo' in user_groups.stdout"
+            fail_msg: "Support user is not in sudo group"
+            success_msg: "Support user is in sudo group"
+
+    # Test 003: Root password test (can't be automated safely)
+
+    # Categoria: Remoção de Programas (020-remover-programas.yml)
+    - name: "Test 004: Verify unwanted programs are removed"
+      block:
+        - name: Check for removed programs
+          ansible.builtin.shell: "dpkg -l | grep -E '(hexchat|thunderbird|hypnotix|drawing|celluloid|pix|webapp-manager|warpinator|sticky|simple-scan|transmission)' || true"
+          register: removed_programs
+          changed_when: false
+
+        - name: Verify programs are removed
+          ansible.builtin.assert:
+            that: "removed_programs.stdout == ''"
+            fail_msg: "Some unwanted programs are still installed: {{ removed_programs.stdout }}"
+            success_msg: "Unwanted programs successfully removed"
+
+    # Categoria: Instalação de Programas (030-instala-programas.yml)
+    - name: "Test 005: Verify Brazilian repositories are configured"
+      block:
+        - name: Check Ubuntu repository configuration
+          ansible.builtin.shell: "grep 'br.archive.ubuntu.com' /etc/apt/sources.list.d/official-package-repositories.list || true"
+          register: ubuntu_repo
+          changed_when: false
+
+        - name: Check Linux Mint repository configuration
+          ansible.builtin.shell: "grep 'mint-packages.c3sl.ufpr.br' /etc/apt/sources.list.d/official-package-repositories.list || true"
+          register: mint_repo
+          changed_when: false
+
+        - name: Verify Brazilian repositories
+          ansible.builtin.assert:
+            that:
+              - "ubuntu_repo.stdout != ''"
+              - "mint_repo.stdout != ''"
+            fail_msg: "Brazilian repositories not properly configured"
+            success_msg: "Brazilian repositories properly configured"
+
+    - name: "Test 006: Verify essential programs are installed"
+      block:
+        - name: Check essential programs
+          ansible.builtin.package_facts:
+            manager: "auto"
+
+        - name: Verify essential packages
+          ansible.builtin.assert:
+            that: "item in ansible_facts.packages"
+            fail_msg: "Essential package {{ item }} is not installed"
+            success_msg: "Essential package {{ item }} is installed"
+          loop:
+            - curl
+            - vim
+            - git
+            - htop
+            - tree
+            - unzip
+            - wget
+            - openssh-client
+
+    - name: "Test 007: Verify Google Chrome is installed"
+      block:
+        - name: Check Google Chrome installation
+          ansible.builtin.stat:
+            path: /usr/bin/google-chrome
+          register: chrome_binary
+
+        - name: Verify Chrome is installed
+          ansible.builtin.assert:
+            that: "chrome_binary.stat.exists"
+            fail_msg: "Google Chrome is not installed"
+            success_msg: "Google Chrome is installed"
+
+    # Test 008: Zoom installation (path may vary)
+
+    # Categoria: Imagens CMC (040-imagens-cmc.yml)
+    - name: "Test 009: Verify CMC background images exist"
+      block:
+        - name: Check CMC backgrounds directory
+          ansible.builtin.stat:
+            path: /usr/share/backgrounds/cmc/
+          register: cmc_backgrounds
+
+        - name: Verify backgrounds directory exists
+          ansible.builtin.assert:
+            that: "cmc_backgrounds.stat.exists and cmc_backgrounds.stat.isdir"
+            fail_msg: "CMC backgrounds directory does not exist"
+            success_msg: "CMC backgrounds directory exists"
+
+    # Categoria: Configuração Skel (050-skel.yml)
+    - name: "Test 011: Verify skel directories are created"
+      block:
+        - name: Check skel Desktop directory
+          ansible.builtin.stat:
+            path: /etc/skel/Desktop
+          register: skel_desktop
+
+        - name: Verify skel Desktop exists
+          ansible.builtin.assert:
+            that: "skel_desktop.stat.exists and skel_desktop.stat.isdir"
+            fail_msg: "Skel Desktop directory does not exist"
+            success_msg: "Skel Desktop directory exists"
+
+    # Categoria: Browsers (060-configura-browsers.yml)
+    - name: "Test 013: Verify Chrome policies file exists"
+      block:
+        - name: Check Chrome policies file
+          ansible.builtin.stat:
+            path: /etc/opt/chrome/policies/managed/policies.json
+          register: chrome_policies
+
+        - name: Verify Chrome policies exist
+          ansible.builtin.assert:
+            that: "chrome_policies.stat.exists"
+            fail_msg: "Chrome policies file does not exist"
+            success_msg: "Chrome policies file exists"
+
+        - name: Verify Chrome policies content
+          ansible.builtin.shell: "cat /etc/opt/chrome/policies/managed/policies.json | jq .ManagedBookmarks"
+          register: managed_bookmarks
+          changed_when: false
+          failed_when: false
+
+        - name: Verify managed bookmarks exist
+          ansible.builtin.assert:
+            that: "'CMC' in managed_bookmarks.stdout or 'Câmara' in managed_bookmarks.stdout"
+            fail_msg: "CMC bookmarks not found in Chrome policies"
+            success_msg: "CMC bookmarks found in Chrome policies"
+          when: managed_bookmarks.rc == 0
+
+    # Categoria: TTY (090-desabilita-tty.yml)
+    - name: "Test 019: Verify TTY services are disabled"
+      block:
+        - name: Check TTY2 service status
+          ansible.builtin.systemd:
+            name: getty@tty2.service
+          register: tty2_status
+
+        - name: Verify TTY2 is disabled
+          ansible.builtin.assert:
+            that: "not tty2_status.status.ActiveState == 'active'"
+            fail_msg: "TTY2 service is still active"
+            success_msg: "TTY2 service is properly disabled or inactive"
+
+    # Categoria: Terminal Policy (110-terminal-policy.yml)
+    - name: "Test 022: Verify PolicyKit terminal configuration"
+      block:
+        - name: Check PolicyKit terminal file
+          ansible.builtin.stat:
+            path: /etc/polkit-1/localauthority/50-local.d/10-terminal.pkla
+          register: terminal_policy
+
+        - name: Verify terminal policy exists
+          ansible.builtin.assert:
+            that: "terminal_policy.stat.exists"
+            fail_msg: "Terminal PolicyKit file does not exist"
+            success_msg: "Terminal PolicyKit file exists"
+
+    # Categoria: DNS (120-configura-dns.yml)
+    - name: "Test 023: Verify DNS configuration"
+      block:
+        - name: Check systemd-resolved configuration
+          ansible.builtin.shell: "grep -E '^(DNS|Domains|FallbackDNS)=' /etc/systemd/resolved.conf || true"
+          register: dns_config
+          changed_when: false
+
+        - name: Verify DNS configuration exists
+          ansible.builtin.assert:
+            that: "dns_config.stdout != ''"
+            fail_msg: "DNS configuration not found in resolved.conf"
+            success_msg: "DNS configuration found in resolved.conf"
+
+    # Categoria: Script Boot (130-script-boot.yml)
+    - name: "Test 025-026: Verify boot script and service"
+      block:
+        - name: Check boot script exists
+          ansible.builtin.stat:
+            path: "{{ estacao_bootsh | default('/opt/cmc/cmc-boot.sh') }}"
+          register: boot_script
+
+        - name: Verify boot script exists
+          ansible.builtin.assert:
+            that: "boot_script.stat.exists and boot_script.stat.executable"
+            fail_msg: "Boot script does not exist or is not executable"
+            success_msg: "Boot script exists and is executable"
+
+        - name: Check boot service
+          ansible.builtin.systemd:
+            name: cmc-boot.service
+          register: boot_service
+
+        - name: Verify boot service is enabled
+          ansible.builtin.assert:
+            that: "boot_service.status.UnitFileState == 'enabled'"
+            fail_msg: "Boot service is not enabled"
+            success_msg: "Boot service is enabled"
+
+    # Categoria: Integração AD (140-integra-ad.yml)
+    - name: "Test 028: Verify AD packages are installed"
+      block:
+        - name: Check SSSD packages
+          ansible.builtin.package_facts:
+            manager: "auto"
+
+        - name: Verify SSSD is installed
+          ansible.builtin.assert:
+            that: "'sssd' in ansible_facts.packages"
+            fail_msg: "SSSD package is not installed"
+            success_msg: "SSSD package is installed"
+
+        - name: Verify realm is installed
+          ansible.builtin.assert:
+            that: "'realmd' in ansible_facts.packages"
+            fail_msg: "Realm package is not installed" 
+            success_msg: "Realm package is installed"
+
+    - name: "Test 029: Verify SSSD configuration exists"
+      block:
+        - name: Check SSSD configuration file
+          ansible.builtin.stat:
+            path: /etc/sssd/sssd.conf
+          register: sssd_config
+
+        - name: Verify SSSD config exists
+          ansible.builtin.assert:
+            that: "sssd_config.stat.exists"
+            fail_msg: "SSSD configuration file does not exist"
+            success_msg: "SSSD configuration file exists"
+
+    # Categoria: Sudoers (160-sudoers.yml)
+    - name: "Test 034: Verify DTIC sudoers configuration"
+      block:
+        - name: Check DTIC sudoers file
+          ansible.builtin.stat:
+            path: /etc/sudoers.d/dtic
+          register: dtic_sudoers
+
+        - name: Verify DTIC sudoers exists
+          ansible.builtin.assert:
+            that: "dtic_sudoers.stat.exists"
+            fail_msg: "DTIC sudoers file does not exist"
+            success_msg: "DTIC sudoers file exists"
+
+    # Categoria: Unattended Upgrades (170-unattended-upgrades.yml)
+    - name: "Test 036: Verify unattended-upgrades is installed"
+      block:
+        - name: Check unattended-upgrades package
+          ansible.builtin.package_facts:
+            manager: "auto"
+
+        - name: Verify unattended-upgrades installed
+          ansible.builtin.assert:
+            that: "'unattended-upgrades' in ansible_facts.packages"
+            fail_msg: "Unattended-upgrades package is not installed"
+            success_msg: "Unattended-upgrades package is installed"
+
+    # Categoria: S3FS Mount (190-s3fs-mount.yml)
+    - name: "Test 040-041: Verify S3FS installation and mount point"
+      block:
+        - name: Check s3fs binary
+          ansible.builtin.stat:
+            path: /usr/bin/s3fs
+          register: s3fs_binary
+
+        - name: Verify s3fs is installed
+          ansible.builtin.assert:
+            that: "s3fs_binary.stat.exists"
+            fail_msg: "S3FS binary does not exist"
+            success_msg: "S3FS binary exists"
+
+        - name: Check mount point
+          ansible.builtin.stat:
+            path: "{{ estacao_mnt_suporte | default('/mnt/suporte') }}"
+          register: mount_point
+
+        - name: Verify mount point exists
+          ansible.builtin.assert:
+            that: "mount_point.stat.exists and mount_point.stat.isdir"
+            fail_msg: "Mount point directory does not exist"
+            success_msg: "Mount point directory exists"
+
+    # Categoria: SSH Server (210-ssh-server.yml)
+    - name: "Test 045-046: Verify SSH server installation and service"
+      block:
+        - name: Check SSH server package
+          ansible.builtin.package_facts:
+            manager: "auto"
+
+        - name: Verify SSH server installed
+          ansible.builtin.assert:
+            that: "'openssh-server' in ansible_facts.packages"
+            fail_msg: "OpenSSH server is not installed"
+            success_msg: "OpenSSH server is installed"
+
+        - name: Check SSH service status
+          ansible.builtin.systemd:
+            name: ssh.service
+          register: ssh_service
+
+        - name: Verify SSH service is running
+          ansible.builtin.assert:
+            that: "ssh_service.status.ActiveState == 'active'"
+            fail_msg: "SSH service is not running"
+            success_msg: "SSH service is running"
+
+    # Categoria: CUPS (250-configura-cups.yml)
+    - name: "Test 057: Verify CUPS is installed and running"
+      block:
+        - name: Check CUPS service status
+          ansible.builtin.systemd:
+            name: cups.service
+          register: cups_service
+
+        - name: Verify CUPS service is running
+          ansible.builtin.assert:
+            that: "cups_service.status.ActiveState == 'active'"
+            fail_msg: "CUPS service is not running"
+            success_msg: "CUPS service is running"
+
+    # Categoria: On Login (280-on-login.yml)
+    - name: "Test 066: Verify on-login script exists"
+      block:
+        - name: Check on-login script
+          ansible.builtin.stat:
+            path: /opt/cmc/on-login.sh
+          register: on_login_script
+
+        - name: Verify on-login script exists
+          ansible.builtin.assert:
+            that: "on_login_script.stat.exists and on_login_script.stat.executable"
+            fail_msg: "On-login script does not exist or is not executable"
+            success_msg: "On-login script exists and is executable"
+
+    # Categoria: Versionamento (990-versionamento.yml)
+    - name: "Test 072: Verify version file exists"
+      block:
+        - name: Check version file
+          ansible.builtin.stat:
+            path: /opt/cmc/versao
+          register: version_file
+
+        - name: Verify version file exists
+          ansible.builtin.assert:
+            that: "version_file.stat.exists"
+            fail_msg: "Version file does not exist"
+            success_msg: "Version file exists"
+
+    # Categoria: Arquivos Modificados (995-arquivos-modificados.yml)  
+    - name: "Test 073: Verify modified files directory exists"
+      block:
+        - name: Check modified files directory
+          ansible.builtin.stat:
+            path: /opt/cmc/modificados/
+          register: modified_files_dir
+
+        - name: Verify modified files directory exists
+          ansible.builtin.assert:
+            that: "modified_files_dir.stat.exists and modified_files_dir.stat.isdir"
+            fail_msg: "Modified files directory does not exist"
+            success_msg: "Modified files directory exists"
+
+    # Final verification message
+    - name: "Verification Summary"
+      ansible.builtin.debug:
+        msg: |
+          =================================================
+          MOLECULE VERIFICATION COMPLETED
+          =================================================
+          
+          Automated tests completed successfully!
+          
+          IMPORTANT: This covers only the tests that can be 
+          automated. Please also run the manual tests from 
+          caderno-de-testes.md for complete validation.
+          
+          Manual tests still needed:
+          - User authentication testing
+          - GUI functionality testing  
+          - Network connectivity testing
+          - Performance testing
+          - Integration testing
+          
+          =================================================
