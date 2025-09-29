@@ -66,16 +66,17 @@ molecule verify
 - Logar com usuário apropriado para cada teste
 
 ### 2. Processo de Execução
-1. Seguir ordem numérica dos testes (001-075)
+1. Seguir ordem numérica dos testes conforme task (011-999)
 2. Executar comandos conforme instruções
 3. Marcar resultado: ✅ (passou) ou ❌ (falhou)
 4. Investigar falhas antes de continuar
 
 ### 3. Categorias de Teste
-- **Usuários e Grupos** (001-003)
-- **Pacotes** (004-008)
-- **Configurações** (009-073)
-- **Teste Integrado Final** (074-075)
+- **Usuários e Grupos** (011-013, 021)
+- **Pacotes** (031-034, 041-042)
+- **Configurações** (051-304)
+- **Versionamento** (991-999)
+- **Teste Integrado Final** (1001-1002)
 
 ## Estratégia de Testes
 
@@ -98,7 +99,7 @@ Antes de deploy em produção:
 
 ### 3. Testes de Produção
 Após instalação em estação nova:
-1. Execute testes manuais críticos (001-010, 074-075)
+1. Execute testes manuais críticos (011-034, 900-901)
 2. Execute testes específicos conforme necessidade
 3. Documente status final
 
@@ -124,10 +125,10 @@ Após instalação em estação nova:
 - **<90% PASSOU**: Não implantar, corrigir problemas
 
 ### Testes Críticos (não podem falhar)
-- 001-003: Criação usuário suporte
-- 027-031: Integração com AD
-- 045-048: SSH funcionando
-- 074-075: Teste integrado final
+- 011-013: Criação usuário suporte
+- 141-144: Integração com AD
+- 211-212: SSH funcionando
+- 1001-1002: Teste integrado final
 
 ### Testes Opcionais (podem ser ignorados)
 - Testes relacionados a hardware específico
