@@ -2,6 +2,9 @@
 
 Este documento descreve como executar testes para validar a configuração da estação de trabalho CMC.
 
+Obs: Este guia foi feito com o agente de IA GitHub Copilot, e pode conter erros.
+Favor revisar cuidadosamente antes de usar.
+
 ## Visão Geral
 
 O processo de testes é dividido em duas partes:

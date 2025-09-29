@@ -2,6 +2,9 @@
 
 Este documento contém todos os testes necessários para validar a configuração correta da estação de trabalho CMC após a instalação/atualização.
 
+Obs: Este caderno foi feito com o agente de IA GitHub Copilot, e pode conter erros.
+Favor revisar cuidadosamente antes de usar.
+
 ## Como usar este caderno
 
 1. Execute cada teste na ordem apresentada
@@ -20,7 +23,7 @@ molecule verify
 
 ### Testes automatizados disponíveis:
 - **001-002**: Verificação de usuário suporte e grupos
-- **004**: Verificação de programas removidos  
+- **004**: Verificação de programas removidos
 - **005**: Verificação de repositórios brasileiros
 - **006**: Verificação de programas essenciais instalados
 - **007**: Verificação de instalação do Google Chrome
@@ -297,7 +300,7 @@ molecule verify
 ## Resumo de Validação
 
 - [ ] **Usuários e Grupos**: 3 testes
-- [ ] **Pacotes**: 6 testes  
+- [ ] **Pacotes**: 6 testes
 - [ ] **Configurações de Sistema**: 15 testes
 - [ ] **Rede e DNS**: 4 testes
 - [ ] **Segurança e Acesso**: 8 testes
@@ -308,6 +311,6 @@ molecule verify
 
 **Status da Estação: [ ] Aprovada [ ] Reprovada**
 
-**Data do Teste: ___________**  
-**Testador: _______________**  
+**Data do Teste: ___________**
+**Testador: _______________**
 **Versão Testada: _________**
