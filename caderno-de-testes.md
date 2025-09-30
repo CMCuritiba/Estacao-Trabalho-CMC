@@ -1,134 +1,6 @@
 # Caderno de Testes - Estação de Trabalho CMC
 
-Este documento contém todos os testes necessários para validar a configuração correta da estaç### Categoria: Integração AD (140-integra-ad.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|----### Categoria: SSH Server (210-ssh-server.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 211 | SSH Server instalado | Verificar se SSH está instalado<br>Comando: `systemctl status ssh`<br>Serviço deve estar ativo |
-| 212 | SSH configurado | Verificar configuração SSH<br>Comando: `cat /etc/ssh/sshd_config`<br>Configurações personalizadas devem estar presentes |
-
-### Categoria: VNC (220-vnc.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 221 | VNC Server instalado | Verificar se vino está instalado<br>Comando: `dpkg -l \| grep vino`<br>Pacote vino deve estar presente |
-| 222 | VNC configurado | Testar conexão VNC<br>Tentar conectar via VNC viewer |
-
-### Categoria: Menu Items (230-menu-items.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 231 | Itens menu criados | Verificar se itens foram adicionados ao menu<br>Abrir menu de aplicações e verificar novos itens |
-
-### Categoria: Login Gráfico (240-login-grafico.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 241 | Tema login aplicado | Verificar se tema personalizado está ativo<br>Fazer logout e verificar aparência da tela de login |
-| 242 | Background login | Verificar se background personalizado está aplicado<br>Tela de login deve ter imagem de fundo da CMC |
-
-### Categoria: CUPS (250-configura-cups.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 251 | CUPS configurado | Verificar se CUPS está funcionando<br>Comando: `systemctl status cups`<br>Serviço deve estar ativo |
-| 252 | Impressoras disponíveis | Acessar configurações de impressora<br>Verificar se impressoras estão configuradas |
-
-### Categoria: Mount Pendrive (260-mount-pendrive.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 261 | Auto-mount configurado | Inserir pendrive<br>Deve ser montado automaticamente |
-
-### Categoria: Pairing Bluetooth (265-pairing-bluetooth.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 265 | Bluetooth funcionando | Verificar se bluetooth está ativo<br>Comando: `systemctl status bluetooth`<br>Tentar parear dispositivo |
-
-### Categoria: Bloqueio Cinnamon (270-bloqueio-cinnamon.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 271 | Bloqueios aplicados | Tentar acessar configurações bloqueadas<br>Algumas configurações devem estar desabilitadas |
-
-### Categoria: On Login (280-on-login.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 281 | Script login configurado | Fazer login<br>Verificar se scripts são executados automaticamente |
-
-### Categoria: Logs (290-configura-logs.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 291 | Configuração logs | Verificar configuração de logs<br>Comando: `cat /etc/rsyslog.conf`<br>Configurações personalizadas devem estar presentes |
-
-### Categoria: Zoom AutoUpdate (300-zoom-autoupdate.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 301 | Script zoom criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/zoom-update.sh`<br>Script deve existir |
-| 302 | Timer zoom ativo | Verificar se timer está ativo<br>Comando: `systemctl status zoom-update.timer`<br>Timer deve estar habilitado |
-
-### Categoria: Versionamento (990-versionamento.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 991 | Arquivo versão criado | Verificar se arquivo de versão foi criado<br>Comando: `cat /etc/cmc-version`<br>Deve conter informações de versão |
-
-### Categoria: Arquivos Modificados (999-arquivos-modificados.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 999 | Log arquivos modificados | Verificar se log foi criado<br>Comando: `cat /var/log/cmc-modified-files.log`<br>Deve conter lista de arquivos modificados |-|
-| 141 | SSSD instalado | Verificar se SSSD está instalado<br>Comando: `dpkg -l \| grep sssd`<br>Pacotes relacionados ao SSSD devem estar presentes |
-| 142 | Integração com domínio | Verificar se máquina está no domínio<br>Comando: `realm list`<br>Deve mostrar o domínio configurado |
-| 143 | Configuração SSSD | Verificar arquivo de configuração<br>Comando: `cat /etc/sssd/sssd.conf`<br>Configurações do domínio devem estar presentes |
-| 144 | Login AD funcionando | Testar login com usuário do domínio<br>Fazer logout e tentar login com usuário AD |
-
-### Categoria: PAM (150-configura-pam.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 151 | Configuração PAM | Verificar arquivos PAM modificados<br>Comando: `cat /etc/pam.d/common-session`<br>Deve conter configurações personalizadas |
-| 152 | Home directory criado | Fazer login com usuário AD<br>Verificar se diretório home é criado automaticamente |
-
-### Categoria: Sudoers (160-sudoers.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 161 | Configuração sudoers | Verificar arquivo sudoers<br>Comando: `sudo visudo -c`<br>Não deve ter erros de sintaxe |
-| 162 | Grupo suporte no sudoers | Verificar permissões do grupo suporte<br>Comando: `cat /etc/sudoers.d/90-cloud-init-users`<br>Grupo suporte deve ter permissões |
-
-### Categoria: Unattended Upgrades (170-unattended-upgrades.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 171 | Unattended upgrades configurado | Verificar configuração<br>Comando: `cat /etc/apt/apt.conf.d/50unattended-upgrades`<br>Deve estar configurado para security updates |
-
-### Categoria: Bashrc (180-bashrc.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 181 | Bashrc configurado | Verificar se aliases foram adicionados<br>Comando: `cat /etc/skel/.bashrc`<br>Deve conter aliases personalizados |
-
-### Categoria: S3FS Mount (190-s3fs-mount.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 191 | S3FS instalado | Verificar se s3fs está instalado<br>Comando: `which s3fs`<br>Comando deve retornar o caminho |
-| 192 | Mount configurado | Verificar configuração de mount<br>Arquivo de configuração deve estar presente |
-
-### Categoria: Script Rede (200-script-rede.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 201 | Script rede criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/`<br>Script de rede deve existir |
-| 202 | Serviço rede ativo | Verificar se serviço está funcionando<br>Comando: `systemctl status cmc-network.service` |balho CMC após a instalação/atualização.
+Este documento contém todos os testes necessários para validar a configuração correta da estação de trabalho CMC.
 
 Obs: Este caderno foi feito com o agente de IA GitHub Copilot, e pode conter erros.
 Favor revisar cuidadosamente antes de usar.
@@ -271,101 +143,101 @@ molecule verify
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 027 | Hostname configurado | Verificar se hostname está no domínio<br>Comando: `hostname -f`<br>Deve retornar FQDN com domínio |
-| 028 | Pacotes AD instalados | Verificar instalação do SSSD<br>Comando: `dpkg -l \| grep -E "(sssd\|realm\|krb5\|adcli)"`<br>Pacotes devem estar instalados |
-| 029 | Configuração SSSD | Verificar arquivo sssd.conf<br>Comando: `sudo cat /etc/sssd/sssd.conf`<br>Deve conter configuração do domínio |
-| 030 | Join no domínio | Verificar se máquina está no domínio<br>Comando: `sudo realm list`<br>Deve mostrar o domínio configurado |
-| 031 | Login domínio funcional | Testar login com usuário do domínio<br>Fazer logout e tentar login com usuário AD |
+| 141 | Hostname configurado | Verificar se hostname está no domínio<br>Comando: `hostname -f`<br>Deve retornar FQDN com domínio |
+| 142 | Pacotes AD instalados | Verificar instalação do SSSD<br>Comando: `dpkg -l \| grep -E "(sssd\|realm\|krb5\|adcli)"`<br>Pacotes devem estar instalados |
+| 143 | Configuração SSSD | Verificar arquivo sssd.conf<br>Comando: `sudo cat /etc/sssd/sssd.conf`<br>Deve conter configuração do domínio |
+| 144 | Join no domínio | Verificar se máquina está no domínio<br>Comando: `sudo realm list`<br>Deve mostrar o domínio configurado |
+| 145 | Login domínio funcional | Testar login com usuário do domínio<br>Fazer logout e tentar login com usuário AD |
 
 ### Categoria: PAM (150-configura-pam.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 032 | Configuração PAM | Verificar arquivos PAM<br>Comando: `ls -la /etc/pam.d/`<br>Verificar se contém configurações adequadas |
-| 033 | Autenticação funcionando | Testar autenticação com usuário local e domínio<br>Comando: `su - <usuario>`<br>Deve funcionar para ambos os tipos |
+| 151 | Configuração PAM | Verificar arquivos PAM<br>Comando: `ls -la /etc/pam.d/`<br>Verificar se contém configurações adequadas |
+| 152 | Autenticação funcionando | Testar autenticação com usuário local e domínio<br>Comando: `su - <usuario>`<br>Deve funcionar para ambos os tipos |
 
 ### Categoria: Sudoers (160-sudoers.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 034 | Grupo DTIC no sudoers | Verificar se grupo tem acesso sudo<br>Comando: `sudo cat /etc/sudoers.d/dtic`<br>Deve conter regra para grupo DTIC |
-| 035 | Sudo funcional para DTIC | Testar sudo com usuário do grupo DTIC<br>Login com usuário DTIC e executar: `sudo whoami`<br>Deve retornar "root" |
+| 161 | Grupo DTIC no sudoers | Verificar se grupo tem acesso sudo<br>Comando: `sudo cat /etc/sudoers.d/dtic`<br>Deve conter regra para grupo DTIC |
+| 162 | Sudo funcional para DTIC | Testar sudo com usuário do grupo DTIC<br>Login com usuário DTIC e executar: `sudo whoami`<br>Deve retornar "root" |
 
 ### Categoria: Unattended Upgrades (170-unattended-upgrades.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 036 | Unattended-upgrades instalado | Verificar se está instalado<br>Comando: `dpkg -l \| grep unattended-upgrades`<br>Deve estar instalado |
-| 037 | Configuração upgrades | Verificar arquivo de configuração<br>Comando: `cat /etc/apt/apt.conf.d/50unattended-upgrades`<br>Deve ter configurações adequadas |
+| 171 | Unattended-upgrades instalado | Verificar se está instalado<br>Comando: `dpkg -l \| grep unattended-upgrades`<br>Deve estar instalado |
+| 172 | Configuração upgrades | Verificar arquivo de configuração<br>Comando: `cat /etc/apt/apt.conf.d/50unattended-upgrades`<br>Deve ter configurações adequadas |
 
 ### Categoria: Bashrc (180-bashrc.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 038 | Bashrc configurado | Verificar configuração personalizada do bash<br>Comando: `cat /etc/bash.bashrc`<br>Deve conter personalizações CMC |
-| 039 | Aliases funcionais | Abrir terminal e testar aliases personalizados<br>Testar comandos como `ll`, `la` se configurados |
+| 181 | Bashrc configurado | Verificar configuração personalizada do bash<br>Comando: `cat /etc/bash.bashrc`<br>Deve conter personalizações CMC |
+| 182 | Aliases funcionais | Abrir terminal e testar aliases personalizados<br>Testar comandos como `ll`, `la` se configurados |
 
 ### Categoria: S3FS Mount (190-s3fs-mount.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 040 | S3FS instalado | Verificar se s3fs está instalado<br>Comando: `which s3fs`<br>Deve retornar caminho do executável |
-| 041 | Mount point criado | Verificar se ponto de montagem existe<br>Comando: `ls -la /mnt/suporte/`<br>Diretório deve existir |
-| 042 | Configuração fstab | Verificar entrada no fstab<br>Comando: `grep s3fs /etc/fstab`<br>Deve conter configuração de montagem |
+| 191 | S3FS instalado | Verificar se s3fs está instalado<br>Comando: `which s3fs`<br>Deve retornar caminho do executável |
+| 192 | Mount point criado | Verificar se ponto de montagem existe<br>Comando: `ls -la /mnt/suporte/`<br>Diretório deve existir |
+| 193 | Configuração fstab | Verificar entrada no fstab<br>Comando: `grep s3fs /etc/fstab`<br>Deve conter configuração de montagem |
 
 ### Categoria: Script Rede (200-script-rede.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 043 | Script rede criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/cmc-rede.sh`<br>Script deve existir |
-| 044 | Serviço rede ativo | Verificar serviço de rede<br>Comando: `systemctl status cmc-rede.service`<br>Verificar se está configurado |
+| 201 | Script rede criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/cmc-rede.sh`<br>Script deve existir |
+| 202 | Serviço rede ativo | Verificar serviço de rede<br>Comando: `systemctl status cmc-rede.service`<br>Verificar se está configurado |
 
 ### Categoria: SSH Server (210-ssh-server.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 045 | SSH server instalado | Verificar se openssh-server está instalado<br>Comando: `dpkg -l \| grep openssh-server`<br>Deve estar instalado |
-| 046 | SSH server rodando | Verificar se serviço SSH está ativo<br>Comando: `systemctl status ssh`<br>Deve estar ativo |
-| 047 | Configuração SSH | Verificar arquivo de configuração<br>Comando: `sudo cat /etc/ssh/sshd_config`<br>Verificar configurações de segurança |
-| 048 | Conexão SSH funcional | Testar conexão SSH local<br>Comando: `ssh localhost`<br>Deve ser possível conectar |
+| 211 | SSH server instalado | Verificar se openssh-server está instalado<br>Comando: `dpkg -l \| grep openssh-server`<br>Deve estar instalado |
+| 212 | SSH server rodando | Verificar se serviço SSH está ativo<br>Comando: `systemctl status ssh`<br>Deve estar ativo |
+| 213 | Configuração SSH | Verificar arquivo de configuração<br>Comando: `sudo cat /etc/ssh/sshd_config`<br>Verificar configurações de segurança |
+| 214 | Conexão SSH funcional | Testar conexão SSH local<br>Comando: `ssh localhost`<br>Deve ser possível conectar |
 
 ### Categoria: VNC (220-vnc.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 049 | VNC instalado | Verificar se VNC está instalado<br>Comando: `dpkg -l \| grep vnc`<br>Deve estar instalado |
-| 050 | Configuração VNC | Verificar configuração do VNC<br>Comando: `ls -la /home/.vnc/`<br>Verificar arquivos de configuração |
-| 051 | Serviço VNC | Verificar se serviço VNC está rodando<br>Comando: `systemctl status vncserver@*`<br>Verificar status |
+| 221 | VNC instalado | Verificar se VNC está instalado<br>Comando: `dpkg -l \| grep vnc`<br>Deve estar instalado |
+| 222 | Configuração VNC | Verificar configuração do VNC<br>Comando: `ls -la /home/.vnc/`<br>Verificar arquivos de configuração |
+| 223 | Serviço VNC | Verificar se serviço VNC está rodando<br>Comando: `systemctl status vncserver@*`<br>Verificar status |
 
 ### Categoria: Menu Items (230-menu-items.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 052 | Itens menu desabilitados | Verificar se itens desnecessários estão ocultos no menu<br>Abrir menu principal e verificar quais aplicativos estão visíveis |
-| 053 | Arquivos .desktop modificados | Verificar modificações em arquivos desktop<br>Comando: `grep "NoDisplay=true" /usr/share/applications/*.desktop`<br>Alguns itens devem estar ocultos |
+| 231 | Itens menu desabilitados | Verificar se itens desnecessários estão ocultos no menu<br>Abrir menu principal e verificar quais aplicativos estão visíveis |
+| 232 | Arquivos .desktop modificados | Verificar modificações em arquivos desktop<br>Comando: `grep "NoDisplay=true" /usr/share/applications/*.desktop`<br>Alguns itens devem estar ocultos |
 
 ### Categoria: Login Gráfico (240-login-grafico.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 054 | LightDM configurado | Verificar configuração do lightdm<br>Comando: `cat /etc/lightdm/lightdm.conf`<br>Deve conter configurações personalizadas |
-| 055 | Tema login personalizado | Verificar se tema da CMC está aplicado<br>Fazer logout e verificar aparência da tela de login |
-| 056 | Autologin desabilitado | Verificar se autologin está desabilitado<br>Reiniciar e verificar se pede login |
+| 241 | LightDM configurado | Verificar configuração do lightdm<br>Comando: `cat /etc/lightdm/lightdm.conf`<br>Deve conter configurações personalizadas |
+| 242 | Tema login personalizado | Verificar se tema da CMC está aplicado<br>Fazer logout e verificar aparência da tela de login |
+| 243 | Autologin desabilitado | Verificar se autologin está desabilitado<br>Reiniciar e verificar se pede login |
 
 ### Categoria: CUPS (250-configura-cups.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 057 | CUPS instalado e rodando | Verificar se CUPS está ativo<br>Comando: `systemctl status cups`<br>Deve estar ativo |
-| 058 | Interface CUPS acessível | Acessar interface web do CUPS<br>Abrir navegador em `http://localhost:631`<br>Interface deve carregar |
-| 059 | Configuração impressoras | Verificar se pode configurar impressoras<br>Tentar adicionar impressora via interface |
+| 251 | CUPS instalado e rodando | Verificar se CUPS está ativo<br>Comando: `systemctl status cups`<br>Deve estar ativo |
+| 252 | Interface CUPS acessível | Acessar interface web do CUPS<br>Abrir navegador em `http://localhost:631`<br>Interface deve carregar |
+| 253 | Configuração impressoras | Verificar se pode configurar impressoras<br>Tentar adicionar impressora via interface |
 
 ### Categoria: Mount Pendrive (260-mount-pendrive.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 262 | Regras udev criadas | Verificar regras para dispositivos USB<br>Comando: `ls -la /etc/udev/rules.d/`<br>Verificar arquivos de regras |
-| 263 | Montagem automática funcionando | Conectar pendrive e verificar montagem<br>Plugar USB e verificar se monta automaticamente |
+| 261 | Regras udev criadas | Verificar regras para dispositivos USB<br>Comando: `ls -la /etc/udev/rules.d/`<br>Verificar arquivos de regras |
+| 262 | Montagem automática funcionando | Conectar pendrive e verificar montagem<br>Plugar USB e verificar se monta automaticamente |
 
 ### Categoria: Bluetooth Pairing (265-pairing-bluetooth.yml)
 
@@ -406,13 +278,13 @@ molecule verify
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 992 | Arquivo versão criado | Verificar arquivo de versão<br>Comando: `cat /opt/cmc/versao`<br>Deve conter informações da versão |
+| 991 | Arquivo versão criado | Verificar arquivo de versão<br>Comando: `cat /opt/cmc/versao`<br>Deve conter informações da versão |
 
 ### Categoria: Arquivos Modificados (995-arquivos-modificados.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 998 | Links simbólicos criados | Verificar links para arquivos modificados<br>Comando: `ls -la /opt/cmc/modificados/`<br>Deve conter links para arquivos alterados |
+| 996 | Links simbólicos criados | Verificar links para arquivos modificados<br>Comando: `ls -la /opt/cmc/modificados/`<br>Deve conter links para arquivos alterados |
 
 ## Teste Final Integrado
 
