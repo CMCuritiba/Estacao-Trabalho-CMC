@@ -1,0 +1,82 @@
+---
+  - name: Instala Pacotes de Segurança
+    ansible.builtin.apt:
+      name:
+      # Antivírus Clamav
+      - clamav
+      # Interface gráfica do Clamav
+      - clamtk
+      # Verificação de rootkits
+      - chkrootkit
+      # Firewall / IPS (Intrusion Prevention System)
+      - fail2ban
+      # Remoção de Rootkits, Backdoors e Exploits Locais
+      - rkhunter
+      # Auditoria de segurança / hardening do sistema
+      - lynis
+      state: present
+      tags:
+      - seguranca
+      - anti-virus
+      - rootkits
+      - firewall
+      - auditoria
+
+  - name: Verifica se pacotes estão atualizados
+    ansible.builtin.apt:
+      upgrade: dist
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Habilita e inicia o fail2ban
+    ansible.builtin.service:
+      name: fail2ban
+      enabled: true
+      state: started
+
+  - name: Atualiza as definições do Clamav pela internet
+    ansible.builtin.command: freshclam
+    become: true
+    args:
+      creates: /var/lib/clamav/main.cvd
+
+  - name: Atualiza o rkhunter
+    ansible.builtin.command: rkhunter --update
+    become: true
+
+  - name: Atualiza o banco de dados do chkrootkit
+    ansible.builtin.command: chkrootkit -u
+    become: true
+
+  - name: Atualiza o Lynis
+    ansible.builtin.command: lynis update info
+    become: true
+
+  - name: Atualiza o banco de dados do Lynis
+    ansible.builtin.command: lynis update release
+    become: true
+
+  - name: Verifica se o serviço do clamav está ativo
+    ansible.builtin.service:
+      name: clamav-freshclam
+      state: started
+      enabled: true
+
+  - name: Verifica se o serviço do rkhunter está ativo
+    ansible.builtin.service:
+      name: rkhunter
+      state: started
+      enabled: true
+
+  - name: Verifica se o serviço do chkrootkit está ativo
+    ansible.builtin.service:
+      name: chkrootkit
+      state: started
+      enabled: true
+
+  - name: Verifica se o serviço do lynis está ativo
+    ansible.builtin.service:
+      name: lynis
+      state: started
+      enabled: true
+
