@@ -56,27 +56,12 @@
     ansible.builtin.command: lynis update release
     become: true
 
-  - name: Verifica se o serviço do clamav está ativo
+  - name: Verifica se os serviços de segurança estão rodando
     ansible.builtin.service:
-      name: clamav-freshclam
+      name: "{{ item }}"
       state: started
-      enabled: true
-
-  - name: Verifica se o serviço do rkhunter está ativo
-    ansible.builtin.service:
-      name: rkhunter
-      state: started
-      enabled: true
-
-  - name: Verifica se o serviço do chkrootkit está ativo
-    ansible.builtin.service:
-      name: chkrootkit
-      state: started
-      enabled: true
-
-  - name: Verifica se o serviço do lynis está ativo
-    ansible.builtin.service:
-      name: lynis
-      state: started
-      enabled: true
-
+    loop:
+      - clamav-freshclam
+      - fail2ban
+      - rkhunter
+      - lynis
