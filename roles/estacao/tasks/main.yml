@@ -169,6 +169,15 @@
   tags:
     - zoom
 
+- name: Configura segurança básica
+  ansible.builtin.import_tasks: 310-seguranca.yml
+  tags:
+    - seguranca
+    - antivirus
+    - rootkits
+    - firewall
+    - auditoria
+
 - name: Mantém versionamento
   ansible.builtin.import_tasks: 990-versionamento.yml
   tags:
