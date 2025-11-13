@@ -2,40 +2,45 @@
 
 Este documento descreve como executar testes para validar a configuração da estação de trabalho CMC.
 
-Obs: Este guia foi feito com o agente de IA GitHub Copilot, e pode conter erros.
-Favor revisar cuidadosamente antes de usar.
+## Esclarecimento
+
+> Este guia foi feito (e revisado por mim) com o agente de IA GitHub Copilot, e pode conter erros. Favor revisar novamente antes de usar.
 
 ## Visão Geral
 
-O processo de testes é dividido em duas partes:
+> O processo de testes é dividido em duas partes:
 
-1. **Testes Automatizados** - Executados via Molecule
-2. **Testes Manuais** - Executados seguindo o caderno de testes
+1. **Testes Automatizados** - Executados via **Molecule** (em cima da role **Ansible**) para validação rápida.
+2. **Testes Semiautomatizados** - Executados apenas com a role **Ansible**, seguindo o caderno de testes (`caderno-de-testes.md`).
 
 ## Pré-requisitos
 
-### Para Testes Automatizados
-- Python 3.x
-- Molecule
-- Ansible
-- Vagrant (para testes locais)
-- VirtualBox (para testes locais)
-
-### Para Testes Manuais
-- Acesso à estação de trabalho configurada
+- ET (Estação de Trabalho) configurada, conforme [documentação oficial da CMC](https://github.com/CMCuritiba/Estacao-Trabalho-CMC)
 - Usuário com privilégios administrativos
-- Caderno de testes impresso ou em tela
+- Caderno de testes impresso (como nos tempos dos sumérios) ou digital
+
+### Para Testes Automatizados (1)
+
+Em ordem de precedência, é necessário ter instalado:
+- Python 3.x
+- Ansible
+- Vagrant com VM provider / Hypervisor (VirtualBox, nesse caso)
+- Molecule (configurado com driver Vagrant)
+
+### Para Testes Semiautomatizados (2)
+
+Em ordem de precedência, é necessário ter instalado:
+- Python 3.x
+- Ansible
+
+Opcionalmente:
+- Vagrant com VM provider / Hypervisor (VirtualBox, nesse caso)
 
 ## Executando Testes Automatizados
 
 ### 1. Configuração do Ambiente
-```bash
-# Instalar dependências
-pip install molecule[vagrant] ansible
 
-# Navegar para o diretório da role
-cd roles/estacao/
-```
+Siga a documentação oficial do repositório da CMC para configurar o ambiente de testes com Ansible e/ou Molecule (+Vagrant).
 
 ### 2. Executar Todos os Testes
 ```bash
@@ -58,7 +63,7 @@ molecule verify
 - ❌ **VERMELHO**: Teste falhou - verificar logs para detalhes
 - ⚠️ **AMARELO**: Aviso - pode necessitar atenção
 
-## Executando Testes Manuais
+## Executando Testes Semiautomatizados
 
 ### 1. Preparação
 - Abrir o arquivo `caderno-de-testes.md`
@@ -66,7 +71,7 @@ molecule verify
 - Logar com usuário apropriado para cada teste
 
 ### 2. Processo de Execução
-1. Seguir ordem numérica dos testes conforme task (011-999)
+1. Seguir ordem numérica dos testes conforme task (011-1002)
 2. Executar comandos conforme instruções
 3. Marcar resultado: ✅ (passou) ou ❌ (falhou)
 4. Investigar falhas antes de continuar
@@ -75,7 +80,7 @@ molecule verify
 - **Usuários e Grupos** (011-013, 021)
 - **Pacotes** (031-034, 041-042)
 - **Configurações** (051-304)
-- **Versionamento** (991-999)
+- **Versionamento** (991-995)
 - **Teste Integrado Final** (1001-1002)
 
 ## Estratégia de Testes
@@ -94,12 +99,12 @@ molecule converge -- --tags "dns"
 ### 2. Testes de Validação
 Antes de deploy em produção:
 1. Execute todos os testes automatizados
-2. Execute todos os testes manuais
+2. Execute todos os testes semiautomatizados
 3. Documente falhas e correções
 
 ### 3. Testes de Produção
 Após instalação em estação nova:
-1. Execute testes manuais críticos (011-034, 900-901)
+1. Execute testes semiautomatizados críticos (011-034, 900-901)
 2. Execute testes específicos conforme necessidade
 3. Documente status final
 
@@ -111,7 +116,7 @@ Após instalação em estação nova:
 3. Validar se a máquina virtual tem recursos suficientes
 4. Verificar conectividade de rede
 
-### Testes Manuais Falhando
+### Testes Semiautomatizados Falhando
 1. Verificar se usuário tem permissões adequadas
 2. Confirmar se estação foi configurada corretamente
 3. Revisar logs do sistema: `/var/log/syslog`
@@ -137,10 +142,10 @@ Após instalação em estação nova:
 
 ## Relatórios
 
-### Automated Test Report
+### Relatório de Testes Automatizados
 Os testes automatizados geram relatório automático no terminal.
 
-### Manual Test Report
+### Relatório de Testes Semiautomatizados
 Preencher no final do `caderno-de-testes.md`:
 - Status da Estação: Aprovada/Reprovada
 - Data do Teste
