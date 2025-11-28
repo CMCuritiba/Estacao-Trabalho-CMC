@@ -1,5 +1,5 @@
 [libdefaults]
-	default_realm = {{estacao_ad_domain | upper}}
+	default_realm = {{ estacao_ad_domain | upper }}
 	rdns = false
 	dns_lookup_realm = false
 	dns_lookup_kdc = false
@@ -18,13 +18,13 @@
 udp_preference_limit = 0
 
 [realms]
-	{{estacao_ad_domain | upper}} = {
-{% for ip_name in (ad_domain_controllers | split(', ')) %}
-		kdc = {{ip_name}}
+	{{ estacao_ad_domain | upper }} = {
+{% for ip in (estacao_ad_ip_addresses | split(', ')) %}
+		kdc = {{ ip }}
 {% endfor %}
-		admin_server = {{estacao_ad_domain | lower}}
-		default_domain = {{estacao_ad_domain | lower}}
+		admin_server = {{ estacao_ad_domain | lower }}
+		default_domain = {{ estacao_ad_domain | lower }}
 	}
 
 [domain_realm]
-	.{{estacao_ad_domain | lower}} = {{estacao_ad_domain | upper}}
+	.{{ estacao_ad_domain | lower }} = {{ estacao_ad_domain | upper }}

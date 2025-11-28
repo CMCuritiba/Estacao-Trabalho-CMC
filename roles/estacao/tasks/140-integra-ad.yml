@@ -27,15 +27,6 @@
       - adcli
     state: present
 
-- name: Pega AD Domain Controllers
-  ansible.builtin.shell:
-    cmd: adcli info cmc.local | grep domain-controllers | cut -d"=" -f2 | xargs | sed 's/ /, /g'
-  register: ad_domain_controllers_list
-
-- name: Seta lista  
-  ansible.builtin.set_fact:
-    ad_domain_controllers: "{{ad_domain_controllers_list.stdout | lower}}"
-
 - name: Configuração do Kerberos
   ansible.builtin.template:
     src: templates/krb5-conf.j2
