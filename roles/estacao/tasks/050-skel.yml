@@ -12,6 +12,7 @@
     - /etc/skel/Música
     - /etc/skel/Imagens
     - /etc/skel/Vídeos
+    - /etc/skel/.local/share/applications
 
 - name: Garante que Docs.Locais está sem arquivos
   ansible.builtin.file:
@@ -73,6 +74,78 @@
         src: "/usr/share/applications/google-chrome.desktop",
         dest: "/etc/skel/Desktop/google-chrome.desktop",
       }
+
+- name: Instala icone do Google Chat
+  ansible.builtin.copy:
+    src: imagens/google-chat.svg
+    dest: /usr/share/icons/hicolor/scalable/apps/google-chat.svg
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Remove atalhos legados do Google Chat
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/skel/Desktop/GoogleChat.desktop
+    - /usr/share/applications/GoogleChat.desktop
+
+- name: Cria atalho do Google Chat no formato do Chrome
+  ansible.builtin.copy:
+    src: GoogleChat.desktop
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - /etc/skel/Desktop/Google Chat.desktop
+    - /etc/skel/.local/share/applications/Google Chat.desktop
+    - /usr/share/applications/Google Chat.desktop
+
+- name: Descobre diretórios HOME de usuários existentes
+  ansible.builtin.find:
+    paths: /home
+    file_type: directory
+    depth: 1
+  register: estacao_existing_homes
+
+- name: Cria pastas de aplicações locais para usuários existentes
+  ansible.builtin.file:
+    path: "{{ item.path }}/.local/share/applications"
+    state: directory
+    owner: "{{ item.path | basename }}"
+    group: "{{ item.path | basename }}"
+    mode: "0755"
+  loop: "{{ estacao_existing_homes.files }}"
+  when: item.path | basename != 'Docs.Locais'
+
+- name: Cria atalho do Google Chat no Desktop de usuários existentes
+  ansible.builtin.copy:
+    src: GoogleChat.desktop
+    dest: "{{ item.path }}/Desktop/Google Chat.desktop"
+    owner: "{{ item.path | basename }}"
+    group: "{{ item.path | basename }}"
+    mode: "0755"
+  loop: "{{ estacao_existing_homes.files }}"
+  when: item.path | basename != 'Docs.Locais'
+
+- name: Cria launcher local do Google Chat para usuários existentes
+  ansible.builtin.copy:
+    src: GoogleChat.desktop
+    dest: "{{ item.path }}/.local/share/applications/Google Chat.desktop"
+    owner: "{{ item.path | basename }}"
+    group: "{{ item.path | basename }}"
+    mode: "0644"
+  loop: "{{ estacao_existing_homes.files }}"
+  when: item.path | basename != 'Docs.Locais'
+
+- name: Remove atalhos legados do Google Chat de usuários existentes
+  ansible.builtin.file:
+    path: "{{ item.0.path }}/{{ item.1 }}"
+    state: absent
+  loop: "{{ estacao_existing_homes.files | product(['Desktop/GoogleChat.desktop', '.local/share/applications/GoogleChat.desktop']) | list }}"
+  when: item.0.path | basename != 'Docs.Locais'
 
 - name: Cria icone de Suporte
   ansible.builtin.copy:
