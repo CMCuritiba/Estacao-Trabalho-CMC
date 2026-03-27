@@ -279,7 +279,7 @@
 | 992 | Verificar formato de versionamento | Verificar se segue o padrão SemVer ET-MAJOR.MINOR.PATCH<br>O conteúdo deve ser algo como "ET-6.1.5" |
 | 993 | Verificar permissões do arquivo | Verificar se as permissões estão corretas<br>No terminal: `ls -la /opt/cmc/version` (deve ser 644) |
 
-### `995-arquivos-modificados.yml`
+### `999-arquivos-modificados.yml`
 
 | ID | Teste | Como testar |
 |---|---|---|
@@ -287,4 +287,3 @@
 | 997 | Verificar links simbólicos | Verificar se todos os links foram criados corretamente<br>No terminal: `ls -la /opt/cmc/modificados/ | grep -v "^d"` |
 | 998 | Testar integridade dos links | Verificar se os links apontam para arquivos existentes<br>No terminal: `find /opt/cmc/modificados/ -type l -exec test ! -e {} \; -print` (deve retornar vazio) |
 | 999 | Verificar documentação de modificações | Usar a pasta para auditorias e documentar todas as modificações feitas no sistema<br>Útil para rastreabilidade e troubleshooting |
-

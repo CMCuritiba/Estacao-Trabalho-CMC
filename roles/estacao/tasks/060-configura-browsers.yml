@@ -26,6 +26,14 @@
     - recommended
     - managed
 
+- name: Cria pasta de policies do Firefox
+  ansible.builtin.file:
+    state: directory
+    path: "/etc/firefox/policies"
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Aplica configurações recomendadas no Google Chrome
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
