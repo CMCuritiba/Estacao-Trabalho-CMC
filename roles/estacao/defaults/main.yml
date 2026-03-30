@@ -56,8 +56,6 @@ estacao_bookmarks:
     url: "https://www.cmc.pr.gov.br/registro-frequencia/"
   - name: "Votação"
     url: "https://votacao.cmc.pr.gov.br/"
-  - name: "Zoom"
-    url: "https://cmc-pr-gov-br.zoom.us/"
   - name: "Rainbow"
     url: "https://web.openrainbow.com/"
   - name: "GIP"

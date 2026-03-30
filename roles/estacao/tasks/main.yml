@@ -164,8 +164,8 @@
   tags:
     - logs
 
-- name: Configura Zoom autoupdate
-  ansible.builtin.import_tasks: 300-zoom-autoupdate.yml
+- name: Remove autoupdate e desinstala Zoom
+  ansible.builtin.import_tasks: 300-remove-zoom.yml
   tags:
     - zoom
 
