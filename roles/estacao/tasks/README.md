@@ -262,14 +262,6 @@
 | 293 | Verificar rotação semanal | Verificar se os logs foram configurados para rotação semanal<br>No terminal: `cat /etc/logrotate.d/rsyslog | grep weekly` |
 | 294 | Testar logrotate | Executar logrotate manualmente para testar<br>No terminal: `sudo logrotate -d /etc/logrotate.d/rsyslog` |
 
-### `300-zoom-autoupdate.yml`
-
-| ID | Teste | Como testar |
-|---|---|---|
-| 301 | Verificar script zoom-update | Verificar se o script foi criado<br>No terminal: `ls -la /opt/cmc/scripts/zoom-update.sh` |
-| 302 | Verificar serviço zoom-update | Verificar se o serviço foi configurado<br>No terminal: `systemctl status zoom-update.service` |
-| 303 | Verificar timer zoom-update | Verificar se o timer foi criado e habilitado<br>No terminal: `systemctl status zoom-update.timer` |
-| 304 | Testar execução do script | Executar manualmente o script e verificar se atualiza o Zoom<br>No terminal: `sudo /opt/cmc/scripts/zoom-update.sh` |
 
 ### `990-versionamento.yml`
 

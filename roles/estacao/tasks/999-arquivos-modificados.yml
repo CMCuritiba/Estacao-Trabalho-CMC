@@ -86,6 +86,3 @@
     # Script de boot das estações de trabalho
     - src: '{{ estacao_servico_boot }}'
     - src: '{{ estacao_servico_boot_timer }}'
-    # Serviço de atualização automática do zoom
-    - src: '{{ estacao_servico_zoom_update }}'
-    - src: '{{ estacao_servico_zoom_timer }}'
