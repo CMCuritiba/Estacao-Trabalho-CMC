@@ -157,6 +157,11 @@
   loop: "{{ estacao_existing_homes.files | product(['Desktop/GoogleChat.desktop', '.local/share/applications/GoogleChat.desktop']) | list }}"
   when: item.0.path | basename != 'Docs.Locais' and item.0.pw_name != 'root'
 
+- name: Remove atributo imutável do ícone de Suporte se existir
+  ansible.builtin.command: chattr -i /etc/skel/Desktop/Suporte.desktop
+  failed_when: false
+  changed_when: false
+
 - name: Cria icone de Suporte
   ansible.builtin.copy:
     src: Suporte.desktop
