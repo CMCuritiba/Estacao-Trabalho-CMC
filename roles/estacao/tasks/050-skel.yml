@@ -114,38 +114,48 @@
   ansible.builtin.file:
     path: "{{ item.path }}/.local/share/applications"
     state: directory
-    owner: "{{ item.path | basename }}"
-    group: "{{ item.path | basename }}"
+    owner: "{{ item.pw_name }}"
+    group: "{{ item.gr_name }}"
     mode: "0755"
   loop: "{{ estacao_existing_homes.files }}"
-  when: item.path | basename != 'Docs.Locais'
+  when: item.path | basename != 'Docs.Locais' and item.pw_name != 'root'
+
+- name: Cria diretório Desktop para usuários existentes
+  ansible.builtin.file:
+    path: "{{ item.path }}/Desktop"
+    state: directory
+    owner: "{{ item.pw_name }}"
+    group: "{{ item.gr_name }}"
+    mode: "0755"
+  loop: "{{ estacao_existing_homes.files }}"
+  when: item.path | basename != 'Docs.Locais' and item.pw_name != 'root'
 
 - name: Cria atalho do Google Chat no Desktop de usuários existentes
   ansible.builtin.copy:
     src: GoogleChat.desktop
     dest: "{{ item.path }}/Desktop/Google Chat.desktop"
-    owner: "{{ item.path | basename }}"
-    group: "{{ item.path | basename }}"
+    owner: "{{ item.pw_name }}"
+    group: "{{ item.gr_name }}"
     mode: "0755"
   loop: "{{ estacao_existing_homes.files }}"
-  when: item.path | basename != 'Docs.Locais'
+  when: item.path | basename != 'Docs.Locais' and item.pw_name != 'root'
 
 - name: Cria launcher local do Google Chat para usuários existentes
   ansible.builtin.copy:
     src: GoogleChat.desktop
     dest: "{{ item.path }}/.local/share/applications/Google Chat.desktop"
-    owner: "{{ item.path | basename }}"
-    group: "{{ item.path | basename }}"
+    owner: "{{ item.pw_name }}"
+    group: "{{ item.gr_name }}"
     mode: "0644"
   loop: "{{ estacao_existing_homes.files }}"
-  when: item.path | basename != 'Docs.Locais'
+  when: item.path | basename != 'Docs.Locais' and item.pw_name != 'root'
 
 - name: Remove atalhos legados do Google Chat de usuários existentes
   ansible.builtin.file:
     path: "{{ item.0.path }}/{{ item.1 }}"
     state: absent
   loop: "{{ estacao_existing_homes.files | product(['Desktop/GoogleChat.desktop', '.local/share/applications/GoogleChat.desktop']) | list }}"
-  when: item.0.path | basename != 'Docs.Locais'
+  when: item.0.path | basename != 'Docs.Locais' and item.0.pw_name != 'root'
 
 - name: Cria icone de Suporte
   ansible.builtin.copy:
