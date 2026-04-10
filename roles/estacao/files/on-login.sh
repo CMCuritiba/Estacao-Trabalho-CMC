@@ -4,5 +4,4 @@ then
     /usr/bin/chattr -f +i /home/*/Desktop/Suporte.desktop
     /usr/bin/chattr -f +i /home/*/Desktop/firefox.desktop
     /usr/bin/chattr -f +i /home/*/Desktop/google-chrome.desktop
-    /usr/bin/chattr -f +i /home/*/Desktop/Google\ Chat.desktop
 fi

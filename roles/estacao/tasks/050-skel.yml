@@ -12,7 +12,6 @@
     - /etc/skel/Música
     - /etc/skel/Imagens
     - /etc/skel/Vídeos
-    - /etc/skel/.local/share/applications
 
 - name: Garante que Docs.Locais está sem arquivos
   ansible.builtin.file:
@@ -75,32 +74,7 @@
         dest: "/etc/skel/Desktop/google-chrome.desktop",
       }
 
-- name: Instala icone do Google Chat
-  ansible.builtin.copy:
-    src: imagens/google-chat.svg
-    dest: /usr/share/icons/hicolor/scalable/apps/google-chat.svg
-    owner: root
-    group: root
-    mode: "0644"
-
-- name: Cria atalho do Google Chat no formato do Chrome
-  ansible.builtin.copy:
-    src: google-chat.desktop
-    dest: "{{ item }}"
-    owner: root
-    group: root
-    mode: "0755"
-  loop:
-    - /etc/skel/Desktop/google-chat.desktop
-    - /etc/skel/.local/share/applications/google-chat.desktop
-    - /usr/share/applications/google-chat.desktop
-
-- name: Remove atributo imutável do ícone de Suporte se existir
-  ansible.builtin.command: chattr -i /etc/skel/Desktop/Suporte.desktop
-  failed_when: false
-  changed_when: false
-
-- name: Cria atalho para Suporte
+- name: Cria icone de Suporte
   ansible.builtin.copy:
     src: Suporte.desktop
     dest: /etc/skel/Desktop/Suporte.desktop
