@@ -85,22 +85,22 @@
 
 - name: Cria atalho do Google Chat no formato do Chrome
   ansible.builtin.copy:
-    src: GoogleChat.desktop
+    src: google-chat.desktop
     dest: "{{ item }}"
     owner: root
     group: root
     mode: "0755"
   loop:
-    - /etc/skel/Desktop/Google Chat.desktop
-    - /etc/skel/.local/share/applications/Google Chat.desktop
-    - /usr/share/applications/Google Chat.desktop
+    - /etc/skel/Desktop/google-chat.desktop
+    - /etc/skel/.local/share/applications/google-chat.desktop
+    - /usr/share/applications/google-chat.desktop
 
 - name: Remove atributo imutável do ícone de Suporte se existir
   ansible.builtin.command: chattr -i /etc/skel/Desktop/Suporte.desktop
   failed_when: false
   changed_when: false
 
-- name: Cria icone de Suporte
+- name: Cria atalho para Suporte
   ansible.builtin.copy:
     src: Suporte.desktop
     dest: /etc/skel/Desktop/Suporte.desktop
