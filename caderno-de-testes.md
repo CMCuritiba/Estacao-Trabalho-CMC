@@ -200,9 +200,11 @@ host -f cmc.local
 
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
-| 221 | VNC instalado | Verificar se o stack atual da role está instalado<br>Comando: `dpkg -l | grep vino`<br>O pacote deve estar instalado |
-| 222 | Configuração VNC | Verificar autostart do VNC<br>Comando: `ls -la /etc/xdg/autostart/vino-server.desktop`<br>O arquivo deve existir |
-| 223 | Serviço VNC | Verificar se o processo/porta do VNC estão ativos em sessão gráfica<br>Comando: `ps -ef | grep -E "[v]ino-server" && ss -lntp | grep 5900`<br>Deve haver processo e porta ouvindo |
+| 221 | x11vnc instalado | Verificar se x11vnc está instalado<br>Comando: `dpkg -l | grep x11vnc`<br>O pacote deve estar instalado |
+| 222 | Serviço x11vnc habilitado | Verificar se o serviço systemd está ativo<br>Comando: `systemctl status x11vnc.service`<br>Deve estar ativo e habilitado |
+| 223 | Porta VNC ouvindo | Verificar se a porta 5900 está ouvindo<br>Comando: `ss -lntp | grep 5900`<br>Deve haver processo ouvindo na porta |
+| 224 | xrdp habilitado | Verificar se o xrdp está ativo<br>Comando: `systemctl status xrdp.service`<br>Deve estar ativo e habilitado |
+| 225 | Confirmação de acesso VNC | Validar graficamente: ao conectar via VNC, deve aparecer diálogo zenity pedindo autorização ao usuário |
 
 #### Menu Items (`230-menu-items.yml`)
 

@@ -81,6 +81,10 @@
   ansible.builtin.apt:
     deb: https://github.com/torakiki/pdfsam/releases/download/v5.4.5/pdfsam-basic_5.4.5-1_amd64.deb
     state: present
+  register: ret_pdfsam
+  failed_when: >
+    (ret_pdfsam.failed) and
+    ("A later version is already installed" not in ret_pdfsam.msg)
 
 - name: Instala o Chrome, pq chrome é especial
   ansible.builtin.apt:

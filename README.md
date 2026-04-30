@@ -312,14 +312,14 @@ Configure o **seu** computador:
    aplicada com sucesso:
 
    ```shell
-   script -qefc "ANSIBLE_FORCE_COLOR=1 PY_COLORS=1 ansible-playbook playbook.yml -i inventory/inventory.yml --diff -u tss2025 -k -K" ./LOG_ansible-playbook.typescript
+   script -qefc "ANSIBLE_FORCE_COLOR=1 PY_COLORS=1 ansible-playbook playbook.yml -i inventory/inventory.yml --diff -u <seu-usuario-ad> -k -K" ./LOG_ansible-playbook.typescript
    ```
 
    Para executar em modo verboso, adicione `-vvv` ao comando do
    `ansible-playbook`:
 
    ```shell
-   script -qefc "ANSIBLE_FORCE_COLOR=1 PY_COLORS=1 ansible-playbook playbook.yml -i inventory/inventory.yml --diff -u tss2025 -k -K -vvv" ./LOG_ansible-playbook.typescript
+   script -qefc "ANSIBLE_FORCE_COLOR=1 PY_COLORS=1 ansible-playbook playbook.yml -i inventory/inventory.yml --diff -u <seu-usuario-ad> -k -K -vvv" ./LOG_ansible-playbook.typescript
    ```
 
    Para visualizar o arquivo preservando as cores no terminal:
@@ -332,7 +332,7 @@ Configure o **seu** computador:
    - o arquivo `.typescript` é um log de terminal, não um `.txt` comum;
    - abrir o arquivo em editores simples pode mostrar sequências ANSI em vez de
      cores;
-   - antes da integração AD, substitua `tss2025` pelo usuário local inicial da
+   - antes da integração AD, substitua `<seu-usuario-ad>` pelo usuário local inicial da
      máquina de destino;
    - use `-vvv` apenas quando precisar investigar falhas com mais detalhe.
 

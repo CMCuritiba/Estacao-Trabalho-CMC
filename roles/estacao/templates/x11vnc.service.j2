@@ -5,7 +5,7 @@ Wants=display-manager.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared -accept /usr/local/cmc/scripts/vnc-accept.sh
+ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared -accept {{ estacao_cmc_scripts_dir }}/vnc-accept.sh
 Restart=on-failure
 RestartSec=5
 
