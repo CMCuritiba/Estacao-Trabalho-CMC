@@ -1,14 +1,52 @@
 ---
-- name: "Cria arquivo e configura vino-server"
+- name: "Cria o arquivo de senha do x11vnc"
+  ansible.builtin.shell:
+    cmd: "x11vnc -storepasswd {{ estacao_vnc_pass | quote }} /etc/x11vnc.pass"
+  no_log: true
+  changed_when: true
+
+- name: "Ajusta permissões do arquivo de senha do x11vnc"
+  ansible.builtin.file:
+    path: /etc/x11vnc.pass
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: "Instala o script de confirmação de acesso VNC"
   ansible.builtin.copy:
-    dest: "{{ estacao_vino }}"
-    src: "vino-server.desktop"
+    src: vnc-accept.sh
+    dest: "{{ estacao_cmc_scripts_dir }}/vnc-accept.sh"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Instala o serviço systemd do x11vnc"
+  ansible.builtin.copy:
+    src: x11vnc.service
+    dest: /etc/systemd/system/x11vnc.service
     owner: root
     group: root
     mode: "0644"
 
-- name: "Atualiza o launcher do vino-server para que inicie automaticamente"
-  ansible.builtin.lineinfile:
-    path: "{{ estacao_vino }}"
-    regexp: "^X-GNOME-Autostart-enabled"
-    line: "X-GNOME-Autostart-enabled=true"
+- name: "Habilita e inicia o x11vnc"
+  ansible.builtin.systemd:
+    name: x11vnc
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: "Configura sessão Cinnamon para o xrdp"
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      exec cinnamon-session
+    dest: /etc/skel/.xsession
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Habilita e inicia o xrdp"
+  ansible.builtin.systemd:
+    name: xrdp
+    enabled: true
+    state: started

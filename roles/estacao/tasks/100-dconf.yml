@@ -21,7 +21,7 @@
     group: root
     mode: "0644"
 
-- name: Criar o arquivo de configuração dconf
+- name: "Criar o arquivo de configuração dconf"
   ansible.builtin.template:
     src: dconf-cmc-config.j2
     dest: /etc/dconf/db/local.d/01-cmc
@@ -35,11 +35,9 @@
       ansible.builtin.slurp:
         src: "{{ estacao_caljson }}"
       register: caljson
-
     # - name: Exibe conteúdo do json
     #   ansible.builtin.debug:
     #     msg: "{{ caljson['content'] | b64decode }}"
-
     - name: "Set 'use-custom-format' to true"
       ansible.builtin.set_fact:
         json_content: "{{ caljson['content'] | b64decode | from_json | combine({'use-custom-format': {'value': true}}) }}"
@@ -55,17 +53,13 @@
         mode: "0644"
         backup: true
 
-- name: "Trava as configs do Vino"
+- name: "Cria arquivo de locks do dconf"
   ansible.builtin.copy:
-    content: |
-      /org/gnome/desktop/remote-access/icon-visibility
-      /org/gnome/desktop/remote-access/authentication-methods
-      /org/gnome/desktop/remote-access/enabled
-      /org/gnome/desktop/remote-access/vnc-password
+    content: ""
     dest: /etc/dconf/db/local.d/locks/01-cmc
     mode: "0644"
 
-- name: "Copia  o script necessario para iniciar o terminal como root"
+- name: "Copia o script necessario para iniciar o terminal como root"
   ansible.builtin.copy:
     src: "root-terminal.sh"
     dest: "{{ estacao_cmc_scripts_dir }}/root-terminal.sh"
