@@ -26,13 +26,15 @@
     vtype: select
     value: "true"
 
-- name: Instala programas
+- name: Instala programas via apt package manager
   ansible.builtin.apt:
     name:
-      # Acesso remoto
-      - rdesktop
-      - vino
+      # Acesso remoto (VNC, RDP, SSH)
+      - x11vnc
+      - xrdp
+      - xorgxrdp
       - openssh-server
+      - zenity
       # Mídia
       - vlc
       - audacity
@@ -53,11 +55,10 @@
       # Utilitarios e produtividade
       - vim
       - gedit
-      - pdfsam
       - unrar
       - ttf-mscorefonts-installer
       # SO
-      - linux-oem-22.04 # driver de vídeo
+      - linux-oem-24.04 # driver de vídeo
       - ncdu
       - numlockx
       - acct
@@ -68,25 +69,40 @@
       - s3fs
     state: present
 
+- name: Remove pdfsam antigo (conflitante com pdfsam-basic)
+  become: true
+  ansible.builtin.apt:
+    name: pdfsam
+    state: absent
+    purge: true
+
+- name: Instala o PDFSam Basic via .deb oficial
+  become: true
+  ansible.builtin.apt:
+    deb: https://github.com/torakiki/pdfsam/releases/download/v5.4.5/pdfsam-basic_5.4.5-1_amd64.deb
+    state: present
+
 - name: Instala o Chrome, pq chrome é especial
   ansible.builtin.apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     state: present
 
+# A versão do Edge no repositório da Microsoft pode não ser a mais recente, por isso instalamos via .deb primeiro e depois atualizamos
+
 - name: Instala o Microsoft Edge
   ansible.builtin.apt:
-    deb: "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_124.0.2478.51-1_amd64.deb"
+    deb: https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_143.0.3650.139-1_amd64.deb
     state: present
   register: ret
   failed_when: >
     (ret.failed) and
     ("A later version is already installed" not in ret.msg)
 
-# - name: Debug edge
+# - name: Debug do edge
 #   ansible.builtin.debug:
 #     var: ret
 
-- name: "Verifica se Microsoft Edge esta na versao mais recente"
+- name: Verifica se Microsoft Edge esta na versao mais recente
   ansible.builtin.apt:
     name: microsoft-edge-stable
     state: latest

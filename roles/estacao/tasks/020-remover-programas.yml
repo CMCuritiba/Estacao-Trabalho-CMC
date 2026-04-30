@@ -6,7 +6,7 @@
       - "thunderbird*"
       - "transmission*"
       - "avahi-daemon"
-      - "xed"
+      - "xed*"
       - "hexchat*"
       - "celluloid*"
       - "hypnotix*"
