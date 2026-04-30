@@ -1,10 +1,8 @@
 ---
+# Objetivo: levar a instância ao estado desejado executando a role em teste.
+# O Molecule chama este playbook com `molecule converge`.
 - name: Converge
   hosts: all
-  become: true
-  tasks:
-    - name: "Include cmcuritiba.estacao"
-      ansible.builtin.include_role:
-        name: "cmcuritiba.estacao"
-      tags:
-        - always
+  gather_facts: true # Desative se a role nao depender de facts
+  roles:
+    - estacao
