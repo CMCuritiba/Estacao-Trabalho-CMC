@@ -25,3 +25,8 @@ yarn.lock
 
 # Conf
 all.yml
+inventory/vault.yml
+
+# Local agent/tool notes
+AGENTS.md
+CLAUDE.md
