@@ -1,19 +1,20 @@
 {
   "DownloadDirectory": "/home/${user_name}/Downloads",
   "DefaultBrowserSettingEnabled": false,
+  "BookmarkBarEnabled": true,
   "DisablePrintPreview": true,
   "ManagedBookmarks": [
     {
       "toplevel_name": "Favoritos Gerenciados da CMC"
     },
-    {% for bookmark in estacao_bookmarks %}
+    {% for bookmark in estacao_bookmarks| sort(attribute='name') %}
       {
         "name": "{{ bookmark.name }}",
       {% if bookmark.url is defined %}
         "url": "{{ bookmark.url }}"
       {% else %}
         "children": [
-        {% for child in bookmark.children %}
+        {% for child in bookmark.children | sort(attribute='name') %}
           {
             "name": "{{ child.name }}",
             "url": "{{ child.url }}"

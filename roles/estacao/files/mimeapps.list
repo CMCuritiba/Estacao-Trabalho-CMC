@@ -28,6 +28,7 @@ video/x-matroska=vlc.desktop
 video/x-mpeg=vlc.desktop
 video/x-ogm+ogg=vlc.desktop
 application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop
+text/plain=org.gnome.gedit.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;
@@ -46,6 +47,7 @@ audio/x-wav=rhythmbox.desktop;
 audio/mpeg3=rhythmbox.desktop;
 audio/x-mpeg-3=rhythmbox.desktop;
 audio/mpeg=rhythmbox.desktop;
+audio/x-vorbis+ogg=rhythmbox.desktop;
 video/mp4=vlc.desktop;
 video/mpeg=vlc.desktop;
 video/mp2t=vlc.desktop;
@@ -58,4 +60,3 @@ video/x-matroska=vlc.desktop;
 video/x-mpeg=vlc.desktop;
 video/x-ogm+ogg=vlc.desktop;
 application/x-java-jnlp-file=userapp-javaws-NEDLGZ.desktop;
-audio/x-vorbis+ogg=rhythmbox.desktop;

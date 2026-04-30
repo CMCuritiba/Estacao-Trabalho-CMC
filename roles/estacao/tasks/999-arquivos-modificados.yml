@@ -14,6 +14,7 @@
   ansible.builtin.file:
     dest: "{{ estacao_cmc_modificados_dir }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
     src: '{{ item.src }}'
+    follow: false
     force: true
     state: link
   with_items:
@@ -38,7 +39,6 @@
       dest: chrome-policies-recommended-cmc.json
     # Coisas no autostart
     - src: /etc/xdg/autostart/forcelogout.desktop
-    - src: /etc/xdg/autostart/vino-server.desktop
     # Bloqueio de execução de alguns programas
     - src: /usr/bin/gnome-terminal
     - src: /usr/bin/mintupdate
@@ -63,7 +63,7 @@
     - src: '{{ estacao_servico_network }}'
     # Imagens novas
     - src: /usr/share/pixmaps/suporte_tux.png
-    - src: /usr/share/backgrounds/cmc/desktop-bg.png
+    - src: /usr/share/backgrounds/cmc/desktop-bg.jpg
     # Configura CUPS
     - src: /etc/cups/cupsd.conf
     - src: /etc/cups/cups-browsed.conf

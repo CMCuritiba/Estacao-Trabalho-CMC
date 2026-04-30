@@ -1,5 +1,5 @@
 ---
-# handlers file for estacao
+# Arquivo de handlers da role estacao
 - name: Restart DNS
   ansible.builtin.service:
     name: systemd-resolved.service
@@ -27,5 +27,5 @@
 
 - name: Restart SSH
   ansible.builtin.service:
-    name: sshd
+    name: ssh
     state: restarted
