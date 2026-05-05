@@ -6,7 +6,7 @@
   "author": "Divisão de Arquitetura de Serviços",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@commitlint/cli": "^20.5.2",
+    "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
