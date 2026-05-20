@@ -164,11 +164,6 @@
   tags:
     - logs
 
-- name: Configura Zoom autoupdate
-  ansible.builtin.import_tasks: 300-zoom-autoupdate.yml
-  tags:
-    - zoom
-
 - name: Mantém versionamento
   ansible.builtin.import_tasks: 990-versionamento.yml
   tags:
