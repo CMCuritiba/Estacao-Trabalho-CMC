@@ -2,8 +2,8 @@
 - name: "Cria o arquivo de senha do x11vnc"
   ansible.builtin.shell:
     cmd: "x11vnc -storepasswd {{ estacao_vnc_pass | quote }} /etc/x11vnc.pass"
-    creates: /etc/x11vnc.pass
   no_log: true
+  changed_when: true
 
 - name: "Ajusta permissões do arquivo de senha do x11vnc"
   ansible.builtin.file:
@@ -40,10 +40,13 @@
     content: |
       #!/bin/bash
       exec cinnamon-session
-    dest: /etc/skel/.xsession
+    dest: "{{ item }}"
     owner: root
     group: root
     mode: "0755"
+  loop:
+    - /etc/skel/.xsession
+    - /home/{{ estacao_suporte_user }}/.xsession
 
 - name: "Habilita e inicia o xrdp"
   ansible.builtin.systemd:

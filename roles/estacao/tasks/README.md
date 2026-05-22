@@ -194,9 +194,9 @@ Para criar um novo usuário para testes, use o comando:
 
 | ID | Teste | Como testar |
 |---|---|---|
-| 221 | Verificar arquivo de autostart do Remote Desktop | Verificar se o arquivo foi copiado<br>No terminal: `cat /etc/xdg/autostart/org.gnome-remote-desktop.desktop` |
-| 222 | Verificar autostart do VNC | Verificar se o autostart foi habilitado<br>Procurar linha "X-GNOME-Autostart-enabled=true" no arquivo |
-| 223 | Testar conexão VNC | Fazer login na estação e tentar conectar via VNC<br>Usar cliente VNC para conectar na porta 5900 |
+| 221 | Verificar serviço x11vnc | Verificar se o serviço systemd foi criado e está ativo<br>No terminal: `systemctl status x11vnc` |
+| 222 | Verificar serviço xrdp | Verificar se o xrdp está habilitado e rodando<br>No terminal: `systemctl status xrdp` |
+| 223 | Testar conexão VNC | Fazer login na estação e tentar conectar via VNC<br>Usar cliente VNC para conectar na porta 5900 — um diálogo de confirmação deve aparecer na tela |
 
 ### `230-menu-items.yml`
 

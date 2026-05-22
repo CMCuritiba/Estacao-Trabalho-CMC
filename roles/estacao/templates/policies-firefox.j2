@@ -33,8 +33,8 @@
         "install_url": "{{ addon.url }}",
         "updates_disabled": false
       }{{loop.last | ternary('', ',')}}
-    },
       {% endfor %}
+    },
     {% else %}
     ],
     {% endif %}

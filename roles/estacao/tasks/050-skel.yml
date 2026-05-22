@@ -123,6 +123,14 @@
     group: root
     mode: "0644"
 
+- name: Garante que o diretório .config do usuário de suporte existe
+  ansible.builtin.file:
+    path: /home/{{ estacao_suporte_user }}/.config
+    state: directory
+    owner: "{{ estacao_suporte_user }}"
+    group: "{{ estacao_suporte_user }}"
+    mode: "0700"
+
 - name: Configura editor de texto padrão para o usuário de suporte como gedit
   ansible.builtin.copy:
     dest: /home/{{ estacao_suporte_user }}/.config/mimeapps.list
