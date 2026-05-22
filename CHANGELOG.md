@@ -5,6 +5,12 @@ Todas as alterações significativas neste projeto serão documentadas aqui.
 O formato é baseado em [Keep a Changelog](http://keepachangelog.com/) e este
 projeto segue [Semantic Versioning](http://semver.org/).
 
+## 6.2.0 - 2026-05-15
+
+### Feat
+
+Remove Zoom.
+
 ## 6.1.5
 
 ### Fix
@@ -19,13 +25,13 @@ Corrige atualização de pacotes.
 
 ## 6.1.3 - 2024-07-17
 
-### Refactor
+### Fix
 
 Remove o serviço de NTP.
 
 ## 6.1.2 - 2024-07-16
 
-### Refactor
+### Fix
 
 Habilita o ipv6 para mitigar inundação de logs.
 

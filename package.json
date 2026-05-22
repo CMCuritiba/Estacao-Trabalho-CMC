@@ -1,13 +1,13 @@
 {
   "name": "estacao-trabalho-cmc",
-  "version": "6.1.1",
+  "version": "6.2.0",
   "description": "Role para as estações de trabalho imagem mint/cinnamon",
   "repository": "git@github.com:CMCuritiba/Estacao-Trabalho-CMC.git",
   "author": "Divisão de Arquitetura de Serviços",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@commitlint/cli": "^20.5.2",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7"
@@ -21,6 +21,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "npm": "^11.13.0"
+    "npm": "^11.14.1"
   }
 }
