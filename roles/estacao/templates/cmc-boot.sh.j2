@@ -1,5 +1,35 @@
 #!/bin/bash
 
+function configura_dns() {
+    cmc_conf="/etc/systemd/system.conf.d/10-cmc.conf"
+    resolv_conf="/etc/systemd/resolved.conf"
+    restart=false
+
+    if [ ! -f "$cmc_conf" ]; then
+        mkdir -p /etc/systemd/system.conf.d
+        echo "[Resolve]
+Cache=no-negative
+DNS={{ estacao_ad_ip_addresses | join(' ') }}
+Domains={{ estacao_ad_domain | lower }}" >"$cmc_conf"
+        restart=true
+    fi
+
+    if grep -iq "{{ estacao_ad_domain | lower }}" "$resolv_conf"; then
+        cp -a "$resolv_conf" "$resolv_conf-$(date +%F-%T)"
+        echo "[Resolve]
+Cache=no-negative
+FallbackDNS=8.8.4.4 1.1.1.1
+DNS=8.8.8.8 9.9.9.9" >"$resolv_conf"
+        restart=true
+    fi
+
+    if [ "$restart" = true ]; then
+        systemctl restart systemd-resolved
+    fi
+}
+
+configura_dns
+
 CMCDOMAIN="{{estacao_ad_domain | lower}}"
 INTERFACE="$(nmcli device status | grep -E "conectado|connected" | head -n1 | awk '{print $1}')"
 IPATUAL=$(ip addr list "$INTERFACE" | grep -m1 -w "inet" | awk '{print $2}' | cut -d '/' -f 1)
