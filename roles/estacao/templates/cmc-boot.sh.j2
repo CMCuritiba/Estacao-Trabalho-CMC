@@ -10,7 +10,7 @@ function configura_dns() {
         echo "[Resolve]
 Cache=no-negative
 DNS={{ estacao_ad_ip_addresses | join(' ') }}
-Domains={{ estacao_ad_domain | lower }}" >"$cmc_conf"
+Domains=~{{ estacao_ad_domain | lower }}" >"$cmc_conf"
         restart=true
     fi
 
