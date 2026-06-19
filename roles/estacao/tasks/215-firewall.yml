@@ -1,0 +1,31 @@
+---
+# Firewall (ufw): política restritiva, expondo apenas os serviços de acesso
+# remoto (SSH e VNC) e somente para a rede de gerência da DTIC.
+#
+# As regras de liberação são aplicadas ANTES de habilitar o ufw para evitar
+# que a gerência remota (Ansible/SSH) seja bloqueada durante a execução.
+- name: "Firewall - permite SSH a partir da rede da DTIC"
+  community.general.ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+    src: "{{ estacao_dtic_network }}"
+
+- name: "Firewall - permite VNC a partir da rede da DTIC"
+  community.general.ufw:
+    rule: allow
+    port: "5900"
+    proto: tcp
+    src: "{{ estacao_dtic_network }}"
+
+- name: "Firewall - define política padrão (nega entrada, permite saída)"
+  community.general.ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - { direction: incoming, policy: deny }
+    - { direction: outgoing, policy: allow }
+
+- name: "Firewall - habilita o ufw"
+  community.general.ufw:
+    state: enabled

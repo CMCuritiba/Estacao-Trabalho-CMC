@@ -116,6 +116,11 @@
   tags:
     - ssh
 
+- name: Configura o firewall (ufw)
+  ansible.builtin.import_tasks: 215-firewall.yml
+  tags:
+    - firewall
+
 - name: Configura o VNC
   ansible.builtin.import_tasks: 220-vnc.yml
   tags:

@@ -33,6 +33,8 @@
       - rdesktop
       - vino
       - openssh-server
+      # Firewall
+      - ufw
       # Mídia
       - vlc
       - audacity
