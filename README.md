@@ -192,12 +192,18 @@ Configure o **seu** computador:
 
 1. <a name="ansible-install"></a>Para começar, instale o Ansible de acordo com a
    [documentação oficial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-   (sugerimos [fazer a instalação usando o pip](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip)):
-
-   Instale também as dependências da _role_ (passlib):
+   (recomendamos o [pipx](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pipx), conforme orientação oficial para ambientes gerenciados como Ubuntu 24.04 / Linux Mint 22):
 
    ```shell
-   pip install --user passlib
+   sudo apt install -y pipx
+   pipx ensurepath
+   pipx install --include-deps ansible
+   ```
+
+   Instale as dependências da _role_:
+
+   ```shell
+   pipx inject ansible passlib
    ```
 
    Para acessar o computador remoto, será necessário o `sshpass`:
