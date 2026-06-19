@@ -58,8 +58,12 @@
   notify: Restart SSSD
 
 - name: Cria diretorio sssd.service.d se nao existir
-  ansible.builtin.shell:
-    cmd: mkdir -p /etc/systemd/system/sssd.service.d
+  ansible.builtin.file:
+    path: /etc/systemd/system/sssd.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: Cria network.conf
   ansible.builtin.template:

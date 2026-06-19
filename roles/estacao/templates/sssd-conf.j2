@@ -26,9 +26,11 @@ ldap_user_name = uid
 # https://linux.die.net/man/5/sssd.conf
 # https://linux.die.net/man/5/sssd-ad
 # https://linux.die.net/man/5/sssd-ldap
-ldap_opt_timeout = 15 # deve ser maior que dns_resolver_timeout
+# deve ser maior que dns_resolver_timeout
+ldap_opt_timeout = 15
 ldap_network_timeout = 20
-dns_resolver_timeout = 10 # deve ser maior que dns_resolver_op_timeout
+# deve ser maior que dns_resolver_op_timeout
+dns_resolver_timeout = 10
 dns_resolver_op_timeout = 5
-dns_discovery_domain = cmc.local
+dns_discovery_domain = {{ estacao_ad_domain | lower }}
 # ad_server = {{ estacao_ad_ip_addresses | join(',') }} # se descomentar o sssd para de funcionar
