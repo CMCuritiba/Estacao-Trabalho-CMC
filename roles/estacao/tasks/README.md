@@ -195,8 +195,8 @@ Para criar um novo usuário para testes, use o comando:
 | ID | Teste | Como testar |
 |---|---|---|
 | 221 | Verificar serviço x11vnc | Verificar se o serviço systemd foi criado e está ativo<br>No terminal: `systemctl status x11vnc` |
-| 222 | Verificar serviço xrdp | Verificar se o xrdp está habilitado e rodando<br>No terminal: `systemctl status xrdp` |
-| 223 | Testar conexão VNC | Fazer login na estação e tentar conectar via VNC<br>Usar cliente VNC para conectar na porta 5900 — um diálogo de confirmação deve aparecer na tela |
+| 222 | Testar conexão VNC | Fazer login na estação e tentar conectar via VNC<br>Usar cliente VNC para conectar na porta 5900 — um diálogo de confirmação deve aparecer na tela |
+| 223 | Verificar firewall (ufw) | Verificar se o ufw está ativo e expondo SSH/VNC apenas para a rede da DTIC<br>No terminal: `sudo ufw status verbose`<br>De um host fora da rede da DTIC, confirmar que as portas 22 e 5900 estão bloqueadas |
 
 ### `230-menu-items.yml`
 

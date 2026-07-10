@@ -29,10 +29,8 @@
 - name: Instala programas via apt package manager
   ansible.builtin.apt:
     name:
-      # Acesso remoto (VNC, RDP, SSH)
+      # Acesso remoto (VNC, SSH)
       - x11vnc
-      - xrdp
-      - xorgxrdp
       - openssh-server
       - zenity
       # Mídia
