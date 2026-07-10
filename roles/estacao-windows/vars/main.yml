@@ -1,0 +1,51 @@
+---
+# ===========================================================================
+# Variáveis internas da role estacao-windows — não sobrescrever externamente.
+# Caminhos e chaves de registro fixos usados pelas tasks.
+# Equivalente ao vars/main.yml da role estacao (Linux).
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# Diretórios da CMC no Windows
+# ---------------------------------------------------------------------------
+estacao_win_cmc_dir: 'C:\CMC'
+estacao_win_cmc_scripts_dir: '{{ estacao_win_cmc_dir }}\scripts'
+estacao_win_cmc_wallpaper_dir: '{{ estacao_win_cmc_dir }}\wallpaper'
+
+# Arquivo de versão da role (equivalente a /usr/local/cmc/version no Linux)
+estacao_win_version_file: '{{ estacao_win_cmc_dir }}\version.txt'
+
+# Arquivo de política de informática (exibido no login)
+estacao_win_politica: '{{ estacao_win_cmc_dir }}\politica-informatica.txt'
+
+# Imagens de fundo
+estacao_win_wallpaper: '{{ estacao_win_cmc_wallpaper_dir }}\desktop-bg.jpg'
+estacao_win_lockscreen: '{{ estacao_win_cmc_wallpaper_dir }}\lockscreen-bg.jpg'
+
+# ---------------------------------------------------------------------------
+# Caminhos de política dos navegadores
+# ---------------------------------------------------------------------------
+# Firefox: arquivo policies.json na pasta de instalação
+estacao_win_firefox_policies_dir: 'C:\Program Files\Mozilla Firefox\distribution'
+estacao_win_firefox_policies: '{{ estacao_win_firefox_policies_dir }}\policies.json'
+
+# Chrome: pasta de políticas gerenciadas (JSON)
+estacao_win_chrome_policies_dir: 'C:\Program Files\Google\Chrome\Application\policies\managed'
+estacao_win_chrome_policies: '{{ estacao_win_chrome_policies_dir }}\policy.json'
+
+# Edge: pasta de políticas gerenciadas (JSON)
+estacao_win_edge_policies_dir: 'C:\Program Files (x86)\Microsoft\Edge\Application\policies\managed'
+estacao_win_edge_policies: '{{ estacao_win_edge_policies_dir }}\policy.json'
+
+# ---------------------------------------------------------------------------
+# Chaves de registro do Windows usadas pelas tasks
+# ---------------------------------------------------------------------------
+# Aviso legal exibido antes do login (equivalente ao forcelogout do Linux)
+estacao_win_reg_winlogon: 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+
+# Políticas de atualização (Windows Update / WSUS)
+estacao_win_reg_wupdate: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'
+estacao_win_reg_wupdate_au: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU'
+
+# Restrições do Windows Explorer (equivalente ao bloqueio-cinnamon no Linux)
+estacao_win_reg_explorer: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'

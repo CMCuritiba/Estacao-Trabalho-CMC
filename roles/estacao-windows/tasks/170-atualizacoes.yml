@@ -1,0 +1,41 @@
+---
+# Configura a política de atualizações automáticas do Windows.
+# Equivalente Linux: roles/estacao/tasks/170-unattended-upgrades.yml
+#
+# Quando estacao_win_wsus_server estiver preenchido, aponta para o servidor WSUS interno.
+# Caso contrário, usa o Windows Update padrão com download e instalação automáticos.
+
+# Habilita o serviço de Windows Update
+- name: Garante que o serviço Windows Update está habilitado e em execução
+  ansible.windows.win_service:
+    name: wuauserv
+    start_mode: auto
+    state: started
+
+# Configura política de atualização automática via registro
+- name: Configura atualização automática (download e instalação programados)
+  ansible.windows.win_regedit:
+    path: "{{ estacao_win_reg_wupdate_au }}"
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: dword
+  loop:
+    # 1 = desabilitado; 2 = notifica; 3 = download automático + notifica; 4 = download + instala automaticamente
+    - { name: AUOptions, data: 4 }
+    # Agenda a instalação para as 03:00 (fora do horário de expediente)
+    - { name: ScheduledInstallDay, data: 0 }   # 0 = diário
+    - { name: ScheduledInstallTime, data: 3 }  # 3 = 03:00
+    # Permite que usuários padrão aprovem as atualizações
+    - { name: AutoInstallMinorUpdates, data: 1 }
+
+# Configura apontamento para WSUS (se definido)
+- name: Configura WSUS como servidor de atualização
+  ansible.windows.win_regedit:
+    path: "{{ estacao_win_reg_wupdate }}"
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: string
+  loop:
+    - { name: WUServer, data: "{{ estacao_win_wsus_server }}" }
+    - { name: WUStatusServer, data: "{{ estacao_win_wsus_server }}" }
+  when: estacao_win_wsus_server | length > 0

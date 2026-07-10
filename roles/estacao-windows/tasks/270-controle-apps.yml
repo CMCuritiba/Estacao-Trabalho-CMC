@@ -1,0 +1,26 @@
+---
+# Configura controle de execução de aplicativos via AppLocker.
+# Equivalente Linux: roles/estacao/tasks/270-bloqueio-cinnamon.yml
+#
+# ATENÇÃO: AppLocker requer Windows 10/11 Enterprise ou Education.
+# Em edições Pro, use Software Restriction Policies (SRP) como alternativa.
+#
+# TODO (Fase 5): Implementar
+# - Definir regras AppLocker em XML para:
+#     * Bloquear execução de instaladores não autorizados (.exe, .msi) por usuários padrão
+#     * Permitir execução apenas de aplicativos em C:\Program Files e C:\Windows
+#     * Exceções para o usuário suporte e grupo DTIC
+# - Aplicar via win_shell com Set-AppLockerPolicy -XMLPolicy
+
+- name: Habilita o serviço AppIDSvc (necessário para AppLocker)
+  ansible.windows.win_service:
+    name: AppIDSvc
+    start_mode: auto
+    state: started
+  # AppIDSvc pode não existir em edições não-Enterprise; ignora o erro
+  ignore_errors: true # noqa: ignore-errors
+
+- name: Exibe aviso de implementação pendente
+  ansible.builtin.debug:
+    msg: "TODO: Configuração de AppLocker (Fase 5) — requer Windows Enterprise/Education"
+  changed_when: false

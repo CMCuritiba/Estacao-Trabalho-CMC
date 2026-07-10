@@ -1,0 +1,32 @@
+---
+# Configura impressoras de rede via servidor de impressão da CMC.
+# Equivalente Linux: roles/estacao/tasks/250-configura-cups.yml
+#
+# TODO (Fase 4): Implementar
+# - Instalar driver via win_printer_driver
+# - Conectar ao servidor de impressão via community.windows.win_printer
+# - Definir impressora padrão
+
+- name: Verifica se servidor de impressão está configurado
+  ansible.builtin.debug:
+    msg: >
+      Configuração de impressora ignorada:
+      estacao_win_print_server está vazio.
+      Defina o valor em group_vars/windows.yml para habilitar.
+  when: estacao_win_print_server | length == 0
+  changed_when: false
+
+# TODO (Fase 4): Descomentar e implementar quando print_server estiver definido
+# - name: Instala driver de impressora
+#   community.windows.win_printer_driver:
+#     name: "{{ estacao_win_print_driver }}"
+#     state: present
+#
+# - name: Adiciona impressora de rede
+#   community.windows.win_printer:
+#     name: "Impressora CMC"
+#     driver: "{{ estacao_win_print_driver }}"
+#     port: "{{ estacao_win_print_server }}"
+#     state: present
+#   when: estacao_win_print_server | length > 0
+#   notify: Restart Print Spooler

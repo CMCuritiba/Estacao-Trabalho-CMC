@@ -1,0 +1,23 @@
+---
+# handlers para a role estacao-windows
+
+- name: Restart WinRM
+  ansible.windows.win_service:
+    name: WinRM
+    state: restarted
+
+- name: Restart Print Spooler
+  ansible.windows.win_service:
+    name: Spooler
+    state: restarted
+
+- name: Restart SSH
+  ansible.windows.win_service:
+    name: sshd
+    state: restarted
+
+- name: Reboot após AD join
+  ansible.windows.win_reboot:
+    reboot_timeout: 600
+    post_reboot_delay: 30
+    msg: "Reinicializando para concluir o ingresso no domínio AD"

@@ -1,0 +1,16 @@
+---
+# Configura pastas padrão para novos usuários e cria atalhos no Desktop.
+# No Windows, isso é feito via perfil padrão (C:\Users\Default) para que
+# todos os usuários que fizerem login herdem a estrutura.
+# Equivalente Linux: roles/estacao/tasks/050-skel.yml
+#
+# TODO (Fase 3): Implementar
+# - Criar pastas padrão no perfil Default (Documentos, Downloads, etc.)
+# - Criar atalhos (.lnk) no Desktop do perfil Default para:
+#     Chrome, Edge, Firefox, Chamados, Intranet
+# - Configurar pastas conhecidas via win_regedit (HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders)
+
+- name: Cria diretório de scripts da CMC
+  ansible.windows.win_file:
+    path: "{{ estacao_win_cmc_scripts_dir }}"
+    state: directory

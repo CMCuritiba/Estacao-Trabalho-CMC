@@ -1,0 +1,47 @@
+---
+# Configura retenção de logs do Event Viewer e políticas de auditoria do Windows.
+# Equivalente Linux: roles/estacao/tasks/290-configura-logs.yml
+
+# Aumenta o tamanho máximo dos logs de segurança e sistema para retenção adequada
+- name: Configura tamanho máximo do log de Segurança (512 MB)
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\Security
+    name: MaxSize
+    # 512 MB em bytes; garante retenção de eventos de autenticação e auditoria
+    data: 536870912
+    type: dword
+
+- name: Configura tamanho máximo do log de Sistema (256 MB)
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\System
+    name: MaxSize
+    data: 268435456
+    type: dword
+
+- name: Configura tamanho máximo do log de Aplicação (256 MB)
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\Application
+    name: MaxSize
+    data: 268435456
+    type: dword
+
+# Habilita políticas de auditoria para rastreabilidade de acessos
+- name: Habilita auditoria de logon (sucesso e falha)
+  community.windows.win_audit_policy_system:
+    subcategory: Logon
+    audit_type: success, failure
+
+- name: Habilita auditoria de logoff
+  community.windows.win_audit_policy_system:
+    subcategory: Logoff
+    audit_type: success
+
+- name: Habilita auditoria de uso de privilégios
+  community.windows.win_audit_policy_system:
+    subcategory: Sensitive Privilege Use
+    audit_type: success, failure
+
+- name: Habilita auditoria de gerenciamento de contas de usuário
+  community.windows.win_audit_policy_system:
+    subcategory: User Account Management
+    audit_type: success, failure

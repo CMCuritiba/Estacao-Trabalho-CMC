@@ -1,0 +1,35 @@
+---
+# Cria o usuário local de suporte e garante que ele pertença ao grupo local
+# equivalente do Linux (suporte) e ao grupo de Administradores.
+# Equivalente Linux: roles/estacao/tasks/010-user-group-suporte.yml
+
+- name: Cria grupo local para suporte
+  ansible.windows.win_group:
+    name: "{{ estacao_win_suporte_usuario }}"
+    description: "Grupo local do usuário de suporte DTIC"
+    state: present
+
+- name: Cria usuário local de suporte
+  ansible.windows.win_user:
+    name: "{{ estacao_win_suporte_usuario }}"
+    password: "{{ estacao_win_suporte_senha }}"
+    update_password: always
+    fullname: "Suporte DTIC"
+    description: "Usuário local de suporte técnico - CMC"
+    state: present
+    # Senha não expira para evitar perda de acesso remoto sem aviso
+    password_never_expires: true
+    user_cannot_change_password: false
+    account_disabled: false
+
+- name: Garante que o usuário de suporte está nos grupos corretos
+  ansible.windows.win_group_membership:
+    name: "{{ item }}"
+    members:
+      - "{{ estacao_win_suporte_usuario }}"
+    state: present
+  loop:
+    # Grupo local homônimo (organização interna)
+    - "{{ estacao_win_suporte_usuario }}"
+    # Acesso administrativo local (equivalente ao grupo sudo no Linux)
+    - Administrators

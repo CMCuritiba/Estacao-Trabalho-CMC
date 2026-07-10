@@ -1,0 +1,94 @@
+---
+# ===========================================================================
+# Variáveis padrão da role estacao-windows
+# Todas as variáveis aqui podem ser sobrescritas em group_vars ou host_vars.
+# Senhas e segredos devem vir do Ansible Vault (inventory/vault.yml).
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# Usuário local de suporte
+# ---------------------------------------------------------------------------
+estacao_win_suporte_usuario: suporte            # type: string username
+estacao_win_suporte_senha: senha_usuario_suporte # type: string password (use vault)
+
+# ---------------------------------------------------------------------------
+# Grupo DTIC no AD (será adicionado aos Administradores locais)
+# ---------------------------------------------------------------------------
+estacao_win_dtic_grupo: "DOMINIO\\DTIC"         # type: string (DOMINIO\Grupo)
+
+# ---------------------------------------------------------------------------
+# Active Directory
+# Reutiliza variáveis do all.yml quando disponíveis; define fallbacks.
+# ---------------------------------------------------------------------------
+estacao_win_ad_domain: "{{ estacao_ad_domain | default('example.com') }}"
+estacao_win_ad_ip_addresses: "{{ estacao_ad_ip_addresses | default(['0.0.0.0']) }}"
+estacao_win_ad_fallback_ips: "{{ estacao_ad_fallback_ips | default(['8.8.8.8', '9.9.9.9']) }}"
+estacao_win_ad_join_user: "{{ estacao_ad_join_user | default('administrator') }}"
+estacao_win_ad_join_senha: "{{ estacao_ad_join_pass | default('') }}"         # type: string password (use vault)
+
+# ---------------------------------------------------------------------------
+# Windows Update / WSUS
+# ---------------------------------------------------------------------------
+# Deixe vazio para usar o Windows Update diretamente (sem WSUS)
+estacao_win_wsus_server: ""                     # type: string URL (opcional)
+
+# ---------------------------------------------------------------------------
+# Aplicativos a instalar via winget
+# ---------------------------------------------------------------------------
+estacao_win_apps:
+  # Navegadores
+  - name: "Google Chrome"
+    id: "Google.Chrome"
+  - name: "Microsoft Edge"
+    id: "Microsoft.Edge"
+  - name: "Mozilla Firefox (pt-BR)"
+    id: "Mozilla.Firefox.pt-BR"
+  # Multimídia
+  - name: "VLC"
+    id: "VideoLAN.VLC"
+  - name: "GIMP"
+    id: "GIMP.GIMP"
+  - name: "Inkscape"
+    id: "Inkscape.Inkscape"
+  # Utilitários
+  - name: "7-Zip"
+    id: "7zip.7zip"
+  - name: "Adobe Acrobat Reader"
+    id: "Adobe.Acrobat.Reader.64-bit"
+  - name: "PDFsam Basic"
+    id: "PDFsam.PDFsam"
+  # Acesso remoto
+  - name: "OpenSSH (cliente)"
+    id: "Microsoft.OpenSSH.Beta"
+
+# ---------------------------------------------------------------------------
+# Aplicativos a remover (AppX/bloatware padrão do Windows)
+# ---------------------------------------------------------------------------
+estacao_win_apps_remover:
+  - "Microsoft.BingNews"
+  - "Microsoft.BingWeather"
+  - "Microsoft.GamingApp"
+  - "Microsoft.GetHelp"
+  - "Microsoft.Getstarted"
+  - "Microsoft.MicrosoftSolitaireCollection"
+  - "Microsoft.People"
+  - "Microsoft.Todos"
+  - "Microsoft.WindowsFeedbackHub"
+  - "Microsoft.XboxApp"
+  - "Microsoft.ZuneMusic"
+  - "Microsoft.ZuneVideo"
+  - "Clipchamp.Clipchamp"
+  - "MicrosoftTeams"          # Teams pré-instalado (Windows 11)
+
+# ---------------------------------------------------------------------------
+# Bookmarks dos navegadores
+# Reutiliza a lista da role Linux quando disponível.
+# ---------------------------------------------------------------------------
+estacao_win_bookmarks: "{{ estacao_bookmarks | default([]) }}"
+
+# ---------------------------------------------------------------------------
+# Impressão
+# ---------------------------------------------------------------------------
+# Deixe vazio para não configurar servidor de impressão
+estacao_win_print_server: ""    # type: string ex: "\\\\servidor.dominio.local"
+estacao_win_print_driver: "HP Universal Printing PCL 6"  # driver padrão da impressora

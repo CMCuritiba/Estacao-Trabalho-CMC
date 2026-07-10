@@ -1,0 +1,13 @@
+---
+# Adiciona o grupo DTIC do AD ao grupo local de Administradores.
+# Equivale ao sudoers no Linux: membros do DTIC têm acesso administrativo total.
+# Deve ser executada APÓS o ingresso no domínio (140-integra-ad.yml).
+# Equivalente Linux: roles/estacao/tasks/160-sudoers.yml
+
+- name: Adiciona grupo DTIC ao grupo local Administrators
+  ansible.windows.win_group_membership:
+    name: Administrators
+    members:
+      - "{{ estacao_win_dtic_grupo }}"
+    # 'present' é idempotente: não remove outros membros existentes
+    state: present

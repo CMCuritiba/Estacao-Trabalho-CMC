@@ -1,0 +1,13 @@
+---
+# Configura os servidores DNS da estação para que o controlador de domínio AD
+# seja resolvível antes do ingresso no domínio.
+# Deve ser executada ANTES de 140-integra-ad.yml.
+# Equivalente Linux: roles/estacao/tasks/120-configura-dns.yml
+
+- name: Configura servidores DNS em todos os adaptadores de rede
+  community.windows.win_dns_client:
+    adapter_names: '*'
+    # IPs primários: controladores de domínio AD
+    # IPs de fallback: resolvedores públicos para quando o AD não estiver acessível
+    ipv4_addresses: "{{ estacao_win_ad_ip_addresses + estacao_win_ad_fallback_ips }}"
+    state: present

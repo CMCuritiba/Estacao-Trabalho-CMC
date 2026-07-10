@@ -1,0 +1,35 @@
+---
+# Instala os aplicativos necessários via winget (Windows Package Manager).
+# winget está disponível nativamente no Windows 10 (20H1+) e Windows 11.
+# Equivalente Linux: roles/estacao/tasks/030-instala-programas.yml
+
+# Verifica disponibilidade do winget antes de tentar instalar
+- name: Verifica se winget está disponível
+  ansible.windows.win_shell: winget --version
+  register: winget_versao
+  changed_when: false
+  failed_when: winget_versao.rc != 0
+
+- name: Instala aplicativos via winget
+  ansible.windows.win_shell: |
+    $resultado = winget install `
+      --id {{ item.id }} `
+      --silent `
+      --accept-package-agreements `
+      --accept-source-agreements `
+      2>&1
+    # winget retorna 0 para sucesso e -1978335189 (0x8A15002B) quando já instalado
+    if ($LASTEXITCODE -eq 0) {
+      Write-Output "INSTALADO"
+    } elseif ($LASTEXITCODE -eq -1978335189 -or $resultado -match 'already installed') {
+      Write-Output "JA_INSTALADO"
+    } else {
+      Write-Error "Falha ao instalar {{ item.id }}: $resultado"
+    }
+  loop: "{{ estacao_win_apps }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: winget_resultado
+  # Alteração real apenas quando o pacote foi de fato instalado nesta execução
+  changed_when: "'INSTALADO' in winget_resultado.stdout"
+  failed_when: winget_resultado.rc != 0 and 'JA_INSTALADO' not in winget_resultado.stdout

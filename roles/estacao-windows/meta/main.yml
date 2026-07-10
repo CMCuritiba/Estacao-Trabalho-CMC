@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: estacao-windows
+  author: CMC - Câmara Municipal de Curitiba / DTIC
+  description: >
+    Provisionamento e padronização de estações de trabalho Windows 10/11 da CMC.
+    Equivalente Windows da role estacao (Linux Mint).
+  license: MIT
+
+  min_ansible_version: "2.16"
+
+  platforms:
+    - name: windows
+      versions:
+        - 2019
+        - 2022
+
+dependencies: []

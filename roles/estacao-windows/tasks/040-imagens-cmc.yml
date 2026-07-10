@@ -1,0 +1,17 @@
+---
+# Configura o papel de parede e a imagem da tela de bloqueio com a identidade visual da CMC.
+# Equivalente Linux: roles/estacao/tasks/040-imagens-cmc.yml
+#
+# TODO (Fase 3): Implementar
+# - Copiar arquivos de imagem para {{ estacao_win_cmc_wallpaper_dir }}
+# - Definir wallpaper via win_regedit:
+#     HKCU:\Control Panel\Desktop → Wallpaper = {{ estacao_win_wallpaper }}
+# - Definir imagem de bloqueio via win_regedit:
+#     HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP
+#       → LockScreenImagePath = {{ estacao_win_lockscreen }}
+#       → LockScreenImageStatus = 1 (habilita política)
+
+- name: Cria diretório de wallpapers da CMC
+  ansible.windows.win_file:
+    path: "{{ estacao_win_cmc_wallpaper_dir }}"
+    state: directory
