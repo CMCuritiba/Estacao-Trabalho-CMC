@@ -1,6 +1,52 @@
 # Caderno de Testes - Estação de Trabalho CMC
 
-Este documento contém todos os testes necessários para validar a configuração correta da estaç### Categoria: Integração AD (140-integra-ad.yml)
+Este documento contém todos os testes necessários para validar a configuração correta da estação de trabalho.
+
+Obs: Este caderno foi feito com o agente de IA GitHub Copilot, e pode conter erros.
+Favor revisar cuidadosamente antes de usar.
+
+## Como usar este caderno
+
+1. Execute cada teste na ordem apresentada
+2. Marque como ✅ os testes que passaram
+3. Marque como ❌ os testes que falharam e investigue o problema
+4. Para testes automáticos, use o comando `molecule verify` na pasta `roles/estacao/`
+
+## Testes Automatizados com Molecule
+
+Para facilitar a validação, alguns testes podem ser executados automaticamente usando o Molecule:
+
+```bash
+cd roles/estacao/
+molecule verify
+```
+
+### Testes automatizados disponíveis:
+- **001-002**: Verificação de usuário suporte e grupos
+- **004**: Verificação de programas removidos
+- **005**: Verificação de repositórios brasileiros
+- **006**: Verificação de programas essenciais instalados
+- **007**: Verificação de instalação do Google Chrome
+- **009**: Verificação de imagens CMC
+- **011**: Verificação de diretórios skel
+- **013**: Verificação de políticas do Chrome
+- **019**: Verificação de TTY desabilitados
+- **022**: Verificação de políticas do terminal
+- **023**: Verificação de configuração DNS
+- **025-026**: Verificação de script e serviço de boot
+- **028-029**: Verificação de pacotes e configuração AD
+- **034**: Verificação de configuração sudoers
+- **036**: Verificação de unattended-upgrades
+- **040-041**: Verificação de S3FS e mount point
+- **045-046**: Verificação de SSH server
+- **057**: Verificação de CUPS
+- **066**: Verificação de script on-login
+- **072**: Verificação de arquivo de versão
+- **073**: Verificação de diretório de arquivos modificados
+
+> **Nota**: Os testes automatizados cobrem validações que podem ser verificadas programaticamente. Testes que requerem interação do usuário, verificação visual ou testes de funcionalidade devem ser executados manualmente seguindo as instruções abaixo.
+
+### Categoria: Integração AD (140-integra-ad.yml)
 
 | ID  | Teste | Como testar |
 |-----|-------|----### Categoria: SSH Server (210-ssh-server.yml)
@@ -67,12 +113,7 @@ Este documento contém todos os testes necessários para validar a configuraçã
 |-----|-------|-------------|
 | 291 | Configuração logs | Verificar configuração de logs<br>Comando: `cat /etc/rsyslog.conf`<br>Configurações personalizadas devem estar presentes |
 
-### Categoria: Zoom AutoUpdate (300-zoom-autoupdate.yml)
 
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 301 | Script zoom criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/zoom-update.sh`<br>Script deve existir |
-| 302 | Timer zoom ativo | Verificar se timer está ativo<br>Comando: `systemctl status zoom-update.timer`<br>Timer deve estar habilitado |
 
 ### Categoria: Versionamento (990-versionamento.yml)
 
@@ -85,15 +126,14 @@ Este documento contém todos os testes necessários para validar a configuraçã
 | ID  | Teste | Como testar |
 |-----|-------|-------------|
 | 999 | Log arquivos modificados | Verificar se log foi criado<br>Comando: `cat /var/log/cmc-modified-files.log`<br>Deve conter lista de arquivos modificados |-|
+
+### Categoria: PAM (150-configura-pam.yml)
+| ID  | Teste | Como testar |
+|-----|-------|-------------|
 | 141 | SSSD instalado | Verificar se SSSD está instalado<br>Comando: `dpkg -l \| grep sssd`<br>Pacotes relacionados ao SSSD devem estar presentes |
 | 142 | Integração com domínio | Verificar se máquina está no domínio<br>Comando: `realm list`<br>Deve mostrar o domínio configurado |
 | 143 | Configuração SSSD | Verificar arquivo de configuração<br>Comando: `cat /etc/sssd/sssd.conf`<br>Configurações do domínio devem estar presentes |
 | 144 | Login AD funcionando | Testar login com usuário do domínio<br>Fazer logout e tentar login com usuário AD |
-
-### Categoria: PAM (150-configura-pam.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
 | 151 | Configuração PAM | Verificar arquivos PAM modificados<br>Comando: `cat /etc/pam.d/common-session`<br>Deve conter configurações personalizadas |
 | 152 | Home directory criado | Fazer login com usuário AD<br>Verificar se diretório home é criado automaticamente |
 
@@ -130,49 +170,7 @@ Este documento contém todos os testes necessários para validar a configuraçã
 | 201 | Script rede criado | Verificar se script existe<br>Comando: `ls -la /opt/cmc/`<br>Script de rede deve existir |
 | 202 | Serviço rede ativo | Verificar se serviço está funcionando<br>Comando: `systemctl status cmc-network.service` |balho CMC após a instalação/atualização.
 
-Obs: Este caderno foi feito com o agente de IA GitHub Copilot, e pode conter erros.
-Favor revisar cuidadosamente antes de usar.
 
-## Como usar este caderno
-
-1. Execute cada teste na ordem apresentada
-2. Marque como ✅ os testes que passaram
-3. Marque como ❌ os testes que falharam e investigue o problema
-4. Para testes automáticos, use o comando `molecule verify` na pasta `roles/estacao/`
-
-## Testes Automatizados com Molecule
-
-Para facilitar a validação, alguns testes podem ser executados automaticamente usando o Molecule:
-
-```bash
-cd roles/estacao/
-molecule verify
-```
-
-### Testes automatizados disponíveis:
-- **001-002**: Verificação de usuário suporte e grupos
-- **004**: Verificação de programas removidos
-- **005**: Verificação de repositórios brasileiros
-- **006**: Verificação de programas essenciais instalados
-- **007**: Verificação de instalação do Google Chrome
-- **009**: Verificação de imagens CMC
-- **011**: Verificação de diretórios skel
-- **013**: Verificação de políticas do Chrome
-- **019**: Verificação de TTY desabilitados
-- **022**: Verificação de políticas do terminal
-- **023**: Verificação de configuração DNS
-- **025-026**: Verificação de script e serviço de boot
-- **028-029**: Verificação de pacotes e configuração AD
-- **034**: Verificação de configuração sudoers
-- **036**: Verificação de unattended-upgrades
-- **040-041**: Verificação de S3FS e mount point
-- **045-046**: Verificação de SSH server
-- **057**: Verificação de CUPS
-- **066**: Verificação de script on-login
-- **072**: Verificação de arquivo de versão
-- **073**: Verificação de diretório de arquivos modificados
-
-> **Nota**: Os testes automatizados cobrem validações que podem ser verificadas programaticamente. Testes que requerem interação do usuário, verificação visual ou testes de funcionalidade devem ser executados manualmente seguindo as instruções abaixo.
 
 ## Testes Manuais
 
@@ -197,7 +195,6 @@ molecule verify
 | 031 | Repositórios brasileiros | Verificar se repositórios estão configurados para Brasil<br>Comando: `grep "br.archive.ubuntu.com" /etc/apt/sources.list.d/official-package-repositories.list`<br>Comando: `grep "mint-packages.c3sl.ufpr.br" /etc/apt/sources.list.d/official-package-repositories.list` |
 | 032 | Programas essenciais instalados | Verificar instalação de programas essenciais<br>Comando: `dpkg -l | grep -E "(curl|vim|git|htop|tree|unzip|wget|ssh)"`<br>Todos devem estar instalados |
 | 033 | Google Chrome instalado | Verificar se Google Chrome está instalado<br>Comando: `google-chrome --version`<br>Deve retornar a versão instalada |
-| 034 | Zoom instalado | Verificar se Zoom está instalado<br>Comando: `zoom --version` ou verificar em `/opt/zoom/` |
 
 ### Categoria: Imagens CMC (040-imagens-cmc.yml)
 
@@ -395,12 +392,6 @@ molecule verify
 | 292 | Configuração rsyslog | Verificar configuração de logs<br>Comando: `cat /etc/rsyslog.conf`<br>Verificar se tem configurações personalizadas |
 | 293 | Logs funcionando | Verificar se logs estão sendo gerados<br>Comando: `tail -f /var/log/syslog`<br>Deve mostrar atividade do sistema |
 
-### Categoria: Zoom Autoupdate (300-zoom-autoupdate.yml)
-
-| ID  | Teste | Como testar |
-|-----|-------|-------------|
-| 303 | Script zoom update | Verificar script de atualização<br>Comando: `ls -la /opt/cmc/zoom-update.sh`<br>Script deve existir |
-| 304 | Serviço zoom update | Verificar serviço de atualização<br>Comando: `systemctl status zoom-update.service`<br>Verificar se está configurado |
 
 ### Categoria: Versionamento (990-versionamento.yml)
 
