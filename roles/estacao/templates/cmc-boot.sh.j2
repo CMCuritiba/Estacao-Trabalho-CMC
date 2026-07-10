@@ -28,6 +28,7 @@ DNS=8.8.8.8 9.9.9.9" >"$resolv_conf"
     fi
 }
 
+# Reconfigura servidores de DNS e split DNS para o domínio da CMC
 configura_dns
 
 CMCDOMAIN="{{estacao_ad_domain | lower}}"
