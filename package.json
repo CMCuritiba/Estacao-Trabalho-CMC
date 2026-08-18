@@ -21,6 +21,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "npm": "^12.0.1"
+    "npm": "^12.0.2"
   }
 }
