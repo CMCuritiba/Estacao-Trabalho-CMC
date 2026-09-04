@@ -5,6 +5,7 @@ After=network-online.target
 [Service]
 Restart=on-failure
 RestartSec=60
+EnvironmentFile={{ estacao_ad_join_env }}
 ExecStart=/bin/bash {{ estacao_bootsh }}
 
 [Install]

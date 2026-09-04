@@ -9,7 +9,7 @@
   register: hostname
   changed_when: false
 
-- name: "Garante que hostname esteja configurado"
+- name: Garante que hostname esteja configurado
   ansible.builtin.assert:
     that: (estacao_ad_domain | lower) in hostname.stdout
     fail_msg: "Hostname não configurado, abortando"
@@ -27,21 +27,14 @@
       - adcli
     state: present
 
-# Configura arquivo do Kerberos com o domínio e evita problema de DNS reverso
-- name: Configura Kerberos
-  block:
-    - name: Configura default_realm para domínio da CMC
-      ansible.builtin.lineinfile:
-        path: /etc/krb5.conf
-        regexp: default_realm.*
-        line: "default_realm = {{ estacao_ad_domain | upper }}"
-
-    - name: Desativa DNS reverso
-      ansible.builtin.lineinfile:
-        path: /etc/krb5.conf
-        regexp: \s*rdns.+false$
-        line: "\trdns = false" # noqa: no-tabs
-        insertafter: "^default_realm"
+- name: Configuração do Kerberos
+  ansible.builtin.template:
+    src: templates/krb5-conf.j2
+    dest: /etc/krb5.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
 
 - name: Verifica se a máquina já está no realm
   ansible.builtin.shell:
@@ -55,7 +48,7 @@
     cmd: echo "{{ estacao_ad_join_pass }}" | realm join -U "{{ estacao_ad_join_user }}" "{{ estacao_ad_domain | lower }}"
   when: ad_domain_list.rc != 0
 
-- name: "Configuração do sssd"
+- name: Configuração do sssd
   ansible.builtin.template:
     src: templates/sssd-conf.j2
     dest: /etc/sssd/conf.d/01-cmc.conf
@@ -63,6 +56,19 @@
     group: root
     mode: "0600"
   notify: Restart SSSD
+
+- name: Cria diretorio sssd.service.d se nao existir
+  ansible.builtin.file:
+    path: /etc/systemd/system/sssd.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Cria network.conf
+  ansible.builtin.template:
+    src: templates/network.conf.j2
+    dest: /etc/systemd/system/sssd.service.d/network.conf
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers

@@ -4,6 +4,7 @@ estacao_cmc_dir: "/usr/local/cmc"
 estacao_cmc_scripts_dir: "{{ estacao_cmc_dir }}/scripts"
 estacao_cmc_modificados_dir: "{{ estacao_cmc_dir }}/modificados"
 estacao_bootsh: "{{ estacao_cmc_scripts_dir }}/cmc-boot.sh"
+estacao_ad_join_env: "{{ estacao_cmc_dir }}/ad-join.env"
 estacao_loginsh: "{{ estacao_cmc_scripts_dir }}/on-login.sh"
 estacao_politica: "{{ estacao_cmc_dir }}/politica-informatica.txt"
 estacao_wallpaper_filename: /usr/share/backgrounds/cmc/desktop-bg.png

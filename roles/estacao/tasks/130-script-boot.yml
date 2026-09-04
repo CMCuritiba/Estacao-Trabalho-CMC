@@ -6,6 +6,19 @@
     owner: root
     group: root
     mode: "0755"
+  tags:
+    - ad
+
+- name: Configura credenciais de join do AD para o script de boot
+  ansible.builtin.template:
+    src: ad-join.env.j2
+    dest: "{{ estacao_ad_join_env }}"
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  tags:
+    - ad
 
 - name: Configura cmc-boot.service
   ansible.builtin.template:
