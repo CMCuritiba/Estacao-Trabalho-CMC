@@ -1,0 +1,38 @@
+---
+# Remove aplicativos padrão desnecessários do Windows (bloatware).
+# A remoção é feita para o usuário atual e provisionada para novos usuários.
+# Equivalente Linux: roles/estacao/tasks/020-remover-programas.yml
+
+- name: Remove pacotes AppX/bloatware para o usuário atual
+  ansible.windows.win_shell: |
+    $pacote = "{{ item }}"
+    $instalado = Get-AppxPackage -Name $pacote -ErrorAction SilentlyContinue
+    if ($instalado) {
+        Remove-AppxPackage -Package $instalado.PackageFullName -ErrorAction SilentlyContinue
+        Write-Output "Removido: $pacote"
+    } else {
+        Write-Output "Não encontrado (ignorando): $pacote"
+    }
+  loop: "{{ estacao_win_apps_remover }}"
+  loop_control:
+    label: "{{ item }}"
+  # Considerado sem alteração quando o pacote já não está presente
+  register: remocao_resultado
+  changed_when: "'Removido:' in remocao_resultado.stdout"
+
+- name: Remove pacotes AppX do provisionamento (impede reinstalação para novos usuários)
+  ansible.windows.win_shell: |
+    $pacote = "{{ item }}"
+    $provisionado = Get-AppxProvisionedPackage -Online |
+        Where-Object { $_.DisplayName -eq $pacote } -ErrorAction SilentlyContinue
+    if ($provisionado) {
+        Remove-AppxProvisionedPackage -Online -PackageName $provisionado.PackageName -ErrorAction SilentlyContinue
+        Write-Output "Provisionamento removido: $pacote"
+    } else {
+        Write-Output "Não provisionado (ignorando): $pacote"
+    }
+  loop: "{{ estacao_win_apps_remover }}"
+  loop_control:
+    label: "{{ item }}"
+  register: remocao_prov_resultado
+  changed_when: "'Provisionamento removido:' in remocao_prov_resultado.stdout"

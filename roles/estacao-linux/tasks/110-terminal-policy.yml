@@ -1,0 +1,10 @@
+---
+# Configura as políticas do pkexec para abrir o gnome-terminal como usuário root
+# Fontes: https://unix.stackexchange.com/questions/203136/how-do-i-run-gui-applications-as-root-by-using-pkexec
+# Como abrir o gedit com o pkexec em modo root
+
+- name: "Cria o arquivo de política do PolicyKit"
+  ansible.builtin.copy:
+    dest: /usr/share/polkit-1/actions/org.freedesktop.policykit.terminal.policy
+    mode: "0644"
+    src: "org.freedesktop.policykit.terminal.policy"

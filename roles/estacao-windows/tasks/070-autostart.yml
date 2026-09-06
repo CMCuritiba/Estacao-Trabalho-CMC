@@ -1,0 +1,14 @@
+---
+# Configura tarefas agendadas para scripts de inicialização da CMC.
+# Equivalente Linux: roles/estacao/tasks/070-autostart.yml + 130-script-boot.yml
+#
+# TODO (Fase 4): Implementar
+# - Criar script C:\CMC\scripts\cmc-boot.ps1 (configura hostname, etc.)
+# - Registrar tarefa agendada no Task Scheduler para executar o script no boot
+#   usando o módulo community.windows.win_scheduled_task
+# - Desabilitar tarefas de telemetria desnecessárias do Windows
+
+- name: Exibe aviso de implementação pendente
+  ansible.builtin.debug:
+    msg: "TODO: Configuração de tarefas agendadas (Fase 4)"
+  changed_when: false

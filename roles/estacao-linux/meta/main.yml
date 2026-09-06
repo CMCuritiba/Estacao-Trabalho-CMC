@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: estacao
+  namespace: cmcuritiba
+  author: Divisão de Arquitetura de Serviços
+  description: Configura Estação de Trabalho com Linux Mint
+  company: Câmara Municipal de Curitiba
+
+  # Choose a valid license ID from https://spdx.org - some suggested licenses:
+  # - BSD-3-Clause (default)
+  # - MIT
+  # - GPL-2.0-or-later
+  # - GPL-3.0-only
+  # - Apache-2.0
+  # - CC-BY-4.0
+  license: GPL-3.0-or-later
+
+  min_ansible_version: 2.16.6
+
+  platforms:
+    - name: Ubuntu
+      versions:
+      - jammy
+
+  galaxy_tags:
+    - cmcuritiba
+    - et
+
+dependencies: []

@@ -1,0 +1,21 @@
+---
+# Configura a política de execução do PowerShell e o perfil padrão.
+# Equivalente Linux: roles/estacao/tasks/180-bashrc.yml
+
+- name: Define política de execução do PowerShell como RemoteSigned
+  # RemoteSigned: permite scripts locais, exige assinatura para scripts remotos
+  # Mais seguro que Unrestricted, mas ainda permite automação interna
+  ansible.windows.win_shell: |
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
+
+  changed_when: false
+
+- name: Cria diretório de perfil do PowerShell para todos os usuários
+  ansible.windows.win_file:
+    # Equivalente ao /etc/skel para o perfil PS
+    path: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+    state: directory
+
+# TODO (Fase 4): Adicionar aliases e funções CMC ao perfil global do PowerShell
+# Arquivo: C:\Windows\System32\WindowsPowerShell\v1.0\profile.ps1
+# Equivalente ao .bash_aliases do Linux

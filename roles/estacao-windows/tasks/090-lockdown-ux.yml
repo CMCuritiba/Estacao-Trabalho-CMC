@@ -1,0 +1,25 @@
+---
+# Aplica restrições de interface para usuários padrão via registro.
+# Equivalente ao bloqueio-cinnamon e desabilita-tty do Linux.
+# Equivalente Linux: roles/estacao/tasks/090-desabilita-tty.yml + 270-bloqueio-cinnamon.yml
+#
+# TODO (Fase 3): Implementar restrições adicionais conforme análise da DTIC
+# - Desabilitar acesso ao Painel de Controle para usuários padrão
+# - Restringir acesso ao Task Manager (se necessário)
+# - Configurar screensaver com senha após inatividade
+
+- name: Desabilita o acesso ao Painel de Controle e Configurações para usuários padrão
+  ansible.windows.win_regedit:
+    path: "{{ estacao_win_reg_explorer }}"
+    name: NoControlPanel
+    # 1 = desabilitado; aplica apenas para usuários sem privilégios administrativos
+    data: 1
+    type: dword
+
+- name: Desabilita o acesso ao Prompt de Comando (cmd.exe) para usuários padrão
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\System
+    name: DisableCMD
+    # 1 = desabilita cmd.exe mas permite scripts batch; 2 = desabilita completamente
+    data: 1
+    type: dword

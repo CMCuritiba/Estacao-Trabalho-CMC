@@ -1,0 +1,11 @@
+---
+# Mantém um arquivo de versão da role em C:\CMC\version.txt.
+# Equivalente Linux: roles/estacao/tasks/990-versionamento.yml
+# Esquema de versionamento SemVer: https://semver.org/
+# Formato: ETW-MAJOR.MINOR.PATCH (prefixo W = Windows)
+
+- name: Registra versão da role estacao-windows
+  ansible.windows.win_copy:
+    content: "ETW-1.0.0"
+    dest: "{{ estacao_win_version_file }}"
+    force: true

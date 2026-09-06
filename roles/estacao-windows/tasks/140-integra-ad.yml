@@ -1,0 +1,57 @@
+---
+# Ingressa a estação no domínio Active Directory da CMC.
+# ATENÇÃO: esta task reinicializa a máquina automaticamente quando necessário.
+# Execute a task de DNS (--tags=dns) antes de rodar esta.
+# Equivalente Linux: roles/estacao/tasks/140-integra-ad.yml
+
+- name: Verifica se a estação já está no domínio
+  ansible.windows.win_shell: |
+    (Get-WmiObject Win32_ComputerSystem).PartOfDomain
+  register: verifica_dominio
+  changed_when: false
+
+- name: Verifica se o domínio correto está configurado
+  ansible.windows.win_shell: |
+    (Get-WmiObject Win32_ComputerSystem).Domain
+  register: dominio_atual
+  changed_when: false
+  when: verifica_dominio.stdout_lines[0] | lower == 'true'
+
+- name: Exibe domínio atual (para auditoria)
+  ansible.builtin.debug:
+    msg: "Estação já está no domínio: {{ dominio_atual.stdout | trim }}"
+  when:
+    - verifica_dominio.stdout_lines[0] | lower == 'true'
+    - dominio_atual is defined
+
+- name: Ingressa a estação no domínio AD
+  ansible.windows.win_domain_membership:
+    dns_domain_name: "{{ estacao_win_ad_domain }}"
+    # Formato: usuario@dominio.local para compatibilidade com Kerberos
+    domain_admin_user: "{{ estacao_win_ad_join_user }}@{{ estacao_win_ad_domain }}"
+    domain_admin_password: "{{ estacao_win_ad_join_senha }}"
+    state: domain
+  register: resultado_ad_join
+  # Só executa se ainda não estiver no domínio correto
+  when: verifica_dominio.stdout_lines[0] | lower == 'false'
+
+- name: Reinicializa após ingresso no domínio
+  # win_reboot garante que o Ansible aguarda a máquina voltar antes de continuar
+  ansible.windows.win_reboot:
+    reboot_timeout: 600
+    post_reboot_delay: 30
+    msg: "Reinicializando para concluir o ingresso no domínio {{ estacao_win_ad_domain }}"
+  when:
+    - resultado_ad_join is defined
+    - resultado_ad_join.reboot_required | default(false)
+
+- name: Valida que o ingresso no domínio foi bem-sucedido
+  ansible.windows.win_shell: |
+    $dominio = (Get-WmiObject Win32_ComputerSystem).Domain
+    if ($dominio -notlike "*{{ estacao_win_ad_domain }}*") {
+      Write-Error "Domínio configurado ($dominio) não corresponde a {{ estacao_win_ad_domain }}"
+      exit 1
+    }
+    Write-Output $dominio
+  register: validacao_dominio
+  changed_when: false

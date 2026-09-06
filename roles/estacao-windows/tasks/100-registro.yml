@@ -1,0 +1,44 @@
+---
+# Aplica configurações gerais de hardening via registro do Windows.
+# Equivalente ao dconf do Linux (configurações bloqueadas do ambiente de desktop).
+# Equivalente Linux: roles/estacao/tasks/100-dconf.yml
+#
+# TODO (Fase 3): Revisar e expandir conforme política de segurança da DTIC
+
+# --- Segurança de conta ---
+
+- name: Exige Ctrl+Alt+Del para login (dificulta keyloggers de login falso)
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+    name: DisableCAD
+    # 0 = exige Ctrl+Alt+Del; 1 = desabilita a exigência
+    data: 0
+    type: dword
+
+- name: Não exibe o último usuário logado na tela de login
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+    name: DontDisplayLastUserName
+    data: 1
+    type: dword
+
+# --- Telemetria e privacidade ---
+
+- name: Desabilita telemetria do Windows (nível 0 = segurança somente)
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection
+    name: AllowTelemetry
+    # 0 = somente dados de segurança (disponível em Enterprise/Education)
+    # 1 = básico (mínimo disponível em outras edições)
+    data: 1
+    type: dword
+
+# --- Execução automática ---
+
+- name: Desabilita AutoRun/AutoPlay em todas as unidades
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
+    name: NoDriveTypeAutoRun
+    # 0xFF = desabilita em todos os tipos de unidade
+    data: "0xFF"
+    type: dword

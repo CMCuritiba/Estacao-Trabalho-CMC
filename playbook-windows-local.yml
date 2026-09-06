@@ -1,0 +1,17 @@
+---
+# Playbook para teste local da role estacao-windows com Vagrant.
+# Equivalente ao playbook.local.yml da role Linux.
+#
+# Uso direto (fora do Vagrant):
+#   ansible-playbook -i inventory/inventory.yml playbook-windows-local.yml \
+#     -e estacao_win_suporte_senha=Suporte@CMC123 \
+#     --skip-tags=ad
+#
+# Este playbook NÃO usa vault — variáveis sensíveis devem ser passadas via -e ou extra_vars do Vagrantfile.
+
+- name: Aplica role estacao-windows (override local / Vagrant)
+  # "all" funciona tanto com o inventário gerado pelo Vagrant quanto com o inventário manual
+  hosts: all
+  # Sem become: true — o usuário WinRM (vagrant/admin) já tem privilégios administrativos
+  roles:
+    - role: estacao-windows

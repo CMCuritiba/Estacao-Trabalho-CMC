@@ -1,0 +1,31 @@
+{
+  "ManagedBookmarks": [
+    { "toplevel_name": "CMC" },
+{% for bookmark in estacao_win_bookmarks %}
+{% if bookmark.children is defined %}
+    {
+      "name": "{{ bookmark.name }}",
+      "children": [
+{% for child in bookmark.children %}
+        { "name": "{{ child.name }}", "url": "{{ child.url }}" }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+      ]
+    }{% if not loop.last %},{% endif %}
+
+{% else %}
+    { "name": "{{ bookmark.name }}", "url": "{{ bookmark.url }}" }{% if not loop.last %},{% endif %}
+
+{% endif %}
+{% endfor %}
+  ],
+  "BookmarkBarEnabled": true,
+  "ShowHomeButton": true,
+  "MetricsReportingEnabled": false,
+  "PasswordManagerEnabled": true,
+  "ImportAutofillFormData": false,
+  "DefaultBrowserSettingEnabled": false,
+  "BrowserSignin": 0,
+  "SyncDisabled": true,
+  "AutofillCreditCardEnabled": false
+}

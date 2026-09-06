@@ -1,0 +1,31 @@
+---
+# Configura o aviso legal exibido antes do login no Windows (tela de logon).
+# Equivalente ao mecanismo de forcelogout/política de informática do Linux.
+# No Windows, o aviso é exibido via registro (LegalNoticeText/LegalNoticeCaption).
+# Equivalente Linux: roles/estacao/tasks/080-politica-informatica.yml
+
+- name: Copia arquivo de política de informática para o diretório CMC
+  ansible.windows.win_copy:
+    src: politica-informatica.txt
+    dest: "{{ estacao_win_politica }}"
+    force: true
+
+- name: Lê o conteúdo da política para uso no registro
+  ansible.windows.win_shell: |
+    Get-Content -Path "{{ estacao_win_politica }}" -Raw -Encoding UTF8
+  register: conteudo_politica
+  changed_when: false
+
+- name: Configura título do aviso legal na tela de logon
+  ansible.windows.win_regedit:
+    path: "{{ estacao_win_reg_winlogon }}"
+    name: LegalNoticeCaption
+    data: "Câmara Municipal de Curitiba - Política de Informática"
+    type: string
+
+- name: Configura texto do aviso legal na tela de logon
+  ansible.windows.win_regedit:
+    path: "{{ estacao_win_reg_winlogon }}"
+    name: LegalNoticeText
+    data: "{{ conteudo_politica.stdout }}"
+    type: string

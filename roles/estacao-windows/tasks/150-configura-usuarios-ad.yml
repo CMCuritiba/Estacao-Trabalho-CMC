@@ -1,0 +1,14 @@
+---
+# Configura mapeamento de grupos AD para grupos locais do Windows.
+# Deve ser executada APÓS o ingresso no domínio (140-integra-ad.yml).
+# Equivalente Linux: roles/estacao/tasks/150-configura-pam.yml
+
+# TODO (Fase 2): Adicionar configuração de home directory automático para usuários AD
+# No Linux, isso é feito via PAM (pam_mkhomedir). No Windows, o diretório de perfil
+# é criado automaticamente pelo sistema na primeira autenticação do usuário AD.
+# Verificar se é necessário pré-configurar um caminho de perfil via GPO local.
+
+- name: Exibe grupos AD configurados (para auditoria)
+  ansible.builtin.debug:
+    msg: "Grupo DTIC '{{ estacao_win_dtic_grupo }}' será mapeado para Administradores locais na task 160."
+  changed_when: false

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Vino
+Exec=/usr/lib/vino/vino-server --sm-disable
+X-GNOME-Autostart-enabled=true

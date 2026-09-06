@@ -1,0 +1,126 @@
+---
+# Ponto de entrada da role estacao-windows.
+# Executa as tasks na ordem definida; cada task possui uma tag para execução seletiva.
+# Uso por tag: ansible-playbook ... --tags=ad --ask-vault-pass
+
+- name: Cria diretório base da CMC
+  ansible.windows.win_file:
+    path: "{{ estacao_win_cmc_dir }}"
+    state: directory
+
+- name: Configura usuário e grupo de suporte
+  ansible.builtin.import_tasks: 010-usuario-suporte.yml
+  tags:
+    - suporte
+
+- name: Remove aplicativos desnecessários
+  ansible.builtin.import_tasks: 020-remover-apps.yml
+  tags:
+    - pacotes
+    - remove-pacotes
+
+- name: Instala aplicativos necessários via winget
+  ansible.builtin.import_tasks: 030-instalar-apps.yml
+  tags:
+    - pacotes
+    - instala-pacotes
+
+- name: Configura imagens de fundo (wallpaper e tela de bloqueio)
+  ansible.builtin.import_tasks: 040-imagens-cmc.yml
+  tags:
+    - imagens
+
+- name: Configura pastas padrão do usuário e atalhos de desktop
+  ansible.builtin.import_tasks: 050-skel.yml
+  tags:
+    - skel
+
+- name: Configura políticas dos navegadores e bookmarks
+  ansible.builtin.import_tasks: 060-configura-browsers.yml
+  tags:
+    - browsers
+
+- name: Configura tarefas agendadas de autostart
+  ansible.builtin.import_tasks: 070-autostart.yml
+  tags:
+    - autostart
+
+- name: Configura política de informática (aviso legal no login)
+  ansible.builtin.import_tasks: 080-politica-informatica.yml
+  tags:
+    - politica
+
+- name: Configura restrições de interface do Windows Explorer
+  ansible.builtin.import_tasks: 090-lockdown-ux.yml
+  tags:
+    - lockdown
+    - ux
+
+- name: Aplica configurações de registro (hardening geral)
+  ansible.builtin.import_tasks: 100-registro.yml
+  tags:
+    - registro
+    - registry
+
+- name: Configura servidores DNS (para resolução do domínio AD)
+  ansible.builtin.import_tasks: 120-configura-dns.yml
+  tags:
+    - dns
+
+- name: Ingressa a estação no domínio Active Directory
+  ansible.builtin.import_tasks: 140-integra-ad.yml
+  tags:
+    - ad
+
+- name: Configura mapeamento de usuários e grupos do AD
+  ansible.builtin.import_tasks: 150-configura-usuarios-ad.yml
+  tags:
+    - ad
+    - usuarios
+
+- name: Adiciona grupo DTIC aos Administradores locais
+  ansible.builtin.import_tasks: 160-administradores.yml
+  tags:
+    - sudoers
+    - administradores
+
+- name: Configura política de atualizações do Windows
+  ansible.builtin.import_tasks: 170-atualizacoes.yml
+  tags:
+    - atualizacoes
+
+- name: Configura perfil do PowerShell e variáveis de ambiente
+  ansible.builtin.import_tasks: 180-perfil-powershell.yml
+  tags:
+    - powershell
+    - perfil
+
+- name: Habilita RDP e servidor OpenSSH
+  ansible.builtin.import_tasks: 210-rdp-ssh.yml
+  tags:
+    - rdp
+    - ssh
+
+- name: Configura impressoras de rede
+  ansible.builtin.import_tasks: 250-impressoras.yml
+  tags:
+    - impressoras
+    - cups
+
+- name: Configura controle de execução de aplicativos (AppLocker)
+  ansible.builtin.import_tasks: 270-controle-apps.yml
+  tags:
+    - applocker
+    - bloqueio
+
+- name: Configura retenção de logs e políticas de auditoria
+  ansible.builtin.import_tasks: 290-logs-auditoria.yml
+  tags:
+    - logs
+    - auditoria
+
+- name: Mantém versionamento da role
+  ansible.builtin.import_tasks: 990-versionamento.yml
+  tags:
+    - versionamento
+    - versao

@@ -1,0 +1,91 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# Vagrantfile para teste local da role estacao-windows.
+# Sobe uma VM Windows 10 e aplica a role via Ansible.
+#
+# Pré-requisitos:
+#   vagrant plugin install vagrant-winrm-syncedfolders  # (opcional)
+#   vagrant box add gusztavvargadr/windows-10
+#
+# Uso:
+#   cd vagrant-windows
+#   vagrant up                 # cria VM e aplica o playbook
+#   vagrant provision          # reaplica o playbook na VM em execução
+#   vagrant rdp                # abre conexão RDP para validação manual
+#   vagrant destroy -f         # destrói a VM
+#
+# Credenciais padrão da box:
+#   Usuário: vagrant  |  Senha: vagrant
+#
+# ATENÇÃO: As tags de AD são ignoradas neste ambiente (sem controlador de domínio).
+# Para testar o ingresso no AD, use um ambiente com DC acessível e defina
+# as variáveis em group_vars/windows.yml.
+
+Vagrant.configure("2") do |config|
+  # Box Windows 10 com WinRM pré-configurado
+  # Alternativa Windows 11: "gusztavvargadr/windows-11"
+  config.vm.box = "gusztavvargadr/windows-10"
+
+  # Comunicação via WinRM (protocolo nativo do Windows para gerenciamento remoto)
+  config.vm.communicator = "winrm"
+  config.winrm.username  = "vagrant"
+  config.winrm.password  = "vagrant"
+  # negotiate: suporta autenticação NTLM/Kerberos; funciona sem domínio
+  config.winrm.transport = :negotiate
+
+  # Aumenta o timeout de boot (Windows demora mais para iniciar que Linux)
+  config.vm.boot_timeout = 600
+  config.winrm.timeout   = 300
+  config.winrm.retry_limit = 20
+
+  config.vm.provider :virtualbox do |vb|
+    vb.name   = "estacao-windows-teste"
+    vb.memory = 4096   # Windows requer mais memória que Linux
+    vb.cpus   = 2
+    # Habilita interface gráfica para validação visual
+    vb.gui    = true
+    # Melhora desempenho do disco
+    vb.customize ["storagectl", :id, "--name", "SATA Controller", "--hostiocache", "on"]
+  end
+
+  # Encaminhamento de portas para acesso externo à VM
+  # WinRM HTTP (para Ansible manual)
+  config.vm.network "forwarded_port", guest: 5985, host: 55985, auto_correct: true
+  # RDP (para validação manual da interface gráfica)
+  config.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true
+  # SSH (habilitado pela role 210-rdp-ssh.yml)
+  config.vm.network "forwarded_port", guest: 22,   host: 20022, auto_correct: true
+
+  # Provisiona com Ansible (roda no nó de controle Linux/macOS, conecta via WinRM)
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "../playbook-windows-local.yml"
+
+    # Variáveis de override para o ambiente de teste local
+    ansible.extra_vars = {
+      # Senha do usuário de suporte (valor de teste — não usar em produção)
+      estacao_win_suporte_senha: "Suporte@CMC123",
+
+      # Grupo local usado como substituto do grupo DTIC do AD
+      # Em produção: "DOMINIO\\DTIC"
+      estacao_win_dtic_grupo: "Administrators",
+
+      # AD desabilitado em ambiente de teste (sem controlador de domínio)
+      estacao_win_ad_domain: "test.local",
+      estacao_win_ad_ip_addresses: ["127.0.0.1"],
+      estacao_win_ad_fallback_ips: ["8.8.8.8"],
+
+      # Servidor WSUS não configurado no ambiente de teste
+      estacao_win_wsus_server: "",
+
+      # Servidor de impressão não configurado no ambiente de teste
+      estacao_win_print_server: ""
+    }
+
+    # Ignora tarefas de AD join (sem DC disponível no ambiente Vagrant)
+    ansible.skip_tags = ["ad"]
+
+    # Nível de verbosidade (use "vvv" para debug detalhado)
+    ansible.verbose = "v"
+  end
+end

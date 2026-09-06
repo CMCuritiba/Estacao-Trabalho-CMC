@@ -1,0 +1,15 @@
+---
+- name: "Comenta linhas de alias do /root/.bashrc"
+  ansible.builtin.lineinfile:
+    path: /root/.bashrc
+    regexp: "^alias l[al]?"
+    state: absent
+
+- name: "Configura /root/.bash_aliases"
+  ansible.builtin.copy:
+    dest: "{{ item }}"
+    src: "bash_aliases"
+    mode: "0644"
+  loop:
+    - /root/.bash_aliases
+    - /etc/skel/.bash_aliases

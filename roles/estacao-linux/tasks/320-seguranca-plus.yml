@@ -1,0 +1,155 @@
+  - name: Cria diretório para logs de segurança
+    ansible.builtin.file:
+      path: /var/log/seguranca
+      state: directory
+      owner: root
+      group: adm
+      mode: "0750"
+
+  - name: Ajusta permissão do arquivo de log do fail2ban
+    ansible.builtin.file:
+      path: /var/log/fail2ban.log
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Ajusta permissão do arquivo de log do clamav
+    ansible.builtin.file:
+      path: /var/log/clamav.log
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Ajusta permissão do arquivo de log do rkhunter
+    ansible.builtin.file:
+      path: /var/log/rkhunter.log
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Ajusta permissão do arquivo de log do chkrootkit
+    ansible.builtin.file:
+      path: /var/log/chkrootkit.log
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Ajusta permissão do arquivo de log do lynis
+    ansible.builtin.file:
+      path: /var/log/lynis.log
+      owner: root
+      group: adm
+      mode: "0640"
+  - name: Cria arquivo de log do Lynis se não existir
+    ansible.builtin.file:
+      path: /var/log/lynis.log
+      state: touch
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Cria arquivo de log do chkrootkit se não existir
+    ansible.builtin.file:
+      path: /var/log/chkrootkit.log
+      state: touch
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Cria arquivo de log do rkhunter se não existir
+    ansible.builtin.file:
+      path: /var/log/rkhunter.log
+      state: touch
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Cria arquivo de log do clamav se não existir
+    ansible.builtin.file:
+      path: /var/log/clamav.log
+      state: touch
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Cria arquivo de log do fail2ban se não existir
+    ansible.builtin.file:
+      path: /var/log/fail2ban.log
+      state: touch
+      owner: root
+      group: adm
+      mode: "0640"
+
+  - name: Configura o fail2ban para usar o arquivo de log /var/log/seguranca/fail2ban.log
+    ansible.builtin.lineinfile:
+      path: /etc/fail2ban/jail.local
+      regexp: '^logtarget ='
+      line: 'logtarget = /var/log/seguranca/fail2ban.log'
+      create: yes
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Configura o clamav para usar o arquivo de log /var/log/seguranca/clamav.log
+    ansible.builtin.lineinfile:
+      path: /etc/clamav/clamd.conf
+      regexp: '^#?LogFile .*'
+      line: 'LogFile /var/log/seguranca/clamav.log'
+      create: yes
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Configura o rkhunter para usar o arquivo de log /var/log
+    ansible.builtin.lineinfile:
+      path: /etc/rkhunter.conf
+      regexp: '^LOGFILE=.*'
+      line: 'LOGFILE="/var/log/seguranca/rkhunter.log"'
+      create: yes
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Configura o chkrootkit para usar o arquivo de log /var/log
+    ansible.builtin.lineinfile:
+      path: /etc/chkrootkit.conf
+      regexp: '^LOGFILE=.*'
+      line: 'LOGFILE="/var/log/seguranca/chkrootkit.log"'
+      create: yes
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Configura o lynis para usar o arquivo de log /var/log
+    ansible.builtin.lineinfile:
+      path: /etc/lynis.conf
+      regexp: '^log_file=.*'
+      line: 'log_file="/var/log/seguranca/lynis.log"'
+      create: yes
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Reinicia o fail2ban para aplicar as mudanças
+    ansible.builtin.service:
+      name: fail2ban
+      state: restarted
+      
+  - name: Cria tarefa agendada para atualizar o Clamav diariamente
+    ansible.builtin.cron:
+      name: "Atualiza definições do Clamav"
+      minute: "0"
+      hour: "3" # 3 da manhã
+      user: root
+      job: "/usr/bin/freshclam --quiet"
+      state: present
+
+  - name: Cria tarefa agendada para escanear a pasta /home diariamente
+    ansible.builtin.cron:
+      name: "Escaneia a pasta /home com Clamav"
+      minute: "0"
+      hour: "4" # 4 da manhã
+      user: root
+      job: "/usr/bin/clamscan -r /home"
+      state: present
+

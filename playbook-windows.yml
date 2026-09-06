@@ -1,0 +1,19 @@
+---
+# Playbook para provisionamento das estações Windows da CMC.
+# Equivalente ao playbook.yml, mas direcionado ao grupo [windows] do inventário.
+#
+# Uso:
+#   ansible-playbook -i inventory/inventory.yml playbook-windows.yml --ask-vault-pass
+#
+# Execução por tag (exemplos):
+#   --tags=ad        → apenas integração com AD
+#   --tags=pacotes   → apenas instalação de aplicativos
+#   --tags=browsers  → apenas configuração de navegadores
+#
+# Pré-requisito: WinRM deve estar habilitado na estação (veja windows/bootstrap-winrm.ps1)
+
+- name: Aplica role estacao-windows
+  hosts: windows
+  gather_facts: true
+  roles:
+    - role: estacao-windows

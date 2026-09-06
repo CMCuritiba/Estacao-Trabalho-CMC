@@ -1,0 +1,43 @@
+---
+# Configura políticas de navegadores e bookmarks/favoritos gerenciados.
+# Chrome e Edge: políticas via pasta de JSON gerenciado.
+# Firefox: arquivo policies.json na pasta de instalação.
+# Nota: os templates são renderizados no nó de controle (lookup) e copiados para o Windows.
+# Equivalente Linux: roles/estacao/tasks/060-configura-browsers.yml
+
+# --- Firefox ---
+
+- name: Cria pasta de distribuição do Firefox
+  ansible.windows.win_file:
+    path: "{{ estacao_win_firefox_policies_dir }}"
+    state: directory
+
+- name: Aplica políticas do Firefox (policies.json)
+  ansible.windows.win_copy:
+    # Renderiza o template localmente e envia o conteúdo para a estação Windows
+    content: "{{ lookup('ansible.builtin.template', 'firefox-policies.json.j2') }}"
+    dest: "{{ estacao_win_firefox_policies }}"
+
+# --- Google Chrome ---
+
+- name: Cria pasta de políticas gerenciadas do Chrome
+  ansible.windows.win_file:
+    path: "{{ estacao_win_chrome_policies_dir }}"
+    state: directory
+
+- name: Aplica políticas do Chrome (policy.json)
+  ansible.windows.win_copy:
+    content: "{{ lookup('ansible.builtin.template', 'chrome-policy.json.j2') }}"
+    dest: "{{ estacao_win_chrome_policies }}"
+
+# --- Microsoft Edge ---
+
+- name: Cria pasta de políticas gerenciadas do Edge
+  ansible.windows.win_file:
+    path: "{{ estacao_win_edge_policies_dir }}"
+    state: directory
+
+- name: Aplica políticas do Edge (policy.json)
+  ansible.windows.win_copy:
+    content: "{{ lookup('ansible.builtin.template', 'edge-policy.json.j2') }}"
+    dest: "{{ estacao_win_edge_policies }}"

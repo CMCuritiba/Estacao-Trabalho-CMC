@@ -1,0 +1,39 @@
+{
+  "policies": {
+    "DisableAppUpdate": false,
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableFormHistory": false,
+    "DisplayBookmarksToolbar": "always",
+    "NoDefaultBookmarks": true,
+    "DontCheckDefaultBrowser": true,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "ExtensionUpdate": true,
+    "PasswordManagerEnabled": true,
+    "ManagedBookmarks": [
+      { "toplevel_name": "CMC" },
+{% for bookmark in estacao_win_bookmarks %}
+{% if bookmark.children is defined %}
+      {
+        "name": "{{ bookmark.name }}",
+        "children": [
+{% for child in bookmark.children %}
+          { "name": "{{ child.name }}", "url": "{{ child.url }}" }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+        ]
+      }{% if not loop.last %},{% endif %}
+
+{% else %}
+      { "name": "{{ bookmark.name }}", "url": "{{ bookmark.url }}" }{% if not loop.last %},{% endif %}
+
+{% endif %}
+{% endfor %}
+    ],
+    "Certificates": {
+      "ImportEnterpriseRoots": true
+    }
+  }
+}
