@@ -41,7 +41,7 @@
       XDG_DOCUMENTS_DIR=\"\$HOME/Docs.Locais\"
       XDG_MUSIC_DIR=\"\$HOME/Música\"
       XDG_PICTURES_DIR=\"\$HOME/Imagens\"
-      XDG_VIDEOS_DIR=\"\$HOME/Vídeos\
+      XDG_VIDEOS_DIR=\"\$HOME/Vídeos\"
     mode: "0644"
 
 - name: Configura o user-dirs.locale para 'pt_BR'
@@ -55,6 +55,19 @@
     path: /etc/xdg/user-dirs.conf
     regexp: "^enabled=True"
     line: "enabled=False"
+
+- name: Remove atributo imutavel dos atalhos do skel antes de atualiza-los
+  ansible.builtin.command:
+    argv:
+      - chattr
+      - -i
+      - "{{ item }}"
+  loop:
+    - /etc/skel/Desktop/firefox.desktop
+    - /etc/skel/Desktop/google-chrome.desktop
+    - /etc/skel/Desktop/Suporte.desktop
+  changed_when: false
+  failed_when: false
 
 - name: Cria icones de Firefox e Chrome
   ansible.builtin.copy:
@@ -82,7 +95,7 @@
     group: root
     mode: "0755"
 
-- name: "Cria política de privacidade"
+- name: Cria política de privacidade
   ansible.builtin.template:
     src: "politicainformatica.sh.j2"
     dest: "/etc/skel/.politicainformatica.sh"
@@ -106,6 +119,24 @@
   ansible.builtin.copy:
     src: mimeapps.list
     dest: /etc/skel/.config/mimeapps.list
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Garante que o diretório .config do usuário de suporte existe
+  ansible.builtin.file:
+    path: /home/{{ estacao_suporte_user }}/.config
+    state: directory
+    owner: "{{ estacao_suporte_user }}"
+    group: "{{ estacao_suporte_user }}"
+    mode: "0700"
+
+- name: Configura editor de texto padrão para o usuário de suporte como gedit
+  ansible.builtin.copy:
+    dest: /home/{{ estacao_suporte_user }}/.config/mimeapps.list
+    content: |
+      [Default Applications]
+      text/plain=org.gnome.gedit.desktop;
     owner: root
     group: root
     mode: "0644"

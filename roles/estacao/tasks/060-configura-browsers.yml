@@ -26,6 +26,14 @@
     - recommended
     - managed
 
+- name: Cria pasta de policies do Firefox
+  ansible.builtin.file:
+    state: directory
+    path: /etc/firefox/policies
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Aplica configurações recomendadas no Google Chrome
   ansible.builtin.copy:
     dest: "/etc/opt/chrome/policies/recommended/cmc.json"
@@ -36,17 +44,17 @@
 
 - name: Configura bookmarks gerenciados nos navegadores
   ansible.builtin.template:
-    dest: "{{ item.dest }}"
     src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     lstrip_blocks: true
     mode: "0644"
   loop:
-    # Referencia para policies do Firefox:
+    # Referência para policies do Firefox:
     # https://mozilla.github.io/policy-templates/
     # # https://mozilla.github.io/policy-templates/#managedbookmarks
     - src: "policies-firefox.j2"
       dest: "/etc/firefox/policies/policies.json"
-    # Referencia para policies do Chrome:
+    # Referência para policies do Chrome:
     # https://cloud.google.com/docs/chrome-enterprise/policies/
     - src: "policies-google-chrome.j2"
       dest: "/etc/opt/chrome/policies/managed/cmc.json"

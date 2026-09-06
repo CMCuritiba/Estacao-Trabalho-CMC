@@ -5,13 +5,6 @@ start-with-sidebar=true
 start-with-toolbar=true
 start-with-status-bar=true
 
-# Configurações de acesso remoto
-[org/gnome/desktop/remote-access]
-icon-visibility='client'
-authentication-methods=['vnc']
-enabled=true
-vnc-password='{{ estacao_vnc_pass | b64encode }}'
-
 # Habilita o screensaver para exibir data e hora
 [org/cinnamon/desktop/screensaver]
 use-custom-format=true

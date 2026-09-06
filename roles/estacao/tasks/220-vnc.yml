@@ -1,14 +1,65 @@
 ---
-- name: "Cria arquivo e configura vino-server"
+- name: "Cria o arquivo de senha do x11vnc"
+  ansible.builtin.shell:
+    cmd: "x11vnc -storepasswd {{ estacao_vnc_pass | quote }} /etc/x11vnc.pass"
+  no_log: true
+  changed_when: true
+
+- name: "Ajusta permissões do arquivo de senha do x11vnc"
+  ansible.builtin.file:
+    path: /etc/x11vnc.pass
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: "Instala o script de confirmação de acesso VNC"
   ansible.builtin.copy:
-    dest: "{{ estacao_vino }}"
-    src: "vino-server.desktop"
+    src: vnc-accept.sh
+    dest: "{{ estacao_cmc_scripts_dir }}/vnc-accept.sh"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Instala o serviço systemd do x11vnc"
+  ansible.builtin.template:
+    src: x11vnc.service.j2
+    dest: /etc/systemd/system/x11vnc.service
     owner: root
     group: root
     mode: "0644"
 
-- name: "Atualiza o launcher do vino-server para que inicie automaticamente"
-  ansible.builtin.lineinfile:
-    path: "{{ estacao_vino }}"
-    regexp: "^X-GNOME-Autostart-enabled"
-    line: "X-GNOME-Autostart-enabled=true"
+- name: "Habilita e inicia o x11vnc"
+  ansible.builtin.systemd:
+    name: x11vnc
+    enabled: true
+    state: started
+    daemon_reload: true
+
+# Firewall: expõe apenas SSH e VNC, e somente para a rede da DTIC.
+# As regras de permissão são criadas ANTES de habilitar o ufw para
+# evitar que a gerência remota (Ansible/SSH) seja bloqueada.
+- name: "Firewall - permite SSH a partir da rede da DTIC"
+  community.general.ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+    src: "{{ estacao_dtic_network }}"
+
+- name: "Firewall - permite VNC (x11vnc) a partir da rede da DTIC"
+  community.general.ufw:
+    rule: allow
+    port: "5900"
+    proto: tcp
+    src: "{{ estacao_dtic_network }}"
+
+- name: "Firewall - define política padrão (nega entrada, permite saída)"
+  community.general.ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - { direction: incoming, policy: deny }
+    - { direction: outgoing, policy: allow }
+
+- name: "Firewall - habilita o ufw"
+  community.general.ufw:
+    state: enabled
